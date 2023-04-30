@@ -88,4 +88,31 @@
     <!-- ... -->
 </table>
 
-<p>&nbsp;</p>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/web3/1.6.1/web3.min.js"></script>
+<script>
+  const provider = new Web3.providers.HttpProvider('https://bsc-dataseed.binance.org/');
+  const web3 = new Web3(provider);
+
+  const contractAddress = '0x660941bb4AA9FcBED00375673D21088A9d0C5019';
+  const contractABI = [/*... ABI array goes here ...*/];
+
+  const gerdTokenContract = new web3.eth.Contract(contractABI, contractAddress);
+
+  async function checkBalance() {
+    const walletAddress = document.getElementById('walletAddress').value;
+    if (!web3.utils.isAddress(walletAddress)) {
+      alert('Invalid wallet address');
+      return;
+    }
+
+    try {
+      const balance = await gerdTokenContract.methods.balanceOf(walletAddress).call();
+      alert(`Balance: ${web3.utils.fromWei(balance, 'ether')} GERD`);
+    } catch (error) {
+      console.error(error);
+      alert('Error fetching balance');
+    }
+  }
+</script>
+
+
