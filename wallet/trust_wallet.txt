@@ -1,0 +1,27 @@
+
+
+1. Download Trust Wallet:
+   - For Android users: Visit the [Google Play Store](https://play.google.com/store/apps/details?id=com.wallet.crypto.trustapp) and search for "Trust Wallet." Download and install the app.
+   - For iOS users: Visit the [App Store](https://apps.apple.com/us/app/trust-crypto-bitcoin-wallet/id1288339409) and search for "Trust Wallet." Download and install the app.
+
+2. Set up Trust Wallet:
+   - Open the Trust Wallet app on your device.
+   - You'll be prompted to create a new wallet or import an existing one. If you're new to Trust Wallet, select "Create a New Wallet."
+   - Carefully read and accept the terms and conditions.
+   - The app will display a 12-word recovery phrase. Write down this phrase and store it in a secure location, as it will be used to recover your wallet if necessary. Never share this phrase with anyone.
+   - Confirm your recovery phrase by selecting the words in the correct order, then tap "Continue."
+
+3. Import the Abay GERD contract:
+   - On the main screen, tap the "+" icon in the upper right corner to add a custom token.
+   - Change the network to "BNB Smart Chain" if it isn't selected by default.
+   - Enter the Abay GERD token contract address in the "Contract Address" field: 0x660941bb4AA9FcBED00375673D21088A9d0C5019
+   - The app should automatically populate the "Name," "Symbol," and "Decimals" fields.
+   - Tap "Save" or "Add" to complete the process.
+
+4. Get your GERD wallet address:
+   - From the main screen, you should now see the GERD token listed.
+   - Tap on the Smart Chain BNB logo to access your Binance Smart Chain wallet.
+   - Tap "Receive" or the QR code icon to display your Binance Smart Chain wallet address, which will also serve as your GERD wallet address.
+   - You can now share this address to receive GERD tokens. Never share your private key or recovery phrase with anyone.
+
+That's it! Users can now manage their GERD tokens using Trust Wallet on the Binance Smart Chain. Keep in mind that they will need a small amount of BNB in their wallet to cover gas fees for token transfers and other transactions on the Binance Smart Chain network.

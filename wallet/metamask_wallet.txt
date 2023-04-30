@@ -1,0 +1,37 @@
+Here's a step-by-step guide for downloading MetaMask, importing the Abay GERD contract, and getting the GERD wallet address on the Binance Smart Chain:
+
+1. Download MetaMask:
+   - For desktop users: Visit the [MetaMask website](https://metamask.io/download.html) and choose the appropriate browser extension for Chrome, Firefox, Brave, or Edge. Follow the instructions to install the extension.
+   - For mobile users: Visit the [Google Play Store](https://play.google.com/store/apps/details?id=io.metamask) (Android) or the [App Store](https://apps.apple.com/us/app/metamask-blockchain-wallet/id1438144202) (iOS) and search for "MetaMask." Download and install the app.
+
+2. Set up MetaMask:
+   - Open the MetaMask extension or app on your device.
+   - You'll be prompted to create a new wallet or import an existing one. If you're new to MetaMask, select "Create a New Wallet."
+   - Choose a strong password and accept the terms of use.
+   - The app will display a 12-word recovery phrase. Write down this phrase and store it in a secure location, as it will be used to recover your wallet if necessary. Never share this phrase with anyone.
+   - Confirm your recovery phrase by selecting the words in the correct order, then proceed to the wallet dashboard.
+
+3. Add the Binance Smart Chain network to MetaMask:
+   - Click on the network dropdown at the top of the MetaMask dashboard (it should say "Ethereum Mainnet" by default).
+   - Select "Custom RPC" to add a new network.
+   - Enter the following details for the Binance Smart Chain:
+     - Network Name: Binance Smart Chain
+     - New RPC URL: https://bsc-dataseed.binance.org/
+     - Chain ID: 56
+     - Currency Symbol: BNB
+     - Block Explorer URL: https://bscscan.com
+   - Click "Save" to complete the process.
+
+4. Import the GERD contract:
+   - On the main MetaMask dashboard, click "Add Token" at the bottom.
+   - Choose the "Custom Token" tab.
+   - Enter the GERD token contract address in the "Token Contract Address" field: 0x660941bb4AA9FcBED00375673D21088A9d0C5019
+   - The app should automatically populate the "Token Symbol" and "Decimals of Precision" fields. 
+   - Click "Next," then "Add Tokens" to complete the process.
+
+5. Get your GERD wallet address:
+   - From the main MetaMask dashboard, ensure that the Binance Smart Chain network is selected.
+   - Your wallet address will be displayed below your account name. Click on the address or the clipboard icon next to it to copy it.
+   - You can now share this address to receive GERD tokens. Never share your private key or recovery phrase with anyone.
+
+That's it! Users can now manage their GERD tokens using MetaMask on the Binance Smart Chain. Keep in mind that they will need a small amount of BNB in their wallet to cover gas fees for token transfers and other transactions on the Binance Smart Chain network.
