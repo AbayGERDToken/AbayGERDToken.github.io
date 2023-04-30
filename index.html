@@ -72,6 +72,26 @@
 			</td>
 		</tr>
 		
+		<table align="left" border="0" cellpadding="1" cellspacing="1" style="width:1214px">
+ 
+    <tr>
+        <td style="width:205px">&nbsp;</td>
+        <td style="width:993px">
+            <!-- Add the input form here -->
+            <h2><span style="font-size:18px"><span style="font-family:Lucida Sans Unicode,Lucida Grande,sans-serif">Check your balance 6</span></span></h2>
+            <form>
+		    <div>
+  <label for="wallet-address">Wallet Address:</label>
+  <input type="text" id="wallet-address" name="wallet-address" />
+  <button type="button" id="check-balance">Check Balance</button>
+  <div id="balance-result">Balance: N/A</div>
+</div>
+            </form>
+        </td>
+    </tr>
+    <!-- ... --> 
+</table>
+		
 <script>
   const web3 = new Web3("https://bsc-dataseed.binance.org/");
 const contractABI = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},
@@ -103,25 +123,6 @@ document.getElementById("check-balance").addEventListener("click", async () => {
 });
 	
 </script>
-		</table>
-<table align="left" border="0" cellpadding="1" cellspacing="1" style="width:1214px">
- 
-    <tr>
-        <td style="width:205px">&nbsp;</td>
-        <td style="width:993px">
-            <!-- Add the input form here -->
-            <h2><span style="font-size:18px"><span style="font-family:Lucida Sans Unicode,Lucida Grande,sans-serif">Check your balance 5</span></span></h2>
-            <form>
-		    <div>
-  <label for="wallet-address">Wallet Address:</label>
-  <input type="text" id="wallet-address" name="wallet-address" />
-  <button type="button" id="check-balance">Check Balance</button>
-  <div id="balance-result">Balance: N/A</div>
-</div>
-            </form>
-        </td>
-    </tr>
-    <!-- ... --> 
 </table>
 		
 	</tbody>
