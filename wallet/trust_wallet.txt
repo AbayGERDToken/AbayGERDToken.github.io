@@ -1,4 +1,4 @@
-
+Here's a step-by-step guide for downloading Trust Wallet, importing the Abay GERD contract, and getting the GERD wallet address on the Binance Smart Chain:
 
 1. Download Trust Wallet:
    - For Android users: Visit the [Google Play Store](https://play.google.com/store/apps/details?id=com.wallet.crypto.trustapp) and search for "Trust Wallet." Download and install the app.
