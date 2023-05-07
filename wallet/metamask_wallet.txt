@@ -34,4 +34,4 @@ Here's a step-by-step guide for downloading MetaMask, importing the Abay GERD co
    - Your wallet address will be displayed below your account name. Click on the address or the clipboard icon next to it to copy it.
    - You can now share this address to receive GERD tokens. Never share your private key or recovery phrase with anyone.
 
-That's it! Users can now manage their GERD tokens using MetaMask on the Binance Smart Chain. Keep in mind that they will need a small amount of BNB in their wallet to cover gas fees for token transfers and other transactions on the Binance Smart Chain network.
+That's it! You can now manage your GERD tokens using MetaMask on the Binance Smart Chain. Keep in mind that you will need a small amount of BNB in your wallet to cover gas fees for token transfers and other transactions on the Binance Smart Chain network.
