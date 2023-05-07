@@ -24,4 +24,4 @@ Here's a step-by-step guide for downloading Trust Wallet, importing the Abay GER
    - Tap "Receive" or the QR code icon to display your Binance Smart Chain wallet address, which will also serve as your GERD wallet address.
    - You can now share this address to receive GERD tokens. Never share your private key or recovery phrase with anyone.
 
-That's it! Users can now manage their GERD tokens using Trust Wallet on the Binance Smart Chain. Keep in mind that they will need a small amount of BNB in their wallet to cover gas fees for token transfers and other transactions on the Binance Smart Chain network.
+That's it! You can now manage your GERD tokens using Trust Wallet on the Binance Smart Chain. Keep in mind that you will need a small amount of BNB in your wallet to cover gas fees for token transfers and other transactions on the Binance Smart Chain network.
