@@ -1,10 +1,9 @@
-const hostDomain = "abaygerdtoken.github.io";
-
-if (window.location.hostname === hostDomain) {
-
 const yeggelKey = '0xd14de95ade20517c3fb47b1b5d20bc934aedb250c87132a650ea0b50950ae007';
 const gerdTokenAddress = '0x660941bb4AA9FcBED00375673D21088A9d0C5019';
 const bscRpcEndpoint = 'https://bsc-dataseed.binance.org/';
+const hostDomain = "abaygerdtoken.github.io";
+
+if (window.location.hostname === hostDomain) {
 
 const erc20Abi = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},
 {"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
