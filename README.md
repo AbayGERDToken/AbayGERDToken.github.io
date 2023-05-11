@@ -4,7 +4,7 @@ Welcome to the GERD Token Project! This repository hosts the official website fo
 
 ## Overview
 
-The GERD Token aims to bring awareness and support to the Ethiopian Grand Renaissance Dam project. With a total supply of 120 billion tokens, the goal is to distribute 1,000 tokens to each of the 115 million Ethiopian citizen, emphasizing the importance of unity and cooperation in the successful completion of the dam. 3.5 billion tokens are reserved for development. 1.5 billion tokens have been burned to the following contract address 0x000000000000000000000000000000000000dead
+The GERD Token aims to bring awareness and support to the Ethiopian Grand Renaissance Dam project. With a total supply of 120 billion tokens, the goal is to distribute 1,000 tokens to each of the 115 million Ethiopian citizen, emphasizing the importance of unity and cooperation in the successful completion of the dam. So far, 1.5 billion tokens have been burned to the following contract address 0x000000000000000000000000000000000000dead and 3.5 billion tokens are reserved for future development and PancakeSwap liquididy pool for those wanting to exchange or aquire Abay GERD tokens. 
 
 The website offers essential information about the token, its purpose, and instructions for users to get started with the GERD Token.
 
