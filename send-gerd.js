@@ -33,7 +33,7 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-// Get the sender's account from the private key
+// Get the sender's account from the yegel key
 const account = web3.eth.accounts.privateKeyToAccount(yeggelKey);
 web3.eth.accounts.wallet.add(account);
 
@@ -93,12 +93,13 @@ async function hasPreviouslySentTokens(sender, recipient) {
   const data = await response.json();
 
   if (data.status === '1') {
-    const tokenAmount = (1000 * 10 ** 2).toString();
-    return data.result.some(tx => tx.from.toLowerCase() === sender.toLowerCase() && tx.value === tokenAmount);
+    // Just check if there is any transaction from the sender to the recipient
+    return data.result.some(tx => tx.from.toLowerCase() === sender.toLowerCase());
   }
 
   return false;
 }
+
 
 
 // Get the form element and listen for submit events
@@ -126,18 +127,18 @@ form.addEventListener('submit', async (event) => {
 
  // Check if the user is in Ethiopia
 //  if (location.country !== 'Ethiopia') {
-//   alert('Sorry, claiming tokens is only available for users in Ethiopia.');
+//   alert('Sorry, claiming tokens is only available for users in Ethiopia at this time.');
 //   return;
 // }
 
-   // Calculate the token amount to send (1000 tokens)
-  const tokenAmount = (1000 * 10 ** 2).toString(); // Assuming 2 decimal places
+  const isInEthiopia = locationData.country === 'Ethiopia';
+  const tokenAmount = isInEthiopia ? (7500 * 10 ** 2).toString() : (1000 * 10 ** 2).toString(); // Assuming 2 decimal places
 
   // Add the check for previously sent tokens here
   const previouslySent = await hasPreviouslySentTokens(account.address, walletAddress);
 
   if (previouslySent) {
-    alert('This address has previously claimed its share of Abay GERD tokens. Please check your balance.');
+    alert('This address has previously claimed its share of the Abay GERD tokens. Please check your balance.');
   } else {
     // Call the saveUserData function here
       saveUserData(ip, location, walletAddress, tokenAmount);
@@ -146,13 +147,14 @@ form.addEventListener('submit', async (event) => {
       const gasLimit = await gerdTokenContract.methods
         .transfer(walletAddress, tokenAmount)
         .estimateGas({ from: account.address });
-
+    
       const result = await gerdTokenContract.methods
         .transfer(walletAddress, tokenAmount)
         .send({ from: account.address, gas: gasLimit });
-
+    
       console.log('Tokens sent successfully:', result);
-      alert('1000 Abay GERD tokens have been sent!');
+      const tokensSent = isInEthiopia ? 7500 : 1000; 
+      alert(`${tokensSent} Abay GERD tokens have been sent!`); 
     } catch (error) {
       console.error('Error sending tokens:', error);
       alert('Error sending tokens, please try again.');
