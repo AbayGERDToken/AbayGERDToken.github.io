@@ -133,7 +133,6 @@ async function generateSummary() {
 
 
 checkBNBBalance();  
-generateSummary();
 
 async function hasPreviouslySentTokens(sender, recipient) {
   const bscScanApiKey = 'JSPT6X9DJ4U9CR2C4QTHSZMGGE4GG7ANTM'; 

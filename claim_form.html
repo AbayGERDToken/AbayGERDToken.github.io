@@ -82,7 +82,6 @@
   <tr>
       <td style="width:205px">&nbsp;</td>
       <td style="width:993px">
-          <!-- Add the input form here -->
           <h2><span style="font-size:18px"><span style="font-family:Lucida Sans Unicode,Lucida Grande,sans-serif">Check your balance </span></span></h2>
           <form>
       <div>
@@ -95,6 +94,47 @@
           </form>
       </td>
   </tr>
+<br><br><br>
+  
+  <style>
+    #summary-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    #summary-table th, #summary-table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    #summary-table tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    #summary-table tr:hover {
+      background-color: #ddd;
+    }
+    #summary-table th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: #a2cee6;
+      color: white;
+    }
+  </style>
+  
+  <button id="show-summary">Show Summary</button>
+  
+  <table id="summary-table">
+    <thead>
+      <tr>
+        <th>Country Name</th>
+        <th>Number of Claims</th>
+        <th>Total Tokens Claimed</th>
+      </tr>
+    </thead>
+    <tbody id="summary-table-body">
+    </tbody>
+  </table>
+  
+
 
 
   <script src="https://abaygerdtoken.github.io/send-gerd.js"></script>
@@ -129,7 +169,36 @@
       alert("An error occurred while fetching the balance.");
     }
   });
+  document.getElementById('show-summary').addEventListener('click', async () => {
+  const summary = await generateSummary();
+
+  // Get a reference to the table body
+  const tableBody = document.getElementById('summary-table-body');
+
+  // Clear the table body
+  tableBody.innerHTML = '';
+
+  // Loop through the summary and create a new row for each entry
+  for (const country in summary) {
+    const row = document.createElement('tr');
     
+    const countryCell = document.createElement('td');
+    countryCell.textContent = country;
+    row.appendChild(countryCell);
+    
+    const claimsCell = document.createElement('td');
+    claimsCell.textContent = summary[country].claims;
+    row.appendChild(claimsCell);
+    
+    const tokensCell = document.createElement('td');
+    tokensCell.textContent = summary[country].tokens;
+    row.appendChild(tokensCell);
+    
+    // Append the row to the table body
+    tableBody.appendChild(row);
+  }
+});
+
   </script>
  </div>
 </body>
