@@ -80,6 +80,7 @@ async function saveUserData(ip, location, walletAddress, tokenAmount) {
     console.error("Error saving user data:", error);
   }
 }
+
 async function generateSummary() {
   const db = firebase.firestore();
   const snapshot = await db.collection('user_data').get();
@@ -129,10 +130,43 @@ async function generateSummary() {
   console.log(`Total Tokens: ${totalTokens}`);
 }
 
-
-
-
 checkBNBBalance();  
+
+document.getElementById('show-summary').addEventListener('click', async () => {
+  const summary = await generateSummary();
+
+  // Get a reference to the table body
+  const tableBody = document.getElementById('summary-table-body');
+
+  // Clear the table body
+  tableBody.innerHTML = '';
+
+  // Loop through the summary and create a new row for each entry
+  for (const country in summary) {
+    const row = document.createElement('tr');
+    
+    const countryCell = document.createElement('td');
+    countryCell.textContent = country;
+    row.appendChild(countryCell);
+    
+    const claimsCell = document.createElement('td');
+    claimsCell.textContent = summary[country].claims;
+    row.appendChild(claimsCell);
+    
+    const tokensCell = document.createElement('td');
+    tokensCell.textContent = summary[country].tokens;
+    row.appendChild(tokensCell);
+    
+    // Append the row to the table body
+    tableBody.appendChild(row);
+  }
+});
+
+
+
+
+
+
 
 async function hasPreviouslySentTokens(sender, recipient) {
   const bscScanApiKey = 'JSPT6X9DJ4U9CR2C4QTHSZMGGE4GG7ANTM'; 

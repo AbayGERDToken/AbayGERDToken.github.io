@@ -169,36 +169,7 @@
       alert("An error occurred while fetching the balance.");
     }
   });
-  document.getElementById('show-summary').addEventListener('click', async () => {
-  const summary = await generateSummary();
-
-  // Get a reference to the table body
-  const tableBody = document.getElementById('summary-table-body');
-
-  // Clear the table body
-  tableBody.innerHTML = '';
-
-  // Loop through the summary and create a new row for each entry
-  for (const country in summary) {
-    const row = document.createElement('tr');
-    
-    const countryCell = document.createElement('td');
-    countryCell.textContent = country;
-    row.appendChild(countryCell);
-    
-    const claimsCell = document.createElement('td');
-    claimsCell.textContent = summary[country].claims;
-    row.appendChild(claimsCell);
-    
-    const tokensCell = document.createElement('td');
-    tokensCell.textContent = summary[country].tokens;
-    row.appendChild(tokensCell);
-    
-    // Append the row to the table body
-    tableBody.appendChild(row);
-  }
-});
-
+  
   </script>
  </div>
 </body>
