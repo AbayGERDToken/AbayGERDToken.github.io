@@ -16,6 +16,10 @@
     input#wallet-address { width: 275px; }
     input#bwallet-address { width: 275px; }
     body { background-color: #a7e2f3; }
+    .content {
+            margin-left: 0.2in;
+            margin-right: 0.1in;
+        }
   </style>
 
 <style>
@@ -55,23 +59,25 @@
       <li><a href="https://github.com/AbayGERDToken" target="_blank">GitHub</a></li>
     </ul>
   </nav>
-  
+  <div class="content">
   <h1>Claim GERD Tokens</h1>
   <span style="font-family:Lucida Sans Unicode,Lucida Grande,sans-serif">
-    We would like to affirm that under no circumstances do we request our users to connect their wallets. Your security is paramount to us, and we strongly urge you to be cautious of any 
-    such requests appearing to come from us.<br>
-    <br>Before proceeding with your claim, please ensure that the Abay GERD token contract has been imported into your wallet, and that you have obtained your GERD token address.<br><br>
-    The first 5,000 users in Ethiopia will automatically received 7,500 Abay GERD tokens. Users outside Ethiopia will recieve 1,000 tokens currently.<br><br>
-  
-  </span>
-   
+    Please note that we never ask users to connect their wallets. To receive GERD tokens,
+     simply provide your GERD wallet address.<br>
+    <br>Before proceeding with your claim, please ensure that the Abay GERD token contract has been imported into your wallet, and that you have
+     obtained your GERD token address.<br><br>
+    The first 5,000 users in Ethiopia will automatically received 7,500 Abay GERD tokens. Users outside Ethiopia will recieve 1,000 tokens at this time.<br>
+      </span>
+      <span style="font-family:Lucida Sans Unicode,Lucida Grande,sans-serif"><br>
+        <span style="font-size:13px"><b>(After pressing the "Send Tokens" button, kindly allow up to 10 seconds to receive
+           a confirmation message indicating that your claim has been successful)</b></span>
+          <br></span>
+   <br>
   <form id="send-gerd-form">
     <label for="wallet-address"><span style="font-family:Lucida Sans Unicode,Lucida Grande,sans-serif">Wallet Address:</span></span></label>
     <input type="text" id="wallet-address" name="wallet-address" required>
     <button type="submit">Send Tokens</button>
-  </form><span style="font-family:Lucida Sans Unicode,Lucida Grande,sans-serif"><br>
-  (After you press the "Send Tokens" button, kindly allow up to 10 seconds to receive a confirmation message indicating that your claim has been successful)
-<br><br><br></span>
+  </form>
 
   <tr>
       <td style="width:205px">&nbsp;</td>
@@ -80,7 +86,7 @@
           <h2><span style="font-size:18px"><span style="font-family:Lucida Sans Unicode,Lucida Grande,sans-serif">Check your balance </span></span></h2>
           <form>
       <div>
-<label for="bwallet-address"><span style="font-size:18px"><span style="font-family:Lucida Sans Unicode,Lucida Grande,sans-serif">Wallet Address: </span></span>
+<label for="bwallet-address"><span style="font-size:16px"><span style="font-family:Lucida Sans Unicode,Lucida Grande,sans-serif">Wallet Address: </span></span>
 </label>
 <input type="text" id="bwallet-address" name="bwallet-address" />
 <button type="button" id="check-balance">Check Balance</button>
@@ -125,6 +131,6 @@
   });
     
   </script>
-
+ </div>
 </body>
 </html>
