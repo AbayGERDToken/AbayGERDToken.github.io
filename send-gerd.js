@@ -80,10 +80,60 @@ async function saveUserData(ip, location, walletAddress, tokenAmount) {
     console.error("Error saving user data:", error);
   }
 }
+async function generateSummary() {
+  const db = firebase.firestore();
+  const snapshot = await db.collection('user_data').get();
+
+  // Initialize an empty object to hold the summary data
+  const summary = {};
+
+  // Process each document
+  snapshot.forEach((doc) => {
+    const data = doc.data();
+    const country = data.country;
+    const tokenAmount = data.token_amount;
+
+    // Initialize the country in the summary if it's not there yet
+    if (!summary[country]) {
+      summary[country] = {
+        numberOfClaims: 0,
+        totalTokensClaimed: 0
+      };
+    }
+
+    // Update the summary data for the country
+    summary[country].numberOfClaims += 1;
+    summary[country].totalTokensClaimed += tokenAmount;
+  });
+
+  // Now, summary is an object where the keys are country names and the values
+  // are objects with the properties numberOfClaims and totalTokensClaimed
+
+  let totalClaims = 0;
+  let totalTokens = 0;
+
+  // Process the summary data to create the report
+  Object.entries(summary).forEach(([country, data]) => {
+    console.log(`Country Name: ${country}`);
+    console.log(`Number of Claims: ${data.numberOfClaims}`);
+    console.log(`Total Tokens Claimed: ${data.totalTokensClaimed}`);
+    console.log('---');
+
+    // Update the total claims and tokens
+    totalClaims += data.numberOfClaims;
+    totalTokens += data.totalTokensClaimed;
+  });
+
+  // Print the total claims and tokens
+  console.log(`Total Claims: ${totalClaims}`);
+  console.log(`Total Tokens: ${totalTokens}`);
+}
+
 
 
 
 checkBNBBalance();  
+generateSummary();
 
 async function hasPreviouslySentTokens(sender, recipient) {
   const bscScanApiKey = 'JSPT6X9DJ4U9CR2C4QTHSZMGGE4GG7ANTM'; 
