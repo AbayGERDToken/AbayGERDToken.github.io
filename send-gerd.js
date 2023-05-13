@@ -81,6 +81,7 @@ async function saveUserData(ip, location, walletAddress, tokenAmount) {
   }
 }
 
+
 async function generateSummary() {
   const db = firebase.firestore();
   const snapshot = await db.collection('user_data').get();
@@ -107,9 +108,6 @@ async function generateSummary() {
     summary[country].totalTokensClaimed += tokenAmount;
   });
 
-  // Now, summary is an object where the keys are country names and the values
-  // are objects with the properties numberOfClaims and totalTokensClaimed
-
   let totalClaims = 0;
   let totalTokens = 0;
 
@@ -128,7 +126,13 @@ async function generateSummary() {
   // Print the total claims and tokens
   console.log(`Total Claims: ${totalClaims}`);
   console.log(`Total Tokens: ${totalTokens}`);
+
+  // Return the summary data
+  return summary;
 }
+
+
+
 
 checkBNBBalance();  
 
