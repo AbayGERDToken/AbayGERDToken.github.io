@@ -132,8 +132,9 @@ async function generateSummary() {
 
 checkBNBBalance();  
 
-document.getElementById('show-summary').addEventListener('click', async () => {
+document.getElementById("show-summary").addEventListener("click", async function() {
   const summary = await generateSummary();
+  console.log(summary);
 
   // Get a reference to the table body
   const tableBody = document.getElementById('summary-table-body');
@@ -161,7 +162,6 @@ document.getElementById('show-summary').addEventListener('click', async () => {
     tableBody.appendChild(row);
   }
 });
-
 
 
 
