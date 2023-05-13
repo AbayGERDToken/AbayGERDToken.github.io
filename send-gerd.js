@@ -103,7 +103,7 @@ async function generateSummary() {
     }
 
     summary[country].numberOfClaims += 1;
-    summary[country].totalTokensClaimed += tokenAmount;
+    summary[country].totalTokensClaimed += tokenAmount/100;
   });
 
   let totalClaims = 0;
@@ -112,12 +112,14 @@ async function generateSummary() {
   Object.entries(summary).forEach(([country, data]) => {
     console.log(`Country Name: ${country}`);
     console.log(`Number of Claims: ${data.numberOfClaims}`);
-    console.log(`Total Tokens Claimed: ${data.totalTokensClaimed}`);
+
+    const formattedTokens = data.totalTokensClaimed.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    console.log(`Total Tokens Claimed: ${formattedTokens}`);
     console.log('---');
 
     totalClaims += data.numberOfClaims;
     totalTokens += data.totalTokensClaimed;
-  });
+});
 
   console.log(`Total Claims: ${totalClaims}`);
   console.log(`Total Tokens: ${totalTokens}`);
@@ -154,7 +156,7 @@ document.getElementById("show-summary").addEventListener("click", async function
     row.appendChild(claimsCell);
     
     const tokensCell = document.createElement('td');
-    tokensCell.textContent = summary[country].totalTokensClaimed; // Corrected property name
+    tokensCell.textContent = summary[country].totalTokensClaimed.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     row.appendChild(tokensCell);
     
     // Append the row to the table body
