@@ -155,18 +155,17 @@ document.getElementById("show-summary").addEventListener("click", async function
     row.appendChild(countryCell);
     
     const claimsCell = document.createElement('td');
-    claimsCell.textContent = summary[country].claims;
+    claimsCell.textContent = summary[country].numberOfClaims; // Corrected property name
     row.appendChild(claimsCell);
     
     const tokensCell = document.createElement('td');
-    tokensCell.textContent = summary[country].tokens;
+    tokensCell.textContent = summary[country].totalTokensClaimed; // Corrected property name
     row.appendChild(tokensCell);
     
     // Append the row to the table body
     tableBody.appendChild(row);
   }
 });
-
 
 
 
