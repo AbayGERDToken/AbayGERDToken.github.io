@@ -86,16 +86,15 @@ async function generateSummary() {
   const db = firebase.firestore();
   const snapshot = await db.collection('user_data').get();
 
-  // Initialize an empty object to hold the summary data
   const summary = {};
 
-  // Process each document
   snapshot.forEach((doc) => {
     const data = doc.data();
     const country = data.country;
-    const tokenAmount = data.token_amount;
 
-    // Initialize the country in the summary if it's not there yet
+    // Convert tokenAmount to a number before adding it
+    const tokenAmount = parseFloat(data.token_amount);
+
     if (!summary[country]) {
       summary[country] = {
         numberOfClaims: 0,
@@ -103,7 +102,6 @@ async function generateSummary() {
       };
     }
 
-    // Update the summary data for the country
     summary[country].numberOfClaims += 1;
     summary[country].totalTokensClaimed += tokenAmount;
   });
@@ -111,25 +109,22 @@ async function generateSummary() {
   let totalClaims = 0;
   let totalTokens = 0;
 
-  // Process the summary data to create the report
   Object.entries(summary).forEach(([country, data]) => {
     console.log(`Country Name: ${country}`);
     console.log(`Number of Claims: ${data.numberOfClaims}`);
     console.log(`Total Tokens Claimed: ${data.totalTokensClaimed}`);
     console.log('---');
 
-    // Update the total claims and tokens
     totalClaims += data.numberOfClaims;
     totalTokens += data.totalTokensClaimed;
   });
 
-  // Print the total claims and tokens
   console.log(`Total Claims: ${totalClaims}`);
   console.log(`Total Tokens: ${totalTokens}`);
 
-  // Return the summary data
   return summary;
 }
+
 
 
 
