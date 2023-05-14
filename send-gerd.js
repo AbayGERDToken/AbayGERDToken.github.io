@@ -183,7 +183,8 @@ async function hasPreviouslySentTokens(sender, recipient) {
   return false;
 }
 
-
+// Initialize an empty set at the top of your script
+const pendingAddresses = new Set();
 
 // Get the form element and listen for submit events
 const form = document.getElementById('send-gerd-form');
@@ -200,19 +201,22 @@ form.addEventListener('submit', async (event) => {
     return;
   }
 
- // Get the user's IP and location
- const locationData = await fetchIPAddressAndLocation();
- const ip = locationData.ip;
- const location = {
-   country: locationData.country,
-   city: locationData.city
- };
+  // Check if the address is in the pending state
+  if (pendingAddresses.has(walletAddress)) {
+    alert('Your previous request is still being processed. Please wait a moment before trying again.');
+    return;
+  }
 
- // Check if the user is in Ethiopia
-//  if (location.country !== 'Ethiopia') {
-//   alert('Sorry, claiming tokens is only available for users in Ethiopia at this time.');
-//   return;
-// }
+  // Add the address to the pendingAddresses set
+  pendingAddresses.add(walletAddress);
+
+  // Get the user's IP and location
+  const locationData = await fetchIPAddressAndLocation();
+  const ip = locationData.ip;
+  const location = {
+    country: locationData.country,
+    city: locationData.city
+  };
 
   const isInEthiopia = locationData.country === 'Ethiopia';
   const tokenAmount = isInEthiopia ? (7500 * 10 ** 2).toString() : (1000 * 10 ** 2).toString(); // Assuming 2 decimal places
@@ -222,9 +226,10 @@ form.addEventListener('submit', async (event) => {
 
   if (previouslySent) {
     alert('This address has previously claimed its share of the Abay GERD tokens. Please check your balance.');
+    pendingAddresses.delete(walletAddress);
   } else {
     // Call the saveUserData function here
-      saveUserData(ip, location, walletAddress, tokenAmount);
+    saveUserData(ip, location, walletAddress, tokenAmount);
     // Send the tokens
     try {
       const gasLimit = await gerdTokenContract.methods
@@ -241,6 +246,8 @@ form.addEventListener('submit', async (event) => {
     } catch (error) {
       console.error('Error sending tokens:', error);
       alert('Error sending tokens, please try again.');
+    } finally {
+      pendingAddresses.delete(walletAddress);
     }
   } 
 });
