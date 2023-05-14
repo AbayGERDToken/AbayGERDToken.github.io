@@ -140,7 +140,7 @@ document.getElementById("show-summary").addEventListener("click", async function
     row.appendChild(countryCell);
     
     const claimsCell = document.createElement('td');
-    claimsCell.textContent = summary[country].numberOfClaims; // Corrected property name
+    claimsCell.textContent = summary[country].numberOfClaims; 
     row.appendChild(claimsCell);
     
     const tokensCell = document.createElement('td');
@@ -152,8 +152,8 @@ document.getElementById("show-summary").addEventListener("click", async function
   }
 
   // Display total claims and total tokens
-  document.getElementById('total-claims').textContent = `Total Claims: ${totalClaims}`;
-  document.getElementById('total-tokens').textContent = `Total Tokens: ${totalTokens}`;
+  document.getElementById('total-claims').textContent = `Total Claims: ${totalClaims.toLocaleString()}`;
+  document.getElementById('total-tokens').textContent = `Total Tokens: ${totalTokens.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 });
 
 
