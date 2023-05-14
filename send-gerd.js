@@ -162,6 +162,8 @@ document.getElementById("show-summary").addEventListener("click", async function
     // Append the row to the table body
     tableBody.appendChild(row);
   }
+  document.getElementById('total-claims').textContent = `Total Claims: ${totalClaims}`;
+  document.getElementById('total-tokens').textContent = `Total Tokens: ${totalTokens.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 });
 
 
