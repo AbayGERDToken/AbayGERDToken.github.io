@@ -110,31 +110,19 @@ async function generateSummary() {
   let totalTokens = 0;
 
   Object.entries(summary).forEach(([country, data]) => {
-    console.log(`Country Name: ${country}`);
-    console.log(`Number of Claims: ${data.numberOfClaims}`);
-
-    const formattedTokens = data.totalTokensClaimed.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
-    console.log(`Total Tokens Claimed: ${formattedTokens}`);
-    console.log('---');
-
     totalClaims += data.numberOfClaims;
     totalTokens += data.totalTokensClaimed;
-});
+  });
 
-  console.log(`Total Claims: ${totalClaims}`);
-  console.log(`Total Tokens: ${totalTokens}`);
-
-  return summary;
+  // Return summary, totalClaims, and totalTokens
+  return { summary, totalClaims, totalTokens };
 }
-
-
-
 
 
 checkBNBBalance();  
 
 document.getElementById("show-summary").addEventListener("click", async function() {
-  const summary = await generateSummary();
+  const { summary, totalClaims, totalTokens } = await generateSummary();
   console.log(summary);
 
   // Get a reference to the table body
@@ -162,8 +150,10 @@ document.getElementById("show-summary").addEventListener("click", async function
     // Append the row to the table body
     tableBody.appendChild(row);
   }
+
+  // Display total claims and total tokens
   document.getElementById('total-claims').textContent = `Total Claims: ${totalClaims}`;
-  document.getElementById('total-tokens').textContent = `Total Tokens: ${totalTokens.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  document.getElementById('total-tokens').textContent = `Total Tokens: ${totalTokens}`;
 });
 
 
