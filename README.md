@@ -10,7 +10,7 @@ The website offers essential information about the token, its purpose, and instr
 
 ## Getting Started
 
-To get started with the GERD Token, please visit the official website at https://AbayGERDToken.github.io
+To get started with the GERD Token, please visit the official website at https://www.AbayGERDToken.com
 
 ## Contributing
 
@@ -26,8 +26,9 @@ Please ensure your changes are relevant and adhere to the project's guidelines.
 
 ## License
 
-This project is licensed under the MIT License. For more information, see the [LICENSE](LICENSE) file in this repository.
+This project is licensed under the MIT License.
 
 ## Contact
 
-For questions, suggestions, or feedback, please create an issue on this repository or contact the project maintainers.
+For questions, suggestions, or feedback, please create an issue on this repository or contact the project maintainers at contact@abaygerdtoken.com
+
