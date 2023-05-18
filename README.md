@@ -10,7 +10,7 @@ The website offers essential information about the token, its purpose, and instr
 
 ## Getting Started
 
-To get started with the GERD Token, please visit the official website at https://www.AbayGERDToken.com
+To get started with the GERD Token, please visit the official website at www.AbayGERDToken.com
 
 ## Contributing
 
