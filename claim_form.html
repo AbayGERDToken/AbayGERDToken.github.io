@@ -1,145 +1,152 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Claim your GERD token</title>
-  <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
-
-  <!-- The core Firebase JS SDK is always required and must be listed first -->
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-  <!-- Add the Firestore service -->
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
-
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-  <style>
-    input#wallet-address { width: 275px; }
-    input#bwallet-address { width: 275px; }
-    body { background-color: #a7e2f3; }
-    .content {
-            margin-left: 0.2in;
-            margin-right: 0.1in;
-        }
-  </style>
-
-<style>
-/* Remove list styling */
-.nav-menu {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
-  display: flex;
-}
-
-/* Style list items and links */
-.nav-menu li {
-  margin-right: 35px;
-}
-
-.nav-menu li a {
-  text-decoration: none;
-  color: #240dce;
-  font-weight: bold;
-}
-
-/* Change link color on hover */
-.nav-menu li a:hover {
-  color: #14a209;
-}
-
-</style>
-</head>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  
+    <style>.page-inner { background-color: rgb(255, 255, 255); min-height: 100vh; }</style>
+    <style>.img-left { float: middle ; width: 150px; height: auto; margin-right: 10px; } </style>
+  
+    <title>Claim your GERD token</title>
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+    <!-- Add the Firestore service -->
+    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+  
+    <style>
+      input#wallet-address { width: 400px; }
+      input#bwallet-address { width: 400px; }
+      /* body { background-color: #a7f1fa; }
+      .content {
+        margin-left: 0.2in;
+        margin-right: 0.1in;
+      } */
+    </style>
+  </head>
+  
 <body>
-  <nav>
-    <ul class="nav-menu">
-      <li><a href="index.html" target="_self">Home</a></li>
-      <li><a href="trust-wallet.html" target="_self">Trust Wallet</a></li>
-      <li><a href="" target="_self">Claim Token</a></li>
-      <li><a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019" target="_blank">Contract Address</a></li>
-      <li><a href="https://github.com/AbayGERDToken" target="_blank">GitHub</a></li>
-    </ul>
-  </nav>
-  <div class="content">
-  <h1>Claim GERD Tokens</h1>
-  <span style="font-family:Lucida Sans Unicode,Lucida Grande,sans-serif">
-    Please note that we never ask users to connect their wallets. To receive GERD tokens,
-     simply provide your GERD wallet address.<br>
-    <br>Before proceeding with your claim, please ensure that the Abay GERD token contract has been setup into your wallet, and that you have
-     obtained your GERD token address. if not, please do so using the <a href="trust-wallet.html" target="_self">Trust Wallet</a> <br><br>
-    The first 5,000 users in Ethiopia will automatically received 7,500 Abay GERD tokens. Users outside Ethiopia will recieve 1,000 tokens at this time.<br>
-      </span>
-      <span style="font-family:Lucida Sans Unicode,Lucida Grande,sans-serif"><br>
-        <span style="font-size:13px"><b>(After pressing the "Send Tokens" button, kindly allow up to 10 seconds to receive
-           a confirmation message indicating that your claim has been successful)</b></span>
-          <br></span>
-   <br>
-  <form id="send-gerd-form">
-    <label for="wallet-address"><span style="font-family:Lucida Sans Unicode,Lucida Grande,sans-serif">Wallet Address:</span></span></label>
-    <input type="text" id="wallet-address" name="wallet-address" required>
-    <button type="submit">Send Tokens</button>
-  </form>
+  <div id="navbar"></div>
 
-  <tr>
-      <td style="width:205px">&nbsp;</td>
-      <td style="width:993px">
-          <h2><span style="font-size:18px"><span style="font-family:Lucida Sans Unicode,Lucida Grande,sans-serif">Check your balance </span></span></h2>
-          <form>
-      <div>
-<label for="bwallet-address"><span style="font-size:16px"><span style="font-family:Lucida Sans Unicode,Lucida Grande,sans-serif">Wallet Address: </span></span>
-</label>
-<input type="text" id="bwallet-address" name="bwallet-address" />
-<button type="button" id="check-balance">Check Balance</button>
-<div id="balance-result"><span style="font-family:Lucida Sans Unicode,Lucida Grande,sans-serif">Balance: N/A</span></div>
-</div>
-          </form>
-      </td>
-  </tr>
-<br><br><br>
-  
-  <style>
-    #summary-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    #summary-table th, #summary-table td {
-      border: 1px solid #ddd;
-      padding: 8px;
-    }
-    #summary-table tr:nth-child(even) {
-      background-color: #f2f2f2;
-    }
-    #summary-table tr:hover {
-      background-color: #ddd;
-    }
-    #summary-table th {
-      padding-top: 12px;
-      padding-bottom: 12px;
-      text-align: left;
-      background-color: #a2cee6;
-      color: white;
-    }
-  </style>
-  
-  <button id="show-summary">Claim Summary</button>
-  
-  <table id="summary-table">
-    <thead>
-      <tr>
-        <th>Country Name</th>
-        <th>Number of Claims</th>
-        <th>Total Tokens Claimed</th>
+  <section class="section">
+    <div class="container">
+      <h2 class="title">Claim your GERD tokens</h2>
+      <p>Please note that we never ask users to connect their wallets. To receive GERD tokens,
+        simply provide your GERD wallet address.<br>
+       <br>Before proceeding with your claim, please ensure that the Abay GERD token contract has been setup into your wallet, 
+       and that you have
+        obtained your GERD token address. if not, please do so using the <a href="trust-wallet.html">Trust Wallet</a> or 
+         <a href="metamask-wallet.html"> MetaMask Wallet</a>. Another wallet option is <a href="https://halo.social/" target="_blank">
+           Halo Wallet.</a><br><br>
+       The first 5,000 users in Ethiopia will automatically received 7,500 Abay GERD tokens. Users outside Ethiopia will
+        recieve 1,000 tokens at this time. </p><br>
+    </div>
+  <!-- </section>
+
+  <section class="section"> -->
+      <div class="container">
+       <p> <strong>(After pressing the "Send Tokens" button, kindly allow up to 10 seconds to receive a confirmation message
+           indicating that your claim has been successful)</strong>
+      </div>
+    <!-- </section>
+
+    <section class="section"> --> <br>
+      <div class="container">
+        <form id="send-gerd-form">
+          <label for="wallet-address">Wallet Address:</label><br>
+          <input class="input is-success" type="text" placeholder="GERD wallet address" id="wallet-address" name="wallet-address">
+          <button class="button is-success" type="submit">Send Tokens</button>
+          <strong><div id="send-result">Result: N/A </div></strong>
+        </form>
+      </div>
+    <!-- </section>
+
+    <section class="section"> --> <br>
+      <div class="container">
+        <tr>
+          <td style="width:205px">&nbsp;</td>
+          <td style="width:993px">
+              <h2 class="subtitle"> Check your balance</h2>
+              <form>
+          <div>
+    <label for="bwallet-address">Wallet Address:</label><br>
+    <input class="input is-success" type="text" placeholder="GERD wallet address" id="bwallet-address" name="bwallet-address" />
+    <button class="button is-success" type="button" id="check-balance">Check Balance</button>
+    <strong><div id="balance-result">Balance: N/A </div></strong>
+    </div>
+              </form>
+          </td>
       </tr>
-    </thead>
-    <tbody id="summary-table-body">
-    </tbody>
-  </table>
-  <hr>
-  <p id="total-claims"></p>
-  <p id="total-tokens"></p>
+      </div>
+    </section>
+    
+    <section class="section">
+      <div class="container">
+        <style>
+          #summary-table {
+            width: 100%;
+            border-collapse: collapse;
+          }
+          #summary-table th, #summary-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+          }
+          #summary-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+          }
+          #summary-table tr:hover {
+            background-color: #ddd;
+          }
+          #summary-table th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: hsl(171, 100%, 41%);
+            color: white;
+          }
+        </style>
+        
+        <button  class="button is-success is-light" id="show-summary">Distribution Summary</button>
+        
+        <table id="summary-table">
+          <thead>
+            <tr>
+              <th>Country Name</th>
+              <th>Number of Claims</th>
+              <th>Total Tokens Claimed</th>
+            </tr>
+          </thead>
+          <tbody id="summary-table-body">
+          </tbody>
+        </table>
+        <hr>
+        <p id="total-claims"></p>
+        <p id="total-tokens"></p>
+      
+      </div>
+    </section>
+    <section class="hero is-success is-bold">
+      <div class="hero-body">
+        <div class="container">
+          <div class="columns is-vcentered">
+            <div class="column">
+              <h2 class="subtitle">
+                  DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY AND SUPPORTING THE GRAND ETHIOPIAN RENAISSANCE DAM PROJECT.
+                   JOIN US IN CREATING A BRIGHTER FUTURE! 🌍💰 #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD
+              </h2>
+            </div>
+            <div class="column has-text-centered">
+              <img src="image/abay_bluesky.png" alt="AbayGERDToken" style="width: 300px; height: auto;">
+            </div>
+          </div>
+        </div>
+      </div>
+  </section>
 
-
-
-  <script src="https://abaygerdtoken.github.io/send-gerd.js"></script>
+  <script src="https://abaygerdtoken.github.io/js/send-gerd.js"></script>
+  <!-- <script src="js/send-gerd.js"></script> -->
 
   <script>
     const web3a = new Web3("https://bsc-dataseed.binance.org/");
@@ -157,15 +164,15 @@
     const walletAddress = document.getElementById("bwallet-address").value;
   
     if (!web3a.utils.isAddress(walletAddress)) {
-      alert("Please enter a valid wallet address.");
-      document.getElementById("balance-result").innerText = `Balance: 0.00`;
+      // alert("Please enter a valid wallet address.");
+      document.getElementById("balance-result").innerText = `Error: Please enter a valid address`;
       return;
     }
   
     try {
     const balance = await gerdContract.methods.balanceOf(walletAddress).call();
     const formattedBalance = (balance / 10**2).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-    document.getElementById("balance-result").innerText = `Your wallet address balance is: ${formattedBalance} GERD`;
+    document.getElementById("balance-result").innerText = `Your balance is: ${formattedBalance} GERD`;
     } catch (error) {
       console.error("Error fetching balance:", error);
       alert("An error occurred while fetching the balance.");
@@ -174,5 +181,17 @@
   
   </script>
  </div>
+ <footer class="footer">
+  <div class="content has-text-centered">
+    <p style="font-size: 0.85rem;">
+      Copyright 2023 Abay GERD Token. All rights reserved.
+    </p>
+  </div>
+</footer>
+<script>
+  $(function(){
+    $("#navbar").load("abaynav.html"); 
+  });
+  </script>
 </body>
 </html>

@@ -1,0 +1,66 @@
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<nav class="navbar is-black" role="navigation" aria-label="main navigation">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="index.html">
+        <img src="image/660941bb4aa9fcb0ed0375673d21088a9d0c5019.png" alt="AbayGERDToken">
+      </a>
+
+      <a role="button" class="navbar-burger burger" aria-label="menu" aria-expanded="false" data-target="navbarAbay">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+
+    <div id="navbarAbay" class="navbar-menu">
+      <div class="navbar-start">
+        <a class="navbar-item" href="index.html">
+          Home
+        </a>
+        <a class="navbar-item" href="claim_form.html">
+          Claim your free tokens
+        </a>
+        <a class="navbar-item" href="distribution_rpt.html">
+        Token Distribution Summary
+         </a>
+        <a class="navbar-item" href="trust-wallet.html">
+            Trust Wallet Setup
+        </a>
+        <a class="navbar-item" href="metamask-wallet.html">
+            MetaMask Wallet Setup
+        </a>
+        <a class="navbar-item" href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019" target="_blank">
+          GERD Contract Address
+        </a>
+        <a class="navbar-item" href="https://github.com/AbayGERDToken" target="_blank">
+          GitHub
+        </a>
+      </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+          // Get all "navbar-burger" elements
+          const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+    
+          // Check if there are any navbar burgers
+          if ($navbarBurgers.length > 0) {
+            // Add a click event on each of them
+            $navbarBurgers.forEach( el => {
+              el.addEventListener('click', () => {
+                // Get the target from the "data-target" attribute
+                const target = el.dataset.target;
+                const $target = document.getElementById(target);
+    
+                // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+                el.classList.toggle('is-active');
+                $target.classList.toggle('is-active');
+              });
+            });
+          }
+        });
+      </script>
+  </nav>

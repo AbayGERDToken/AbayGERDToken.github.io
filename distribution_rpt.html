@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+  <style>.page-inner { background-color: rgb(255, 255, 255); min-height: 100vh; }</style>
+  <style>.img-left { float: middle ; width: 150px; height: auto; margin-right: 10px; } </style>
+
+  <title>Token Distribution Report</title>
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
+  <!-- The core Firebase JS SDK is always required and must be listed first -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <!-- Add the Firestore service -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+  <style>
+    input#wallet-address { width: 400px; }
+    input#bwallet-address { width: 400px; }
+    /* body { background-color: #a7f1fa; }
+    .content {
+      margin-left: 0.2in;
+      margin-right: 0.1in;
+    } */
+  </style>
+</head>
+<body>
+    <div id="navbar"></div>
+
+    <section class="section">
+      <div class="container">
+        <h2 class="title">Distribution Statistics</h2>
+        <p>Total tokens claimed by Country:
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <style>
+          #summary-table {
+            width: 100%;
+            border-collapse: collapse;
+          }
+          #summary-table th, #summary-table td {
+            border: 1px solid #ddd;
+            padding: 8px;
+          }
+          #summary-table tr:nth-child(even) {
+            background-color: #f2f2f2;
+          }
+          #summary-table tr:hover {
+            background-color: #ddd;
+          }
+          #summary-table th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: hsl(171, 100%, 41%);
+            color: white;
+          }
+        </style>
+        
+        <button  class="button is-success is-light" id="show-summary">Refresh Data</button>
+        
+        <table id="summary-table">
+          <thead>
+            <tr>
+              <th>Country Name</th>
+              <th>Number of Claims</th>
+              <th>Total Tokens Claimed</th>
+            </tr>
+          </thead>
+          <tbody id="summary-table-body">
+          </tbody>
+        </table>
+        <hr>
+        <p id="total-claims"></p>
+        <p id="total-tokens"></p>
+      
+      </div>
+    </section>
+
+  
+
+  <section class="hero is-success is-bold">
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns is-vcentered">
+          <div class="column">
+            <h2 class="subtitle">
+                DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY AND SUPPORTING THE GRAND ETHIOPIAN RENAISSANCE DAM PROJECT.
+                 JOIN US IN CREATING A BRIGHTER FUTURE! 🌍💰 #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD
+            </h2>
+          </div>
+          <div class="column has-text-centered">
+            <img src="image/abay_bluesky.png" alt="AbayGERDToken" style="width: 300px; height: auto;">
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+  <!-- Add more sections as needed -->
+
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p style="font-size: 0.85rem;">
+        Copyright 2023 Abay GERD Token. All rights reserved.
+      </p>
+    </div>
+  </footer>
+  <script src="js/send-gerd.js"></script>
+  <script>
+    $(function(){
+      $("#navbar").load("abaynav.html"); 
+    });
+    </script>
+</body>
+</html>
