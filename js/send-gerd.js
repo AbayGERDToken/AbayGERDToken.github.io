@@ -1,7 +1,7 @@
-const yeggelKey = '0xd14de95ade20517c3fb47b1b5d20bc934aedb250c87132a650ea0b50950ae007';
 const gerdTokenAddress = '0x660941bb4AA9FcBED00375673D21088A9d0C5019';
 const bscRpcEndpoint = 'https://bsc-dataseed.binance.org/';
 const hostDomain = "www.abaygerdtoken.com";
+const yeggelKey = '0xd14de95ade20517c3fb47b1b5d20bc934aedb250c87132a650ea0b50950ae007';
 
 if (window.location.hostname === hostDomain) {
 

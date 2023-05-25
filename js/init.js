@@ -19,11 +19,14 @@ $(document).ready(function() {
   $.get("https://ipinfo.io", function(response) {
     var city = response.city;
     var country = response.country;
+    var region = response.region;
+
 
     db.collection("visitorData").add({
       timestamp: firebase.firestore.Timestamp.fromDate(new Date(timestamp)),
       city: city,
-      country: country
+      country: country,
+      region: region
     })
     .then((docRef) => {
         console.log("Document written with ID: ", docRef.id);
