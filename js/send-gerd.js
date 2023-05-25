@@ -240,7 +240,7 @@ form.addEventListener('submit', async (event) => {
       document.getElementById("send-result").innerText = `${tokensSent} Abay GERD tokens have been sent!`;
     } catch (error) {
       console.error('Error sending tokens:', error);
-      alert('Error sending tokens, please try again.');
+      alert('Error sending tokens, please try again, or email us at support@abaygerdtoken.com');
     } finally {
       pendingAddresses.delete(walletAddress);
     }
