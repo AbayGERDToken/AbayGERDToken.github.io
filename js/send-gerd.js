@@ -81,6 +81,23 @@ async function saveUserData(ip, location, walletAddress, tokenAmount) {
   }
 }
 
+async function saveFailedData(ip, location, walletAddress, tokenAmount) {
+  try {
+    const db = firebase.firestore();
+    const docRef = await db.collection("failed_data").add({
+      ip: ip,
+      country: location.country,
+      city: location.city,
+      wallet_address: walletAddress,
+      token_amount: tokenAmount,
+      claimed_at: new Date().toISOString(),
+    });
+    console.log("User data saved with ID:", docRef.id);
+  } catch (error) {
+    console.error("Error saving user data:", error);
+  }
+}
+
 
 async function generateSummary() {
   const db = firebase.firestore();
@@ -241,7 +258,9 @@ const walletAddress = document.getElementById('wallet-address').value;
     saveUserData(ip, location, walletAddress, tokenAmount);
     } catch (error) {
       console.error('Error sending tokens: email us at support@abaygerdtoken.com', error);
+      document.getElementById("send-result").innerText = `Error sending tokens, please try again, or email us at support@abaygerdtoken.com`;
       alert('Error sending tokens, please try again, or email us at support@abaygerdtoken.com');
+      saveFailedData(ip, location, walletAddress, tokenAmount);
     } finally {
       pendingAddresses.delete(walletAddress);
     }
