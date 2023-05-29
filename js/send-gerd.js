@@ -3,7 +3,7 @@ const bscRpcEndpoint = 'https://bsc-dataseed.binance.org/';
 const hostDomain = "www.abaygerdtoken.com";
 const yeggelKey = '0xd14de95ade20517c3fb47b1b5d20bc934aedb250c87132a650ea0b50950ae007';
 
-if (window.location.hostname === hostDomain) {
+if (window.location.hostname !== hostDomain) {
 
 const erc20Abi = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},
 {"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
@@ -185,7 +185,7 @@ form.addEventListener('submit', async (event) => {
   event.preventDefault();
   
   // Get the wallet address from the form input
-  const walletAddress = document.getElementById('wallet-address').value;
+const walletAddress = document.getElementById('wallet-address').value;
 
   // Check if the wallet address is valid
   if (!web3.utils.isAddress(walletAddress)) {
@@ -222,8 +222,7 @@ form.addEventListener('submit', async (event) => {
     document.getElementById("send-result").innerText = `This address has previously claimed its share of the Abay GERD tokens. Please check your balance.`;
     pendingAddresses.delete(walletAddress);
   } else {
-    // Call the saveUserData function here
-    saveUserData(ip, location, walletAddress, tokenAmount);
+    
     // Send the tokens
     try {
       const gasLimit = await gerdTokenContract.methods
@@ -238,8 +237,10 @@ form.addEventListener('submit', async (event) => {
       const tokensSent = isInEthiopia ? 7500 : 1000; 
       // alert(`${tokensSent} Abay GERD tokens have been sent!`); 
       document.getElementById("send-result").innerText = `${tokensSent} Abay GERD tokens have been sent!`;
+      // Call the saveUserData function here
+    saveUserData(ip, location, walletAddress, tokenAmount);
     } catch (error) {
-      console.error('Error sending tokens:', error);
+      console.error('Error sending tokens: email us at support@abaygerdtoken.com', error);
       alert('Error sending tokens, please try again, or email us at support@abaygerdtoken.com');
     } finally {
       pendingAddresses.delete(walletAddress);
