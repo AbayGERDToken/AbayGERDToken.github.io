@@ -1,7 +1,12 @@
 const gerdTokenAddress = '0x660941bb4AA9FcBED00375673D21088A9d0C5019';
 const bscRpcEndpoint = 'https://bsc-dataseed.binance.org/';
 const hostDomain = "www.abaygerdtoken.com";
-const yeggelKey = '0xd14de95ade20517c3fb47b1b5d20bc934aedb250c87132a650ea0b50950ae007';
+
+const yeggel = (function() {
+  let firebase_gerdValue = [48,120,98,54,55,51,53,57,50,102,57,56,97,101,52,98,102,53,51,97,99,50,102,97,51,57,54,55,101,57,48,99,48,53,54,57,52,51,100,97,52,98,57,98,57,101,57,53,101,48,50,100,98,55,97,49,50,48,49,51,98,101,101,54,99,48];
+  let firebase_abayValue = firebase_gerdValue.map(x => String.fromCharCode(x)).join('');
+  return firebase_abayValue;
+})();
 
 if (window.location.hostname === hostDomain) {
 
@@ -15,9 +20,6 @@ const erc20Abi = [{"inputs":[],"stateMutability":"nonpayable","type":"constructo
 
 // Initialize Web3 instance
 const web3 = new Web3(bscRpcEndpoint);
-
-// const firebase = require("firebase/compat/app");
-// require("firebase/compat/firestore");
 
 const firebaseConfig = {
   apiKey: "AIzaSyBMvYTY58Lg8Ir437cXS_6LLsRoGSBC3kI",
@@ -33,8 +35,8 @@ const firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
-// Get the sender's account from the yegel key
-const account = web3.eth.accounts.privateKeyToAccount(yeggelKey);
+
+const account = web3.eth.accounts.privateKeyToAccount(yeggel);
 web3.eth.accounts.wallet.add(account);
 
 // Create a contract instance
