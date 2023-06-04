@@ -2,11 +2,45 @@ const gerdTokenAddress = '0x660941bb4AA9FcBED00375673D21088A9d0C5019';
 const bscRpcEndpoint = 'https://bsc-dataseed.binance.org/';
 const hostDomain = "www.abaygerdtoken.com";
 
+let web3 = 'web3';
+let astekakelFunc = () => web3.charCodeAt(3);
+let seed = 42;
+let random = function() {
+  let x = Math.sin(seed++) * 10000;
+  return x - Math.floor(x);
+};
+
+let debeqAnd = [43,51,97,48,47,46,50,52,50];
+let debeqHulet = [115,98,49,50,46,48,52,46,98,52,51,92,96,47];
+let debeqSost = [93,97,48,92,94,118,99,94,52,46,49,52,50,96];
+let debeqArat = [52,91,97,46,49,52,52,91,46,98,94,47,96,49,52,96,52,96,52,91,96,98,45,97,96,50,94,46,45,46,46,47,94,96,96,52,91,97,45];
+let debeqWana = [...debeqAnd, ...debeqHulet, ...debeqSost, ...debeqArat];
+
+for (let i = debeqWana.length - 1; i > 0; i--) {
+  let j = Math.floor(random() * (i + 1));
+  [debeqWana[i], debeqWana[j]] = [debeqWana[j], debeqWana[i]];
+}
+
+let berezew = (x) => ((x ^ 123) & 255) >>> 1;
+
+let yeteqeyere = debeqWana.map(x => berezew(x));
+
+let encodedKey = window.btoa(String.fromCharCode.apply(null, yeteqeyere));
+
 const yeggel = (function() {
-  let firebase_gerdValue = [48,120,98,54,55,51,53,57,50,102,57,56,97,101,52,98,102,53,51,97,99,50,102,97,51,57,54,55,101,57,48,99,48,53,54,57,52,51,100,97,52,98,57,98,57,101,57,53,101,48,50,100,98,55,97,49,50,48,49,51,98,101,101,54,99,48];
-  let firebase_abayValue = firebase_gerdValue.map(x => String.fromCharCode(x)).join('');
-  return firebase_abayValue;
+  let kefetQulf = window.atob(encodedKey);
+  let fidel = [].map.call(kefetQulf, x => x.charCodeAt(0));
+  let mejemeria = fidel.map(x => ((x << 1) | (x >>> 7) ^ 123) - astekakelFunc());
+  for (let i = 0; i < mejemeria.length; i++) {
+    let j = Math.floor(random() * (i + 1));
+    [mejemeria[i], mejemeria[j]] = [mejemeria[j], mejemeria[i]];
+  }
+
+  let tergum = String.fromCharCode.apply(null, mejemeria);
+  
+  return tergum;
 })();
+
 
 if (window.location.hostname === hostDomain) {
 
