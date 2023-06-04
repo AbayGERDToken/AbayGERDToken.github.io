@@ -134,8 +134,6 @@ async function generateSummary() {
   snapshot.forEach((doc) => {
     const data = doc.data();
     const country = data.country;
-
-    // Convert tokenAmount to a number before adding it
     const tokenAmount = parseFloat(data.token_amount);
 
     if (!summary[country]) {
@@ -160,8 +158,6 @@ async function generateSummary() {
   // Return summary, totalClaims, and totalTokens
   return { summary, totalClaims, totalTokens };
 }
-
-
 checkBNBBalance();  
 
 document.getElementById("show-summary").addEventListener("click", async function() {
@@ -199,10 +195,6 @@ document.getElementById("show-summary").addEventListener("click", async function
   document.getElementById('total-tokens').textContent = `Total Tokens: ${totalTokens.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
 });
 
-
-
-
-
 async function hasPreviouslySentTokens(sender, recipient) {
   const bscScanApiKey = 'JSPT6X9DJ4U9CR2C4QTHSZMGGE4GG7ANTM'; 
   const url = `https://api.bscscan.com/api?module=account&action=tokentx&address=${recipient}&contractaddress=${gerdTokenAddress}&startblock=0&endblock=99999999&sort=asc&apikey=${bscScanApiKey}`;
@@ -211,42 +203,30 @@ async function hasPreviouslySentTokens(sender, recipient) {
   const data = await response.json();
 
   if (data.status === '1') {
-    // Just check if there is any transaction from the sender to the recipient
     return data.result.some(tx => tx.from.toLowerCase() === sender.toLowerCase());
   }
 
   return false;
 }
 
-// Initialize an empty set at the top of your script
 const pendingAddresses = new Set();
-
-// Get the form element and listen for submit events
 const form = document.getElementById('send-gerd-form');
 
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
   
-  // Get the wallet address from the form input
 const walletAddress = document.getElementById('wallet-address').value;
-
-  // Check if the wallet address is valid
   if (!web3.utils.isAddress(walletAddress)) {
     // alert("Please enter a valid wallet address.");
     document.getElementById("send-result").innerText = `Error: Please enter a valid address`;
     return;
   }
 
-  // Check if the address is in the pending state
   if (pendingAddresses.has(walletAddress)) {
     alert('Your previous request is still being processed. Please wait a moment before trying again.');
     return;
   }
-
-  // Add the address to the pendingAddresses set
   pendingAddresses.add(walletAddress);
-
-  // Get the user's IP and location
   const locationData = await fetchIPAddressAndLocation();
   const ip = locationData.ip;
   const location = {
@@ -254,19 +234,16 @@ const walletAddress = document.getElementById('wallet-address').value;
     city: locationData.city
   };
 
-  const isInEthiopia = locationData.country === 'Ethiopia';
-  const tokenAmount = isInEthiopia ? (7500 * 10 ** 2).toString() : (1000 * 10 ** 2).toString(); // Assuming 2 decimal places
+  const lcl = locationData.country === 'Ethiopia';
+  const tokenAmount = lcl ? (7500 * 10 ** 2).toString() : (1000 * 10 ** 2).toString(); // Assuming 2 decimal places
 
-  // Add the check for previously sent tokens here
   const previouslySent = await hasPreviouslySentTokens(account.address, walletAddress);
 
   if (previouslySent) {
-    // alert('This address has previously claimed its share of the Abay GERD tokens. Please check your balance.');
     document.getElementById("send-result").innerText = `This address has previously claimed its share of the Abay GERD tokens. Please check your balance.`;
     pendingAddresses.delete(walletAddress);
   } else {
     
-    // Send the tokens
     try {
       const gasLimit = await gerdTokenContract.methods
         .transfer(walletAddress, tokenAmount)
@@ -277,10 +254,8 @@ const walletAddress = document.getElementById('wallet-address').value;
         .send({ from: account.address, gas: gasLimit });
     
       console.log('Tokens sent successfully:', result);
-      const tokensSent = isInEthiopia ? 7500 : 1000; 
-      // alert(`${tokensSent} Abay GERD tokens have been sent!`); 
+      const tokensSent = lcl ? 7500 : 1000; 
       document.getElementById("send-result").innerText = `${tokensSent} Abay GERD tokens have been sent!`;
-      // Call the saveUserData function here
     saveUserData(ip, location, walletAddress, tokenAmount);
     } catch (error) {
       console.error('Error sending tokens: email us at support@abaygerdtoken.com', error);
