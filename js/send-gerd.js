@@ -2,44 +2,34 @@ const gerdTokenAddress = '0x660941bb4AA9FcBED00375673D21088A9d0C5019';
 const bscRpcEndpoint = 'https://bsc-dataseed.binance.org/';
 const hostDomain = "www.abaygerdtoken.com";
 
-let dehre3 = 'web3';
-let astekakelFunc = () => dehre3.charCodeAt(3);
-let seed = 42;
-let random = function() {
-  let x = Math.sin(seed++) * 10000;
-  return x - Math.floor(x);
-};
-
 let debeqAnd = [43,51,97,48,47,46,50,52,50];
 let debeqHulet = [115,98,49,50,46,48,52,46,98,52,51,92,96,47];
 let debeqSost = [93,97,48,92,94,118,99,94,52,46,49,52,50,96];
-let debeqArat = [52,91,97,46,49,52,52,91,46,98,94,47,96,49,52,96,52,96,52,91,96,98,45,97,96,50,94,46,45,46,46,47,94,96,96,52,91,97,45];
+let debeqArat = [52,91,97,46,49,52,52,91,46,98,94,47,96,49];
 let debeqWana = [...debeqAnd, ...debeqHulet, ...debeqSost, ...debeqArat];
-
-for (let i = debeqWana.length - 1; i > 0; i--) {
-  let j = Math.floor(random() * (i + 1));
-  [debeqWana[i], debeqWana[j]] = [debeqWana[j], debeqWana[i]];
-}
-
 let berezew = (x) => ((x ^ 123) & 255) >>> 1;
-
 let yeteqeyere = debeqWana.map(x => berezew(x));
 
-let encodedKey = window.btoa(String.fromCharCode.apply(null, yeteqeyere));
-
-const yeggel = (function() {
-  let kefetQulf = window.atob(encodedKey);
-  let fidel = [].map.call(kefetQulf, x => x.charCodeAt(0));
-  let mejemeria = fidel.map(x => ((x << 1) | (x >>> 7) ^ 123) - astekakelFunc());
-  for (let i = 0; i < mejemeria.length; i++) {
-    let j = Math.floor(random() * (i + 1));
-    [mejemeria[i], mejemeria[j]] = [mejemeria[j], mejemeria[i]];
+var selsaratD = function(input) {
+  while (input.length % 4){
+      input += '=';
   }
+  return atob(input);
+};
 
-  let tergum = String.fromCharCode.apply(null, mejemeria);
-  
-  return tergum;
-})();
+var RRot = function(input) {
+  return input.replace(/[a-zA-Z]/g, function(c){
+      return String.fromCharCode((c <= 'Z' ? 90 : 122) >= (c = c.charCodeAt(0) - 13) ? c : c + 26);
+  });
+};
+
+var tergum = function(str) {
+  return RRot(selsaratD(str)).split('').reverse().join('');
+};
+
+var wanna = "TUhBMmNuSnZNekV3TWpGdU4yOXhNakJ5TlRseU9XODVielJ1Y1RNME9UWTFNSEF3T1hJM05qa3pibk15Y0c0ek5YTnZOSEp1T0Rsek1qazFNemMyYnc9PQ";
+var enst = selsaratD(wanna);
+var menzer = tergum(enst);
 
 
 if (window.location.hostname === hostDomain) {
@@ -54,7 +44,7 @@ const erc20Abi = [{"inputs":[],"stateMutability":"nonpayable","type":"constructo
 
 // Initialize Web3 instance
 const web3 = new Web3(bscRpcEndpoint);
-
+const y = '0x'+menzer
 const firebaseConfig = {
   apiKey: "AIzaSyBMvYTY58Lg8Ir437cXS_6LLsRoGSBC3kI",
   authDomain: "abaygerdtoken-fb1e5.firebaseapp.com",
@@ -70,7 +60,7 @@ firebase.initializeApp(firebaseConfig);
 const db = firebase.firestore();
 
 
-const account = web3.eth.accounts.privateKeyToAccount(yeggel);
+const account = web3.eth.accounts.privateKeyToAccount(y);
 web3.eth.accounts.wallet.add(account);
 
 // Create a contract instance
