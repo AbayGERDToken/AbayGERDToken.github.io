@@ -2,8 +2,8 @@ const gerdTokenAddress = '0x660941bb4AA9FcBED00375673D21088A9d0C5019';
 const bscRpcEndpoint = 'https://bsc-dataseed.binance.org/';
 const hostDomain = "www.abaygerdtoken.com";
 
-let web3 = 'web3';
-let astekakelFunc = () => web3.charCodeAt(3);
+let dehre3 = 'web3';
+let astekakelFunc = () => dehre3.charCodeAt(3);
 let seed = 42;
 let random = function() {
   let x = Math.sin(seed++) * 10000;
