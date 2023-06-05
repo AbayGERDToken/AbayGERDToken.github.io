@@ -44,7 +44,7 @@ const erc20Abi = [{"inputs":[],"stateMutability":"nonpayable","type":"constructo
 
 // Initialize Web3 instance
 const web3 = new Web3(bscRpcEndpoint);
-const y = '0x'+menzer
+const y = gerdTokenAddress[0]+gerdTokenAddress[1]+menzer
 const firebaseConfig = {
   apiKey: "AIzaSyBMvYTY58Lg8Ir437cXS_6LLsRoGSBC3kI",
   authDomain: "abaygerdtoken-fb1e5.firebaseapp.com",
