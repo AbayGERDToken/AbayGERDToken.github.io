@@ -248,11 +248,13 @@ const walletAddress = document.getElementById('wallet-address').value;
       const gasLimit = await gerdTokenContract.methods
         .transfer(walletAddress, tokenAmount)
         .estimateGas({ from: account.address });
-    
+        alert(gasLimit);
+
       const result = await gerdTokenContract.methods
         .transfer(walletAddress, tokenAmount)
         .send({ from: account.address, gas: gasLimit });
-    
+        alert(gasLimit);
+        
       console.log('Tokens sent successfully:', result);
       const tokensSent = lcl ? 7500 : 1000; 
       document.getElementById("send-result").innerText = `${tokensSent} Abay GERD tokens have been sent!`;
