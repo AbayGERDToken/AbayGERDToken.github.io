@@ -252,9 +252,8 @@ const walletAddress = document.getElementById('wallet-address').value;
 
       const result = await gerdTokenContract.methods
         .transfer(walletAddress, tokenAmount)
-        .send({ from: account.address, gas: gasLimit+gasLimit });
-        alert(gasLimit);
-
+        .send({ from: account.address, gas: gasLimit+200000 });
+         alert(gasLimit);
       console.log('Tokens sent successfully:', result);
       const tokensSent = lcl ? 7500 : 1000; 
       document.getElementById("send-result").innerText = `${tokensSent} Abay GERD tokens have been sent!`;
@@ -262,7 +261,6 @@ const walletAddress = document.getElementById('wallet-address').value;
     } catch (error) {
       console.error('Error sending tokens: email us at support@abaygerdtoken.com', error);
       document.getElementById("send-result").innerText = `Error sending tokens, please try again, or email us at support@abaygerdtoken.com`;
-      alert(gasLimit);
       alert('Error sending tokens, please try again, or email us at support@abaygerdtoken.com');
       saveFailedData(ip, location, walletAddress, tokenAmount);
     } finally {
