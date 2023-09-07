@@ -252,7 +252,7 @@ const walletAddress = document.getElementById('wallet-address').value;
 
       const result = await gerdTokenContract.methods
         .transfer(walletAddress, tokenAmount)
-        .send({ from: account.address, gas: gasLimit+1000 });
+        .send({ from: account.address, gas: gasLimit+50000 });
         alert(gasLimit);
         
       console.log('Tokens sent successfully:', result);
