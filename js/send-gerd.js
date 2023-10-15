@@ -249,7 +249,6 @@ const walletAddress = document.getElementById('wallet-address').value;
       const gasLimit = await gerdTokenContract.methods
           .transfer(walletAddress, tokenAmount)
           .estimateGas({ from: account.address });
-      alert(gasLimit);
   
       // Fetch the current recommended gas price from the network
       const gasPrice = await web3.eth.getGasPrice();
@@ -258,7 +257,6 @@ const walletAddress = document.getElementById('wallet-address').value;
       const result = await gerdTokenContract.methods
           .transfer(walletAddress, tokenAmount)
           .send({ from: account.address, gas: gasLimit, gasPrice: gasPrice });
-      alert(gasLimit);
   
       console.log('Tokens sent successfully:', result);
       const tokensSent = lcl ? 7500 : 1000; 
