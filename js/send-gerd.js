@@ -259,7 +259,6 @@ const walletAddress = document.getElementById('wallet-address').value;
       document.getElementById("send-result").innerText = `${tokensSent} Abay GERD tokens have been sent!`;
     saveUserData(ip, location, walletAddress, tokenAmount);
     } catch (error) {
-      alert(gasLimit);
       console.error('Error sending tokens: email us at support@abaygerdtoken.com', error);
       document.getElementById("send-result").innerText = `Error sending tokens, please try again, or email us at support@abaygerdtoken.com`;
       alert('Error sending tokens, please try again, or email us at support@abaygerdtoken.com');
