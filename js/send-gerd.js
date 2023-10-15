@@ -245,27 +245,34 @@ const walletAddress = document.getElementById('wallet-address').value;
   } else {
     
     try {
+      // Estimate the gas required for the transfer function
       const gasLimit = await gerdTokenContract.methods
-        .transfer(walletAddress, tokenAmount)
-        .estimateGas({ from: account.address });
-        alert(gasLimit);
-
+          .transfer(walletAddress, tokenAmount)
+          .estimateGas({ from: account.address });
+      alert(gasLimit);
+  
+      // Fetch the current recommended gas price from the network
+      const gasPrice = await web3.eth.getGasPrice();
+  
+      // Send the tokens using the estimated gas limit and the fetched gas price
       const result = await gerdTokenContract.methods
-        .transfer(walletAddress, tokenAmount)
-        .send({ from: account.address, gas: gasLimit + gasLimit });
-         alert(gasLimit);
+          .transfer(walletAddress, tokenAmount)
+          .send({ from: account.address, gas: gasLimit, gasPrice: gasPrice });
+      alert(gasLimit);
+  
       console.log('Tokens sent successfully:', result);
       const tokensSent = lcl ? 7500 : 1000; 
       document.getElementById("send-result").innerText = `${tokensSent} Abay GERD tokens have been sent!`;
-    saveUserData(ip, location, walletAddress, tokenAmount);
-    } catch (error) {
+      saveUserData(ip, location, walletAddress, tokenAmount);
+  } catch (error) {
       console.error('Error sending tokens: email us at support@abaygerdtoken.com', error);
       document.getElementById("send-result").innerText = `Error sending tokens, please try again, or email us at support@abaygerdtoken.com`;
       alert('Error sending tokens, please try again, or email us at support@abaygerdtoken.com');
       saveFailedData(ip, location, walletAddress, tokenAmount);
-    } finally {
+  } finally {
       pendingAddresses.delete(walletAddress);
-    }
+  }
+  
   } 
 });
 }
