@@ -22,7 +22,7 @@ We welcome community contributions to the GERD Token project. If you would like 
 4. Create a pull request against the main branch of this repository.
 5. Wait for your pull request to be reviewed and merged.
 
-Please ensure your changes are relevant and adhere to the project's guidelines.
+Please ensure your changes are relevant and adhere to this project.
 
 ## License
 
