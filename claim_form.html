@@ -15,6 +15,8 @@
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
     <!-- Add the Firestore service -->
     <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+
   
     <style>
       input#wallet-address { width: 400px; }
@@ -51,10 +53,15 @@
       <div class="container">
         <form id="send-gerd-form">
           <label for="wallet-address">Wallet Address:</label><br>
-          <input class="input is-success" type="text" placeholder="GERD wallet address" id="wallet-address" name="wallet-address">
+          <input class="input is-success" type="text" placeholder="GERD wallet address" id="wallet-address" name="wallet-address" required>
+        
+          <!-- CAPTCHA Widget -->
+          <div class="g-recaptcha" data-sitekey="6LdQyRkrAAAAANv5siZlVghMFzQ2AEPIg8501G9P"></div>
+          
           <button class="button is-success" type="submit">Send Tokens</button>
           <strong><div id="send-result">Result: N/A </div></strong>
         </form>
+        
       </div>
     <!-- </section>
 
@@ -140,7 +147,7 @@
       </div>
   </section>
 
-  <script src="https://abaygerdtoken.github.io/js/send-gerd.js"></script>
+  <script src="js/send-gerd.js"></script>
   <!-- <script src="js/send-gerd.js"></script> -->
 
   <script>
