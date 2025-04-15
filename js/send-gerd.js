@@ -214,7 +214,13 @@ const form = document.getElementById('send-gerd-form');
 
 form.addEventListener('submit', async (event) => {
   event.preventDefault();
-  
+
+const recaptchaResponse = grecaptcha.getResponse();
+if (!recaptchaResponse) {
+  document.getElementById("send-result").innerText = "Please complete the CAPTCHA before submitting.";
+  return;
+}
+
 const walletAddress = document.getElementById('wallet-address').value;
   if (!web3.utils.isAddress(walletAddress)) {
     // alert("Please enter a valid wallet address.");
