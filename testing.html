@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Abay GERD Token Claim</title>
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 2em; background: #f9f9f9; }
+    .container { max-width: 400px; margin: auto; background: white; padding: 2em; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
+    input, button { width: 100%; padding: 10px; margin: 10px 0; }
+    .success { color: green; }
+    .error { color: red; }
+    .loading { color: blue; }
+    .g-recaptcha { margin: 10px 0; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Claim Your Abay GERD Tokens</h2>
+    <input type="text" id="recipient" placeholder="Enter Your Wallet Address" />
+    <div class="g-recaptcha" data-sitekey="6LdQyRkrAAAAANv5siZlVghMFzQ2AEPIg8501G9P"></div>
+    <button onclick="claimTokens()">Claim Tokens</button>
+    <p id="response"></p>
+  </div>
+
+  <script>
+    async function claimTokens() {
+      const recipient = document.getElementById('recipient').value.trim();
+      const responseEl = document.getElementById('response');
+      const buttonEl = document.querySelector('button');
+      const recaptchaToken = grecaptcha.getResponse();
+
+      if (!recipient) {
+        responseEl.textContent = "Please enter your wallet address.";
+        responseEl.className = "error";
+        return;
+      }
+
+      if (!recaptchaToken) {
+        responseEl.textContent = "Please complete the reCAPTCHA.";
+        responseEl.className = "error";
+        return;
+      }
+
+      buttonEl.disabled = true;
+      buttonEl.textContent = "Processing...";
+      responseEl.textContent = "🔎 Checking your location...";
+      responseEl.className = "loading";
+
+      try {
+        // Detect IP and Country
+        const locResponse = await fetch('https://ipapi.co/json/');
+        const locData = await locResponse.json();
+        let amount = (locData.country_code === "ET") ? 7500 : 1000;
+
+        responseEl.textContent = `🌍 Detected Country: ${locData.country_name}. Preparing to send ${amount} GERD Tokens...`;
+
+        // Submit claim to backend
+        const res = await fetch('https://abay-gerd-backend.onrender.com/send-token', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            recipient,
+            amount,
+            ip: locData.ip,
+            country: locData.country_name,
+            city: locData.city,
+            recaptchaToken,
+            secret: '41e91afe062ea4a9ff5ca65ada9f7820' // Your server secret
+          })
+        });
+
+        const data = await res.json();
+        if (data.status === 'success') {
+          responseEl.innerHTML = `✅ Success! Transaction sent.<br>Tx Hash: <a href="https://bscscan.com/tx/${data.tx_hash}" target="_blank">${data.tx_hash}</a> 🎉`;
+          responseEl.className = "success";
+        } else {
+          responseEl.textContent = `❌ Error: ${data.message}`;
+          responseEl.className = "error";
+        }
+      } catch (err) {
+        responseEl.textContent = `❌ Error: ${err.message}`;
+        responseEl.className = "error";
+      } finally {
+        buttonEl.disabled = false;
+        buttonEl.textContent = "Claim Tokens";
+        grecaptcha.reset();
+      }
+    }
+  </script>
+</body>
+</html>
