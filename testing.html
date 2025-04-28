@@ -12,14 +12,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <style>
-    body { font-family: Arial, sans-serif; padding: 2em; background: #f9f9f9; }
-    .container { max-width: 400px; margin: auto; background: white; padding: 2em; border-radius: 8px; box-shadow: 0 0 10px rgba(0,0,0,0.1); }
-    input, button { width: 100%; padding: 10px; margin: 10px 0; }
+    body { font-family: Arial, sans-serif; background: #f9f9f9; }
+    
+    input, button { width: 200px; padding: 10px; margin: 10px 0; }
     .success { color: green; }
     .error { color: red; }
     .loading { color: blue; }
     .g-recaptcha { margin: 10px 0; }
-  
+    .container { max-width: 400px; margin: auto; padding: 2em; }
     input#recipient { width: 400px; }
     </style>
 </head>
@@ -38,6 +38,7 @@
     <button class="button is-success" onclick="claimTokens()">Claim Tokens</button>
     <p id="response"></p>
   </div>
+  
   <section class="hero is-success is-bold">
     <div class="hero-body">
       <div class="container">
