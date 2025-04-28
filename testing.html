@@ -1,9 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta charset="UTF-8">
   <title>Abay GERD Token Claim</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <style>.page-inner { background-color: rgb(255, 255, 255); min-height: 100vh; }</style>
+  <style>.img-left { float: middle ; width: 150px; height: auto; margin-right: 10px; } </style>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <style>
     body { font-family: Arial, sans-serif; padding: 2em; background: #f9f9f9; }
@@ -67,13 +73,13 @@
             country: locData.country_name,
             city: locData.city,
             recaptchaToken,
-            secret: '41e91afe062ea4a9ff5ca65ada9f7820' // Your server secret
+            secret: '41e91afe062ea4a9ff5ca65ada9f7820' 
           })
         });
 
         const data = await res.json();
         if (data.status === 'success') {
-          responseEl.innerHTML = `✅ Success! Transaction sent.<br>Tx Hash: <a href="https://bscscan.com/tx/${data.tx_hash}" target="_blank">${data.tx_hash}</a> 🎉`;
+          responseEl.innerHTML = `✅ Success! Transaction sent.<br>Tx Hash: <a href="https://bscscan.com/tx/0x${data.tx_hash}" target="_blank">${data.tx_hash}</a> 🎉`;
           responseEl.className = "success";
         } else {
           responseEl.textContent = `❌ Error: ${data.message}`;
@@ -89,5 +95,56 @@
       }
     }
   </script>
+  
+  <section class="hero is-success is-bold">
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns is-vcentered">
+          <div class="column">
+            <h2 class="subtitle">
+                DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY AND SUPPORTING THE GRAND ETHIOPIAN RENAISSANCE DAM PROJECT.
+                 JOIN US IN CREATING A BRIGHTER FUTURE! 🌍💰 #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD
+            </h2>
+          </div>
+          <div class="column has-text-centered">
+            <img src="image/abay_bluesky.png" alt="AbayGERDToken" style="width: 300px; height: auto;">
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
+
+  <!-- Add more sections as needed -->
+
+ 
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p style="font-size: 0.85rem;">
+        Copyright 2023 Abay GERD Token. All rights reserved.
+      </p>
+    </div>
+  </footer>
+  <script>
+    $(function() {
+      $("#navbar").load("abaynav.html", function() {
+        // Get all "navbar-burger" elements
+        const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+        // Check if there are any navbar burgers
+        if ($navbarBurgers.length > 0) {
+          // Add a click event on each of them
+          $navbarBurgers.forEach(el => {
+            el.addEventListener('click', () => {
+              // Get the target from the "data-target" attribute
+              const target = el.dataset.target;
+              const $target = document.getElementById(target);
+              // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+              el.classList.toggle('is-active');
+              $target.classList.toggle('is-active');
+            });
+          });
+        }
+      });
+    });
+  </script>  
 </body>
 </html>
