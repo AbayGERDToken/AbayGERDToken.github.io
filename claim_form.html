@@ -28,11 +28,57 @@
     input#recipient { width: 400px; }
     input#bwallet-address { width: 400px;}
     </style>
+    <style>
+      @media (max-width: 480px) {
+        #changeModal > div {
+          width: 95% !important;
+          margin: 30px auto !important;
+          padding: 15px !important;
+        }
+      }
+    
+      /* Optional: Make modal flex layout always centered */
+      #changeModal {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        overflow: auto;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 1000;
+        flex-direction: column;
+      }
+    </style>
 </head>
 <body>
   <div id="navbar"></div>
 
   <div class="container">
+     <!-- Trigger link -->
+<a href="#" onclick="openChangeModal()">📢 See Claim Update</a>
+
+<!-- Modal Container -->
+<div id="changeModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:1000; align-items:center; justify-content:center; overflow:auto;">
+
+  <div style="background:white; max-width:600px; width:90%; margin:50px auto; padding:20px; border-radius:12px; position:relative; box-shadow:0 5px 15px rgba(0,0,0,0.3); font-family:sans-serif;">
+
+    <!-- Close Button -->
+    <span style="position:absolute; top:10px; right:15px; font-size:24px; font-weight:bold; cursor:pointer;" onclick="closeChangeModal()">&times;</span>
+
+    <!-- Modal Content (from change.html) -->
+    <h3 style="font-size:20px; margin-top:10px;">🎉 GERD Token Claim Update – Expanded Access & Early Supporter Bonus!</h3>
+    <p>We’ve increased the total amount of GERD Tokens available for claiming starting 05/05/2025:</p>
+    <ul style="padding-left: 20px;">
+      <li>🌍 <strong>Global Claim Pool:</strong> Increased from <strong>1,000 GERD</strong> to <strong>10,000 GERD</strong></li>
+      <li>🇪🇹 <strong>Ethiopia-Specific Claim Pool:</strong> Increased from <strong>7,500 GERD</strong> to <strong>75,000 GERD</strong></li>
+    </ul>
+    <p><strong>Early claimants</strong> will receive a <strong>10x airdrop bonus</strong> based on their original claim amount. 🎁</p>
+    <p><em>Example: If you previously claimed 1,000 GERD, you will receive 10,000 GERD via airdrop on 05/05/2025.</em></p>
+    <p>✅ Thank you for supporting the GERD mission!</p>
+  </div>
+</div>
     <h2 class="title">Claim your GERD tokens</h2>
     <p>Please note that we never ask users to connect their wallets. To receive GERD tokens,
       simply provide your GERD wallet address.<br>
@@ -41,8 +87,8 @@
     Trust Wallet</a> or <a href="metamask-wallet.html"> MetaMask Wallet</a>. Other wallet options are <a href="https://halo.social/" target="_blank">
     Halo Wallet </a>, <a href="https://www.exodus.com/" target="_blank"> Exodus Wallet </a> to list the few. The same instructions apply
     to all wallets.<br><br>
-    The first 500,000 wallets originated in Ethiopia will automatically received 7,500 Abay GERD tokens. Users outside Ethiopia will
-    recieve 1,000 tokens at this time.<br><br/>
+    The first 500,000 wallets originated in Ethiopia will automatically received 75,000 Abay GERD tokens. Users outside Ethiopia will
+    recieve 10,000 tokens.<br><br/>
   
     <p> <strong>(After pressing the "Claim Tokens" button, kindly allow up to 45 seconds to receive a confirmation message
         indicating that your claim has been successful)</strong>
@@ -122,71 +168,80 @@ document.getElementById("check-balance").addEventListener("click", async () => {
 });
 </script>
 
-  <script>
-    async function claimTokens() {
-      const recipient = document.getElementById('recipient').value.trim();
-      const responseEl = document.getElementById('response');
-      const buttonEl = document.querySelector('button');
-      const recaptchaToken = grecaptcha.getResponse();
+<script>
+  let sessionToken = "";
 
-      if (!web3a.utils.isAddress(recipient)) {
-        responseEl.textContent = "Please enter a valid wallet address.";
-        responseEl.className = "error";
-        return;
-      }
-
-      if (!recaptchaToken) {
-        responseEl.textContent = "Please complete the reCAPTCHA.";
-        responseEl.className = "error";
-        return;
-      }
-
-      buttonEl.disabled = true;
-      buttonEl.textContent = "Processing...";
-      responseEl.textContent = "🔎 Checking your location...";
-      responseEl.className = "loading";
-
-      try {
-        // Detect IP and Country
-        const locResponse = await fetch('https://ipapi.co/json/');
-        const locData = await locResponse.json();
-        let amount = (locData.country_code === "ET") ? 7500 : 1000;
-
-        responseEl.textContent = `🌍 Detected Country: ${locData.country_name}. Preparing to send ${amount} GERD Tokens...`;
-
-        // Submit claim to backend
-        const res = await fetch('https://abay-gerd-backend.onrender.com/send-token', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({
-            recipient,
-            amount,
-            ip: locData.ip,
-            country: locData.country_name,
-            city: locData.city,
-            recaptchaToken,
-            secret: '41e91afe062ea4a9ff5ca65ada9f7820' 
-          })
-        });
-
-        const data = await res.json();
-        if (data.status === 'success') {
-          responseEl.innerHTML = `✅ Success! Tokens sent.<br>Tx Hash: <a href="https://bscscan.com/tx/0x${data.tx_hash}" target="_blank">${data.tx_hash}</a> 🎉`;
-          responseEl.className = "success";
-        } else {
-          responseEl.textContent = `❌ Error: ${data.message}`;
-          responseEl.className = "error";
-        }
-      } catch (err) {
-        responseEl.textContent = `❌ Error: ${err.message}`;
-        responseEl.className = "error";
-      } finally {
-        buttonEl.disabled = false;
-        buttonEl.textContent = "Claim Tokens";
-        grecaptcha.reset();
-      }
+  async function fetchSessionToken() {
+    try {
+      const res = await fetch('https://abay-gerd-backend.onrender.com/auth/session');
+      const data = await res.json();
+      sessionToken = data.session_token;
+    } catch (err) {
+      console.error("Failed to get session token:", err);
     }
-  </script>
+  }
+
+  fetchSessionToken();
+
+  async function claimTokens() {
+    const recipient = document.getElementById('recipient').value.trim();
+    const responseEl = document.getElementById('response');
+    const buttonEl = document.querySelector('button');
+    const recaptchaToken = grecaptcha.getResponse();
+
+    if (!web3a.utils.isAddress(recipient)) {
+      responseEl.textContent = "Please enter a valid wallet address.";
+      responseEl.className = "error";
+      return;
+    }
+
+    if (!recaptchaToken) {
+      responseEl.textContent = "Please complete the reCAPTCHA.";
+      responseEl.className = "error";
+      return;
+    }
+
+    buttonEl.disabled = true;
+    buttonEl.textContent = "Processing...";
+    responseEl.textContent = "🔎 Checking your location...";
+    responseEl.className = "loading";
+
+    try {
+      const locResponse = await fetch('https://ipapi.co/json/');
+      const locData = await locResponse.json();
+      const estimatedAmount = (locData.country_code === "ET") ? 75000 : 10000;
+
+      responseEl.textContent = `🌍 Detected Country: ${locData.country_name}. Preparing to send approximately ${estimatedAmount} GERD Tokens...`;
+
+      const res = await fetch('https://abay-gerd-backend.onrender.com/send-token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          recipient,
+          recaptchaToken,
+          session_token: sessionToken
+        })
+      });
+
+      const data = await res.json();
+      if (data.status === 'success') {
+        responseEl.innerHTML = `✅ Success! Tokens sent.<br>Tx Hash: <a href="https://bscscan.com/tx/${data.tx_hash}" target="_blank">${data.tx_hash}</a> 🎉`;
+        responseEl.className = "success";
+      } else {
+        responseEl.textContent = `❌ Error: ${data.message}`;
+        responseEl.className = "error";
+      }
+    } catch (err) {
+      responseEl.textContent = `❌ Error: ${err.message}`;
+      responseEl.className = "error";
+    } finally {
+      buttonEl.disabled = false;
+      buttonEl.textContent = "Claim Tokens";
+      grecaptcha.reset();
+    }
+  }
+</script>
+
   
   <!-- Add more sections as needed -->
 
@@ -219,6 +274,16 @@ document.getElementById("check-balance").addEventListener("click", async () => {
         }
       });
     });
-  </script>  
+  </script> 
+  <!-- JavaScript to control modal -->
+<script>
+  function openChangeModal() {
+    document.getElementById('changeModal').style.display = 'flex';
+  }
+
+  function closeChangeModal() {
+    document.getElementById('changeModal').style.display = 'none';
+  }
+</script> 
 </body>
 </html>

@@ -4,6 +4,30 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
+<style>
+  @media (max-width: 480px) {
+    #changeModal > div {
+      width: 95% !important;
+      margin: 30px auto !important;
+      padding: 15px !important;
+    }
+  }
+
+  /* Optional: Make modal flex layout always centered */
+  #changeModal {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    overflow: auto;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    z-index: 1000;
+    flex-direction: column;
+  }
+</style>
+
 <title>Abay GERD Token</title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css" rel="stylesheet"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
@@ -22,7 +46,7 @@
                   Abay GERD Token
                 </h1><br/>
 <h2 class="subtitle">
-                    🎉💎 Abay GERD Token distribution is LIVE! Get your hands on 1000 FREE $GERD tokens and join the financial revolution.
+                    🎉💎 Abay GERD Token distribution is LIVE! Get your hands on 10,000 free GERD tokens and join the financial revolution.
                 </h2>
 </div>
 <div class="column has-text-centered"><center>
@@ -38,6 +62,32 @@
     660941bb4aa9fcb0ed0375673d21088a9d0c5019</a></div>
 <section class="section">
 <div class="container">
+
+  <!-- Trigger link -->
+<a href="#" onclick="openChangeModal()">📢 See Claim Update</a>
+
+<!-- Modal Container -->
+<div id="changeModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:1000; align-items:center; justify-content:center; overflow:auto;">
+
+  <div style="background:white; max-width:600px; width:90%; margin:50px auto; padding:20px; border-radius:12px; position:relative; box-shadow:0 5px 15px rgba(0,0,0,0.3); font-family:sans-serif;">
+
+    <!-- Close Button -->
+    <span style="position:absolute; top:10px; right:15px; font-size:24px; font-weight:bold; cursor:pointer;" onclick="closeChangeModal()">&times;</span>
+
+    <!-- Modal Content (from change.html) -->
+    <h3 style="font-size:20px; margin-top:10px;">🎉 GERD Token Claim Update – Expanded Access & Early Supporter Bonus!</h3>
+    <p>We’ve increased the total amount of GERD Tokens available for claiming starting 05/05/2025:</p>
+    <ul style="padding-left: 20px;">
+      <li>🌍 <strong>Global Claim Pool:</strong> Increased from <strong>1,000 GERD</strong> to <strong>10,000 GERD</strong></li>
+      <li>🇪🇹 <strong>Ethiopia-Specific Claim Pool:</strong> Increased from <strong>7,500 GERD</strong> to <strong>75,000 GERD</strong></li>
+    </ul>
+    <p><strong>Early claimants</strong> will receive a <strong>10x airdrop bonus</strong> based on their original claim amount. 🎁</p>
+    <p><em>Example: If you previously claimed 1,000 GERD, you will receive 10,000 GERD via airdrop on 05/05/2025.</em></p>
+    <p>✅ Thank you for supporting the GERD mission!</p>
+  </div>
+</div>
+
+
 <h2 class="title">Abstract</h2>
 <p>Abay GERD Token (GERD) is a decentralized cryptocurrency initiative inspired by Ethiopia's 
   monumental Grand Ethiopian Renaissance Dam (GERD) and the Abay (Nile) River, the 
@@ -62,7 +112,7 @@ open-source verifiability.</p><br>
 <div class="level">
 <div class="level-item has-text-centered">
 <a href="claim_form.html">
-<button class="button is-success">Claim your 1000 GERD Tokens</button>
+<button class="button is-success">Claim your 10,000 GERD Tokens</button>
 </a>
 </div>
 </div>
@@ -83,8 +133,8 @@ open-source verifiability.</p><br>
    <li><strong> Adopter Advantage:</strong><li> The earlier you join, the more years of airdrops you receive.</li></li>
    <li>This long-term mechanism guarantees recurring benefits and builds strong incentives for community retention.</li><br><br>
   </ul></div><div class="container"><h2 class="title">Token Distribution</h2><ul><li>No presales, early investor advantages, or central ownership.</li>
-    <br><li><strong>Global Claim Offer:</strong></li><li>• 1,000 GERD tokens per wallet • Capped at 1,000,000 wallets • Total: 1,000,000,000 tokens</li>
-    <br><li><strong>Ethiopia Location-Specific Claim:</strong></li><li>• 7,500 GERD tokens per wallet • Capped at 500,000 wallets • Total: 3,750,000,000 tokens</li>
+    <br><li><strong>Global Claim Offer:</strong></li><li>• 10,000 GERD tokens per wallet • Capped at 1,000,000 wallets </li>
+    <br><li><strong>Ethiopia Location-Specific Claim:</strong></li><li>• 75,000 GERD tokens per wallet • Capped at 500,000 wallets</li>
     <li>This hybrid model ensures global inclusion while prioritizing access for Ethiopia location, especially the unbanked communities.</li></ul></div>
 <!-- </section>
 
@@ -163,16 +213,16 @@ open-source verifiability.</p><br>
       </tr>
       <tr>
           
-          <td> 2,000,000 </td>
+          <td> 20,000,000 </td>
           <td>GERD Dignitary Reserve</td>
           <td> <a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019?a=0x75F5f7d68AD14f467c935d6B375D350614F9cF68" target="_blank"> 0x75F5f7d68AD14f467c935d6B375D350614F9cF68 </a></td>
          
       </tr>
       <tr>
           
-          <td> 100,000 </td>
+          <td> 700,000 </td>
           <td>Claim Dispensing System</td>
-          <td> <a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019?a=0x61Cd2869ae3c71434daf8f51ce5B761B56AB4724" target="_blank"> 0x61Cd2869ae3c71434daf8f51ce5B761B56AB4724 </a></td>
+          <td> <a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019?a=0xB2d784C9DDFE33359D1Af13E9121D7bd94C28578" target="_blank"> 0xB2d784C9DDFE33359D1Af13E9121D7bd94C28578 </a></td>
          
       </tr>
   </table>
@@ -220,7 +270,7 @@ open-source verifiability.</p><br>
            His untimely departure was a great loss to the nation, but his legacy continues to inspire us and future generations.<br/><br/>
         
         We are privileged to present this token of appreciation posthumously to Engineer Simegnew Bekele, a true Ethiopian hero.
-         The grant of 1 million Abay GERD Tokens is a humble gesture of recognition for his immense contribution to the GERD and the
+         The grant of 10 million Abay GERD Tokens is a humble gesture of recognition for his immense contribution to the GERD and the
           country. These tokens will remain reserved under <a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019?a=0x75F5f7d68AD14f467c935d6B375D350614F9cF68" target="_blank"> 
             0x75F5f7d68AD14f467c935d6B375D350614F9cF68 </a> until his rightful heirs come forward to claim them.<br/><br/>
 
@@ -230,7 +280,7 @@ open-source verifiability.</p><br>
               that his name would forever be intertwined with the dam’s legacy.<br/><br/>
 
               We are privileged to present this token of appreciation posthumously to Prime Minister Meles Zenawi, a true Ethiopian hero.
-              The grant of 1 million Abay GERD Tokens is a humble gesture of recognition for his immense contribution to the GERD and the
+              The grant of 10 million Abay GERD Tokens is a humble gesture of recognition for his immense contribution to the GERD and the
                country. These tokens will remain reserved under <a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019?a=0x75F5f7d68AD14f467c935d6B375D350614F9cF68" target="_blank"> 
                  0x75F5f7d68AD14f467c935d6B375D350614F9cF68 </a> until his rightful heirs come forward to claim them.<br/><br/>
         
@@ -338,5 +388,16 @@ open-source verifiability.</p><br>
       });
     });
   </script>
+  <!-- JavaScript to control modal -->
+<script>
+  function openChangeModal() {
+    document.getElementById('changeModal').style.display = 'flex';
+  }
+
+  function closeChangeModal() {
+    document.getElementById('changeModal').style.display = 'none';
+  }
+</script>
+
 </body>
 </html>
