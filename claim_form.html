@@ -225,7 +225,7 @@ document.getElementById("check-balance").addEventListener("click", async () => {
 
       const data = await res.json();
       if (data.status === 'success') {
-        responseEl.innerHTML = `✅ Success! Tokens sent.<br>Tx Hash: <a href="https://bscscan.com/tx/${data.tx_hash}" target="_blank">${data.tx_hash}</a> 🎉`;
+        responseEl.innerHTML = `✅ Success! Tokens sent.<br>Tx Hash: <a href="https://bscscan.com/tx/0x${data.tx_hash}" target="_blank">0x${data.tx_hash}</a> 🎉`;
         responseEl.className = "success";
       } else {
         responseEl.textContent = `❌ Error: ${data.message}`;
