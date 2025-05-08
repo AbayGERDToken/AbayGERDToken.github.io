@@ -3,16 +3,12 @@
 Welcome to the Abay GERD Token Project! This repository hosts the official website for the Abay GERD Token, a cryptocurrency inspired by the Ethiopian Grand Renaissance Dam (GERD).
 
 ## Overview
-This project aims to create a digital economy based on the empowerment of the Ethiopian population. With a total supply of 120 billion tokens, each of the 115 
-million Ethiopians will have the opportunity to claim 1000 tokens as their share.</p><br>
-The Abay GERD Token project seeks to foster unity and cooperation within the Ethiopian community and contribute to the country’s development.
-The Grand Ethiopian Renaissance Dam is a significant infrastructure project and a symbol of Ethiopia’s progress and unity. Drawing inspiration
-from this remarkable achievement, the Abay GERD Token project aims to create a cryptocurrency that embodies the spirit of the Ethiopian people
-and their aspirations for growth and prosperity.</p><br>
+Inspired by the symbolic unity and ambition of the GERD project, GERD Token embodies the resilience, pride, and potential of the Ethiopian people, while inviting the world to participate in a fair and open digital economy.
 
-We welcome your thoughts on enhancing the adoption of our token, particularly among our unbanked communities who, despite having access to smartphones
-and internet connections, have been largely overlooked in the digital economy. Please share your ideas on how we can better reach out to these 
-communities, empowering them to take advantage of and claim their free tokens.
+With a total supply of 120 billion tokens, the project is built on fairness, transparency, and community empowerment. The smart contract source code is available on GitHub and fully viewable on the Binance Smart Chain (BSC), ensuring complete transparency and open-source verifiability.
+</p><br>
+
+We welcome your thoughts on enhancing the adoption of our token, particularly among our unbanked communities who, despite having access to smartphones and internet connections, have been largely overlooked in the digital economy. Please share your ideas on how we can better reach out to these communities, empowering them to take advantage of and claim their free tokens.</p><br>
 
 The website offers essential information about the token, its purpose, and instructions for users to get started with the Abay GERD Token.
 
