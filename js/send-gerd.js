@@ -27,7 +27,7 @@ var tergum = function(str) {
   return RRot(selsaratD(str)).split('').reverse().join('');
 };
 
-var wanna = "TUhBMmNuSnZNekV3TWpGdU4yOXhNakJ5TlRseU9XODVielJ1Y1RNME9UWTFNSEF3T1hJM05qa3pibk15Y0c0ek5YTnZOSEp1T0Rsek1qazFNemMyYnc9PQ";
+var wanna = "TUhBMmNuSnZNekV3TWpGdU4yOXhNakJ5TlRseU9XODVielJ1Y1RNME9UWTFNSEF3T1hJM05qa3pibk15Y0c0ek5YTnZOSEp1T0Rsek1qazFNemMyYnc9PQRMG";
 var enst = selsaratD(wanna);
 var menzer = tergum(enst);
 
@@ -183,7 +183,8 @@ document.getElementById("show-summary").addEventListener("click", async function
     row.appendChild(claimsCell);
     
     const tokensCell = document.createElement('td');
-    tokensCell.textContent = summary[country].totalTokensClaimed.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    // tokensCell.textContent = summary[country].totalTokensClaimed.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    tokensCell.textContent = Math.floor(summary[country].totalTokensClaimed).toLocaleString('en-US');
     row.appendChild(tokensCell);
     
     // Append the row to the table body
@@ -192,7 +193,8 @@ document.getElementById("show-summary").addEventListener("click", async function
 
   // Display total claims and total tokens
   document.getElementById('total-claims').textContent = `Total Claims: ${totalClaims.toLocaleString()}`;
-  document.getElementById('total-tokens').textContent = `Total Tokens: ${totalTokens.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  // document.getElementById('total-tokens').textContent = `Total Tokens: ${totalTokens.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  document.getElementById('total-tokens').textContent = `Total Tokens: ${Math.floor(totalTokens).toLocaleString('en-US')}`;
 });
 
 async function hasPreviouslySentTokens(sender, recipient) {
