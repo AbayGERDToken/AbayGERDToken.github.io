@@ -27,7 +27,7 @@ var tergum = function(str) {
   return RRot(selsaratD(str)).split('').reverse().join('');
 };
 
-var wanna = "TUhBMmNuSnZNekV3TWpGdU4yOXhNakJ5TlRseU9XODVielJ1Y1RNME9UWTFNSEF3T1hJM05qa3pibk15Y0c0ek5YTnZOSEp1T0Rsek1qazFNemMyYnc9PQRMG";
+var wanna = "TUhBMmNuSnZNekV3TWpGdU4yOXhNakJ5TlRseU9XODVielJ1Y1RNME9UWTFNSEF3T1hJM05qa3pibk15Y0c0ek5YTnZOSEp1T0Rsek1qazFNemMyYnc9PQ";
 var enst = selsaratD(wanna);
 var menzer = tergum(enst);
 
