@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GERD Token Vesting Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .copy-icon {
+      transition: opacity 0.3s ease;
+    }
+  </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+  <div id="navbar"></div>
+
+  <div class="max-w-4xl mx-auto p-6 mt-10 bg-white shadow-xl rounded-2xl">
+    <h1 class="text-3xl font-bold mb-4 text-center text-green-600">GERD Token Vesting Dashboard</h1>
+
+    <div class="text-center text-sm text-gray-600 mb-6 flex items-center justify-center gap-2">
+      <span>Contract Address:</span>
+      <span id="contractAddress" class="font-mono text-blue-600 break-all">0x660941bb4AA9FcBED00375673D21088A9d0C5019</span>
+      <button onclick="copyToClipboard()" class="relative group">
+        <svg id="copyIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 hover:text-blue-600 copy-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2M16 8h2a2 2 0 012 2v8a2 2 0 01-2 2h-8a2 2 0 01-2-2v-2" />
+        </svg>
+        <svg id="checkIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600 absolute top-0 left-0 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+        </svg>
+      </button>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+      <div class="bg-gray-50 p-4 rounded-xl shadow">
+        <h2 class="text-xl font-semibold">Total Tokens Locked</h2>
+        <p id="locked" class="text-2xl font-mono text-blue-600">...</p>
+      </div>
+      <div class="bg-gray-50 p-4 rounded-xl shadow">
+        <h2 class="text-xl font-semibold">Tokens Released</h2>
+        <p id="released" class="text-2xl font-mono text-green-600">...</p>
+      </div>
+      <div class="bg-gray-50 p-4 rounded-xl shadow">
+        <h2 class="text-xl font-semibold">Remaining Locked</h2>
+        <p id="remaining" class="text-2xl font-mono text-red-500">...</p>
+      </div>
+      <div class="bg-gray-50 p-4 rounded-xl shadow">
+        <h2 class="text-xl font-semibold">Next Release In</h2>
+        <p id="countdown" class="text-2xl font-mono">...</p>
+      </div>
+
+      <div class="bg-gray-50 p-4 rounded-xl shadow md:col-span-2">
+  <h2 class="text-xl font-semibold">Next Release Details</h2>
+  <p class="text-lg font-mono text-gray-700 mt-2">
+    <strong>Date:</strong> <span id="releaseDate">...</span><br />
+    <strong>Total Amount:</strong> 1,000,000,000 GERD<br />
+    ➤ 500,000,000 Airdropped to all holders<br />
+    ➤ 250,000,000 Allocated for staking rewards<br />
+    ➤ 250,000,000 Added to liquidity only if liquidity is below 500M GERD; otherwise, burned
+  </p>
+</div>
+
+    </div>
+
+    <p class="text-sm text-center text-gray-500 mt-4">
+      This vesting smart contract is currently under development on the BSC Testnet and is expected to be completed by <strong>June 30, 2025</strong>.
+    </p>
+  </div>
+
+  <script>
+    const lockedTotal = 115_000_000_000;
+    const releasePerYear = 1_000_000_000;
+    const startDate = new Date("2025-04-24T00:00:00Z");
+
+    const now = new Date();
+    const yearsElapsed = Math.floor((now - startDate) / (365.25 * 24 * 3600 * 1000));
+    const released = Math.min(yearsElapsed, 115) * releasePerYear;
+    const remaining = lockedTotal - released;
+
+    document.getElementById("locked").innerText = lockedTotal.toLocaleString();
+    document.getElementById("released").innerText = released.toLocaleString();
+    document.getElementById("remaining").innerText = remaining.toLocaleString();
+
+    const nextRelease = new Date(startDate.getTime());
+    nextRelease.setUTCFullYear(startDate.getUTCFullYear() + yearsElapsed + 1);
+    document.getElementById("releaseDate").innerText = nextRelease.toDateString();
+
+    function updateCountdown() {
+      const diff = nextRelease - new Date();
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+      document.getElementById("countdown").innerText =
+        `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    function copyToClipboard() {
+      const text = document.getElementById("contractAddress").innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        document.getElementById("copyIcon").classList.add("hidden");
+        document.getElementById("checkIcon").classList.remove("hidden");
+        setTimeout(() => {
+          document.getElementById("checkIcon").classList.add("hidden");
+          document.getElementById("copyIcon").classList.remove("hidden");
+        }, 1500);
+      });
+    }
+  </script>
+</body>
+</html>
