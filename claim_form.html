@@ -237,6 +237,12 @@ document.getElementById("check-balance").addEventListener("click", async () => {
       responseEl.className = "error";
       return;
     }
+    if (!sessionToken) {
+      responseEl.textContent = "Error: Session not initialized. Please wait a few seconds and try again.";
+      responseEl.className = "error";
+      return;
+    }
+
 
     buttonEl.disabled = true;
     buttonEl.textContent = "Processing...";
