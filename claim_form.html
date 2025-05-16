@@ -213,12 +213,13 @@ document.getElementById("check-balance").addEventListener("click", async () => {
       const res = await fetch('https://abay-gerd-backend.onrender.com/auth/session');
       const data = await res.json();
       sessionToken = data.session_token;
-    } catch (err) {
+      return sessionToken;
+   }  catch (err) {
       console.error("Failed to get session token:", err);
+      return null;
     }
   }
 
-  fetchSessionToken();
 
   async function claimTokens() {
     const recipient = document.getElementById('recipient').value.trim();
@@ -238,9 +239,12 @@ document.getElementById("check-balance").addEventListener("click", async () => {
       return;
     }
     if (!sessionToken) {
-      responseEl.textContent = "Error: Session not initialized. Please wait a few seconds and try again.";
-      responseEl.className = "error";
-      return;
+      await fetchSessionToken();
+      if (!sessionToken) {
+        responseEl.textContent = "Error: Session not initialized. Please wait a few seconds and try again.";
+        responseEl.className = "error";
+        return;
+      }
     }
 
 
