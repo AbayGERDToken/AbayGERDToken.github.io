@@ -48,19 +48,20 @@
     text-decoration: none;
   }
 </style>
-<style>
-  body {
-    margin: 0;
-    padding: 0;
-  }
-</style>
 </head>
 <body>
-<iframe
-  src="navtest.html"
-  style="border:0;width:100%;height:auto;display:block;overflow:visible;"
-  scrolling="no"
-></iframe>
+
+<div id="navbar-container"></div>
+<script>
+  fetch('navtest.html')
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById('navbar-container').innerHTML = html;
+      setTimeout(() => {
+        if (window.initFlowbite) initFlowbite();
+      }, 200);
+    });
+</script>
 
 
 <section class="hero is-success is-bold">
