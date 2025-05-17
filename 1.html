@@ -48,9 +48,26 @@
     text-decoration: none;
   }
 </style>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          green: {
+            600: '#047857',
+            100: '#d1fae5',
+            200: '#a7f3d0'
+          }
+        }
+      }
+    }
+  }
+</script>
+<script src="https://unpkg.com/flowbite@2.2.1/dist/flowbite.min.js"></script>
 </head>
 <body>
-
 <div id="navbar-container"></div>
 <script>
   fetch('navtest.html')
@@ -62,7 +79,6 @@
       }, 200);
     });
 </script>
-
 
 <section class="hero is-success is-bold">
 <div class="hero-body">
@@ -409,15 +425,6 @@
   }
 </script>
 
-<script>
-  window.addEventListener("message", function (e) {
-    if (e.data.navHeight) {
-      const iframe = document.querySelector("iframe[src='navtest.html']");
-      if (iframe) {
-        iframe.style.height = e.data.navHeight + "px";
-      }
-    }
-  });
-</script>
+
 </body>
 </html>

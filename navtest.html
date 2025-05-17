@@ -1,22 +1,8 @@
 <!-- navtest.html -->
 <!-- Include Tailwind and Flowbite directly -->
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          green: {
-            600: '#047857',
-            100: '#d1fae5',
-            200: '#a7f3d0'
-          }
-        }
-      }
-    }
-  }
-</script>
-<script src="https://unpkg.com/flowbite@2.2.1/dist/flowbite.min.js"></script>
+
+
+
 
 <nav class="bg-emerald-500 px-4 py-2.5">
   <div class="container flex flex-wrap items-center justify-between mx-auto">
@@ -120,16 +106,4 @@
     </div>
   </div>
 </nav>
-<script>
-  function resizeIframe() {
-    const height = document.documentElement.scrollHeight;
-    parent.postMessage({ navHeight: height }, '*');
-  }
 
-  window.addEventListener("load", resizeIframe);
-  window.addEventListener("click", () => setTimeout(resizeIframe, 100));
-  window.addEventListener("transitionend", resizeIframe);
-  window.addEventListener("input", resizeIframe);
-  window.addEventListener("mouseover", resizeIframe);
-  window.addEventListener("focus", resizeIframe);
-</script>
