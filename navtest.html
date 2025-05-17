@@ -1,17 +1,8 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>GERD Mega Navbar</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/flowbite@2.2.1/dist/flowbite.min.js"></script>
-</head>
-<body class="bg-gray-50">
-
 <nav class="bg-green-600 px-4 py-2.5">
   <div class="container flex flex-wrap items-center justify-between mx-auto">
-    <a href="#" class="text-xl font-semibold text-white">GERD Token</a>
+    <a href="#">
+      <img src="image/gerdlogo.jpeg" alt="Abay GERD Token Logo" class="h-10 w-auto">
+    </a>
 
     <button data-collapse-toggle="mega-menu" type="button" class="md:hidden p-2 text-white hover:bg-green-200">
       <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -24,7 +15,6 @@
 
         <li><a href="#" class="block py-2 text-white hover:text-green-100">Home</a></li>
 
-        <!-- 1. Single Dropdown -->
         <li>
           <button id="dropdown1" data-dropdown-toggle="dropdown1menu" class="flex items-center py-2 text-white hover:text-green-100">
             Services <svg class="w-3 h-3 ml-1" viewBox="0 0 20 20" fill="currentColor"><path d="M5.23 7.21L10 12l4.77-4.79"/></svg>
@@ -37,7 +27,6 @@
           </div>
         </li>
 
-        <!-- 2. Multi-Level Dropdown -->
         <li>
           <button id="dropdown2" data-dropdown-toggle="dropdown2menu" class="flex items-center py-2 text-white hover:text-green-100">
             Community
@@ -56,7 +45,6 @@
           </div>
         </li>
 
-        <!-- 3. With Icons -->
         <li>
           <button id="dropdown3" data-dropdown-toggle="dropdown3menu" class="flex items-center py-2 text-white hover:text-green-100">
             Wallet
@@ -69,7 +57,6 @@
           </div>
         </li>
 
-        <!-- 4. Grouped with Headers -->
         <li>
           <button id="dropdown4" data-dropdown-toggle="dropdown4menu" class="flex items-center py-2 text-white hover:text-green-100">
             Developers
@@ -88,7 +75,6 @@
           </div>
         </li>
 
-        <!-- 5. Megamenu Columns -->
         <li>
           <button id="dropdown5" data-dropdown-toggle="dropdown5menu" class="flex items-center py-2 text-white hover:text-green-100">
             Ecosystem
@@ -113,7 +99,6 @@
           </div>
         </li>
 
-        <!-- 6. With Divider -->
         <li>
           <button id="dropdown6" data-dropdown-toggle="dropdown6menu" class="flex items-center py-2 text-white hover:text-green-100">
             Legal
@@ -126,17 +111,14 @@
           </div>
         </li>
 
-        <!-- 7. External -->
         <li>
           <a href="https://etherscan.io/token/..." target="_blank" class="block py-2 text-white hover:text-green-100">Etherscan ↗</a>
         </li>
 
-        <!-- 8. Disabled -->
         <li>
           <span class="block py-2 text-gray-300 cursor-not-allowed">Coming Soon</span>
         </li>
 
-        <!-- 9. With Descriptions -->
         <li>
           <button id="dropdown7" data-dropdown-toggle="dropdown7menu" class="flex items-center py-2 text-white hover:text-green-100">
             Resources
@@ -159,7 +141,6 @@
           </div>
         </li>
 
-        <!-- 10. Custom Styled Submenu -->
         <li>
           <button id="dropdown8" data-dropdown-toggle="dropdown8menu" class="flex items-center py-2 text-white hover:text-green-100">
             Actions
@@ -176,6 +157,3 @@
     </div>
   </div>
 </nav>
-
-</body>
-</html>

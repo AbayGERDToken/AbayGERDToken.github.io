@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GERD Token Page</title>
+
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Optional: Custom Tailwind theme config -->
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            green: {
+              600: '#047857',
+              100: '#d1fae5',
+              200: '#a7f3d0'
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Flowbite JS for dropdowns and UI behavior -->
+  <script src="https://unpkg.com/flowbite@2.2.1/dist/flowbite.min.js"></script>
+</head>
+<body class="bg-gray-50">
+
+  <!-- Load Navbar -->
+  <div id="navbar-container"></div>
+
+  <script>
+    fetch('navtest.html')
+      .then(response => response.text())
+      .then(data => {
+        document.getElementById('navbar-container').innerHTML = data;
+      });
+  </script>
+
+  <!-- Page content below -->
+  <main class="p-6">
+    <h1 class="text-2xl font-bold">Welcome to GERD Token</h1>
+    <p class="mt-2 text-gray-700">This is a sample page that loads the navigation bar from navtest.html.</p>
+  </main>
+
+</body>
+</html>
