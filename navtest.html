@@ -149,3 +149,28 @@
     subtree: true
   });
 </script>
+<script>
+  function resizeIframe() {
+    const height = document.documentElement.scrollHeight;
+    parent.postMessage({ navHeight: height }, '*');
+  }
+
+  window.addEventListener("load", resizeIframe);
+
+  // Dynamically adjust height when dropdowns expand
+  const observer = new MutationObserver(() => {
+    setTimeout(resizeIframe, 250);  // Enough delay to allow animation
+  });
+
+  observer.observe(document.body, {
+    attributes: true,
+    childList: true,
+    subtree: true
+  });
+
+  // Recalculate on dropdown toggle click directly as backup
+  document.addEventListener("click", () => {
+    setTimeout(resizeIframe, 500); // Handles any unexpected changes
+  });
+</script>
+
