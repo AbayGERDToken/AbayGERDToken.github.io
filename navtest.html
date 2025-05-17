@@ -17,6 +17,13 @@
   }
 </script>
 <script src="https://unpkg.com/flowbite@2.2.1/dist/flowbite.min.js"></script>
+<style>
+  html, body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+</style>
 
 <nav class="bg-emerald-500 px-4 py-2.5">
   <div class="container flex flex-wrap items-center justify-between mx-auto">
@@ -127,7 +134,7 @@
   }
 
   window.addEventListener("load", resizeIframe);
-  window.addEventListener("click", () => setTimeout(resizeIframe, 100));
+  window.addEventListener("click", () => setTimeout(resizeIframe, 250));
   window.addEventListener("transitionend", resizeIframe);
   window.addEventListener("input", resizeIframe);
   window.addEventListener("mouseover", resizeIframe);
