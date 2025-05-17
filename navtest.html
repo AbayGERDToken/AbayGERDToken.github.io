@@ -17,6 +17,7 @@
   }
 </script>
 <script src="https://unpkg.com/flowbite@2.2.1/dist/flowbite.min.js"></script>
+
 <style>
   html, body {
     margin: 0;
@@ -27,7 +28,7 @@
 
 <nav class="bg-emerald-500 px-4 py-2.5">
   <div class="container flex flex-wrap items-center justify-between mx-auto">
-    <a href="#">
+    <a href="#" target="_top">
       <img src="image/gerdlogo.jpeg" alt="Abay GERD Token Logo" class="h-10 w-auto">
     </a>
 
@@ -39,8 +40,8 @@
 
     <div class="hidden w-full md:block md:w-auto" id="mega-menu">
       <ul class="flex flex-col md:flex-row md:space-x-6 mt-4 md:mt-0 text-sm font-medium">
-        <li><a href="https://www.abaygerdtoken.com/index.html" class="block py-2 text-white hover:text-green-200">Home</a></li>
-        
+        <li><a href="https://www.abaygerdtoken.com/index.html" target="_top" class="block py-2 text-white hover:text-green-200">Home</a></li>
+
         <li>
           <button id="dropdown5" data-dropdown-toggle="dropdown5menu" class="flex items-center py-2 text-white hover:text-green-100">
             Ecosystem
@@ -48,26 +49,25 @@
           <div id="dropdown5menu" class="hidden z-10 bg-white shadow rounded p-4 w-80 grid grid-cols-2 gap-4">
             <div>
               <h6 class="text-xs font-semibold text-gray-500">Projects</h6>
-
               <ul>
-                <li><a href="claim_form.html" target="_top" class="block py-1 text-sm hover:text-green-600"><span>📤</span>Claim Token</a></li>
-                <li><a href="dashboard_vesting.html" target="_top" class="block py-1 text-sm hover:text-green-600"><span>🧭</span>Dashboard</a></li>
-                <li><a href="distribution_rpt.html" target="_top" class="block py-1 text-sm hover:text-green-600"><span>📊</span>Claim Report</a></li>
-                <li><a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019" target="_blank" class="block py-1 text-sm hover:text-green-600"> ↗ Block Explorer</a></li>
-                
+                <li><a href="claim_form.html" target="_top" class="block py-1 text-sm hover:text-green-600"><span>📤</span> Claim Token</a></li>
+                <li><a href="dashboard_vesting.html" target="_top" class="block py-1 text-sm hover:text-green-600"><span>🧭</span> Dashboard</a></li>
+                <li><a href="distribution_rpt.html" target="_top" class="block py-1 text-sm hover:text-green-600"><span>📊</span> Claim Report</a></li>
+                <li><a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019" target="_blank" class="block py-1 text-sm hover:text-green-600">↗ Block Explorer</a></li>
               </ul>
             </div>
             <div>
               <h6 class="text-xs font-semibold text-gray-500">Info</h6>
               <ul>
                 <li><a href="Vesting.html" target="_top" class="block py-1 text-sm hover:text-green-600">Vesting Plan</a></li>
-                <li><a href="image/GERDVesting_Roadmap.pdf" target="_top" class="block py-1 text-sm hover:text-green-600">Vesting Roadmap<span>📄</span></a></li>
+                <li><a href="image/GERDVesting_Roadmap.pdf" target="_top" class="block py-1 text-sm hover:text-green-600">Vesting Roadmap <span>📄</span></a></li>
                 <li><a href="GERDwallets.html" target="_top" class="block py-1 text-sm hover:text-green-600">Project Wallets</a></li>
                 <li><a href="QnA.html" target="_top" class="block py-1 text-sm hover:text-green-600">QnA</a></li>
               </ul>
             </div>
           </div>
         </li>
+
         <li>
           <button id="dropdown7" data-dropdown-toggle="dropdown7menu" class="flex items-center py-2 text-white hover:text-green-100">
             Resources
@@ -76,14 +76,14 @@
             <ul class="py-1 text-gray-700">
               <li>
                 <a href="https://www.abaygerdtoken.com/image/AbayGERDToken.pdf" target="_top" class="block px-4 py-2 hover:bg-green-100">
-                  <div class="font-medium">Whitepaper<span>📄</span></div>
-                  <p class="text-xs text-gray-500">Project overview and economics pdf</p>
+                  <div class="font-medium">Whitepaper <span>📄</span></div>
+                  <p class="text-xs text-gray-500">Project overview and economics PDF</p>
                 </a>
               </li>
               <li>
                 <a href="dev/GERD_Token_Audit_Summary.pdf" target="_top" class="block px-4 py-2 hover:bg-green-100">
-                  <div class="font-medium">Audit Report<span>📄</span></div>
-                  <p class="text-xs text-gray-500">Basic internal audit summary pdf</p>
+                  <div class="font-medium">Audit Report <span>📄</span></div>
+                  <p class="text-xs text-gray-500">Basic internal audit summary PDF</p>
                 </a>
               </li>
               <li>
@@ -110,7 +110,7 @@
 
         <li>
           <button id="dropdown2" data-dropdown-toggle="dropdown2menu" class="flex items-center py-2 text-white hover:text-green-100">
-            Developpers
+            Developers
           </button>
           <div id="dropdown2menu" class="hidden z-10 bg-white shadow rounded w-48">
             <ul class="py-1 text-gray-700">
@@ -121,12 +121,16 @@
         </li>
 
         <li>
-          <a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019" target="_blank" class="block py-2 text-white hover:text-green-100"> ↗ Block Explorer</a>
+          <a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019" target="_blank" class="block py-2 text-white hover:text-green-100">
+            ↗ Block Explorer
+          </a>
         </li>
       </ul>
     </div>
   </div>
 </nav>
+
+<!-- Auto-resize iframe when dropdown expands -->
 <script>
   function resizeIframe() {
     const height = document.documentElement.scrollHeight;
@@ -134,12 +138,14 @@
   }
 
   window.addEventListener("load", resizeIframe);
-  window.addEventListener("click", () => {
-  setTimeout(resizeIframe, 500); // Wait longer for dropdown animation
-});
 
-  window.addEventListener("transitionend", resizeIframe);
-  window.addEventListener("input", resizeIframe);
-  window.addEventListener("mouseover", resizeIframe);
-  window.addEventListener("focus", resizeIframe);
+  const observer = new MutationObserver(() => {
+    setTimeout(resizeIframe, 100); // allow dropdowns to finish expanding
+  });
+
+  observer.observe(document.body, {
+    attributes: true,
+    childList: true,
+    subtree: true
+  });
 </script>
