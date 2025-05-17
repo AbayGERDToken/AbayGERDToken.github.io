@@ -50,15 +50,7 @@
 </style>
 </head>
 <body>
-<div id="navbar-container"></div>
-<script>
-  fetch('navtest.html')
-    .then(response => response.text())
-    .then(data => {
-      document.getElementById('navbar-container').innerHTML = data;
-      if (window.initFlowbite) initFlowbite(); // Ensure dropdowns work
-    });
-</script>
+<iframe src="navtest.html" style="border:0;width:100%;height:auto;" scrolling="no"></iframe>
 
 <section class="hero is-success is-bold">
 <div class="hero-body">
@@ -405,5 +397,15 @@
   }
 </script>
 
+<script>
+  window.addEventListener("message", function (e) {
+    if (e.data.navHeight) {
+      const iframe = document.querySelector("iframe[src='navtest.html']");
+      if (iframe) {
+        iframe.style.height = e.data.navHeight + "px";
+      }
+    }
+  });
+</script>
 </body>
 </html>

@@ -103,11 +103,11 @@
 
         <li>
           <button id="dropdown2" data-dropdown-toggle="dropdown2menu" class="flex items-center py-2 text-white hover:text-green-100">
-            Extra
+            Developpers
           </button>
           <div id="dropdown2menu" class="hidden z-10 bg-white shadow rounded w-48">
             <ul class="py-1 text-gray-700">
-              <li><a href="#" class="block px-4 py-2 hover:bg-green-100">Extra 1</a></li>
+              <li><a href="#" class="block px-4 py-2 hover:bg-green-100">Landing Page</a></li>
               <li><a href="#" class="block px-4 py-2 hover:bg-green-100">Extra 2</a></li>
             </ul>
           </div>
@@ -120,3 +120,16 @@
     </div>
   </div>
 </nav>
+<script>
+  function resizeIframe() {
+    const height = document.documentElement.scrollHeight;
+    parent.postMessage({ navHeight: height }, '*');
+  }
+
+  window.addEventListener("load", resizeIframe);
+  window.addEventListener("click", () => setTimeout(resizeIframe, 100));
+  window.addEventListener("transitionend", resizeIframe);
+  window.addEventListener("input", resizeIframe);
+  window.addEventListener("mouseover", resizeIframe);
+  window.addEventListener("focus", resizeIframe);
+</script>
