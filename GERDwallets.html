@@ -15,11 +15,17 @@
 
 </head>
 <body>
-   <iframe
-  src="navtest.html"
-  style="border:0;width:100%;height:auto;display:block;overflow:visible;"
-  scrolling="no"
-></iframe>
+   <div id="navbar-container"></div>
+<script>
+  fetch('navtest.html')
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById('navbar-container').innerHTML = html;
+      setTimeout(() => {
+        if (window.initFlowbite) initFlowbite();
+      }, 200);
+    });
+</script>
 
 
 
@@ -131,15 +137,6 @@
       </p>
     </div>
   </footer>
-  <script>
-  window.addEventListener("message", function (e) {
-    if (e.data.navHeight) {
-      const iframe = document.querySelector("iframe[src='navtest.html']");
-      if (iframe) {
-        iframe.style.height = e.data.navHeight + "px";
-      }
-    }
-  });
-</script>
+  
 </body>
 </html>
