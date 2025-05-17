@@ -15,7 +15,7 @@
         extend: {
           colors: {
             green: {
-              600: '#047857',
+              700: '#047857',
               100: '#d1fae5',
               200: '#a7f3d0'
             }
@@ -34,12 +34,17 @@
   <div id="navbar-container"></div>
 
   <script>
-    fetch('navtest.html')
-      .then(response => response.text())
-      .then(data => {
-        document.getElementById('navbar-container').innerHTML = data;
-      });
-  </script>
+  fetch('navtest.html')
+    .then(response => response.text())
+    .then(data => {
+      document.getElementById('navbar-container').innerHTML = data;
+
+      // Re-initialize dropdowns after navbar is inserted
+      if (window.initFlowbite) {
+        initFlowbite();
+      }
+    });
+</script>
 
   <!-- Page content below -->
   <main class="p-6">
