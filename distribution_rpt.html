@@ -3,114 +3,148 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-
-  <style>.page-inner { background-color: rgb(255, 255, 255); min-height: 100vh; }</style>
-  <style>.img-left { float: middle ; width: 150px; height: auto; margin-right: 10px; } </style>
-
   <title>Token Distribution Report</title>
+
+  <!-- Bulma + Tailwind + Flowbite -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            green: {
+              600: '#047857',
+              100: '#d1fae5',
+              200: '#a7f3d0'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/flowbite@2.2.1/dist/flowbite.min.js"></script>
+
+  <!-- Firebase + Web3 -->
   <script src="https://cdn.jsdelivr.net/npm/web3@1.5.2/dist/web3.min.js"></script>
-  <!-- The core Firebase JS SDK is always required and must be listed first -->
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-  <!-- Add the Firestore service -->
   <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 
   <style>
-    input#wallet-address { width: 400px; }
-    input#bwallet-address { width: 400px; }
-    /* body { background-color: #a7f1fa; }
-    .content {
-      margin-left: 0.2in;
-      margin-right: 0.1in;
-    } */
+    .page-inner { background-color: rgb(255, 255, 255); min-height: 100vh; }
+    .img-left { float: middle; width: 150px; height: auto; margin-right: 10px; }
+    input#wallet-address, input#bwallet-address { width: 400px; }
+    #summary-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+    #summary-table th, #summary-table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+    }
+    #summary-table tr:nth-child(even) {
+      background-color: #f2f2f2;
+    }
+    #summary-table tr:hover {
+      background-color: #ddd;
+    }
+    #summary-table th {
+      padding-top: 12px;
+      padding-bottom: 12px;
+      text-align: left;
+      background-color: hsl(171, 100%, 41%);
+      color: white;
+    }
   </style>
 </head>
+
 <body>
-    <div id="navbar"></div>
+  <!-- Injected Navbar -->
+  <div id="navbar-container"></div>
+  <script>
+    fetch('navtest.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('navbar-container').innerHTML = html;
+        setTimeout(() => {
+          if (window.initFlowbite) initFlowbite();
+        }, 200);
+      });
+  </script>
 
-    <section class="section">
-      <div class="container">
-        <h2 class="title">Distribution Statistics</h2>
-        <p>Total tokens claimed by Country:
-      </div>
-    </section>
+  <section class="section">
+    <div class="container">
+      <h2 class="title">Distribution Statistics</h2>
+      <p>Total tokens claimed by Country:</p>
+    </div>
+  </section>
 
-    <section class="section">
-      <div class="container">
-        <style>
-          #summary-table {
-            width: 100%;
-            border-collapse: collapse;
-          }
-          #summary-table th, #summary-table td {
-            border: 1px solid #ddd;
-            padding: 8px;
-          }
-          #summary-table tr:nth-child(even) {
-            background-color: #f2f2f2;
-          }
-          #summary-table tr:hover {
-            background-color: #ddd;
-          }
-          #summary-table th {
-            padding-top: 12px;
-            padding-bottom: 12px;
-            text-align: left;
-            background-color: hsl(171, 100%, 41%);
-            color: white;
-          }
-        </style>
-        <button  class="button is-success is-light" id="show-summary">Refresh Data</button> *Click to pull updated report.
-        
-        <table id="summary-table">
-          <thead>
-            <tr>
-              <th>Country Name</th>
-              <th>Number of Claims</th>
-              <th>Total Tokens Claimed</th>
-            </tr>
-          </thead>
-          <tbody id="summary-table-body">
-          </tbody>
-        </table>
-        <hr>
-        <p id="total-claims"></p>
-        <p id="total-tokens"></p>
-      </div>
-    </section>
+  <section class="section">
+    <div class="container">
+      <button class="button is-success is-light" id="show-summary">Refresh Data</button> *Click to pull updated report.
+
+      <table id="summary-table">
+        <thead>
+          <tr>
+            <th>Country Name</th>
+            <th>Number of Claims</th>
+            <th>Total Tokens Claimed</th>
+          </tr>
+        </thead>
+        <tbody id="summary-table-body">
+        </tbody>
+      </table>
+      <hr>
+      <p id="total-claims"></p>
+      <p id="total-tokens"></p>
+    </div>
+  </section>
 
   <section class="hero is-success is-bold">
     <div class="hero-body">
       <div class="container">
         <div class="columns is-vcentered">
-          <div class="column"> 
-          </div>
-         
+          <div class="column">
             <div class='tableauPlaceholder' id='viz1686619041159' style='position: relative'>
-              <noscript><a href='#'><img alt='Dashboard 1 ' src='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Di&#47;Distribution_Tableau&#47;Dashboard1&#47;1_rss.png' style='border: none' /></a></noscript>
-              <object class='tableauViz'  style='display:none;'><param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
-                 <param name='embed_code_version' value='3' /> <param name='site_root' value='' /><param name='name' value='Distribution_Tableau&#47;Dashboard1' />
-                 <param name='tabs' value='no' /><param name='toolbar' value='yes' /><param name='static_image' value='https:&#47;&#47;public.tableau.com&#47;static&#47;images&#47;Di&#47;Distribution_Tableau&#47;Dashboard1&#47;1.png' />
-                 <param name='animate_transition' value='yes' /><param name='display_static_image' value='yes' /><param name='display_spinner' value='yes' />
-                 <param name='display_overlay' value='yes' /><param name='display_count' value='yes' /><param name='language' value='en-US' /></object></div>
-                 <script type='text/javascript'>                    
-                 var divElement = document.getElementById('viz1686619041159');                    
-                 var vizElement = divElement.getElementsByTagName('object')[0];                    
-                 if ( divElement.offsetWidth > 800 ) { vizElement.style.width='1000px';vizElement.style.height='827px';}
-                 else if ( divElement.offsetWidth > 500 ) { vizElement.style.width='1000px';vizElement.style.height='827px';} 
-                 else { vizElement.style.width='100%';vizElement.style.height='927px';}                     
-                 var scriptElement = document.createElement('script');                    
-                 scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';                    
-                 vizElement.parentNode.insertBefore(scriptElement, vizElement);                
-                 </script>
-          
+              <noscript><a href='#'><img alt='Dashboard 1 ' src='https://public.tableau.com/static/images/Di/Distribution_Tableau/Dashboard1/1_rss.png' style='border: none' /></a></noscript>
+              <object class='tableauViz' style='display:none;'>
+                <param name='host_url' value='https%3A%2F%2Fpublic.tableau.com%2F' />
+                <param name='embed_code_version' value='3' />
+                <param name='site_root' value='' />
+                <param name='name' value='Distribution_Tableau/Dashboard1' />
+                <param name='tabs' value='no' />
+                <param name='toolbar' value='yes' />
+                <param name='static_image' value='https://public.tableau.com/static/images/Di/Distribution_Tableau/Dashboard1/1.png' />
+                <param name='animate_transition' value='yes' />
+                <param name='display_static_image' value='yes' />
+                <param name='display_spinner' value='yes' />
+                <param name='display_overlay' value='yes' />
+                <param name='display_count' value='yes' />
+                <param name='language' value='en-US' />
+              </object>
+            </div>
+            <script type='text/javascript'>
+              var divElement = document.getElementById('viz1686619041159');
+              var vizElement = divElement.getElementsByTagName('object')[0];
+              if (divElement.offsetWidth > 800) {
+                vizElement.style.width = '1000px';
+                vizElement.style.height = '827px';
+              } else if (divElement.offsetWidth > 500) {
+                vizElement.style.width = '1000px';
+                vizElement.style.height = '827px';
+              } else {
+                vizElement.style.width = '100%';
+                vizElement.style.height = '927px';
+              }
+              var scriptElement = document.createElement('script');
+              scriptElement.src = 'https://public.tableau.com/javascripts/api/viz_v1.js';
+              vizElement.parentNode.insertBefore(scriptElement, vizElement);
+            </script>
+          </div>
         </div>
       </div>
     </div>
-</section>
-
-  <!-- Add more sections as needed -->
+  </section>
 
   <section class="hero is-success is-bold">
     <div class="hero-body">
@@ -118,8 +152,8 @@
         <div class="columns is-vcentered">
           <div class="column">
             <h2 class="subtitle">
-                DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY AND SUPPORTING THE GRAND ETHIOPIAN RENAISSANCE DAM PROJECT.
-                 JOIN US IN CREATING A BRIGHTER FUTURE! 🌍💰 #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD
+              DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY AND SUPPORTING THE GRAND ETHIOPIAN RENAISSANCE DAM PROJECT.
+              JOIN US IN CREATING A BRIGHTER FUTURE! 🌍💰 #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD
             </h2>
           </div>
           <div class="column has-text-centered">
@@ -128,7 +162,7 @@
         </div>
       </div>
     </div>
-</section>
+  </section>
 
   <footer class="footer">
     <div class="content has-text-centered">
@@ -137,28 +171,8 @@
       </p>
     </div>
   </footer>
+
+  <!-- Your custom report JS -->
   <script src="js/send-gerd.js"></script>
-  <script>
-    $(function() {
-      $("#navbar").load("abaynav.html", function() {
-        // Get all "navbar-burger" elements
-        const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-        // Check if there are any navbar burgers
-        if ($navbarBurgers.length > 0) {
-          // Add a click event on each of them
-          $navbarBurgers.forEach(el => {
-            el.addEventListener('click', () => {
-              // Get the target from the "data-target" attribute
-              const target = el.dataset.target;
-              const $target = document.getElementById(target);
-              // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-              el.classList.toggle('is-active');
-              $target.classList.toggle('is-active');
-            });
-          });
-        }
-      });
-    });
-  </script>  
 </body>
 </html>

@@ -4,9 +4,27 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>GERD Token Vesting Dashboard</title>
+
+  <!-- Tailwind & Flowbite -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            green: {
+              600: '#047857',
+              100: '#d1fae5',
+              200: '#a7f3d0'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/flowbite@2.2.1/dist/flowbite.min.js"></script>
+
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   <style>
     .copy-icon {
       transition: opacity 0.3s ease;
@@ -14,7 +32,19 @@
   </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
-  <div id="navbar"></div>
+
+  <!-- Injected Navbar -->
+  <div id="navbar-container"></div>
+  <script>
+    fetch('navtest.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('navbar-container').innerHTML = html;
+        setTimeout(() => {
+          if (window.initFlowbite) initFlowbite();
+        }, 200);
+      });
+  </script>
 
   <div class="max-w-4xl mx-auto p-6 mt-10 bg-white shadow-xl rounded-2xl">
     <h1 class="text-3xl font-bold mb-4 text-center text-green-600">GERD Token Vesting Dashboard</h1>
@@ -51,16 +81,15 @@
       </div>
 
       <div class="bg-gray-50 p-4 rounded-xl shadow md:col-span-2">
-  <h2 class="text-xl font-semibold">Next Release Details</h2>
-  <p class="text-lg font-mono text-gray-700 mt-2">
-    <strong>Date:</strong> <span id="releaseDate">...</span><br />
-    <strong>Total Amount:</strong> 1,000,000,000 GERD<br />
-    ➤ 500,000,000 Airdropped to all holders<br />
-    ➤ 250,000,000 Allocated for staking rewards<br />
-    ➤ 250,000,000 Added to liquidity only if liquidity is below 500M GERD; otherwise, burned
-  </p>
-</div>
-
+        <h2 class="text-xl font-semibold">Next Release Details</h2>
+        <p class="text-lg font-mono text-gray-700 mt-2">
+          <strong>Date:</strong> <span id="releaseDate">...</span><br />
+          <strong>Total Amount:</strong> 1,000,000,000 GERD<br />
+          ➤ 500,000,000 Airdropped to all holders<br />
+          ➤ 250,000,000 Allocated for staking rewards<br />
+          ➤ 250,000,000 Added to liquidity only if liquidity is below 500M GERD; otherwise, burned
+        </p>
+      </div>
     </div>
 
     <p class="text-sm text-center text-gray-500 mt-4">
@@ -111,27 +140,6 @@
       });
     }
   </script>
-  <script>
-    $(function() {
-      $("#navbar").load("abaynav.html", function() {
-        // Get all "navbar-burger" elements
-        const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-        // Check if there are any navbar burgers
-        if ($navbarBurgers.length > 0) {
-          // Add a click event on each of them
-          $navbarBurgers.forEach(el => {
-            el.addEventListener('click', () => {
-              // Get the target from the "data-target" attribute
-              const target = el.dataset.target;
-              const $target = document.getElementById(target);
-              // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-              el.classList.toggle('is-active');
-              $target.classList.toggle('is-active');
-            });
-          });
-        }
-      });
-    });
-  </script> 
+
 </body>
 </html>

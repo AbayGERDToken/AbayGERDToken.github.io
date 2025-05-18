@@ -5,51 +5,77 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Abay GERD Token QnA</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+  <!-- Tailwind CSS and Flowbite -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            green: {
+              600: '#047857',
+              100: '#d1fae5',
+              200: '#a7f3d0'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/flowbite@2.2.1/dist/flowbite.min.js"></script>
 </head>
 <body>
-    <div id="navbar"></div>
 
-    <section class="section">
-      <div class="container">
-        <h2 class="title">📘 QnA: Why Are Token Rewards Different by Region?</h2>
+  <!-- Injected Navbar -->
+  <div id="navbar-container"></div>
+  <script>
+    fetch('navtest.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('navbar-container').innerHTML = html;
+        setTimeout(() => {
+          if (window.initFlowbite) initFlowbite();
+        }, 200);
+      });
+  </script>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="title">📘 QnA: Why Are Token Rewards Different by Region?</h2>
     </div>
-  <br>
+    <br>
 
-    
-        <div class="container">
-          <h2 class="subtitle">🔹 Why do Ethiopia originated wallets receive 75,000 GERD while others get 10,000 GERD tokens?</h2>
-          <p>The Abay GERD Token was created as a tribute to the people of Ethiopia who collectively funded and built the Grand Renaissance
-            Dam without external aid. This project represents unity, self-determination, and national pride. As such, Ethiopia is at the 
-            heart of this initiative and receive the highest reward.</p>
-        </div>
-     
-<br><br>
-      
-        <div class="container">
-          <h2 class="subtitle">🔹 Why does the rest of the world receive 10,000 GERD?</h2>
-          <p>Global participants are essential to the success of any decentralized project. We welcome and appreciate your support. The 10,000 GERD reward 
-            reflects both inclusivity and our commitment to keeping the token’s value sustainable while prioritizing communities most directly connected
-             to the project’s origin.</p>
-        </div>
-     
+    <div class="container">
+      <h2 class="subtitle">🔹 Why do Ethiopia originated wallets receive 75,000 GERD while others get 10,000 GERD tokens?</h2>
+      <p>The Abay GERD Token was created as a tribute to the people of Ethiopia who collectively funded and built the Grand Renaissance
+        Dam without external aid. This project represents unity, self-determination, and national pride. As such, Ethiopia is at the 
+        heart of this initiative and receive the highest reward.</p>
+    </div>
 
-  <br><br>
+    <br><br>
 
- 
+    <div class="container">
+      <h2 class="subtitle">🔹 Why does the rest of the world receive 10,000 GERD?</h2>
+      <p>Global participants are essential to the success of any decentralized project. We welcome and appreciate your support. The 10,000 GERD reward 
+        reflects both inclusivity and our commitment to keeping the token’s value sustainable while prioritizing communities most directly connected
+        to the project’s origin.</p>
+    </div>
+
+    <br><br>
+
     <div class="container">
       <h2 class="subtitle">🔹 Isn’t this unfair or discriminatory?</h2>
       <p>
         Not at all. This is mission-aligned distribution, not exclusion. Every user, regardless of region or background, is eligible to receive 
         tokens and participate freely. The distribution structure ensures that those who contributed to building the foundation—including the
-         unbanked and less privileged individuals who played a vital role in constructing the dam—are recognized and empowered in proportion 
-         to their efforts. The goal is not only fairness, but also long-term value creation for the communities that made this project possible.
+        unbanked and less privileged individuals who played a vital role in constructing the dam—are recognized and empowered in proportion 
+        to their efforts. The goal is not only fairness, but also long-term value creation for the communities that made this project possible.
       </p>
     </div>
- 
-<br><br>
- 
-  
+
+    <br><br>
+
     <div class="container">
       <h2 class="subtitle">🔹 Will I still be able to trade or earn more GERD tokens?</h2>
       <p>Yes. GERD tokens will remain tradable for all users worldwide. Once 100,000 wallets have successfully claimed tokens and the token is 
@@ -57,15 +83,14 @@
     </div>
   </section>
 
-  
   <section class="hero is-success is-bold">
     <div class="hero-body">
       <div class="container">
         <div class="columns is-vcentered">
           <div class="column">
             <h2 class="subtitle">
-                DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY AND SUPPORTING THE GRAND ETHIOPIAN RENAISSANCE DAM PROJECT.
-                 JOIN US IN CREATING A BRIGHTER FUTURE! 🌍💰 #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD
+              DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY AND SUPPORTING THE GRAND ETHIOPIAN RENAISSANCE DAM PROJECT.
+              JOIN US IN CREATING A BRIGHTER FUTURE! 🌍💰 #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD
             </h2>
           </div>
           <div class="column has-text-centered">
@@ -74,11 +99,8 @@
         </div>
       </div>
     </div>
-</section>
+  </section>
 
-  <!-- Add more sections as needed -->
-
- 
   <footer class="footer">
     <div class="content has-text-centered">
       <p style="font-size: 0.85rem;">
@@ -86,27 +108,6 @@
       </p>
     </div>
   </footer>
-  <script>
-    $(function() {
-      $("#navbar").load("abaynav.html", function() {
-        // Get all "navbar-burger" elements
-        const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-        // Check if there are any navbar burgers
-        if ($navbarBurgers.length > 0) {
-          // Add a click event on each of them
-          $navbarBurgers.forEach(el => {
-            el.addEventListener('click', () => {
-              // Get the target from the "data-target" attribute
-              const target = el.dataset.target;
-              const $target = document.getElementById(target);
-              // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-              el.classList.toggle('is-active');
-              $target.classList.toggle('is-active');
-            });
-          });
-        }
-      });
-    });
-  </script>  
+
 </body>
 </html>

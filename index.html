@@ -48,12 +48,38 @@
     text-decoration: none;
   }
 </style>
-
-
-
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          green: {
+            600: '#047857',
+            100: '#d1fae5',
+            200: '#a7f3d0'
+          }
+        }
+      }
+    }
+  }
+</script>
+<script src="https://unpkg.com/flowbite@2.2.1/dist/flowbite.min.js"></script>
 </head>
 <body>
-<div id="navbar"></div>
+<div id="navbar-container"></div>
+<script>
+  fetch('navtest.html')
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById('navbar-container').innerHTML = html;
+      setTimeout(() => {
+        if (window.initFlowbite) initFlowbite();
+      }, 200);
+    });
+</script>
+
 <section class="hero is-success is-bold">
 <div class="hero-body">
 <div class="container">
@@ -77,7 +103,7 @@
 </section>
 
 <div class="container" align="right">Contract: <a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019" target="_blank">
-    <code>660941bb4aa9fcb0ed0375673d21088a9d0c5019</code></a></div>
+    <code>0x660941bb4aa9fcb0ed0375673d21088a9d0c5019</code></a></div>
 <section class="section">
  <div class="container">
 
@@ -202,83 +228,7 @@
   </div>
 <!-- </section>
 
-<section class="section"> --> <br><br>
-  <div class="container">
-    <h2 class="title">Token Allocation Breakdown</h2>
-    
-   
-    
-    <!-- table starts here -->
-    <table border="0">
-
-      <tr>
-          
-          <td>115,000,000,000 </td>
-          <td>'  National Allocation Reserve ' </td>
-          <td> <a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019?a=0x02a2013C569c3cF7a8bf3DFE70D97c76B44993dc" target="_blank"><code> 0x02a2013C569c3cF7a8bf3DFE70D97c76B44993dc </code></a></td>
-          
-      </tr>
-      <tr>
-          
-          <td>1,500,000,000 </td>
-          <td>Token Burning Mechanism</td>
-          <td> <a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019?a=0x000000000000000000000000000000000000dead" target="_blank"><code> 0x000000000000000000000000000000000000dead </code></a></td>
-          
-      </tr>
-      <tr>
-         
-          <td> 1,638,000,000 </td>
-          <td>Development Reserve Fund</td>
-          <td> <a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019?a=0x8bF286A0135489832300e33F57ACc7ADA2Ca8133" target="_blank"><code> 0x8bF286A0135489832300e33F57ACc7ADA2Ca8133 </code></a></td>
-          
-      </tr>
-      <tr>
-         
-          <td> 950,000,000 </td>
-          <td>Initial Distribution - Phase 1</td>
-          <td> <a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019?a=0xAfDAaDe5b0044993813b1f06cC3F3c6C025a1F1D" target="_blank"><code color="blue"> 0xAfDAaDe5b0044993813b1f06cC3F3c6C025a1F1D </code> </a></td>
-          
-      </tr>
-      <tr>
-          
-          <td> 920,000,000 </td>
-          <td>Initial Distribution - Phase 2</td>
-          <td> <a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019?a=0x2C2b19aE578425B628302Eb3c0215D2BFE3e14fd" target="_blank"><code> 0x2C2b19aE578425B628302Eb3c0215D2BFE3e14fd </code> </a></td>
-          
-      </tr>
-      <tr>
-          
-          <td> 6,500,000 </td>
-          <td>Liquidity Provision - Pool 1</td>
-          <td> <a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019?a=0x69d944663b294E1bDFE043d1f798076f9A342b3c" target="_blank"><code> 0x69d944663b294E1bDFE043d1f798076f9A342b3c </code> </a></td>
-          
-      </tr>
-      <tr>
-          
-          <td> 1,400,000 </td>
-          <td>Liquidity Provision - Pool 2</td>
-          <td> <a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019?a=0x660941bb4AA9FcBED00375673D21088A9d0C5019" target="_blank"> <code> 0x660941bb4AA9FcBED00375673D21088A9d0C5019 </code></a></td>
-         
-      </tr>
-      <tr>
-          
-          <td> 20,000,000 </td>
-          <td>GERD Dignitary Reserve</td>
-          <td> <a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019?a=0x75F5f7d68AD14f467c935d6B375D350614F9cF68" target="_blank"> <code> 0x75F5f7d68AD14f467c935d6B375D350614F9cF68 </code> </a></td>
-         
-      </tr>
-      <tr>
-          
-          <td> 1,500,000 </td>
-          <td>Claim Dispensing System</td>
-          <td> <a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019?a=0xB2d784C9DDFE33359D1Af13E9121D7bd94C28578" target="_blank"><code> 0xB2d784C9DDFE33359D1Af13E9121D7bd94C28578 </code> </a></td>
-         
-      </tr>
-  </table>
-  
-
-   <!-- table ends here -->
-  </div>
+<section class="section"> -->
 <!-- </section>
 
   <section class="section"> --> <br/><br/>
@@ -449,6 +399,7 @@
 </div>
 <div class="column has-text-centered">
 <img alt="AbayGERDToken" src="image/abay_bluesky.png" style="width: 300px; height: auto;"/>
+
 </div>
 </div>
 </div>
@@ -462,28 +413,7 @@
       </p>
 </div>
 </footer>
-<script>
-    $(function() {
-      $("#navbar").load("abaynav.html", function() {
-        // Get all "navbar-burger" elements
-        const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-        // Check if there are any navbar burgers
-        if ($navbarBurgers.length > 0) {
-          // Add a click event on each of them
-          $navbarBurgers.forEach(el => {
-            el.addEventListener('click', () => {
-              // Get the target from the "data-target" attribute
-              const target = el.dataset.target;
-              const $target = document.getElementById(target);
-              // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
-              el.classList.toggle('is-active');
-              $target.classList.toggle('is-active');
-            });
-          });
-        }
-      });
-    });
-  </script>
+
   <!-- JavaScript to control modal -->
 <script>
   function openChangeModal() {
@@ -494,6 +424,7 @@
     document.getElementById('changeModal').style.display = 'none';
   }
 </script>
+
 
 </body>
 </html>

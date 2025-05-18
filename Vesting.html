@@ -4,86 +4,114 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>GERD Token Vesting</title>
+
+  <!-- Bulma + Tailwind + Flowbite -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            green: {
+              600: '#047857',
+              100: '#d1fae5',
+              200: '#a7f3d0'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/flowbite@2.2.1/dist/flowbite.min.js"></script>
 </head>
 <body>
-    <div id="navbar"></div>
 
-    <section class="section">
-      
-     <Div class="container">
-      <h class="title">Abay GERD Token Vesting Strategy Announced: Reinforcing Transparency and Sustainable Growth</h><br><br>
+  <!-- Dynamic Navbar -->
+  <div id="navbar-container"></div>
+  <script>
+    fetch('navtest.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('navbar-container').innerHTML = html;
+        setTimeout(() => {
+          if (window.initFlowbite) initFlowbite();
+        }, 200);
+      });
+  </script>
+
+  <section class="section">
+    <div class="container">
+      <h1 class="title">Abay GERD Token Vesting Strategy Announced: Reinforcing Transparency and Sustainable Growth</h1>
+      <br>
       <p>
         The <strong>Abay GERD Token (GERD)</strong> introduces a transformative vesting strategy designed to enhance long-term value,
-         promote stability, and build trust through full transparency. This development marks a major milestone in the token’s evolution.
+        promote stability, and build trust through full transparency. This development marks a major milestone in the token’s evolution.
       </p>
-    <br>
+      <br>
+
+      <h2 class="subtitle">Overview of the Vesting Plan</h2>
       <p>
-        <h class="subtitle">Overview of the Vesting Plan</h><br><br>
-        In addition to the milestone airdrop distributed to all existing wallet addresses on May 5, 2025, to commemorate its <strong>2-year anniversary</strong>,
-         GERD Token has introduced a long-term vesting framework to further demonstrate its commitment to sustainability and ongoing community rewards.
-
-A total of <strong>115 billion tokens</strong> will be locked in a secure, immutable smart contract, with a scheduled release of <strong>
-  1 billion tokens per year </strong> over the
- next 115 years. This approach ensures a consistent and predictable distribution model that incentivizes long-term holding and active participation.
-
-The smart contract is fully autonomous and irreversible. Once deployed, its rules cannot be modified or bypassed—neither by the original developers 
-nor any external party. The vesting schedule and token release conditions will be permanently embedded in the blockchain and remain verifiable by 
-anyone at any time.
-    <br><br>
-      <h class="subtitle">Key Details</h><br><br>
-
-      <li><strong>115 Billion Tokens Will Be Locked:</strong> Secured in an irreversible smart contract on Binance Smart Chain (BSC), governed entirely by code.</li>
-      <li><strong>Annual Release of 1 Billion Tokens:</strong> Beginning April 23, 2026, one billion tokens will be released each year for the next 115 years.</li>
-      <li><strong>500 Million Airdropped to Holders:</strong> Half of the annual release will be distributed equally to all active wallet addresses holding GERD—no registration or special action required.</li>
-      <li><strong>250 Million for Staking Rewards:</strong> A quarter of the annual release will be allocated as rewards for users staking GERD tokens, encouraging network participation and long-term holding.</li>
-      <li><strong>Up to 250 Million for Liquidity or Burn:</strong> The remaining portion will be added to the liquidity pool <em>only if</em> liquidity drops below 500 million tokens. If not needed, this portion will be permanently burned.</li>
-      <li><strong>Publicly Verifiable:</strong> All transactions and token flows are fully transparent and verifiable on the blockchain.</li>
-
-    <br><br>
-      <h class="subtitle">Why It Matters</h><br><br>
-
-        <li>Encourages long-term participation by rewarding holders every year.</li>
-        <li>Promotes steady and predictable growth within the GERD ecosystem.</li>
-        <li>Directly aligns with efforts to support the global GERD token community through decentralized finance.</li>
-      
-        <br><br>
-      <h class="subtitle">A Community-Driven Digital Asset</h><br><br>
-
-      <p>
-        The Abay GERD Token is not backed by institutions or governments. Its value is defined by the people who hold, use, and build around it. Like Bitcoin, its worth is determined by community belief and utility.
-      
-        As adoption increases and more wallets participate in the ecosystem, the value of GERD Token grows organically. The community—not a central authority—sets the pace and direction of that growth.
+        In addition to the milestone airdrop distributed to all existing wallet addresses on May 5, 2025, to commemorate its
+        <strong>2-year anniversary</strong>, GERD Token has introduced a long-term vesting framework to further demonstrate its
+        commitment to sustainability and ongoing community rewards.
       </p>
-    <br><br>
-      <h class="subtitle">A Generational Asset</h><br><br>
+      <br>
+      <p>
+        A total of <strong>115 billion tokens</strong> will be locked in a secure, immutable smart contract, with a scheduled release
+        of <strong>1 billion tokens per year</strong> over the next 115 years. This approach ensures a consistent and predictable
+        distribution model that incentivizes long-term holding and active participation.
+      </p>
+      <br>
+      <p>
+        The smart contract is fully autonomous and irreversible. Once deployed, its rules cannot be modified or bypassed—neither by
+        the original developers nor any external party. The vesting schedule and token release conditions will be permanently embedded
+        in the blockchain and remain verifiable by anyone at any time.
+      </p>
+      <br>
 
-      <p>
-        GERD Token is designed to be more than a short-term opportunity—it is a generational digital asset. With a vesting period that spans over a century, holders have the potential to pass their accumulated tokens to their children and grandchildren as part of a digital inheritance.
-      </p>
-    <br>
-      <p>
-        Accumulation is key. The earlier one becomes a holder, the greater the opportunity to benefit from recurring airdrops over many years. As adoption grows and the number of wallets increases, the share of the annual 500 million token airdrop received per wallet will decrease. For example, if 10,000 holders exist today, each would receive more than if there were 1 million holders in the future. 
-      </p>
-    <br>
-      <p>
-        Early adopters are naturally positioned to accumulate more, simply by holding and participating early. As with all decentralized networks, timing and consistent engagement play a significant role in long-term benefit. GERD Token rewards those who believe early and hold with vision.
-      </p>
+      <h2 class="subtitle">Key Details</h2>
+      <ul>
+        <li><strong>115 Billion Tokens Will Be Locked:</strong> Secured in an irreversible smart contract on Binance Smart Chain (BSC).</li>
+        <li><strong>Annual Release of 1 Billion Tokens:</strong> Starting April 23, 2026, 1 billion tokens will be released annually.</li>
+        <li><strong>500 Million Airdropped to Holders:</strong> Distributed evenly to all active GERD holders—no action needed.</li>
+        <li><strong>250 Million for Staking Rewards:</strong> For users who stake GERD tokens, encouraging engagement.</li>
+        <li><strong>Up to 250 Million for Liquidity or Burn:</strong> Added to liquidity if under 500M; otherwise burned.</li>
+        <li><strong>Publicly Verifiable:</strong> All activity is traceable and transparent on-chain.</li>
+      </ul>
+      <br>
 
-      <br/>
-      
-      <h class="subtitle">Looking Ahead</h><br><br>
+      <h2 class="subtitle">Why It Matters</h2>
+      <ul>
+        <li>Encourages long-term participation with annual rewards.</li>
+        <li>Promotes sustainable and predictable growth.</li>
+        <li>Aligns with a decentralized financial model for the GERD community.</li>
+      </ul>
+      <br>
 
+      <h2 class="subtitle">A Community-Driven Digital Asset</h2>
       <p>
-        GERD Token continues to evolve as a decentralized asset built on principles of fairness, transparency, and collective empowerment. With a century-long vesting plan, built-in yearly airdrops, and a model that favors early and consistent participation, it offers a rare opportunity to build long-term digital wealth that can span generations.
+        GERD Token’s value comes from its community, not institutions. Its adoption and utility define its worth—like Bitcoin, it’s a
+        decentralized people-powered asset.
       </p>
-    <br><br>
-      <p><h class="title"><strong>The journey has just begun. GERD is built to last.</strong></h></p>
-      </Div>
-    </section>
+      <br>
+
+      <h2 class="subtitle">A Generational Asset</h2>
+      <p>
+        Designed to last over a century, GERD Token is a long-term digital inheritance. Early holders benefit most from the annual
+        airdrop structure, and as the number of wallets increases, each share becomes smaller—rewarding early adopters significantly.
+      </p>
+      <br>
+
+      <h2 class="subtitle">Looking Ahead</h2>
+      <p>
+        GERD Token continues to grow on principles of fairness, transparency, and generational wealth. Its vesting mechanism offers a
+        rare chance to build digital legacy for years to come.
+      </p>
+      <br>
+      <h2 class="title has-text-success">The journey has just begun. GERD is built to last.</h2>
+    </div>
+  </section>
 
   <section class="hero is-success is-bold">
     <div class="hero-body">
@@ -91,9 +119,8 @@ anyone at any time.
         <div class="columns is-vcentered">
           <div class="column">
             <h2 class="subtitle">
-                DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY AND SUPPORTING THE GRAND 
-                ETHIOPIAN RENAISSANCE DAM PROJECT.
-                 JOIN US IN CREATING A BRIGHTER FUTURE! 🌍💰 #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD
+              DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY AND SUPPORTING THE GRAND 
+              ETHIOPIAN RENAISSANCE DAM PROJECT. JOIN US IN CREATING A BRIGHTER FUTURE! 🌍💰 #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD
             </h2>
           </div>
           <div class="column has-text-centered">
@@ -102,7 +129,7 @@ anyone at any time.
         </div>
       </div>
     </div>
-</section>
+  </section>
 
   <footer class="footer">
     <div class="content has-text-centered">
@@ -111,22 +138,6 @@ anyone at any time.
       </p>
     </div>
   </footer>
-  <script>
-    $(function() {
-      $("#navbar").load("abaynav.html", function() {
-        const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
-        if ($navbarBurgers.length > 0) {
-          $navbarBurgers.forEach(el => {
-            el.addEventListener('click', () => {
-              const target = el.dataset.target;
-              const $target = document.getElementById(target);
-              el.classList.toggle('is-active');
-              $target.classList.toggle('is-active');
-            });
-          });
-        }
-      });
-    });
-  </script>  
+
 </body>
 </html>
