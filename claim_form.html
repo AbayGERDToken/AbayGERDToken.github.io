@@ -1,53 +1,63 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.8.2/dist/web3.min.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    .copy-icon {
+      transition: opacity 0.3s ease;
+    }
+  </style>
+  <style>.page-inner { background-color: rgb(255, 255, 255); min-height: 100vh; }</style>
+  <style>.img-left { float: middle ; width: 150px; height: auto; margin-right: 10px; } </style>
+
   <title>Abay GERD Token Claim</title>
 
-  <!-- Bulma CSS -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
-
-  <!-- Tailwind CSS + Flowbite -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            green: {
-              600: '#047857',
-              100: '#d1fae5',
-              200: '#a7f3d0'
-            }
-          }
-        }
-      }
-    }
-  </script>
-  <script src="https://unpkg.com/flowbite@2.2.1/dist/flowbite.min.js"></script>
-
-  <!-- Web3 -->
-  <script src="https://cdn.jsdelivr.net/npm/web3@1.8.2/dist/web3.min.js"></script>
-
-  <!-- reCAPTCHA -->
+  
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-
   <style>
+    
+    
     input, button { width: 200px; padding: 10px; margin: 10px 0; }
     .success { color: green; }
     .error { color: red; }
     .loading { color: blue; }
     .g-recaptcha { margin: 10px 0; }
     .container { max-width: 400px; margin: auto; padding: 2em; }
-    input#recipient, input#bwallet-address { width: 400px; }
-    .copy-icon { transition: opacity 0.3s ease; }
-  </style>
+    input#recipient { width: 400px; }
+    input#bwallet-address { width: 400px;}
+    </style>
+    <style>
+      @media (max-width: 480px) {
+        #changeModal > div {
+          width: 95% !important;
+          margin: 30px auto !important;
+          padding: 15px !important;
+        }
+      }
+    
+      /* Optional: Make modal flex layout always centered */
+      #changeModal {
+        display: none;
+        align-items: center;
+        justify-content: center;
+        overflow: auto;
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background: rgba(0, 0, 0, 0.6);
+        z-index: 1000;
+        flex-direction: column;
+      }
+    </style>
 </head>
 <body>
-
-<!-- Injected Navbar -->
-<div id="navbar-container"></div>
+  <div id="navbar-container"></div>
 <script>
   fetch('navtest.html')
     .then(res => res.text())
@@ -59,178 +69,306 @@
     });
 </script>
 
-<!-- Page Content -->
-<div class="container">
-  <a href="#" onclick="openChangeModal()">📢 See Claim Update</a>
+  <div class="container">
+     <!-- Trigger link -->
+<a href="#" onclick="openChangeModal()">📢 See Claim Update</a>
 
-  <!-- Modal -->
-  <div id="changeModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:1000; align-items:center; justify-content:center; overflow:auto;">
-    <div style="background:white; max-width:600px; width:90%; margin:50px auto; padding:20px; border-radius:12px;">
-      <span style="position:absolute; top:10px; right:15px; font-size:24px; font-weight:bold; cursor:pointer;" onclick="closeChangeModal()">&times;</span>
-      <h3 style="font-size:20px;">🎉 GERD Token Claim Update – Starting 05/05/2025</h3>
-      <p>We’ve increased the total amount of GERD Tokens available for claiming:</p>
-      <ul>
-        <li>🌍 Global Claim: <strong>10,000 GERD</strong></li>
-        <li>🇪🇹 Ethiopia-Based Claim: <strong>75,000 GERD</strong></li>
-      </ul>
-      <p>✅ Previous claimants will receive a 10x airdrop bonus!</p>
-    </div>
+<!-- Modal Container -->
+<div id="changeModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:1000; align-items:center; justify-content:center; overflow:auto;">
+
+  <div style="background:white; max-width:600px; width:90%; margin:50px auto; padding:20px; border-radius:12px; position:relative; box-shadow:0 5px 15px rgba(0,0,0,0.3); font-family:sans-serif;">
+
+    <!-- Close Button -->
+    <span style="position:absolute; top:10px; right:15px; font-size:24px; font-weight:bold; cursor:pointer;" onclick="closeChangeModal()">&times;</span>
+
+    <!-- Modal Content (from change.html) -->
+    <h3 style="font-size:20px; margin-top:10px;">🎉 GERD Token Claim Update – Starting 05/05/2025</h3>
+    <p>We’ve increased the total amount of GERD Tokens available for claiming:</p>
+    <ul style="padding-left: 20px;">
+      <li>🌍 <strong>Global Claim:</strong> Increased from <strong>1,000 GERD</strong> to <strong>10,000 GERD</strong></li>
+      <li>🇪🇹 <strong>Ethiopia-Specific Claim:</strong> Increased from <strong>7,500 GERD</strong> to <strong>75,000 GERD</strong></li>
+    </ul>
+    <p><strong>Previous claimants</strong> will receive a <strong>10x airdrop bonus</strong> based on their original claim amount. 🎁</p>
+    <p><em>Example: If you previously claimed 1,000 GERD, you will receive 10,000 GERD via airdrop on 05/05/2025.</em></p>
+    <p>✅ Thank you for supporting the GERD mission!</p>
   </div>
+</div>
+    <h2 class="title">Claim Your GERD Tokens 🎁🔑</h2>
+    <p>
+      ✅ <strong>No wallet connection required.</strong><br/>
+      To claim your free GERD tokens, simply submit your wallet address. 
+      We never ask users to connect or sign transactions—your privacy and safety come first.
+    </p>
+    <br/>
+    <p>
+      🔍 Before submitting your claim:
+    </p>
+      <ul class="content">
+      <li>📲 Ensure you’ve imported the <strong>Abay GERD Token contract</strong> into your wallet</li>
+      <li>🪪 Use a supported wallet like 
+        
+        <a href="trust-wallet.html"><strong>Trust Wallet</strong></a>, 
+        <a href="metamask-wallet.html"><strong>MetaMask</strong></a>, 
+        <a href="https://www.exodus.com"><strong>Exodus</strong></a>, 
+        <strong>Halo Wallet</strong>, etc...</li>
+     
 
-  <h2 class="title">Claim Your GERD Tokens 🎁🔑</h2>
-  <p>
-    ✅ <strong>No wallet connection required.</strong><br>
-    Just submit your wallet address — no signing or private key needed.
-  </p>
-  <ul class="content">
-    <li>📲 Import the GERD Token contract into your wallet</li>
-    <li>🪪 Supported wallets: <a href="trust-wallet.html">Trust</a>, <a href="metamask-wallet.html">MetaMask</a>, Exodus, Halo Wallet</li>
-    <li>🌐 Token contract: 
-      <span id="contractAddress">0x660941bb4AA9FcBED00375673D21088A9d0C5019</span>
+      <!--<div class="box" align="left"> --> 
+      <span>
+         <li>🌐 The process is the same for all wallets — Import custom token and enter</span>
+      <span id="contractAddress" class="font-mono text-blue-600 break-all">0x660941bb4AA9FcBED00375673D21088A9d0C5019</span>
       <button onclick="copyToClipboard()" class="relative group">
-        <svg id="copyIcon" class="h-5 w-5 text-gray-500 hover:text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2"/>
+        <svg id="copyIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 hover:text-blue-600 copy-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2M16 8h2a2 2 0 012 2v8a2 2 0 01-2 2h-8a2 2 0 01-2-2v-2" />
         </svg>
-        <svg id="checkIcon" class="h-5 w-5 text-green-600 absolute top-0 left-0 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+        <svg id="checkIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600 absolute top-0 left-0 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
         </svg>
       </button>
-    </li>
-  </ul>
+    <!-- </div> --> 
+      </li>
+    </ul>
 
-  <h3 class="subtitle">📌 Claim Eligibility</h3>
-  <ul class="content">
-    <li>🇪🇹 Ethiopia-based: <strong>75,000 GERD</strong></li>
-    <li>🌍 Global wallets: <strong>10,000 GERD</strong></li>
-  </ul>
+    
+      <h3 class="subtitle">📌 Claim Eligibility</h3>
+      <ul class="content">
+        <li>🇪🇹 <strong>Ethiopia-based wallets:</strong> Receive <strong>75,000 GERD</strong></li>
+        <li>🌍 <strong>Global wallets:</strong> Receive <strong>10,000 GERD</strong></li>
+      </ul>
+    
+   </div>
+  
+  <div class="container">
+   
+    <h2>Wallet Address:</h2>
+  
+    <input class="input is-success" type="text" id="recipient" placeholder="GERD Wallet Address" />
+    <div class="g-recaptcha" data-sitekey="6LdQyRkrAAAAANv5siZlVghMFzQ2AEPIg8501G9P"></div>
+    <button class="button is-success" onclick="claimTokens()">Claim Tokens</button>
+    <p id="response"></p>
 
-  <h2>Wallet Address:</h2>
-  <input class="input is-success" type="text" id="recipient" placeholder="GERD Wallet Address" />
-  <div class="g-recaptcha" data-sitekey="6LdQyRkrAAAAANv5siZlVghMFzQ2AEPIg8501G9P"></div>
-  <button class="button is-success" onclick="claimTokens()">Claim Tokens</button>
-  <p id="response"></p>
-</div>
-
-<!-- Check Balance -->
-<div class="container">
-  <h3 class="subtitle">Check Your Balance</h3>
-  <label for="bwallet-address">Wallet Address:</label>
-  <input class="input is-success" type="text" placeholder="GERD wallet address" id="bwallet-address" />
-  <button class="button is-success" type="button" id="check-balance">Check Balance</button>
-  <strong><div id="balance-result">Balance: N/A</div></strong>
-</div>
-
-<!-- Footer -->
-<footer class="footer">
-  <div class="content has-text-centered">
-    <p><a href="mailto:contact@abaygerdtoken.com"><strong>Contact us</strong></a> for support.<br>© 2023 Abay GERD Token</p>
   </div>
-</footer>
+ 
 
-<!-- JS Functions -->
+  <div class="container">
+    <tr>
+      <td style="width:205px">&nbsp;</td>
+      <td style="width:993px">
+          <h3 class="subtitle"> Check your balance</h3>
+          <form>
+<label for="bwallet-address">Wallet Address:</label><br>
+<input class="input is-success" type="text" placeholder="GERD wallet address" id="bwallet-address" name="bwallet-address"/><br>
+<button class="button is-success" type="button" id="check-balance">Check Balance</button>
+<strong><div id="balance-result">Balance: N/A </div></strong>
+</div>
+          </form>
+      </td>
+  </tr>
+  </div>
+  
+  <section class="hero is-success is-bold">
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns is-vcentered">
+          <div class="column">
+            <h2 class="subtitle">
+                DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY AND SUPPORTING THE GRAND ETHIOPIAN RENAISSANCE DAM PROJECT.
+                 JOIN US IN CREATING A BRIGHTER FUTURE! 🌍💰 #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD
+            </h2>
+          </div>
+          <div class="column has-text-centered">
+            <img src="image/abay_bluesky.png" alt="AbayGERDToken" style="width: 300px; height: auto;">
+          </div>
+        </div>
+      </div>
+    </div>
+</section>
 <script>
-function openChangeModal() {
-  document.getElementById('changeModal').style.display = 'flex';
-}
-function closeChangeModal() {
-  document.getElementById('changeModal').style.display = 'none';
-}
-function copyToClipboard() {
-  const el = document.getElementById("contractAddress");
-  const range = document.createRange();
-  range.selectNode(el);
-  window.getSelection().removeAllRanges();
-  window.getSelection().addRange(range);
-  document.execCommand("copy");
-  window.getSelection().removeAllRanges();
-  document.getElementById("copyIcon").style.display = 'none';
-  document.getElementById("checkIcon").style.display = 'block';
-  setTimeout(() => {
-    document.getElementById("checkIcon").style.display = 'none';
-    document.getElementById("copyIcon").style.display = 'block';
-  }, 1500);
-}
-</script>
+  const web3a = new Web3("https://bsc-dataseed.binance.org/");
+const contractABI = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},
+  {"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
+           {"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
+           {"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"balances","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},
+           {"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},
+           {"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"}];
 
-<!-- Balance checker -->
-<script>
-const web3a = new Web3("https://bsc-dataseed.binance.org/");
-const contractABI = [/* contract ABI truncated here for brevity */];
 const contractAddress = "0x660941bb4AA9FcBED00375673D21088A9d0C5019";
 const gerdContract = new web3a.eth.Contract(contractABI, contractAddress);
+
 document.getElementById("check-balance").addEventListener("click", async () => {
-  const addr = document.getElementById("bwallet-address").value;
-  if (!web3a.utils.isAddress(addr)) {
-    document.getElementById("balance-result").innerText = `Error: Invalid address`;
+  const walletAddress = document.getElementById("bwallet-address").value;
+
+  if (!web3a.utils.isAddress(walletAddress)) {
+    // alert("Please enter a valid wallet address.");
+    document.getElementById("balance-result").innerText = `Error: Please enter a valid address`;
     return;
   }
-  const balance = await gerdContract.methods.balanceOf(addr).call();
-  const formatted = (balance / 10 ** 2).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  document.getElementById("balance-result").innerText = `Your balance is: ${formatted} GERD`;
+
+  try {
+  const balance = await gerdContract.methods.balanceOf(walletAddress).call();
+  const formattedBalance = (balance / 10**2).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  document.getElementById("balance-result").innerText = `Your balance is: ${formattedBalance} GERD`;
+  } catch (error) {
+    console.error("Error fetching balance:", error);
+    alert("An error occurred while fetching the balance.");
+  }
 });
 </script>
 
-<!-- Claim tokens (backend call) -->
 <script>
-let sessionToken = "";
-async function fetchSessionToken() {
-  try {
-    const res = await fetch('https://abay-gerd-backend.onrender.com/auth/session');
-    const data = await res.json();
-    sessionToken = data.session_token;
-    return sessionToken;
-  } catch (err) {
-    console.error("Session error:", err);
-    return null;
+  let sessionToken = "";
+
+  async function fetchSessionToken() {
+    try {
+      const res = await fetch('https://abay-gerd-backend.onrender.com/auth/session');
+      const data = await res.json();
+      sessionToken = data.session_token;
+      return sessionToken;
+   }  catch (err) {
+      console.error("Failed to get session token:", err);
+      return null;
+    }
   }
-}
-async function claimTokens() {
-  const recipient = document.getElementById('recipient').value.trim();
-  const responseEl = document.getElementById('response');
-  const recaptchaToken = grecaptcha.getResponse();
-  if (!web3a.utils.isAddress(recipient)) {
-    responseEl.textContent = "Invalid address.";
-    responseEl.className = "error";
-    return;
-  }
-  if (!recaptchaToken) {
-    responseEl.textContent = "Please complete reCAPTCHA.";
-    responseEl.className = "error";
-    return;
-  }
-  if (!sessionToken) {
-    await fetchSessionToken();
-    if (!sessionToken) {
-      responseEl.textContent = "Session error. Please try again.";
+
+
+  async function claimTokens() {
+    const recipient = document.getElementById('recipient').value.trim();
+    const responseEl = document.getElementById('response');
+    const buttonEl = document.querySelector('button');
+    const recaptchaToken = grecaptcha.getResponse();
+
+    if (!web3a.utils.isAddress(recipient)) {
+      responseEl.textContent = "Please enter a valid wallet address.";
       responseEl.className = "error";
       return;
     }
-  }
-  responseEl.textContent = "⏳ Processing...";
-  responseEl.className = "loading";
-  try {
-    const locData = await (await fetch("https://ipapi.co/json/")).json();
-    const amount = (locData.country_code === "ET") ? 75000 : 10000;
-    const res = await fetch("https://abay-gerd-backend.onrender.com/send-token", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ recipient, recaptchaToken, session_token: sessionToken })
-    });
-    const data = await res.json();
-    if (data.status === "success") {
-      responseEl.innerHTML = `✅ Success! Tx Hash: <a href="https://bscscan.com/tx/0x${data.tx_hash}" target="_blank">0x${data.tx_hash}</a>`;
-      responseEl.className = "success";
-    } else {
-      responseEl.textContent = `❌ ${data.message}`;
+
+    if (!recaptchaToken) {
+      responseEl.textContent = "Please complete the reCAPTCHA.";
       responseEl.className = "error";
+      return;
     }
-  } catch (err) {
-    responseEl.textContent = `❌ Error: ${err.message}`;
-    responseEl.className = "error";
-  } finally {
-    grecaptcha.reset();
+    if (!sessionToken) {
+      await fetchSessionToken();
+      if (!sessionToken) {
+        responseEl.textContent = "Error: Session not initialized. Please wait a few seconds and try again.";
+        responseEl.className = "error";
+        return;
+      }
+    }
+
+
+    buttonEl.disabled = true;
+    buttonEl.textContent = "Processing...";
+    responseEl.textContent = "🔎 Checking your location...";
+    responseEl.className = "loading";
+
+    try {
+      const locResponse = await fetch('https://ipapi.co/json/');
+      const locData = await locResponse.json();
+      const estimatedAmount = (locData.country_code === "ET") ? 75000 : 10000;
+
+      responseEl.textContent = `🌍 Detected Country: ${locData.country_name}. Preparing to send approximately ${estimatedAmount} GERD Tokens...`;
+
+      const res = await fetch('https://abay-gerd-backend.onrender.com/send-token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          recipient,
+          recaptchaToken,
+          session_token: sessionToken
+        })
+      });
+
+      const data = await res.json();
+      if (data.status === 'success') {
+        responseEl.innerHTML = `✅ Success! Tokens sent.<br>Tx Hash: <a href="https://bscscan.com/tx/0x${data.tx_hash}" target="_blank">0x${data.tx_hash}</a> 🎉`;
+        responseEl.className = "success";
+      } else {
+        responseEl.textContent = `❌ Error: ${data.message}`;
+        responseEl.className = "error";
+      }
+    } catch (err) {
+      responseEl.textContent = `❌ Error: ${err.message}`;
+      responseEl.className = "error";
+    } finally {
+      buttonEl.disabled = false;
+      buttonEl.textContent = "Claim Tokens";
+      grecaptcha.reset();
+    }
   }
-}
+</script>
+
+  
+  <!-- Add more sections as needed -->
+
+ 
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p style="font-size: 0.85rem;"><a href="mailto:contact@abaygerdtoken.com?subject=Claim Form"><strong>Contact us</strong></a> with claim related issues<br>
+        Copyright 2023 Abay GERD Token. All rights reserved.
+      </p>
+    </div>
+  </footer>
+  <script>
+    $(function() {
+      $("#navbar").load("abaynav.html", function() {
+        // Get all "navbar-burger" elements
+        const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+        // Check if there are any navbar burgers
+        if ($navbarBurgers.length > 0) {
+          // Add a click event on each of them
+          $navbarBurgers.forEach(el => {
+            el.addEventListener('click', () => {
+              // Get the target from the "data-target" attribute
+              const target = el.dataset.target;
+              const $target = document.getElementById(target);
+              // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+              el.classList.toggle('is-active');
+              $target.classList.toggle('is-active');
+            });
+          });
+        }
+      });
+    });
+  </script> 
+  <!-- JavaScript to control modal -->
+<script>
+  function openChangeModal() {
+    document.getElementById('changeModal').style.display = 'flex';
+  }
+
+  function closeChangeModal() {
+    document.getElementById('changeModal').style.display = 'none';
+  }
+</script> 
+<script>
+  function copyToClipboard() {
+    const contractAddressEl = document.getElementById("contractAddress");
+    const copyIcon = document.getElementById("copyIcon");
+    const checkIcon = document.getElementById("checkIcon");
+
+    const range = document.createRange();
+    range.selectNode(contractAddressEl);
+    window.getSelection().removeAllRanges();
+    window.getSelection().addRange(range);
+
+    try {
+      const successful = document.execCommand('copy');
+      if (successful) {
+        copyIcon.style.display = 'none';
+        checkIcon.style.display = 'block';
+        setTimeout(() => {
+          checkIcon.style.display = 'none';
+          copyIcon.style.display = 'block';
+        }, 1500);
+      }
+    } catch (err) {
+      alert("Copy failed. Please copy manually.");
+    }
+
+    window.getSelection().removeAllRanges();
+  }
 </script>
 
 </body>
