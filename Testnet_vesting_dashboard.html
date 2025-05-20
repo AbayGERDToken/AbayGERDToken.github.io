@@ -18,9 +18,9 @@
       color: #2c3e50;
     }
     p.intro {
-      font-size: 15px;
+      font-size: 20px;
       line-height: 1.5;
-      background: #e6f4ea;
+      background: #cfe4d5;
       padding: 15px;
       border-left: 4px solid #2ecc71;
       border-radius: 6px;
@@ -39,13 +39,25 @@
   </style>
 </head>
 <body>
+<!-- Injected Navbar -->
+  <div id="navbar-container"></div>
+  <script>
+    fetch('navtest.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('navbar-container').innerHTML = html;
+        setTimeout(() => {
+          if (window.initFlowbite) initFlowbite();
+        }, 200);
+      });
+  </script>
 
   <h1>GERD Vesting Progress Dashboard</h1>
 
   <p class="intro">
     This dashboard is for community members to follow the progress of the GERD Token Vesting contract testing on the BSC Testnet. 
     <br><br>
-    To simulate a long-term token release (1 billion GERD tokens per year), the vesting contract on testnet is configured to release 
+    To simulate a long-term token release (1 billion GERD tokens per year for 115 years), the vesting contract on testnet is configured to release 
     <strong>1 billion tokens every Wednesday</strong>. This allows for faster testing of what would normally happen over years in production.
     <br><br>
     The data below is read directly from the blockchain and updates in real-time.
