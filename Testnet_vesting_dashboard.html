@@ -69,16 +69,14 @@
         }, 200);
       });
   </script>
-  <section class="text-lg font-semibold text-green-600 ">
-  
-<center>GERD Vesting Dashboard on Testnet</center>
-
-  </section>
   <section class="bg-green-100 p-4 rounded-lg mb-4">
-    
+    <div class="container">
+      <h2 class="text-2xl font-bold text-green-600">📊 GERD Vesting Dashboard</h2><br>
   
-
-  <p class="intro">
+      </div>
+    <div class="container">
+     
+      <p class="intro">
     This dashboard is for community members to follow the progress of the GERD Token Vesting contract testing on the BSC Testnet. 
     <br><br>
     To simulate a long-term token release (1 billion GERD tokens per year for 115 years), the vesting contract on testnet is configured to release 
@@ -93,7 +91,8 @@
     <p><span class="label">Is Today Wednesday:</span> <span id="isWednesday">Loading...</span></p>
     <p><span class="label">Next Scheduled Release:</span> <span id="nextReleaseDate">Loading...</span></p>
   </div>
-
+  </div>
+</section>
   <script>
     const contractAddress = "0xfB97e1A2EF46c8083C42496e29E3b6783d928Ab3";
     const contractABI = [
