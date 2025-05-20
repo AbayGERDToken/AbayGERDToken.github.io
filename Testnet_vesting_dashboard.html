@@ -37,8 +37,26 @@
       margin-top: 10px;
     }
   </style>
+<!-- Tailwind CSS and Flowbite -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            green: {
+              600: '#047857',
+              100: '#d1fae5',
+              200: '#a7f3d0'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/flowbite@2.2.1/dist/flowbite.min.js"></script>
 </head>
-<body>
+<body class="pt-16">
 <!-- Injected Navbar -->
   <div id="navbar-container"></div>
   <script>
