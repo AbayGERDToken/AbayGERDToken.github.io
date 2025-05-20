@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>GERD Vesting Progress Dashboard</title>
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      padding: 20px;
+      background: #f5f5f5;
+      color: #333;
+      max-width: 700px;
+      margin: auto;
+    }
+    h1 {
+      color: #2c3e50;
+    }
+    p.intro {
+      font-size: 15px;
+      line-height: 1.5;
+      background: #e6f4ea;
+      padding: 15px;
+      border-left: 4px solid #2ecc71;
+      border-radius: 6px;
+    }
+    .card {
+      background: white;
+      border-radius: 8px;
+      padding: 20px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      margin-top: 20px;
+    }
+    .label {
+      font-weight: bold;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>GERD Vesting Progress Dashboard</h1>
+
+  <p class="intro">
+    This dashboard is for community members to follow the progress of the GERD Token Vesting contract testing on the BSC Testnet. 
+    <br><br>
+    To simulate a long-term token release (1 billion GERD tokens per year), the vesting contract on testnet is configured to release 
+    <strong>1 billion tokens every Wednesday</strong>. This allows for faster testing of what would normally happen over years in production.
+    <br><br>
+    The data below is read directly from the blockchain and updates in real-time.
+  </p>
+
+  <div class="card">
+    <p><span class="label">Network:</span> BSC Testnet</p>
+    <p><span class="label">Last Release Time:</span> <span id="lastRelease">Loading...</span></p>
+    <p><span class="label">Is Today Wednesday:</span> <span id="isWednesday">Loading...</span></p>
+    <p><span class="label">Next Scheduled Release:</span> <span id="nextReleaseDate">Loading...</span></p>
+  </div>
+
+  <script>
+    const contractAddress = "0xfB97e1A2EF46c8083C42496e29E3b6783d928Ab3";
+    const contractABI = [
+      {
+        inputs: [],
+        name: "lastReleaseTime",
+        outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+        stateMutability: "view",
+        type: "function"
+      }
+    ];
+
+    const web3 = new Web3("https://data-seed-prebsc-1-s1.binance.org:8545/");
+    const contract = new web3.eth.Contract(contractABI, contractAddress);
+
+    function getNextWednesdayTimestamp(fromTimestamp) {
+      const SECONDS_IN_DAY = 86400;
+      const day = Math.floor(fromTimestamp / SECONDS_IN_DAY + 4) % 7; // 0 = Sunday ... 3 = Wednesday
+      const daysUntilNextWednesday = (7 + 3 - day) % 7 || 7;
+      const nextTimestamp = (Math.floor(fromTimestamp / SECONDS_IN_DAY) + daysUntilNextWednesday) * SECONDS_IN_DAY;
+      return nextTimestamp;
+    }
+
+    async function loadDashboard() {
+      try {
+        const lastRelease = await contract.methods.lastReleaseTime().call();
+        const isNeverReleased = lastRelease === "0";
+        const now = Math.floor(Date.now() / 1000);
+
+        document.getElementById("lastRelease").textContent = isNeverReleased
+          ? "No token release has occurred yet"
+          : new Date(lastRelease * 1000).toUTCString();
+
+        const jsDay = new Date().getUTCDay(); // 3 = Wednesday
+        const isWed = jsDay === 3;
+        document.getElementById("isWednesday").textContent = isWed ? "✅ Yes" : "❌ No";
+
+        const nextReleaseTime = isNeverReleased
+          ? getNextWednesdayTimestamp(now)
+          : parseInt(lastRelease) + 7 * 86400;
+        document.getElementById("nextReleaseDate").textContent = new Date(nextReleaseTime * 1000).toUTCString();
+
+      } catch (err) {
+        console.error("Error loading dashboard:", err);
+      }
+    }
+
+    loadDashboard();
+  </script>
+
+</body>
+</html>
