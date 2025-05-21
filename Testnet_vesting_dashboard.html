@@ -1,11 +1,12 @@
 
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>GERD Vesting Dashboard</title>
-  <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
-  <style>
+<meta charset="utf-8"/>
+<title>GERD Vesting Dashboard</title>
+<script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
+<style>
     body {
       font-family: Arial, sans-serif;
       padding: 20px;
@@ -38,8 +39,8 @@
     }
   </style>
 <!-- Tailwind CSS and Flowbite -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
     tailwind.config = {
       theme: {
         extend: {
@@ -54,47 +55,34 @@
       }
     }
   </script>
-  <script src="https://unpkg.com/flowbite@2.2.1/dist/flowbite.min.js"></script>
+<script src="https://unpkg.com/flowbite@2.2.1/dist/flowbite.min.js"></script>
 </head>
 <body class="pt-16">
 <!-- Injected Navbar -->
-  <div id="navbar-container"></div>
-  <script>
-    fetch('navtest.html')
-      .then(res => res.text())
-      .then(html => {
-        document.getElementById('navbar-container').innerHTML = html;
-        setTimeout(() => {
-          if (window.initFlowbite) initFlowbite();
-        }, 200);
-      });
-  </script>
-  <section class="bg-green-100 p-4 rounded-lg mb-4">
-    <div class="container">
-      <h2 class="text-2xl font-bold text-green-600">📊 GERD Vesting Dashboard</h2><br>
-  
-      </div>
-    <div class="container">
-     
-      <p class="intro">
+
+<section class="bg-green-100 p-4 rounded-lg mb-4">
+<div class="container">
+<h2 class="text-2xl font-bold text-green-600">📊 GERD Vesting Dashboard</h2><br/>
+</div>
+<div class="container">
+<p class="intro">
     This dashboard is for community members to follow the progress of the GERD Token Vesting contract testing on the BSC Testnet. 
-    <br><br>
+    <br/><br/>
     To simulate a long-term token release (1 billion GERD tokens per year for 115 years), the vesting contract on testnet is configured to release 
     <strong>1 billion tokens every Wednesday</strong>. This allows for faster testing of what would normally happen over years in production.
-    <br><br>
+    <br/><br/>
     The data below is read directly from the blockchain and updates in real-time.
   </p>
-
-  <div class="card">
-    <p><span class="label">GERD Testnet Contract Address:</span><code> 0x85a4850d0c2bdd6202c919c481bf0f186222fa89</code></p>
-    <p><span class="label">Network:</span> BSC Testnet</p>
-    <p><span class="label">Last Release Time:</span> <span id="lastRelease">Loading...</span></p>
-    <p><span class="label">Is Today Wednesday:</span> <span id="isWednesday">Loading...</span></p>
-    <p><span class="label">Next Scheduled Release:</span> <span id="nextReleaseDate">Loading...</span></p>
-  </div>
-  </div>
+<div class="card">
+<p><span class="label">GERD Testnet Contract Address:</span><code> 0x85a4850d0c2bdd6202c919c481bf0f186222fa89</code></p>
+<p><span class="label">Network:</span> BSC Testnet</p>
+<p><span class="label">Last Release Time:</span> <span id="lastRelease">Loading...</span></p>
+<p><span class="label">Is Today Wednesday:</span> <span id="isWednesday">Loading...</span></p>
+<p><span class="label">Next Scheduled Release:</span> <span id="nextReleaseDate">Loading...</span></p>
+</div>
+</div>
 </section>
-  <script>
+<script>
     const contractAddress = "0xC3C2b095C3aA55ACecc7fBA44C6B9D3f56dC43Da";
     const contractABI = [
       {
@@ -143,24 +131,23 @@
 
     loadDashboard();
   </script>
-  <section class="bg-white p-4 rounded-lg mt-6 shadow">
-  <h2 class="text-xl font-bold text-green-600 mb-4">📬 Wallet Balances</h2>
-  <div class="overflow-x-auto">
-    <table class="table-auto w-full border border-collapse">
-      <thead class="bg-green-200">
-        <tr>
-          <th class="px-4 py-2 text-left">Name</th>
-          <th class="px-4 py-2 text-left">Wallet Address</th>
-          <th class="px-4 py-2 text-left">Balance (GERD)</th>
-        </tr>
-      </thead>
-      <tbody id="walletTable" class="text-sm text-gray-700 bg-white">
-        <tr><td colspan="3" class="px-4 py-2">Loading balances...</td></tr>
-      </tbody>
-    </table>
-  </div>
+<section class="bg-white p-4 rounded-lg mt-6 shadow">
+<h2 class="text-xl font-bold text-green-600 mb-4">📬 Wallet Balances</h2>
+<div class="overflow-x-auto">
+<table class="table-auto w-full border border-collapse">
+<thead class="bg-green-200">
+<tr>
+<th class="px-4 py-2 text-left">Name</th>
+<th class="px-4 py-2 text-left">Wallet Address</th>
+<th class="px-4 py-2 text-left">Balance (GERD)</th>
+</tr>
+</thead>
+<tbody class="text-sm text-gray-700 bg-white" id="walletTable">
+<tr><td class="px-4 py-2" colspan="3">Loading balances...</td></tr>
+</tbody>
+</table>
+</div>
 </section>
-
 <script>
   
   const GERDTokenAddress = "0x85a4850d0c2bdd6202c919c481bf0f186222fa89";
@@ -213,19 +200,12 @@
 
   loadBalances();
 </script>
-
-
-
 <!-- === Enhancements Begin === -->
-
 <!-- Release Tokens Button -->
 <div class="mt-6">
-  <button id="releaseBtn" class="bg-green-600 text-white font-bold py-2 px-4 rounded hover:bg-green-700 mt-4">
-    🚀 Release Tokens
-  </button>
-  <p id="txStatus" class="text-sm mt-2 text-gray-700"></p>
-</div>
 
+<p class="text-sm mt-2 text-gray-700" id="txStatus"></p>
+</div>
 <!-- Clipboard Copy Enhancement -->
 <script>
   function copyAddress() {
@@ -234,100 +214,18 @@
     navigator.clipboard.writeText(text).then(() => alert("Copied!"));
   }
 </script>
-
 <!-- Countdown to Next Release -->
 <p><span class="label">Countdown to Next Release:</span> <span id="releaseCountdown">Calculating...</span></p>
-
 <!-- Release Eligibility -->
 <p class="label">Can Release Now: <span id="canRelease">Loading...</span></p>
-
 <!-- Release History -->
 <h2 class="text-xl font-bold text-green-600 mb-2 mt-6">⏱ Release History</h2>
-<ul id="releaseHistory" class="text-sm bg-white p-4 rounded-lg shadow"></ul>
-
+<ul class="text-sm bg-white p-4 rounded-lg shadow" id="releaseHistory"></ul>
 <!-- Footer -->
 <footer class="text-center text-xs text-gray-500 mt-12 mb-4">
-  Powered by GERD Token | BSC Testnet | <a href="https://github.com/AbayGERDToken" target="_blank" class="text-green-600 underline">GitHub</a>
+  Powered by GERD Token | BSC Testnet | <a class="text-green-600 underline" href="https://github.com/AbayGERDToken" target="_blank">GitHub</a>
 </footer>
 
-<script>
-  // Attach to existing contractAddress
-  function updateCountdown(ts) {
-    setInterval(() => {
-      const now = Math.floor(Date.now() / 1000);
-      const diff = ts - now;
-      if (diff <= 0) {
-        document.getElementById("releaseCountdown").textContent = "Ready!";
-        return;
-      }
-      const hrs = Math.floor(diff / 3600);
-      const mins = Math.floor((diff % 3600) / 60);
-      const secs = diff % 60;
-      document.getElementById("releaseCountdown").textContent = `${hrs}h ${mins}m ${secs}s`;
-    }, 1000);
-  }
-
-  async function loadHistory() {
-    try {
-      const contract = new web3.eth.Contract([
-        {
-          anonymous: false,
-          inputs: [{ indexed: false, internalType: "uint256", name: "timestamp", type: "uint256" }],
-          name: "TokensReleased",
-          type: "event"
-        }
-      ], contractAddress);
-
-      const events = await contract.getPastEvents("TokensReleased", {
-        fromBlock: 0,
-        toBlock: "latest"
-      });
-
-      const html = events.slice(-5).reverse().map(e => {
-        const d = new Date(e.returnValues.timestamp * 1000).toUTCString();
-        return `<li>✅ Released on <strong>${d}</strong></li>`;
-      }).join("");
-
-      document.getElementById("releaseHistory").innerHTML = html || "No releases yet.";
-    } catch (e) {
-      console.error(e);
-    }
-  }
-
-  async function setupReleaseButton() {
-    if (typeof window.ethereum === 'undefined') {
-      alert("Please install MetaMask or Rabby to interact.");
-      return;
-    }
-
-    const web3Meta = new Web3(window.ethereum);
-    await window.ethereum.request({ method: 'eth_requestAccounts' });
-
-    const contractMeta = new web3Meta.eth.Contract([
-      { "inputs": [], "name": "releaseTokens", "outputs": [], "stateMutability": "nonpayable", "type": "function" }
-    ], contractAddress);
-
-    const accounts = await web3Meta.eth.getAccounts();
-
-    document.getElementById("releaseBtn").addEventListener("click", async () => {
-      try {
-        const tx = await contractMeta.methods.releaseTokens().send({ from: accounts[0] });
-        document.getElementById("txStatus").textContent = `✅ Success! TX: ${tx.transactionHash}`;
-        loadDashboard(); loadBalances(); loadHistory();
-      } catch (err) {
-        console.error(err);
-        document.getElementById("txStatus").textContent = `❌ Error: ${err.message}`;
-      }
-    });
-  }
-
-  window.addEventListener("load", () => {
-    setupReleaseButton();
-    loadHistory();
-  });
-</script>
-
 <!-- === Enhancements End === -->
-
 </body>
 </html>
