@@ -86,6 +86,7 @@
   </p>
 
   <div class="card">
+    <p><span class="label">GERD Testnet Contract Address:</span><code> 0x85a4850d0c2bdd6202c919c481bf0f186222fa89</code></p>
     <p><span class="label">Network:</span> BSC Testnet</p>
     <p><span class="label">Last Release Time:</span> <span id="lastRelease">Loading...</span></p>
     <p><span class="label">Is Today Wednesday:</span> <span id="isWednesday">Loading...</span></p>
@@ -94,7 +95,7 @@
   </div>
 </section>
   <script>
-    const contractAddress = "0xfB97e1A2EF46c8083C42496e29E3b6783d928Ab3";
+    const contractAddress = "0xC3C2b095C3aA55ACecc7fBA44C6B9D3f56dC43Da";
     const contractABI = [
       {
         inputs: [],
@@ -184,7 +185,7 @@
     { name: "Airdrop Wallet", addr: "0x87CC9e804B4A840297b18536D5d0E7A4835B0e3c" },
     { name: "Staking Wallet", addr: "0x3B84a366a2f25BbB48f34b2b8D587c02237E6a13" },
     { name: "Liquidity Wallet", addr: "0xdA96DBeDD6eF3f4f2b503565A7c6a5a65fbabf17" },
-    { name: "Vesting Contract", addr: "0xfB97e1A2EF46c8083C42496e29E3b6783d928Ab3" },
+    { name: "Vesting Contract", addr: "0xC3C2b095C3aA55ACecc7fBA44C6B9D3f56dC43Da" },
     { name: "GERD Test Wallet", addr: "0xd84DB57e0d89cF6487b426e6BBbAb235b1139445" }
   ];
 
@@ -213,6 +214,120 @@
   loadBalances();
 </script>
 
+
+
+<!-- === Enhancements Begin === -->
+
+<!-- Release Tokens Button -->
+<div class="mt-6">
+  <button id="releaseBtn" class="bg-green-600 text-white font-bold py-2 px-4 rounded hover:bg-green-700 mt-4">
+    🚀 Release Tokens
+  </button>
+  <p id="txStatus" class="text-sm mt-2 text-gray-700"></p>
+</div>
+
+<!-- Clipboard Copy Enhancement -->
+<script>
+  function copyAddress() {
+    const text = document.getElementById("contractAddr")?.textContent;
+    if (!text) return;
+    navigator.clipboard.writeText(text).then(() => alert("Copied!"));
+  }
+</script>
+
+<!-- Countdown to Next Release -->
+<p><span class="label">Countdown to Next Release:</span> <span id="releaseCountdown">Calculating...</span></p>
+
+<!-- Release Eligibility -->
+<p class="label">Can Release Now: <span id="canRelease">Loading...</span></p>
+
+<!-- Release History -->
+<h2 class="text-xl font-bold text-green-600 mb-2 mt-6">⏱ Release History</h2>
+<ul id="releaseHistory" class="text-sm bg-white p-4 rounded-lg shadow"></ul>
+
+<!-- Footer -->
+<footer class="text-center text-xs text-gray-500 mt-12 mb-4">
+  Powered by GERD Token | BSC Testnet | <a href="https://github.com/AbayGERDToken" target="_blank" class="text-green-600 underline">GitHub</a>
+</footer>
+
+<script>
+  // Attach to existing contractAddress
+  function updateCountdown(ts) {
+    setInterval(() => {
+      const now = Math.floor(Date.now() / 1000);
+      const diff = ts - now;
+      if (diff <= 0) {
+        document.getElementById("releaseCountdown").textContent = "Ready!";
+        return;
+      }
+      const hrs = Math.floor(diff / 3600);
+      const mins = Math.floor((diff % 3600) / 60);
+      const secs = diff % 60;
+      document.getElementById("releaseCountdown").textContent = `${hrs}h ${mins}m ${secs}s`;
+    }, 1000);
+  }
+
+  async function loadHistory() {
+    try {
+      const contract = new web3.eth.Contract([
+        {
+          anonymous: false,
+          inputs: [{ indexed: false, internalType: "uint256", name: "timestamp", type: "uint256" }],
+          name: "TokensReleased",
+          type: "event"
+        }
+      ], contractAddress);
+
+      const events = await contract.getPastEvents("TokensReleased", {
+        fromBlock: 0,
+        toBlock: "latest"
+      });
+
+      const html = events.slice(-5).reverse().map(e => {
+        const d = new Date(e.returnValues.timestamp * 1000).toUTCString();
+        return `<li>✅ Released on <strong>${d}</strong></li>`;
+      }).join("");
+
+      document.getElementById("releaseHistory").innerHTML = html || "No releases yet.";
+    } catch (e) {
+      console.error(e);
+    }
+  }
+
+  async function setupReleaseButton() {
+    if (typeof window.ethereum === 'undefined') {
+      alert("Please install MetaMask or Rabby to interact.");
+      return;
+    }
+
+    const web3Meta = new Web3(window.ethereum);
+    await window.ethereum.request({ method: 'eth_requestAccounts' });
+
+    const contractMeta = new web3Meta.eth.Contract([
+      { "inputs": [], "name": "releaseTokens", "outputs": [], "stateMutability": "nonpayable", "type": "function" }
+    ], contractAddress);
+
+    const accounts = await web3Meta.eth.getAccounts();
+
+    document.getElementById("releaseBtn").addEventListener("click", async () => {
+      try {
+        const tx = await contractMeta.methods.releaseTokens().send({ from: accounts[0] });
+        document.getElementById("txStatus").textContent = `✅ Success! TX: ${tx.transactionHash}`;
+        loadDashboard(); loadBalances(); loadHistory();
+      } catch (err) {
+        console.error(err);
+        document.getElementById("txStatus").textContent = `❌ Error: ${err.message}`;
+      }
+    });
+  }
+
+  window.addEventListener("load", () => {
+    setupReleaseButton();
+    loadHistory();
+  });
+</script>
+
+<!-- === Enhancements End === -->
 
 </body>
 </html>
