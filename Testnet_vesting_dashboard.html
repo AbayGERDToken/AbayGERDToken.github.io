@@ -142,6 +142,77 @@
 
     loadDashboard();
   </script>
+  <section class="bg-white p-4 rounded-lg mt-6 shadow">
+  <h2 class="text-xl font-bold text-green-600 mb-4">📬 Wallet Balances</h2>
+  <div class="overflow-x-auto">
+    <table class="table-auto w-full border border-collapse">
+      <thead class="bg-green-200">
+        <tr>
+          <th class="px-4 py-2 text-left">Name</th>
+          <th class="px-4 py-2 text-left">Wallet Address</th>
+          <th class="px-4 py-2 text-left">Balance (GERD)</th>
+        </tr>
+      </thead>
+      <tbody id="walletTable" class="text-sm text-gray-700 bg-white">
+        <tr><td colspan="3" class="px-4 py-2">Loading balances...</td></tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<script>
+  
+  const GERDTokenAddress = "0x85a4850d0c2bdd6202c919c481bf0f186222fa89";
+  const tokenABI = [
+    {
+      constant: true,
+      inputs: [{ name: "account", type: "address" }],
+      name: "balanceOf",
+      outputs: [{ name: "", type: "uint256" }],
+      type: "function"
+    },
+    {
+      constant: true,
+      inputs: [],
+      name: "decimals",
+      outputs: [{ name: "", type: "uint8" }],
+      type: "function"
+    }
+  ];
+
+  const addresses = [
+    { name: "Airdrop Wallet", addr: "0x87CC9e804B4A840297b18536D5d0E7A4835B0e3c" },
+    { name: "Staking Wallet", addr: "0x3B84a366a2f25BbB48f34b2b8D587c02237E6a13" },
+    { name: "Liquidity Wallet", addr: "0xdA96DBeDD6eF3f4f2b503565A7c6a5a65fbabf17" },
+    { name: "Vesting Contract", addr: "0xfB97e1A2EF46c8083C42496e29E3b6783d928Ab3" },
+    { name: "GERD Test Wallet", addr: "0xd84DB57e0d89cF6487b426e6BBbAb235b1139445" }
+  ];
+
+  const token = new web3.eth.Contract(tokenABI, GERDTokenAddress);
+
+  async function loadBalances() {
+    try {
+      const decimals = await token.methods.decimals().call();
+      let rows = "";
+      for (const entry of addresses) {
+        const balance = await token.methods.balanceOf(entry.addr).call();
+        const formatted = (balance / 10 ** decimals).toLocaleString("en-US");
+        rows += `<tr>
+          <td class="border px-4 py-2">${entry.name}</td>
+          <td class="border px-4 py-2 text-xs">${entry.addr}</td>
+          <td class="border px-4 py-2">${formatted}</td>
+        </tr>`;
+      }
+      document.getElementById("walletTable").innerHTML = rows;
+    } catch (err) {
+      console.error("Error loading balances:", err);
+      document.getElementById("walletTable").innerHTML = '<tr><td colspan="3" class="px-4 py-2 text-red-600">Failed to load balances</td></tr>';
+    }
+  }
+
+  loadBalances();
+</script>
+
 
 </body>
 </html>
