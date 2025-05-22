@@ -4,7 +4,9 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>GERD Vesting Dashboard</title>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
 <script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
 <style>
     body {
@@ -12,7 +14,7 @@
       padding: 20px;
       background: #f5f5f5;
       color: #333;
-      max-width: 700px;
+      max-width: auto;
       margin: auto;
     }
     h1 {
@@ -58,10 +60,21 @@
 <script src="https://unpkg.com/flowbite@2.2.1/dist/flowbite.min.js"></script>
 </head>
 <body class="pt-16">
-<!-- Injected Navbar -->
 
-<section class="bg-green-100 p-4 rounded-lg mb-4">
-<div class="container">
+  <!-- Injected Navbar -->
+  <div id="navbar-container"></div>
+  <script>
+    fetch('navtest.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('navbar-container').innerHTML = html;
+        setTimeout(() => {
+          if (window.initFlowbite) initFlowbite();
+        }, 200);
+      });
+  </script>
+<section class="section bg-green-100 p-4 rounded-lg mb-4 align-center shadow">
+<div class="container text-center">
 <h2 class="text-2xl font-bold text-green-600">📊 GERD Vesting Dashboard</h2><br/>
 </div>
 <div class="container">
@@ -131,21 +144,24 @@
 
     loadDashboard();
   </script>
+  
 <section class="bg-white p-4 rounded-lg mt-6 shadow">
+  <div class="container">
 <h2 class="text-xl font-bold text-green-600 mb-4">📬 Wallet Balances</h2>
 <div class="overflow-x-auto">
 <table class="table-auto w-full border border-collapse">
 <thead class="bg-green-200">
 <tr>
 <th class="px-4 py-2 text-left">Name</th>
-<th class="px-4 py-2 text-left">Wallet Address</th>
 <th class="px-4 py-2 text-left">Balance (GERD)</th>
+<th class="px-4 py-2 text-left">Wallet Address</th>
 </tr>
 </thead>
 <tbody class="text-sm text-gray-700 bg-white" id="walletTable">
 <tr><td class="px-4 py-2" colspan="3">Loading balances...</td></tr>
 </tbody>
 </table>
+</div>
 </div>
 </section>
 <script>
@@ -187,8 +203,8 @@
         const formatted = (balance / 10 ** decimals).toLocaleString("en-US");
         rows += `<tr>
           <td class="border px-4 py-2">${entry.name}</td>
-          <td class="border px-4 py-2 text-xs">${entry.addr}</td>
           <td class="border px-4 py-2">${formatted}</td>
+          <td class="border px-4 py-2 text-xs">${entry.addr}</td>
         </tr>`;
       }
       document.getElementById("walletTable").innerHTML = rows;
@@ -214,13 +230,62 @@
     navigator.clipboard.writeText(text).then(() => alert("Copied!"));
   }
 </script>
-<!-- Countdown to Next Release -->
-<p><span class="label">Countdown to Next Release:</span> <span id="releaseCountdown">Calculating...</span></p>
-<!-- Release Eligibility -->
-<p class="label">Can Release Now: <span id="canRelease">Loading...</span></p>
-<!-- Release History -->
-<h2 class="text-xl font-bold text-green-600 mb-2 mt-6">⏱ Release History</h2>
-<ul class="text-sm bg-white p-4 rounded-lg shadow" id="releaseHistory"></ul>
+<div class="container mt-6">
+   
+    <p><strong>Countdown to Next Release:</strong> <span id="releaseCountdown">Calculating...</span></p>
+    <p><strong>Can Release Now:</strong> <span id="canRelease">Loading...</span></p>
+    <h2 class="subtitle">Release History</h2>
+    <ul id="releaseHistory" class="box"></ul>
+  </div>
+
+  <script>
+    
+    const vestingContractAddress = "0xC3C2b095C3aA55ACecc7fBA44C6B9D3f56dC43Da";
+    const vestingABI = [{
+      inputs: [],
+      name: "lastReleaseTime",
+      outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+      stateMutability: "view",
+      type: "function"
+    }];
+    const vesting = new web3.eth.Contract(vestingABI, vestingContractAddress);
+
+    function getNextWednesdayTimestamp(fromTimestamp) {
+      const SECONDS_IN_DAY = 86400;
+      const day = Math.floor(fromTimestamp / SECONDS_IN_DAY + 4) % 7;
+      const daysUntilNextWednesday = (7 + 3 - day) % 7 || 7;
+      return (Math.floor(fromTimestamp / SECONDS_IN_DAY) + daysUntilNextWednesday) * SECONDS_IN_DAY;
+    }
+
+    async function updateDashboard() {
+      try {
+        const now = Math.floor(Date.now() / 1000);
+        const lastRelease = await vesting.methods.lastReleaseTime().call();
+
+        // Countdown Calculation
+        const nextRelease = parseInt(lastRelease) + 7 * 86400;
+        const secondsLeft = nextRelease - now;
+        const days = Math.floor(secondsLeft / 86400);
+        const hours = Math.floor((secondsLeft % 86400) / 3600);
+        const minutes = Math.floor((secondsLeft % 3600) / 60);
+        document.getElementById("releaseCountdown").textContent = secondsLeft > 0 ? `${days}d ${hours}h ${minutes}m` : "Ready to release";
+
+        // Can Release Now
+        const isWednesday = new Date().getUTCDay() === 3;
+        const releaseReady = now >= nextRelease && isWednesday;
+        document.getElementById("canRelease").textContent = releaseReady ? "✅ Yes" : "❌ No";
+
+        // Release History
+        const historyList = document.getElementById("releaseHistory");
+        historyList.innerHTML = `<li>Last release: ${new Date(lastRelease * 1000).toUTCString()}</li>`;
+      } catch (err) {
+        console.error("Error updating dashboard:", err);
+      }
+    }
+
+    updateDashboard();
+  </script>
+
 <!-- Footer -->
 <footer class="text-center text-xs text-gray-500 mt-12 mb-4">
   Powered by GERD Token | BSC Testnet | <a class="text-green-600 underline" href="https://github.com/AbayGERDToken" target="_blank">GitHub</a>
