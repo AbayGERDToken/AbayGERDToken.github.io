@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Abay GERD Token</title>
+  <title>GERD Token Balances Dashboard</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
   
 
 <!-- Tailwind CSS -->
@@ -41,76 +42,90 @@
 </script>
   <section class="section">
         <div class="container">
-    <h2 class="title">GERD Project Token Breakdown</h2>  
+    <h2 class="title">GERD Token Balances</h2>  
     
     <!-- table starts here -->
     <table class="table is-striped is-bordered is-hoverable is-fullwidth">
-
+    <thead>
       <tr>
-          
-          <td>115,000,000,000 </td>
-          <td>Vesting Reserve</td>
-          <td> <a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019?a=0x02a2013C569c3cF7a8bf3DFE70D97c76B44993dc" target="_blank"><code> 0x02a2013C569c3cF7a8bf3DFE70D97c76B44993dc </code></a></td>
-          
+        <th>Balance (GERD)</th>
+        <th>Description</th>
+        <th>Wallet Address</th>
       </tr>
-      <tr>
-          
-          <td>1,500,000,000 </td>
-          <td>Token Burning Mechanism</td>
-          <td> <a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019?a=0x000000000000000000000000000000000000dead" target="_blank"><code> 0x000000000000000000000000000000000000dead </code></a></td>
-          
+    </thead>
+    <tbody>
+      <tr data-address="0x02a2013C569c3cF7a8bf3DFE70D97c76B44993dc">
+        <td class="balance">Loading…</td>
+        <td>Vesting Reserve</td>
+        <td><a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019?a=0x02a2013C569c3cF7a8bf3DFE70D97c76B44993dc" target="_blank"><code> 0x02a2013C569c3cF7a8bf3DFE70D97c76B44993dc </code></a></td>
       </tr>
-      <tr>
-          
-          <td> 1,350,000 </td>
-          <td>Smart Contract: Unrecoverable</td>
-          <td> <a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019?a=0x660941bb4AA9FcBED00375673D21088A9d0C5019" target="_blank"> <code> 0x660941bb4AA9FcBED00375673D21088A9d0C5019 </code></a></td>
-         
+      <tr data-address="0x000000000000000000000000000000000000dead">
+        <td class="balance">Loading…</td>
+        <td>Token Burning Mechanism</td>
+        <td> <a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019?a=0x000000000000000000000000000000000000dead" target="_blank"><code> 0x000000000000000000000000000000000000dead </code></a></td>
       </tr>
-      <tr>
-         
-          <td> 1,638,000,000 </td>
-          <td>Development Reserve Fund</td>
-          <td> <a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019?a=0x8bF286A0135489832300e33F57ACc7ADA2Ca8133" target="_blank"><code> 0x8bF286A0135489832300e33F57ACc7ADA2Ca8133 </code></a></td>
-          
+      <tr data-address="0x660941bb4AA9FcBED00375673D21088A9d0C5019">
+        <td class="balance">Loading…</td>
+        <td>Smart Contract: Unrecoverable</td>
+        <td><a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019?a=0x660941bb4AA9FcBED00375673D21088A9d0C5019" target="_blank"> <code> 0x660941bb4AA9FcBED00375673D21088A9d0C5019 </code></a></td>
       </tr>
-      <tr>
-         
-          <td> 950,000,000 </td>
-          <td>Initial Distribution - Phase 1</td>
-          <td> <a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019?a=0xAfDAaDe5b0044993813b1f06cC3F3c6C025a1F1D" target="_blank"><code color="blue"> 0xAfDAaDe5b0044993813b1f06cC3F3c6C025a1F1D </code> </a></td>
-          
+      <tr data-address="0x8bF286A0135489832300e33F57ACc7ADA2Ca8133">
+        <td class="balance">Loading…</td>
+        <td>Development Reserve Fund</td>
+        <td><a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019?a=0x8bF286A0135489832300e33F57ACc7ADA2Ca8133" target="_blank"><code> 0x8bF286A0135489832300e33F57ACc7ADA2Ca8133 </code></a></td>
       </tr>
-      <tr>
-          
-          <td> 920,000,000 </td>
-          <td>Initial Distribution - Phase 2</td>
-          <td> <a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019?a=0x2C2b19aE578425B628302Eb3c0215D2BFE3e14fd" target="_blank"><code> 0x2C2b19aE578425B628302Eb3c0215D2BFE3e14fd </code> </a></td>
-          
+      <tr data-address="0xAfDAaDe5b0044993813b1f06cC3F3c6C025a1F1D">
+        <td class="balance">Loading…</td>
+        <td>Initial Distribution - Phase 1</td>
+        <td><a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019?a=0xAfDAaDe5b0044993813b1f06cC3F3c6C025a1F1D" target="_blank"><code color="green"> 0xAfDAaDe5b0044993813b1f06cC3F3c6C025a1F1D </code></a></td>
       </tr>
-      <tr>
-          
-          <td> 6,500,000 </td>
-          <td>Liquidity Provision - Pool 1</td>
-          <td> <a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019?a=0x69d944663b294E1bDFE043d1f798076f9A342b3c" target="_blank"><code> 0x69d944663b294E1bDFE043d1f798076f9A342b3c </code> </a></td>
-          
+      <tr data-address="0x2C2b19aE578425B628302Eb3c0215D2BFE3e14fd">
+        <td class="balance">Loading…</td>
+        <td>Initial Distribution - Phase 2</td>
+        <td><a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019?a=0x2C2b19aE578425B628302Eb3c0215D2BFE3e14fd" target="_blank"><code> 0x2C2b19aE578425B628302Eb3c0215D2BFE3e14fd </code></a></td>
       </tr>
-      
-      <tr>
-          
-          <td> 20,000,000 </td>
-          <td>GERD Dignitary Reserve</td>
-          <td> <a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019?a=0x75F5f7d68AD14f467c935d6B375D350614F9cF68" target="_blank"> <code> 0x75F5f7d68AD14f467c935d6B375D350614F9cF68 </code> </a></td>
-         
+      <tr data-address="0x69d944663b294E1bDFE043d1f798076f9A342b3c">
+        <td class="balance">Loading…</td>
+        <td>Liquidity Provision - Pool 1</td>
+        <td><a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019?a=0x69d944663b294E1bDFE043d1f798076f9A342b3c" target="_blank"><code> 0x69d944663b294E1bDFE043d1f798076f9A342b3c</code></a></td>
       </tr>
-      <tr>
-          
-          <td> 1,500,000 </td>
-          <td>Claim Dispensing System</td>
-          <td> <a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019?a=0xB2d784C9DDFE33359D1Af13E9121D7bd94C28578" target="_blank"><code> 0xB2d784C9DDFE33359D1Af13E9121D7bd94C28578 </code> </a></td>
-         
+      <tr data-address="0x75F5f7d68AD14f467c935d6B375D350614F9cF68">
+        <td class="balance">Loading…</td>
+        <td>GERD Dignitary Reserve</td>
+        <td><a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019?a=0x75F5f7d68AD14f467c935d6B375D350614F9cF68" target="_blank"> <code> 0x75F5f7d68AD14f467c935d6B375D350614F9cF68 </code></a></td>
       </tr>
+      <tr data-address="0xB2d784C9DDFE33359D1Af13E9121D7bd94C28578">
+        <td class="balance">Loading…</td>
+        <td>Claim Dispensing System</td>
+        <td><a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019?a=0xB2d784C9DDFE33359D1Af13E9121D7bd94C28578" target="_blank"><code> 0xB2d784C9DDFE33359D1Af13E9121D7bd94C28578 </code></a></td>
+      </tr>
+    </tbody>
   </table>
+  <script>
+    window.addEventListener('load', async () => {
+      const rpc = "https://bsc-dataseed.binance.org/";
+      const web3 = new Web3(rpc);
+      const tokenAddress = "0x660941bb4AA9FcBED00375673D21088A9d0C5019";
+      const tokenABI = [
+        { "constant":true, "inputs":[], "name":"decimals", "outputs":[{"name":"","type":"uint8"}], "type":"function" },
+        { "constant":true, "inputs":[{"name":"account","type":"address"}], "name":"balanceOf", "outputs":[{"name":"","type":"uint256"}], "type":"function" }
+      ];
+      const contract = new web3.eth.Contract(tokenABI, tokenAddress);
+      const decimals = await contract.methods.decimals().call();
+
+      document.querySelectorAll('tr[data-address]').forEach(async row => {
+        const addr = row.getAttribute('data-address');
+        try {
+          const raw = await contract.methods.balanceOf(addr).call();
+          const formatted = (Number(raw) / (10 ** decimals)).toLocaleString();
+          row.querySelector('.balance').innerText = formatted;
+        } catch (err) {
+          console.error(`Failed to fetch for ${addr}:`, err);
+          row.querySelector('.balance').innerText = 'Error';
+        }
+      });
+    });
+  </script>
   
 
    <!-- table ends here -->
