@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Service Maintenance Notice</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #f4f4f4;
+      color: #333;
+      margin: 0;
+      padding: 0;
+    }
+
+    .container {
+      max-width: 90%;
+      width: 500px;
+      margin: 60px auto;
+      padding: 30px 20px;
+      background-color: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    h1 {
+      color: #007bff;
+      margin-bottom: 16px;
+      font-size: 1.8em;
+    }
+
+    p {
+      font-size: 1.05rem;
+      margin-bottom: 24px;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 0 auto 24px;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #ddd;
+      font-size: 0.95rem;
+    }
+
+    th {
+      background-color: #f0f0f0;
+      font-weight: 600;
+    }
+
+    #countdown, #current-utc {
+      font-size: 1rem;
+      margin-top: 10px;
+      color: #d9534f;
+    }
+
+    footer {
+      margin-top: 20px;
+      font-size: 0.85rem;
+      color: #777;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>We'll Be Right Back</h1>
+    <p>Our web service is currently undergoing scheduled maintenance. Please refer below for availability.</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Start Time</th>
+          <th>End Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td id="date-cell"></td>
+          <td id="start-time"></td>
+          <td id="end-time"></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div id="countdown">Time remaining: calculating...</div>
+    <div id="current-utc">Current UTC: ...</div>
+
+    <footer>
+      &copy; 2025 Abay GERD Token Project
+    </footer>
+  </div>
+
+  <script>
+   
+    const startTimeStr = "2025-05-23T03:00:00Z"; // ISO 8601 UTC string
+    const maintenanceDurationMinutes = 90;    // ✅ SET THESE TWO VALUES:
+
+    const startUTC = new Date(startTimeStr);
+    const endUTC = new Date(startUTC.getTime() + maintenanceDurationMinutes * 60000);
+
+    function formatUTCDate(date) {
+      const options = { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' };
+      return date.toLocaleDateString('en-US', options);
+    }
+
+    function formatUTCTime(date) {
+      const options = { hour: '2-digit', minute: '2-digit', hour12: true, timeZone: 'UTC' };
+      return date.toLocaleTimeString('en-US', options) + ' (UTC)';
+    }
+
+    // Populate table with values
+    document.getElementById("date-cell").textContent = formatUTCDate(startUTC);
+    document.getElementById("start-time").textContent = formatUTCTime(startUTC);
+    document.getElementById("end-time").textContent = formatUTCTime(endUTC);
+
+    function updateCountdown() {
+      const now = new Date();
+      document.getElementById("current-utc").textContent = "Current UTC: " + now.toUTCString();
+
+      const diff = endUTC - now;
+
+      if (diff <= 0) {
+        document.getElementById("countdown").textContent = "Maintenance has ended.";
+        return;
+      }
+
+      const hours = Math.floor(diff / (1000 * 60 * 60));
+      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
+
+      document.getElementById("countdown").textContent =
+        `Time remaining: ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+  </script>
+</body>
+</html>
