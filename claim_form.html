@@ -26,7 +26,7 @@
     .error { color: red; }
     .loading { color: blue; }
     .g-recaptcha { margin: 10px 0; }
-    .container { max-width: 400px; margin: auto; padding: 2em; }
+    section.claim-form .container { max-width: 400px; margin: auto; padding: 2em; }
     input#recipient { width: 400px; }
     input#bwallet-address { width: 400px;}
     </style>
@@ -55,23 +55,21 @@
     </style>
 <script src="https://unpkg.com/flowbite@2.2.1/dist/flowbite.min.js"></script>
 </meta></head>
-<body class="pt-24">
+<body class="pt-16">
 <!-- Dynamic Navbar -->
 <div id="navbar-container"></div>
 <script>
-document.addEventListener("DOMContentLoaded", function () {
-  fetch('navtest.html')
-    .then(res => res.text())
-    .then(html => {
-      document.getElementById('navbar-container').innerHTML = html;
-      setTimeout(() => {
-        if (window.initFlowbite) initFlowbite();
-      }, 200);
-    });
-});
-        </script>
-<section class="section">
-<div class="mx-auto px-4 max-w-7xl">
+    fetch('navtest.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('navbar-container').innerHTML = html;
+        setTimeout(() => {
+          if (window.initFlowbite) initFlowbite();
+        }, 200);
+      });
+  </script>
+<section class="section claim-form">
+<div class="container">
 <!-- Trigger link -->
 <a href="#" onclick="openChangeModal()">📢 See Claim Update</a>
 <!-- Modal Container -->
@@ -130,14 +128,14 @@ document.addEventListener("DOMContentLoaded", function () {
 <li>🌍 <strong>Global wallets:</strong> Receive <strong>10,000 GERD</strong></li>
 </ul>
 </div>
-<div class="mx-auto px-4 max-w-7xl">
+<div class="container">
 <h2>Wallet Address:</h2>
 <input class="input is-success" id="recipient" placeholder="GERD Wallet Address" type="text"/>
 <div class="g-recaptcha" data-sitekey="6LdQyRkrAAAAANv5siZlVghMFzQ2AEPIg8501G9P"></div>
 <button class="button is-success" onclick="claimTokens()">Claim Tokens</button>
 <p id="response"></p>
 </div>
-<div class="mx-auto px-4 max-w-7xl">
+<div class="container">
 <tr>
 <td style="width:205px"> </td>
 <td style="width:993px">
@@ -155,7 +153,7 @@ document.addEventListener("DOMContentLoaded", function () {
 </section>
 <section class="hero is-success is-bold">
 <div class="hero-body">
-<div class="mx-auto px-4 max-w-7xl">
+<div class="container">
 <div class="columns is-vcentered">
 <div class="column">
 <h2 class="subtitle">
