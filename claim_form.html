@@ -1,43 +1,24 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/web3@1.8.2/dist/web3.min.js"></script>
-  
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          green: {
-            600: '#047857',
-            100: '#d1fae5',
-            200: '#a7f3d0',
-            300: '#6ee7b7'
-          }
-        }
-      }
-    }
-  }
-</script>
-
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css" rel="stylesheet"/>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/web3@1.8.2/dist/web3.min.js"></script>
 <script src="https://cdn.tailwindcss.com"></script>
-  <style>
+<style>
     .copy-icon {
       transition: opacity 0.3s ease;
     }
   </style>
-  <style>.page-inner { background-color: rgb(255, 255, 255); min-height: 100vh; }</style>
-  <style>.img-left { float: left ; width: 150px; height: auto; margin-right: 10px; } </style>
-
-  <title>Abay GERD Token Claim</title>
-
-  
-  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
-  <style>
+<style>.page-inner { background-color: rgb(255, 255, 255); min-height: 100vh; }</style>
+<style>.img-left { float: left ; width: 150px; height: auto; margin-right: 10px; } </style>
+<title>Abay GERD Token Claim</title>
+<script async="" defer="" src="https://www.google.com/recaptcha/api.js"></script>
+<style>
     
     
     input, button { width: 200px; padding: 10px; margin: 10px 0; }
@@ -49,7 +30,7 @@
     input#recipient { width: 400px; }
     input#bwallet-address { width: 400px;}
     </style>
-    <style>
+<style>
       @media (max-width: 480px) {
         #changeModal > div {
           width: 95% !important;
@@ -73,135 +54,121 @@
       }
     </style>
 <script src="https://unpkg.com/flowbite@2.2.1/dist/flowbite.min.js"></script>
-</head>
+</meta></head>
 <body class="pt-24">
-
-  <!-- Dynamic Navbar -->
-  <div id="navbar-container"></div>
-  <script>
-    fetch('navtest.html')
-      .then(res => res.text())
-      .then(html => {
-        document.getElementById('navbar-container').innerHTML = html;
-        setTimeout(() => {
-          if (window.initFlowbite) initFlowbite();
-        }, 200);
-      });
-  </script>
- <section class="section">
-  <div class="container">
-     <!-- Trigger link -->
+<!-- Dynamic Navbar -->
+<div id="navbar-container"></div>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  fetch('navtest.html')
+    .then(res => res.text())
+    .then(html => {
+      document.getElementById('navbar-container').innerHTML = html;
+      setTimeout(() => {
+        if (window.initFlowbite) initFlowbite();
+      }, 200);
+    });
+});
+        </script>
+<section class="section">
+<div class="mx-auto px-4 max-w-7xl">
+<!-- Trigger link -->
 <a href="#" onclick="openChangeModal()">📢 See Claim Update</a>
-
 <!-- Modal Container -->
 <div id="changeModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:1000; align-items:center; justify-content:center; overflow:auto;">
-
-  <div style="background:white; max-width:600px; width:90%; margin:50px auto; padding:20px; border-radius:12px; position:relative; box-shadow:0 5px 15px rgba(0,0,0,0.3); font-family:sans-serif;">
-
-    <!-- Close Button -->
-    <span style="position:absolute; top:10px; right:15px; font-size:24px; font-weight:bold; cursor:pointer;" onclick="closeChangeModal()">&times;</span>
-
-    <!-- Modal Content (from change.html) -->
-    <h3 style="font-size:20px; margin-top:10px;">🎉 GERD Token Claim Update – Starting 05/05/2025</h3>
-    <p>Increase in the total amount of GERD Tokens available for claiming:</p>
-    <ul style="padding-left: 20px;">
-      <li>🌍 <strong>Global Claim:</strong> Increased from <strong>1,000 GERD</strong> to <strong>10,000 GERD</strong></li>
-      <li>🇪🇹 <strong>Ethiopia-Specific Claim:</strong> Increased from <strong>7,500 GERD</strong> to <strong>75,000 GERD</strong></li>
-    </ul>
-    <p><strong>Wallets that have previously claimed before the increase</strong> will receive a <strong>10x airdrop bonus</strong> based on their original claim amount. 🎁</p>
-    <p><em>Example: If you previously claimed 1,000 GERD, you will receive 10,000 GERD via airdrop on 05/05/2025.</em></p>
-    <p>✅ Thank you for supporting the GERD mission!</p>
-  </div>
+<div style="background:white; max-width:600px; width:90%; margin:50px auto; padding:20px; border-radius:12px; position:relative; box-shadow:0 5px 15px rgba(0,0,0,0.3); font-family:sans-serif;">
+<!-- Close Button -->
+<span onclick="closeChangeModal()" style="position:absolute; top:10px; right:15px; font-size:24px; font-weight:bold; cursor:pointer;">×</span>
+<!-- Modal Content (from change.html) -->
+<h3 style="font-size:20px; margin-top:10px;">🎉 GERD Token Claim Update – Starting 05/05/2025</h3>
+<p>Increase in the total amount of GERD Tokens available for claiming:</p>
+<ul style="padding-left: 20px;">
+<li>🌍 <strong>Global Claim:</strong> Increased from <strong>1,000 GERD</strong> to <strong>10,000 GERD</strong></li>
+<li>🇪🇹 <strong>Ethiopia-Specific Claim:</strong> Increased from <strong>7,500 GERD</strong> to <strong>75,000 GERD</strong></li>
+</ul>
+<p><strong>Wallets that have previously claimed before the increase</strong> will receive a <strong>10x airdrop bonus</strong> based on their original claim amount. 🎁</p>
+<p><em>Example: If you previously claimed 1,000 GERD, you will receive 10,000 GERD via airdrop on 05/05/2025.</em></p>
+<p>✅ Thank you for supporting the GERD mission!</p>
 </div>
-    <h2 class="title">Claim Your GERD Tokens 🎁🔑</h2>
-    <p>
+</div>
+<h2 class="title">Claim Your GERD Tokens 🎁🔑</h2>
+<p>
       ✅ <strong>No wallet connection required.</strong><br/>
       To claim your free GERD tokens, simply submit your wallet address. 
       We never ask users to connect or sign transactions—your privacy and safety come first.
     </p>
-    <br/>
-    <p>
+<br/>
+<p>
       🔍 Before submitting your claim:
     </p>
-      <ul class="content">
-      <li>📲 Ensure you’ve imported the <strong>Abay GERD Token contract</strong> into your wallet</li>
-      <li>🪪 Use a supported wallet like 
+<ul class="content">
+<li>📲 Ensure you’ve imported the <strong>Abay GERD Token contract</strong> into your wallet</li>
+<li>🪪 Use a supported wallet like 
         
         <a href="trust-wallet.html"><strong>Trust Wallet</strong></a>, 
         <a href="metamask-wallet.html"><strong>MetaMask</strong></a>, 
         <a href="https://www.exodus.com"><strong>Exodus</strong></a>, 
         <strong>Halo Wallet</strong>, etc...</li>
-     
+<!--<div class="box" align="left"> -->
+<span>
+<li>🌐 The process is the same for all wallets — Import custom token and enter</li></span>
+<span class="font-mono text-blue-600 break-all" id="contractAddress">0x660941bb4AA9FcBED00375673D21088A9d0C5019</span>
+<button class="relative group" onclick="copyToClipboard()">
+<svg class="h-5 w-5 text-gray-500 hover:text-blue-600 copy-icon" fill="none" id="copyIcon" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2M16 8h2a2 2 0 012 2v8a2 2 0 01-2 2h-8a2 2 0 01-2-2v-2" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+<svg class="h-5 w-5 text-green-600 absolute top-0 left-0 hidden" fill="none" id="checkIcon" stroke="currentColor" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+<path d="M5 13l4 4L19 7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"></path>
+</svg>
+</button>
+<!-- </div> -->
 
-      <!--<div class="box" align="left"> --> 
-      <span>
-         <li>🌐 The process is the same for all wallets — Import custom token and enter</span>
-      <span id="contractAddress" class="font-mono text-blue-600 break-all">0x660941bb4AA9FcBED00375673D21088A9d0C5019</span>
-      <button onclick="copyToClipboard()" class="relative group">
-        <svg id="copyIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 hover:text-blue-600 copy-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2M16 8h2a2 2 0 012 2v8a2 2 0 01-2 2h-8a2 2 0 01-2-2v-2" />
-        </svg>
-        <svg id="checkIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600 absolute top-0 left-0 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-        </svg>
-      </button>
-    <!-- </div> --> 
-      </li>
-    </ul>
-
-    
-      <h3 class="subtitle">📌 Claim Eligibility</h3>
-      <ul class="content">
-        <li>🇪🇹 <strong>Ethiopia-based wallets:</strong> Receive <strong>75,000 GERD</strong></li>
-        <li>🌍 <strong>Global wallets:</strong> Receive <strong>10,000 GERD</strong></li>
-      </ul>
-    
-   </div>
-  
-  <div class="container">
-   
-    <h2>Wallet Address:</h2>
-  
-    <input class="input is-success" type="text" id="recipient" placeholder="GERD Wallet Address" />
-    <div class="g-recaptcha" data-sitekey="6LdQyRkrAAAAANv5siZlVghMFzQ2AEPIg8501G9P"></div>
-    <button class="button is-success" onclick="claimTokens()">Claim Tokens</button>
-    <p id="response"></p>
-
-  </div>
- 
-
-  <div class="container">
-    <tr>
-      <td style="width:205px">&nbsp;</td>
-      <td style="width:993px">
-          <h3 class="subtitle"> Check your balance</h3>
-          <form>
-<label for="bwallet-address">Wallet Address:</label><br>
-<input class="input is-success" type="text" placeholder="GERD wallet address" id="bwallet-address" name="bwallet-address"/><br>
-<button class="button is-success" type="button" id="check-balance">Check Balance</button>
-<strong><div id="balance-result">Balance: N/A </div></strong>
+</ul>
+<h3 class="subtitle">📌 Claim Eligibility</h3>
+<ul class="content">
+<li>🇪🇹 <strong>Ethiopia-based wallets:</strong> Receive <strong>75,000 GERD</strong></li>
+<li>🌍 <strong>Global wallets:</strong> Receive <strong>10,000 GERD</strong></li>
+</ul>
 </div>
-          </form>
-      </td>
-  </tr>
-  </div>
-  </section>
-  <section class="hero is-success is-bold">
-    <div class="hero-body">
-      <div class="container">
-        <div class="columns is-vcentered">
-          <div class="column">
-            <h2 class="subtitle">
+<div class="mx-auto px-4 max-w-7xl">
+<h2>Wallet Address:</h2>
+<input class="input is-success" id="recipient" placeholder="GERD Wallet Address" type="text"/>
+<div class="g-recaptcha" data-sitekey="6LdQyRkrAAAAANv5siZlVghMFzQ2AEPIg8501G9P"></div>
+<button class="button is-success" onclick="claimTokens()">Claim Tokens</button>
+<p id="response"></p>
+</div>
+<div class="mx-auto px-4 max-w-7xl">
+<tr>
+<td style="width:205px"> </td>
+<td style="width:993px">
+<h3 class="subtitle"> Check your balance</h3>
+<form>
+<label for="bwallet-address">Wallet Address:</label><br/>
+<input class="input is-success" id="bwallet-address" name="bwallet-address" placeholder="GERD wallet address" type="text"/><br/>
+<button class="button is-success" id="check-balance" type="button">Check Balance</button>
+<strong><div id="balance-result">Balance: N/A </div></strong>
+</form></td></tr></div>
+
+
+
+
+</section>
+<section class="hero is-success is-bold">
+<div class="hero-body">
+<div class="mx-auto px-4 max-w-7xl">
+<div class="columns is-vcentered">
+<div class="column">
+<h2 class="subtitle">
                 DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY AND SUPPORTING THE GRAND ETHIOPIAN RENAISSANCE DAM PROJECT.
                  JOIN US IN CREATING A BRIGHTER FUTURE! 🌍💰 #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD
             </h2>
-          </div>
-          <div class="column has-text-centered">
-            <img src="image/abay_bluesky.png" alt="AbayGERDToken" style="width: 300px; height: auto;">
-          </div>
-        </div>
-      </div>
-    </div>
+</div>
+<div class="column has-text-centered">
+<img alt="AbayGERDToken" src="image/abay_bluesky.png" style="width: 300px; height: auto;"/>
+</div>
+</div>
+</div>
+</div>
 </section>
 <script>
   const web3a = new Web3("https://bsc-dataseed.binance.org/");
@@ -234,7 +201,6 @@ document.getElementById("check-balance").addEventListener("click", async () => {
   }
 });
 </script>
-
 <script>
   let sessionToken = "";
 
@@ -318,20 +284,15 @@ document.getElementById("check-balance").addEventListener("click", async () => {
     }
   }
 </script>
-
-  
-  <!-- Add more sections as needed -->
-
- 
-  <footer class="footer">
-    <div class="content has-text-centered">
-      <p style="font-size: 0.85rem;"><a href="mailto:contact@abaygerdtoken.com?subject=Claim Form"><strong>Contact us</strong></a> with claim related issues<br>
+<!-- Add more sections as needed -->
+<footer class="footer">
+<div class="content has-text-centered">
+<p style="font-size: 0.85rem;"><a href="mailto:contact@abaygerdtoken.com?subject=Claim Form"><strong>Contact us</strong></a> with claim related issues<br/>
         Copyright 2023 Abay GERD Token. All rights reserved.
       </p>
-    </div>
-  </footer>
-  
-  <!-- JavaScript to control modal -->
+</div>
+</footer>
+<!-- JavaScript to control modal -->
 <script>
   function openChangeModal() {
     document.getElementById('changeModal').style.display = 'flex';
@@ -340,7 +301,7 @@ document.getElementById("check-balance").addEventListener("click", async () => {
   function closeChangeModal() {
     document.getElementById('changeModal').style.display = 'none';
   }
-</script> 
+</script>
 <script>
   function copyToClipboard() {
     const contractAddressEl = document.getElementById("contractAddress");
@@ -369,6 +330,5 @@ document.getElementById("check-balance").addEventListener("click", async () => {
     window.getSelection().removeAllRanges();
   }
 </script>
-
 </body>
 </html>
