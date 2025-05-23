@@ -4,7 +4,7 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1" name="viewport"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css" rel="stylesheet"/>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/web3@1.8.2/dist/web3.min.js"></script>
@@ -26,7 +26,6 @@
     .error { color: red; }
     .loading { color: blue; }
     .g-recaptcha { margin: 10px 0; }
-    section.claim-form .container { max-width: 400px; margin: auto; padding: 2em; }
     input#recipient { width: 400px; }
     input#bwallet-address { width: 400px;}
     </style>
@@ -54,10 +53,10 @@
       }
     </style>
 <script src="https://unpkg.com/flowbite@2.2.1/dist/flowbite.min.js"></script>
-</meta></head>
+</head>
 <body class="pt-16">
 <!-- Dynamic Navbar -->
-<div id="navbar-container"></div>
+<div class="mb-20" id="navbar-container"></div>
 <script>
     fetch('navtest.html')
       .then(res => res.text())
@@ -68,8 +67,8 @@
         }, 200);
       });
   </script>
-<section class="section claim-form">
-<div class="container">
+<section class="section">
+<div class="max-w-3xl mx-auto px-4">
 <!-- Trigger link -->
 <a href="#" onclick="openChangeModal()">📢 See Claim Update</a>
 <!-- Modal Container -->
@@ -120,7 +119,6 @@
 </svg>
 </button>
 <!-- </div> -->
-
 </ul>
 <h3 class="subtitle">📌 Claim Eligibility</h3>
 <ul class="content">
@@ -128,14 +126,14 @@
 <li>🌍 <strong>Global wallets:</strong> Receive <strong>10,000 GERD</strong></li>
 </ul>
 </div>
-<div class="container">
+<div class="max-w-3xl mx-auto px-4">
 <h2>Wallet Address:</h2>
 <input class="input is-success" id="recipient" placeholder="GERD Wallet Address" type="text"/>
 <div class="g-recaptcha" data-sitekey="6LdQyRkrAAAAANv5siZlVghMFzQ2AEPIg8501G9P"></div>
 <button class="button is-success" onclick="claimTokens()">Claim Tokens</button>
 <p id="response"></p>
 </div>
-<div class="container">
+<div class="max-w-3xl mx-auto px-4">
 <tr>
 <td style="width:205px"> </td>
 <td style="width:993px">
@@ -146,14 +144,10 @@
 <button class="button is-success" id="check-balance" type="button">Check Balance</button>
 <strong><div id="balance-result">Balance: N/A </div></strong>
 </form></td></tr></div>
-
-
-
-
 </section>
 <section class="hero is-success is-bold">
 <div class="hero-body">
-<div class="container">
+<div class="max-w-3xl mx-auto px-4">
 <div class="columns is-vcentered">
 <div class="column">
 <h2 class="subtitle">
