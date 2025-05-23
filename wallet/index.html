@@ -31,7 +31,15 @@
       try {
         const res = await fetch(`${backend}/can-release`);
         const data = await res.json();
+
+        if (!data.nextEligibleUTC) {
+          throw new Error("Missing nextEligibleUTC in backend response");
+        }
+
         const eligibleDate = new Date(data.nextEligibleUTC + ' UTC');
+        if (isNaN(eligibleDate)) {
+          throw new Error("Invalid date format from backend: " + data.nextEligibleUTC);
+        }
 
         const interval = setInterval(() => {
           const now = new Date();
@@ -59,7 +67,7 @@
           }
         }, 1000);
       } catch (err) {
-        countdown.textContent = "Error fetching release info.";
+        countdown.textContent = "Error: " + err.message;
       }
 
       btn.addEventListener('click', async () => {
