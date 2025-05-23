@@ -16,7 +16,7 @@
 <body>
   <div class="container">
     <h1>GERD Vesting Testnet</h1>
-    <p id="countdown">Checking next release date...</p>
+    <p id="countdown">Checking next eligible release...</p>
     <button id="releaseNowBtn" class="disabled" disabled>Release Now</button>
     <p id="releaseStatus"></p>
   </div>
@@ -26,44 +26,40 @@
       const status = document.getElementById('releaseStatus');
       const countdown = document.getElementById('countdown');
       const btn = document.getElementById('releaseNowBtn');
-      const backend = 'https://testnet-vesting.onrender.com';  
+      const backend = 'https://testnet-vesting.onrender.com';  // replace with your backend URL
 
       try {
-        const res = await fetch(`${backend}/next-release-date`);
+        const res = await fetch(`${backend}/can-release`);
         const data = await res.json();
-        const nextTimestamp = data.nextReleaseTimestamp * 1000;
-        const releaseDate = new Date(nextTimestamp);
+        const eligibleDate = new Date(data.nextEligibleUTC + ' UTC');
 
-        const interval = setInterval(async () => {
+        const interval = setInterval(() => {
           const now = new Date();
-          const diff = releaseDate - now;
+          const diff = eligibleDate - now;
 
           if (diff <= 0) {
-            // Check backend for canRelease()
-            const relRes = await fetch(`${backend}/can-release`);
-            const relData = await relRes.json();
-            if (relData.canRelease) {
+            if (data.canRelease) {
               status.textContent = "✅ Release is available!";
               btn.disabled = false;
               btn.classList.remove("disabled");
               btn.classList.add("enabled");
               clearInterval(interval);
-              countdown.textContent = "⏱ Next release available now.";
+              countdown.textContent = "⏱ Next release is now eligible.";
             } else {
-              status.textContent = "❌ Already released for today.";
-              countdown.textContent = "⏱ Waiting for next release cycle...";
+              status.textContent = "❌ Already released this Wednesday.";
+              countdown.textContent = "⏱ Waiting for next release window...";
               btn.disabled = true;
             }
           } else {
             const hours = Math.floor(diff / 3600000);
             const minutes = Math.floor((diff % 3600000) / 60000);
             const seconds = Math.floor((diff % 60000) / 1000);
-            countdown.textContent = `⏱ Next release in ${hours}h ${minutes}m ${seconds}s`;
+            countdown.textContent = `⏱ Next eligible release in ${hours}h ${minutes}m ${seconds}s`;
             btn.disabled = true;
           }
         }, 1000);
       } catch (err) {
-        countdown.textContent = "Failed to load release schedule.";
+        countdown.textContent = "Error fetching release info.";
       }
 
       btn.addEventListener('click', async () => {
