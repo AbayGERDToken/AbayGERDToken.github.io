@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GERD Vesting Testnet Dashboard</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f4f4f4; padding: 20px; }
+    .container { background: white; padding: 20px; border-radius: 8px; max-width: 600px; margin: auto; }
+    button { padding: 10px 20px; font-weight: bold; border: none; border-radius: 5px; cursor: pointer; }
+    .disabled { background-color: #aaa; cursor: not-allowed; }
+    .enabled { background-color: #28a745; color: white; }
+    #releaseStatus { margin-top: 10px; font-size: 14px; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>GERD Vesting Testnet</h1>
+    <p id="countdown">Checking next release date...</p>
+    <button id="releaseNowBtn" class="disabled" disabled>Release Now</button>
+    <p id="releaseStatus"></p>
+  </div>
+
+  <script>
+    async function setupReleaseCountdown() {
+      const status = document.getElementById('releaseStatus');
+      const countdown = document.getElementById('countdown');
+      const btn = document.getElementById('releaseNowBtn');
+      const backend = 'https://testnet-vesting.onrender.com';  
+
+      try {
+        const res = await fetch(`${backend}/next-release-date`);
+        const data = await res.json();
+        const nextTimestamp = data.nextReleaseTimestamp * 1000;
+        const releaseDate = new Date(nextTimestamp);
+
+        const interval = setInterval(async () => {
+          const now = new Date();
+          const diff = releaseDate - now;
+
+          if (diff <= 0) {
+            // Check backend for canRelease()
+            const relRes = await fetch(`${backend}/can-release`);
+            const relData = await relRes.json();
+            if (relData.canRelease) {
+              status.textContent = "✅ Release is available!";
+              btn.disabled = false;
+              btn.classList.remove("disabled");
+              btn.classList.add("enabled");
+              clearInterval(interval);
+              countdown.textContent = "⏱ Next release available now.";
+            } else {
+              status.textContent = "❌ Already released for today.";
+              countdown.textContent = "⏱ Waiting for next release cycle...";
+              btn.disabled = true;
+            }
+          } else {
+            const hours = Math.floor(diff / 3600000);
+            const minutes = Math.floor((diff % 3600000) / 60000);
+            const seconds = Math.floor((diff % 60000) / 1000);
+            countdown.textContent = `⏱ Next release in ${hours}h ${minutes}m ${seconds}s`;
+            btn.disabled = true;
+          }
+        }, 1000);
+      } catch (err) {
+        countdown.textContent = "Failed to load release schedule.";
+      }
+
+      btn.addEventListener('click', async () => {
+        status.textContent = "Submitting release transaction...";
+        btn.disabled = true;
+
+        try {
+          const res = await fetch(`${backend}/release-token`, { method: "POST" });
+          const data = await res.json();
+          if (data.success) {
+            status.textContent = "✅ Release successful! TX: " + data.tx_hash;
+          } else {
+            status.textContent = "❌ Error: " + data.message;
+          }
+        } catch (e) {
+          status.textContent = "❌ Could not connect to backend.";
+        }
+      });
+    }
+
+    window.onload = setupReleaseCountdown;
+  </script>
+</body>
+</html>
