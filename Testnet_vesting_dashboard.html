@@ -1,45 +1,11 @@
-
 <!DOCTYPE html>
 
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GERD Vesting Dashboard</title>
-<script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script>
-<style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 20px;
-      background: #f5f5f5;
-      color: #333;
-      max-width: auto;
-      margin: auto;
-    }
-    h1 {
-      color: #2c3e50;
-    }
-    p.intro {
-      font-size: 20px;
-      line-height: 1.5;
-      background: #cfe4d5;
-      padding: 15px;
-      border-left: 4px solid #2ecc71;
-      border-radius: 6px;
-    }
-    .card {
-      background: white;
-      border-radius: 8px;
-      padding: 20px;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      margin-top: 20px;
-    }
-    .label {
-      font-weight: bold;
-      margin-top: 10px;
-    }
-  </style>
-<!-- Tailwind CSS and Flowbite -->
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>GERD Token Vesting Dashboard</title>
+<!-- Tailwind & Flowbite -->
 <script src="https://cdn.tailwindcss.com"></script>
 <script>
     tailwind.config = {
@@ -57,12 +23,17 @@
     }
   </script>
 <script src="https://unpkg.com/flowbite@2.2.1/dist/flowbite.min.js"></script>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css" rel="stylesheet"/>
+<style>
+    .copy-icon {
+      transition: opacity 0.3s ease;
+    }
+  </style>
 </head>
-<body class="bg-gray-50 text-gray-800 font-sans">
-
-  <!-- Injected Navbar -->
-  <div id="navbar-container"></div>
-  <script>
+<body class="pt-16 bg-gray-100 text-gray-800">
+<!-- Injected Navbar -->
+<div id="navbar-container"></div>
+<script>
     fetch('navtest.html')
       .then(res => res.text())
       .then(html => {
@@ -72,31 +43,109 @@
         }, 200);
       });
   </script>
-<section class="section bg-green-100 p-4 rounded-lg mb-4 align-center shadow">
-<div class="container text-center">
-<h2 class="text-3xl font-bold text-green-700 mb-4">📊 Testnet Vesting Release Dashboard</h2><br/>
-</div>
+<div class="max-w-4xl mx-auto p-6 mt-10 bg-green-200 shadow-xl rounded-2xl"><h1 class="text-center text-2xl font-semibold text-green-700 mb-4">📊 Vesting Release Dashboard on Testnet</h1><p class="text-sm text-gray-700 bg-green-50 border-l-4 border-green-600 p-4 mb-6 rounded">This dashboard is for community members to follow the progress of the GERD Token Vesting contract testing on the BSC Testnet.To simulate a long-term token release (1 billion GERD tokens per year for 115 years), the vesting contract on testnet is configured to release1 billion tokens every Wednesday. This allows for faster testing of what would normally happen over years in production.The data below is read directly from the blockchain and updates in real-time.</p><div class="rounded-2xl shadow-lg bg-white p-6 my-6">
+<p class="text-sm"><span class="label">Testnet CA:</span><code class="text-sm"><a href="https://testnet.bscscan.com/token/0x85a4850d0c2bdd6202c919c481bf0f186222fa89" target="_blank">0x85a4850d0c2bdd6202c919c481bf0f186222fa89</a></code></p>
+<p class="text-sm"><span class="label">Testnet VC:</span><code class="text-sm"><a href="https://testnet.bscscan.com/address/0xC3C2b095C3aA55ACecc7fBA44C6B9D3f56dC43Da" target="_blank">0xC3C2b095C3aA55ACecc7fBA44C6B9D3f56dC43Da</a></code></p>
+<p class="text-sm"><span class="label">Network:</span> BSC Testnet</p>
+<p class="text-sm"><span class="label">Last Release Time:</span> <span id="lastRelease">Loading...</span></p>
+<p class="text-sm"><span class="label">Is Today Wednesday:</span> <span id="isWednesday">Loading...</span></p>
+<p class="text-sm"><span class="label">Next Scheduled Release:</span> <span id="nextReleaseDate">Loading...</span></p>
+<p class="text-sm"><span class="label">Receipts for Releases:</span><code class="text-sm"><a href="https://testnet.bscscan.com/token/0x85a4850d0c2bdd6202c919c481bf0f186222fa89?a=0xc3c2b095c3aa55acecc7fba44c6b9d3f56dc43da" target="_blank">0xc3c2b095c3aa55acecc7fba44c6b9d3f56dc43da</a></code></p>
+</div><section class="bg-white p-4 rounded-lg mt-6 shadow">
 <div class="container">
-<p class="intro">
-    This dashboard is for community members to follow the progress of the GERD Token Vesting contract testing on the BSC Testnet. 
-    <br/><br/>
-    To simulate a long-term token release (1 billion GERD tokens per year for 115 years), the vesting contract on testnet is configured to release 
-    <strong>1 billion tokens every Wednesday</strong>. This allows for faster testing of what would normally happen over years in production.
-    <br/><br/>
-    The data below is read directly from the blockchain and updates in real-time.
-  </p>
-<div class="rounded-2xl shadow-lg bg-white p-6 my-6">
-<p><span class="label">Testnet CA:</span><code><a href="https://testnet.bscscan.com/token/0x85a4850d0c2bdd6202c919c481bf0f186222fa89" target="_blank">0x85a4850d0c2bdd6202c919c481bf0f186222fa89</a></code></p>
-<p><span class="label">Testnet VC:</span><code><a href="https://testnet.bscscan.com/address/0xC3C2b095C3aA55ACecc7fBA44C6B9D3f56dC43Da" target="_blank">0xC3C2b095C3aA55ACecc7fBA44C6B9D3f56dC43Da</a></code></p>
-<p><span class="label">Network:</span> BSC Testnet</p>
-<p><span class="label">Last Release Time:</span> <span id="lastRelease">Loading...</span></p>
-<p><span class="label">Is Today Wednesday:</span> <span id="isWednesday">Loading...</span></p>
-<p><span class="label">Next Scheduled Release:</span> <span id="nextReleaseDate">Loading...</span></p>
-<p><span class="label">Receipts for Releases:</span><code><a href="https://testnet.bscscan.com/token/0x85a4850d0c2bdd6202c919c481bf0f186222fa89?a=0xc3c2b095c3aa55acecc7fba44c6b9d3f56dc43da" target="_blank">0xc3c2b095c3aa55acecc7fba44c6b9d3f56dc43da</a></code></p>
+<h2 class="text-1xl font-semibold text-green-700 mb-4">📬 Wallet Balances</h2>
+<div class="overflow-x-auto">
+<table class="table-auto w-full border border-collapse">
+<thead class="bg-green-200">
+<tr>
+<th class="px-4 py-2 text-left text-sm">Name</th>
+<th class="px-4 py-2 text-left text-sm">Balance (GERD)</th>
+<th class="px-4 py-2 text-left text-sm">Wallet Address</th>
+</tr>
+</thead>
+<tbody class="text-sm text-gray-700 bg-white" id="walletTable">
+<tr><td class="px-4 py-2 text-sm" colspan="3">Loading balances...</td></tr>
+</tbody>
+</table>
 </div>
 </div>
-</section>
+</section><div class="container mt-6">
+<button class="bg-green-600 hover:bg-green-700 text-white text-sm font-medium px-6 py-2 rounded-2xl shadow-lg transition-all duration-300" onclick="window.location.href='dev/release_token.html'">
+    Release Tokens
+  </button>
+<br/><br/>
+<p><strong>Countdown to Next Release:</strong> <span id="releaseCountdown">Calculating...</span></p>
+<p><strong>Can Release Now:</strong> <span id="canRelease">Loading...</span></p>
+<h2 class="subtitle">Release History</h2>
+<ul class="box" id="releaseHistory"></ul>
+</div></div>
 <script>
+    const lockedTotal = 115_000_000_000;
+    const releasePerYear = 1_000_000_000;
+    const startDate = new Date("2025-04-24T00:00:00Z");
+
+    const now = new Date();
+    const yearsElapsed = Math.floor((now - startDate) / (365.25 * 24 * 3600 * 1000));
+    const released = Math.min(yearsElapsed, 115) * releasePerYear;
+    const remaining = lockedTotal - released;
+
+    document.getElementById("locked").innerText = lockedTotal.toLocaleString();
+    document.getElementById("released").innerText = released.toLocaleString();
+    document.getElementById("remaining").innerText = remaining.toLocaleString();
+
+    const nextRelease = new Date(startDate.getTime());
+    nextRelease.setUTCFullYear(startDate.getUTCFullYear() + yearsElapsed + 1);
+    document.getElementById("releaseDate").innerText = nextRelease.toDateString();
+
+    function updateCountdown() {
+      const diff = nextRelease - new Date();
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+      document.getElementById("countdown").innerText =
+        `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+
+    function copyToClipboard() {
+      const text = document.getElementById("contractAddress").innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        document.getElementById("copyIcon").classList.add("hidden");
+        document.getElementById("checkIcon").classList.remove("hidden");
+        setTimeout(() => {
+          document.getElementById("checkIcon").classList.add("hidden");
+          document.getElementById("copyIcon").classList.remove("hidden");
+        }, 1500);
+      });
+    }
+  </script>
+<script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script><script src="https://cdn.tailwindcss.com"></script><script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            green: {
+              600: '#047857',
+              100: '#d1fae5',
+              200: '#a7f3d0'
+            }
+          }
+        }
+      }
+    }
+  </script><script src="https://unpkg.com/flowbite@2.2.1/dist/flowbite.min.js"></script><script>
+    fetch('navtest.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('navbar-container').innerHTML = html;
+        setTimeout(() => {
+          if (window.initFlowbite) initFlowbite();
+        }, 200);
+      });
+  </script><script>
     const contractAddress = "0xC3C2b095C3aA55ACecc7fBA44C6B9D3f56dC43Da";
     const contractABI = [
       {
@@ -144,28 +193,7 @@
     }
 
     loadDashboard();
-  </script>
-  
-<section class="bg-white p-4 rounded-lg mt-6 shadow">
-  <div class="container">
-<h2 class="text-2xl font-semibold text-green-700 mb-4">📬 Wallet Balances</h2>
-<div class="overflow-x-auto">
-<table class="table-auto w-full border border-collapse">
-<thead class="bg-green-200">
-<tr>
-<th class="px-4 py-2 text-left">Name</th>
-<th class="px-4 py-2 text-left">Balance (GERD)</th>
-<th class="px-4 py-2 text-left">Wallet Address</th>
-</tr>
-</thead>
-<tbody class="text-sm text-gray-700 bg-white" id="walletTable">
-<tr><td class="px-4 py-2" colspan="3">Loading balances...</td></tr>
-</tbody>
-</table>
-</div>
-</div>
-</section>
-<script>
+  </script><script>
   
   const GERDTokenAddress = "0x85a4850d0c2bdd6202c919c481bf0f186222fa89";
   const tokenABI = [
@@ -216,37 +244,13 @@
   }
 
   loadBalances();
-</script>
-<!-- === Enhancements Begin === -->
-<!-- Release Tokens Button -->
-<div class="mt-6">
-
-<p class="text-sm mt-2 text-gray-700" id="txStatus"></p>
-</div>
-<!-- Clipboard Copy Enhancement -->
-<script>
+</script><script>
   function copyAddress() {
     const text = document.getElementById("contractAddr")?.textContent;
     if (!text) return;
     navigator.clipboard.writeText(text).then(() => alert("Copied!"));
   }
-</script>
-<div class="container mt-6">
-  
-  <button
-    class="bg-green-600 hover:bg-green-700 text-white text-sm font-medium px-6 py-2 rounded-2xl shadow-lg transition-all duration-300"
-    onclick="window.location.href='dev/release_token.html'">
-    Release Tokens
-  </button>
-<br><br>
-   
-    <p><strong>Countdown to Next Release:</strong> <span id="releaseCountdown">Calculating...</span></p>
-    <p><strong>Can Release Now:</strong> <span id="canRelease">Loading...</span></p>
-    <h2 class="subtitle">Release History</h2>
-    <ul id="releaseHistory" class="box"></ul>
-  </div>
-
-  <script>
+</script><script>
     
     const vestingContractAddress = "0xC3C2b095C3aA55ACecc7fBA44C6B9D3f56dC43Da";
     const vestingABI = [{
@@ -292,13 +296,179 @@
     }
 
     updateDashboard();
-  </script>
+  </script><script src="https://cdn.jsdelivr.net/npm/web3@1.10.0/dist/web3.min.js"></script><script src="https://cdn.tailwindcss.com"></script><script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            green: {
+              600: '#047857',
+              100: '#d1fae5',
+              200: '#a7f3d0'
+            }
+          }
+        }
+      }
+    }
+  </script><script src="https://unpkg.com/flowbite@2.2.1/dist/flowbite.min.js"></script><script>
+    fetch('navtest.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('navbar-container').innerHTML = html;
+        setTimeout(() => {
+          if (window.initFlowbite) initFlowbite();
+        }, 200);
+      });
+  </script><script>
+    const contractAddress = "0xC3C2b095C3aA55ACecc7fBA44C6B9D3f56dC43Da";
+    const contractABI = [
+      {
+        inputs: [],
+        name: "lastReleaseTime",
+        outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+        stateMutability: "view",
+        type: "function"
+      }
+    ];
 
-<!-- Footer -->
-<footer class="text-center text-xs text-gray-500 mt-12 mb-4">
-  Powered by GERD Token | BSC Testnet | <a class="text-green-600 underline" href="https://github.com/AbayGERDToken" target="_blank">GitHub</a>
-</footer>
+    const web3 = new Web3("https://data-seed-prebsc-1-s1.binance.org:8545/");
+    const contract = new web3.eth.Contract(contractABI, contractAddress);
 
-<!-- === Enhancements End === -->
-</body>
+    function getNextWednesdayTimestamp(fromTimestamp) {
+      const SECONDS_IN_DAY = 86400;
+      const day = Math.floor(fromTimestamp / SECONDS_IN_DAY + 4) % 7; // 0 = Sunday ... 3 = Wednesday
+      const daysUntilNextWednesday = (7 + 3 - day) % 7 || 7;
+      const nextTimestamp = (Math.floor(fromTimestamp / SECONDS_IN_DAY) + daysUntilNextWednesday) * SECONDS_IN_DAY;
+      return nextTimestamp;
+    }
+
+    async function loadDashboard() {
+      try {
+        const lastRelease = await contract.methods.lastReleaseTime().call();
+        const isNeverReleased = lastRelease === "0";
+        const now = Math.floor(Date.now() / 1000);
+
+        document.getElementById("lastRelease").textContent = isNeverReleased
+          ? "No token release has occurred yet"
+          : new Date(lastRelease * 1000).toUTCString();
+
+        const jsDay = new Date().getUTCDay(); // 3 = Wednesday
+        const isWed = jsDay === 3;
+        document.getElementById("isWednesday").textContent = isWed ? "✅ Yes" : "❌ No";
+
+        const nextReleaseTime = isNeverReleased
+          ? getNextWednesdayTimestamp(now)
+          : parseInt(lastRelease) + 7 * 86400;
+        document.getElementById("nextReleaseDate").textContent = new Date(nextReleaseTime * 1000).toUTCString();
+
+      } catch (err) {
+        console.error("Error loading dashboard:", err);
+      }
+    }
+
+    loadDashboard();
+  </script><script>
+  
+  const GERDTokenAddress = "0x85a4850d0c2bdd6202c919c481bf0f186222fa89";
+  const tokenABI = [
+    {
+      constant: true,
+      inputs: [{ name: "account", type: "address" }],
+      name: "balanceOf",
+      outputs: [{ name: "", type: "uint256" }],
+      type: "function"
+    },
+    {
+      constant: true,
+      inputs: [],
+      name: "decimals",
+      outputs: [{ name: "", type: "uint8" }],
+      type: "function"
+    }
+  ];
+
+  const addresses = [
+    { name: "Airdrop Wallet", addr: "0x87CC9e804B4A840297b18536D5d0E7A4835B0e3c" },
+    { name: "Staking Wallet", addr: "0x3B84a366a2f25BbB48f34b2b8D587c02237E6a13" },
+    { name: "Liquidity Wallet", addr: "0xdA96DBeDD6eF3f4f2b503565A7c6a5a65fbabf17" },
+    { name: "Vesting Contract", addr: "0xC3C2b095C3aA55ACecc7fBA44C6B9D3f56dC43Da" },
+    { name: "GERD Test Wallet", addr: "0xd84DB57e0d89cF6487b426e6BBbAb235b1139445" }
+  ];
+
+  const token = new web3.eth.Contract(tokenABI, GERDTokenAddress);
+
+  async function loadBalances() {
+    try {
+      const decimals = await token.methods.decimals().call();
+      let rows = "";
+      for (const entry of addresses) {
+        const balance = await token.methods.balanceOf(entry.addr).call();
+        const formatted = (balance / 10 ** decimals).toLocaleString("en-US");
+        rows += `<tr>
+          <td class="border px-4 py-2">${entry.name}</td>
+          <td class="border px-4 py-2">${formatted}</td>
+          <td class="border px-4 py-2 text-xs">${entry.addr}</td>
+        </tr>`;
+      }
+      document.getElementById("walletTable").innerHTML = rows;
+    } catch (err) {
+      console.error("Error loading balances:", err);
+      document.getElementById("walletTable").innerHTML = '<tr><td colspan="3" class="px-4 py-2 text-red-600">Failed to load balances</td></tr>';
+    }
+  }
+
+  loadBalances();
+</script><script>
+  function copyAddress() {
+    const text = document.getElementById("contractAddr")?.textContent;
+    if (!text) return;
+    navigator.clipboard.writeText(text).then(() => alert("Copied!"));
+  }
+</script><script>
+    
+    const vestingContractAddress = "0xC3C2b095C3aA55ACecc7fBA44C6B9D3f56dC43Da";
+    const vestingABI = [{
+      inputs: [],
+      name: "lastReleaseTime",
+      outputs: [{ internalType: "uint256", name: "", type: "uint256" }],
+      stateMutability: "view",
+      type: "function"
+    }];
+    const vesting = new web3.eth.Contract(vestingABI, vestingContractAddress);
+
+    function getNextWednesdayTimestamp(fromTimestamp) {
+      const SECONDS_IN_DAY = 86400;
+      const day = Math.floor(fromTimestamp / SECONDS_IN_DAY + 4) % 7;
+      const daysUntilNextWednesday = (7 + 3 - day) % 7 || 7;
+      return (Math.floor(fromTimestamp / SECONDS_IN_DAY) + daysUntilNextWednesday) * SECONDS_IN_DAY;
+    }
+
+    async function updateDashboard() {
+      try {
+        const now = Math.floor(Date.now() / 1000);
+        const lastRelease = await vesting.methods.lastReleaseTime().call();
+
+        // Countdown Calculation
+        const nextRelease = parseInt(lastRelease) + 7 * 86400;
+        const secondsLeft = nextRelease - now;
+        const days = Math.floor(secondsLeft / 86400);
+        const hours = Math.floor((secondsLeft % 86400) / 3600);
+        const minutes = Math.floor((secondsLeft % 3600) / 60);
+        document.getElementById("releaseCountdown").textContent = secondsLeft > 0 ? `${days}d ${hours}h ${minutes}m` : "Ready to release";
+
+        // Can Release Now
+        const isWednesday = new Date().getUTCDay() === 3;
+        const releaseReady = now >= nextRelease && isWednesday;
+        document.getElementById("canRelease").textContent = releaseReady ? "✅ Yes" : "❌ No";
+
+        // Release History
+        const historyList = document.getElementById("releaseHistory");
+        historyList.innerHTML = `<li>Last release: ${new Date(lastRelease * 1000).toUTCString()}</li>`;
+      } catch (err) {
+        console.error("Error updating dashboard:", err);
+      }
+    }
+
+    updateDashboard();
+  </script></body>
 </html>
