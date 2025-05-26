@@ -43,7 +43,9 @@
           throw new Error("Missing nextEligibleUTC in backend response");
         }
 
-        const eligibleDate = new Date(data.nextEligibleUTC + ' UTC');
+        const normalized = data.nextEligibleUTC.replace(' ', 'T').replace(' UTC', 'Z');
+        const eligibleDate = new Date(normalized);
+        
         if (isNaN(eligibleDate)) {
           throw new Error("Invalid date format from backend: " + data.nextEligibleUTC);
         }
