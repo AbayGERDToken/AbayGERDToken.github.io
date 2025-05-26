@@ -103,14 +103,17 @@
         }, 200);
       });
   </script>
-    <div class="container">
+  <div class="container">
        <h2 style="text-align: center; font-size: 1.5em; font-weight: bold;">
-  GERD Annual Airdrop – Every year on April 23rd
+  Airdrop – Every Year on April 23rd
 </h2>
 <hr>
-
+  <div class="bg-gray-50 p-4 rounded-xl shadow" style="text-align: center">
+        <h2 class="text-xl font-semibold">Next Release In</h2>
+        <p id="countdown" class="text-2xl font-mono text-blue-600">...</p>
+  </div>
         
-        <h3><strong>Airdrop Formula</strong></h3>
+<h3><strong>Airdrop Formula</strong></h3>
 <p>
   Airdrop per User =
   <span style="display:inline-block; vertical-align:middle;">
@@ -168,5 +171,29 @@
             </ul>
         </div>
     </div>
+   <script>
+    
+    const startDate = new Date("2025-04-24T00:00:00Z");
+
+    const now = new Date();
+    const yearsElapsed = Math.floor((now - startDate) / (365.25 * 24 * 3600 * 1000));
+    
+    const nextRelease = new Date(startDate.getTime());
+      nextRelease.setUTCFullYear(startDate.getUTCFullYear() + yearsElapsed + 1);
+
+
+    function updateCountdown() {
+      const diff = nextRelease - new Date();
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+      document.getElementById("countdown").innerText =
+        `${days}d ${hours}h ${minutes}m ${seconds}s`;
+    }
+
+    setInterval(updateCountdown, 1000);
+    updateCountdown();
+  </script>
 </body>
 </html>
