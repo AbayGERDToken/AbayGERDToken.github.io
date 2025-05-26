@@ -43,7 +43,19 @@
         }, 200);
       });
   </script>
-<div class="max-w-4xl mx-auto p-6 mt-10 bg-green-200 shadow-xl rounded-2xl"><h1 class="text-center text-2xl font-semibold text-green-700 mb-4">📊 Vesting Release Dashboard on Testnet</h1><p class="text-sm text-gray-700 bg-green-50 border-l-4 border-green-600 p-4 mb-6 rounded">This dashboard is for community members to follow the progress of the GERD Token Vesting contract testing on the BSC Testnet.To simulate a long-term token release (1 billion GERD tokens per year for 115 years), the vesting contract on testnet is configured to release1 billion tokens every Wednesday. This allows for faster testing of what would normally happen over years in production.The data below is read directly from the blockchain and updates in real-time.</p><div class="rounded-2xl shadow-lg bg-white p-6 my-6">
+<div class="max-w-4xl mx-auto p-6 mt-10 bg-green-200 shadow-xl rounded-2xl"><h1 class="text-center text-2xl font-semibold text-green-700 mb-4">📊 Vesting Release Dashboard on Testnet</h1><p class="text-sm text-gray-700 bg-green-50 border-l-4 border-green-600 p-4 mb-6 rounded">This dashboard is for community members to follow the progress of the GERD Token Vesting contract testing on the BSC Testnet.To simulate a long-term token release (1 billion GERD tokens per year for 115 years), the vesting contract on testnet is configured to release1 billion tokens every Wednesday. This allows for faster testing of what would normally happen over years in production.The data below is read directly from the blockchain and updates in real-time.</p>
+<div class="rounded-2xl shadow-lg bg-white p-6 my-6">
+
+<button class="bg-green-600 hover:bg-green-700 text-white text-sm font-medium px-6 py-2 rounded-2xl shadow-lg transition-all duration-300" onclick="window.location.href='dev/release_token.html'">
+    Release Tokens
+  </button>
+
+<p><strong>Countdown to Next Release:</strong> <span id="releaseCountdown">Calculating...</span></p>
+<p><strong>Can Release Now:</strong> <span id="canRelease">Loading...</span></p>
+
+</div>
+<div class="rounded-2xl shadow-lg bg-white p-6 my-6">
+
 <p class="text-sm"><span class="label">Testnet CA:</span><code class="text-sm"><a href="https://testnet.bscscan.com/token/0x85a4850d0c2bdd6202c919c481bf0f186222fa89" target="_blank">0x85a4850d0c2bdd6202c919c481bf0f186222fa89</a></code></p>
 <p class="text-sm"><span class="label">Testnet VC:</span><code class="text-sm"><a href="https://testnet.bscscan.com/address/0xC3C2b095C3aA55ACecc7fBA44C6B9D3f56dC43Da" target="_blank">0xC3C2b095C3aA55ACecc7fBA44C6B9D3f56dC43Da</a></code></p>
 <p class="text-sm"><span class="label">Network:</span> BSC Testnet</p>
@@ -69,16 +81,13 @@
 </table>
 </div>
 </div>
-</section><div class="container mt-6">
-<button class="bg-green-600 hover:bg-green-700 text-white text-sm font-medium px-6 py-2 rounded-2xl shadow-lg transition-all duration-300" onclick="window.location.href='dev/release_token.html'">
-    Release Tokens
-  </button>
-<br/><br/>
-<p><strong>Countdown to Next Release:</strong> <span id="releaseCountdown">Calculating...</span></p>
-<p><strong>Can Release Now:</strong> <span id="canRelease">Loading...</span></p>
+</section>
+<div class="container mt-6">
+
 <h2 class="subtitle">Release History</h2>
 <ul class="box" id="releaseHistory"></ul>
-</div></div>
+</div>
+</div>
 <script>
     const lockedTotal = 115_000_000_000;
     const releasePerYear = 1_000_000_000;
