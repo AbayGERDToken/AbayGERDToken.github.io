@@ -226,7 +226,7 @@ document.getElementById("check-balance").addEventListener("click", async () => {
   try {
   const balance = await gerdContract.methods.balanceOf(walletAddress).call();
   const formattedBalance = (balance / 10**2).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
-  document.getElementById("balance-result").innerText = `Your balance is: ${formattedBalance} GERD`;
+  document.getElementById("balance-result").innerText = `Balance: ${formattedBalance} GERD`;
   } catch (error) {
     console.error("Error fetching balance:", error);
     alert("An error occurred while fetching the balance.");
