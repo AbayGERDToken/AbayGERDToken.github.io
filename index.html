@@ -102,13 +102,34 @@
 </div>
 </section>
 
-<div class="container" align="right">Contract: <a href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c" target="_blank">
-    <code>0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c</code></a><p>
-      Archive-Legacy contract: <a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019" target="_blank">
-    <code>0x660941bb4AA9FcBED00375673D21088A9d0C5019</code></a><p>
-    <a href="#" onclick="openChangeModal()">📢 See Migration Announcement</a> 
+<style>
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+.blink {
+  animation: blink 1s step-start infinite;
+}
+</style>
 
-    </div>
+<div class="container" align="right">
+  Contract:
+  <a href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c" target="_blank">
+    <code>0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c</code>
+  </a>
+  <p>
+    Archive-Legacy contract:
+    <a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019" target="_blank">
+      <code>0x660941bb4AA9FcBED00375673D21088A9d0C5019</code>
+    </a>
+  </p>
+
+  <!-- Left-align and blinking -->
+  <div style="text-align: left; margin-top: 10px;">
+    <a href="#" onclick="openChangeModal()" class="blink">📢 Click for Migration Announcement</a>
+  </div>
+</div>
+
 <section class="section">
  <div class="container">
 
@@ -129,10 +150,10 @@
       <li>✅ New Contract: <br><strong>0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c</strong></li>
       <li>📜 Legacy Contract: <br><strong>0x660941bb4AA9FcBED00375673D21088A9d0C5019</strong> (now labeled as <em>Legacy GERD</em>)</li>
     </ul>
-    <p>🛡️ The migration fixes a minor risk in the old contract’s allowance logic. No exploit occurred, and no tokens were lost.</p>
-    <p>🔒 The new contract is fully immutable, has no owner, and preserves the 120B fixed supply.</p>
+    <p>🛡️ The migration fixes a minor risk in the old contract’s allowance logic. No exploit occurred, and no tokens were lost. See
+    <a href="migration_announcement.html" style="color: blue; text-decoration: underline;">Migration Announcement</a></p>
     <p><strong>Please update any saved contract references to the new address.</strong></p>
-    <p style="margin-top:10px;">🔗 <a href="https://bscscan.com/address/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c" target="_blank">View on BscScan</a> </p>
+    <p style="margin-top:10px;">🔗 <a href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c" target="_blank">View on BscScan</a> </p>
     <p>🙏 Thank you for your continued trust and support.</p>
   </div>
 </div>
