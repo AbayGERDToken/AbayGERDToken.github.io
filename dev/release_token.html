@@ -26,6 +26,8 @@
     <p id="countdown">Checking next eligible release...</p>
     <button id="releaseNowBtn" class="disabled" disabled>Release Now</button>
     <p id="releaseStatus"></p>
+    <br>
+    <a href="https://testnet.bscscan.com/token/0x85a4850d0c2bdd6202c919c481bf0f186222fa89?a=0xC3C2b095C3aA55ACecc7fBA44C6B9D3f56dC43Da" target="_blank">Check transaction log</a>
   </div>
 
   <script>
@@ -33,7 +35,7 @@
       const status = document.getElementById('releaseStatus');
       const countdown = document.getElementById('countdown');
       const btn = document.getElementById('releaseNowBtn');
-      const backend = 'https://testnet-vesting.onrender.com';  // replace with your backend URL
+      const backend = 'https://testnet-vesting.onrender.com';  
 
       try {
         const res = await fetch(`${backend}/can-release`);
@@ -87,7 +89,7 @@
           const res = await fetch(`${backend}/release-token`, { method: "POST" });
           const data = await res.json();
           if (data.success) {
-            status.textContent = "✅ Release successful! TX: " + data.tx_hash;
+            status.textContent = "✅ Release successful! TX: 0x" + data.tx_hash;
           } else {
             status.textContent = "❌ Error: " + data.message;
           }
