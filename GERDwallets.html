@@ -11,11 +11,85 @@
   <!-- Font Awesome 6 -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
   
+  <!-- Google Fonts - Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
   <!-- Custom CSS -->
   <link rel="stylesheet" href="css/main.css"/>
   
   <!-- Web3 -->
   <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
+  
+  <style>
+    :root {
+      --gerd-primary: #198754;
+      --gerd-dark: #0f5132;
+      --gerd-light: #d1e7dd;
+    }
+    
+    .hero-section {
+      background: linear-gradient(135deg, var(--gerd-primary) 0%, var(--gerd-dark) 100%);
+      color: white;
+      padding: 60px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+      opacity: 0.3;
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+    
+    .feature-card {
+      border: none;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    }
+    
+    .content-section {
+      padding: 80px 0;
+    }
+    
+    #wallet-table {
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    
+    #wallet-table th {
+      background-color: #198754;
+      color: white;
+      font-weight: 600;
+      padding: 16px;
+    }
+    
+    #wallet-table td {
+      padding: 14px 16px;
+    }
+    
+    .balance-loading {
+      color: #6c757d;
+      font-style: italic;
+    }
+  </style>
 </head>
 <body>
   <!-- Dynamic Navbar -->
@@ -29,96 +103,92 @@
       .catch(err => console.error('Error loading navbar:', err));
   </script>
 
-  <section class="py-5 mt-5">
+  <!-- Hero Section -->
+  <section class="hero-section">
     <div class="container">
-      <h2 class="h2 mb-4"><i class="fas fa-wallet text-success me-2"></i>GERD Token Wallet Balances</h2>
-      
-      <div class="table-responsive">
-        <table class="table table-striped table-hover">
-          <thead class="table-success">
-            <tr>
-              <th>Balance (GERD)</th>
-              <th>Description</th>
-              <th>Wallet Address</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr data-address="0x02a2013C569c3cF7a8bf3DFE70D97c76B44993dc">
-              <td class="balance">Loading…</td>
-              <td>Vesting Reserve</td>
-              <td><a href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c?a=0x02a2013C569c3cF7a8bf3DFE70D97c76B44993dc" target="_blank" class="text-decoration-none"><code>0x02a2013C569c3cF7a8bf3DFE70D97c76B44993dc</code></a></td>
-            </tr>
-            <tr data-address="0x000000000000000000000000000000000000dead">
-              <td class="balance">Loading…</td>
-              <td>Token Burn - Dead Address</td>
-              <td><a href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c?a=0x000000000000000000000000000000000000dead" target="_blank" class="text-decoration-none"><code>0x000000000000000000000000000000000000dead</code></a></td>
-            </tr>
-            <tr data-address="0x8bF286A0135489832300e33F57ACc7ADA2Ca8133">
-              <td class="balance">Loading…</td>
-              <td>Development Reserve Fund</td>
-              <td><a href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c?a=0x8bF286A0135489832300e33F57ACc7ADA2Ca8133" target="_blank" class="text-decoration-none"><code>0x8bF286A0135489832300e33F57ACc7ADA2Ca8133</code></a></td>
-            </tr>
-            <tr data-address="0xAfDAaDe5b0044993813b1f06cC3F3c6C025a1F1D">
-              <td class="balance">Loading…</td>
-              <td>Distribution - for Claims</td>
-              <td><a href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c?a=0xAfDAaDe5b0044993813b1f06cC3F3c6C025a1F1D" target="_blank" class="text-decoration-none"><code>0xAfDAaDe5b0044993813b1f06cC3F3c6C025a1F1D</code></a></td>
-            </tr>
-            <tr data-address="0x2C8FbB5E9b56050401C283a7bd22a8594b64c6d1">
-              <td class="balance">Loading…</td>
-              <td>Airdrop Smart Contract</td>
-              <td><a href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c?a=0x2C8FbB5E9b56050401C283a7bd22a8594b64c6d1" target="_blank" class="text-decoration-none"><code>0x2C8FbB5E9b56050401C283a7bd22a8594b64c6d1</code></a></td>
-            </tr>
-            <tr data-address="0xdA96DBeDD6eF3f4f2b503565A7c6a5a65fbabf17">
-              <td class="balance">Loading…</td>
-              <td>Liquidity Pool</td>
-              <td><a href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c?a=0xdA96DBeDD6eF3f4f2b503565A7c6a5a65fbabf17" target="_blank" class="text-decoration-none"><code>0xdA96DBeDD6eF3f4f2b503565A7c6a5a65fbabf17</code></a></td>
-            </tr>
-            <tr data-address="0x75F5f7d68AD14f467c935d6B375D350614F9cF68">
-              <td class="balance">Loading…</td>
-              <td>GERD Dignitary Reserve</td>
-              <td><a href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c?a=0x75F5f7d68AD14f467c935d6B375D350614F9cF68" target="_blank" class="text-decoration-none"><code>0x75F5f7d68AD14f467c935d6B375D350614F9cF68</code></a></td>
-            </tr>
-            <tr data-address="0xB2d784C9DDFE33359D1Af13E9121D7bd94C28578">
-              <td class="balance">Loading…</td>
-              <td>Claim Dispensing System</td>
-              <td><a href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c?a=0xB2d784C9DDFE33359D1Af13E9121D7bd94C28578" target="_blank" class="text-decoration-none"><code>0xB2d784C9DDFE33359D1Af13E9121D7bd94C28578</code></a></td>
-            </tr>
-            <tr data-address="0x3B84a366a2f25BbB48f34b2b8D587c02237E6a13">
-              <td class="balance">Loading…</td>
-              <td>Staking Rewards</td>
-              <td><a href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c?a=0x3B84a366a2f25BbB48f34b2b8D587c02237E6a13" target="_blank" class="text-decoration-none"><code>0x3B84a366a2f25BbB48f34b2b8D587c02237E6a13</code></a></td>
-            </tr>
-          </tbody>
-        </table>
+      <div class="hero-content">
+        <div class="row">
+          <div class="col-lg-10 mx-auto text-center">
+            <h1 class="display-4 fw-bold mb-4"><i class="fas fa-wallet me-3"></i>GERD Token Wallet Balances</h1>
+            <p class="lead fs-5 opacity-90">Real-time tracking of all project wallet balances on the Binance Smart Chain</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
 
-  <script>
-    window.addEventListener('load', async () => {
-      const rpc = "https://bsc-dataseed.binance.org/";
-      const web3 = new Web3(rpc);
-      const tokenAddress = "0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c";
-      const tokenABI = [
-        { "constant":true, "inputs":[], "name":"decimals", "outputs":[{"name":"","type":"uint8"}], "type":"function" },
-        { "constant":true, "inputs":[{"name":"account","type":"address"}], "name":"balanceOf", "outputs":[{"name":"","type":"uint256"}], "type":"function" }
-      ];
-      const contract = new web3.eth.Contract(tokenABI, tokenAddress);
-      const decimals = await contract.methods.decimals().call();
-
-      document.querySelectorAll('tr[data-address]').forEach(async row => {
-        const addr = row.getAttribute('data-address');
-        try {
-          const raw = await contract.methods.balanceOf(addr).call();
-          const formatted = (Number(raw) / (10 ** decimals)).toLocaleString();
-          row.querySelector('.balance').innerText = formatted;
-        } catch (err) {
-          console.error(`Failed to fetch for ${addr}:`, err);
-          row.querySelector('.balance').innerText = 'Error';
-        }
-      });
-    });
-  </script>
+  <!-- Main Content -->
+  <section class="content-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-12">
+          <div class="card feature-card">
+            <div class="card-body p-4">
+              <h2 class="h4 fw-bold mb-4 text-center"><i class="fas fa-table me-2"></i>Project Wallet Balances</h2>
+              <div class="table-responsive">
+                <table id="wallet-table" class="table table-striped table-hover mb-0">
+                  <thead>
+                    <tr>
+                      <th>Balance (GERD)</th>
+                      <th>Description</th>
+                      <th>Wallet Address</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr data-address="0x02a2013C569c3cF7a8bf3DFE70D97c76B44993dc">
+                      <td class="balance balance-loading">Loading…</td>
+                      <td>Vesting Reserve</td>
+                      <td><a href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c?a=0x02a2013C569c3cF7a8bf3DFE70D97c76B44993dc" target="_blank" class="text-decoration-none"><code>0x02a2013C569c3cF7a8bf3DFE70D97c76B44993dc</code> <i class="fas fa-external-link-alt ms-1"></i></a></td>
+                    </tr>
+                    <tr data-address="0x000000000000000000000000000000000000dead">
+                      <td class="balance balance-loading">Loading…</td>
+                      <td>Token Burn - Dead Address</td>
+                      <td><a href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c?a=0x000000000000000000000000000000000000dead" target="_blank" class="text-decoration-none"><code>0x000000000000000000000000000000000000dead</code> <i class="fas fa-external-link-alt ms-1"></i></a></td>
+                    </tr>
+                    <tr data-address="0x8bF286A0135489832300e33F57ACc7ADA2Ca8133">
+                      <td class="balance balance-loading">Loading…</td>
+                      <td>Development Reserve Fund</td>
+                      <td><a href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c?a=0x8bF286A0135489832300e33F57ACc7ADA2Ca8133" target="_blank" class="text-decoration-none"><code>0x8bF286A0135489832300e33F57ACc7ADA2Ca8133</code> <i class="fas fa-external-link-alt ms-1"></i></a></td>
+                    </tr>
+                    <tr data-address="0xAfDAaDe5b0044993813b1f06cC3F3c6C025a1F1D">
+                      <td class="balance balance-loading">Loading…</td>
+                      <td>Distribution - for Claims</td>
+                      <td><a href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c?a=0xAfDAaDe5b0044993813b1f06cC3F3c6C025a1F1D" target="_blank" class="text-decoration-none"><code>0xAfDAaDe5b0044993813b1f06cC3F3c6C025a1F1D</code> <i class="fas fa-external-link-alt ms-1"></i></a></td>
+                    </tr>
+                    <tr data-address="0x2C8FbB5E9b56050401C283a7bd22a8594b64c6d1">
+                      <td class="balance balance-loading">Loading…</td>
+                      <td>Airdrop Smart Contract</td>
+                      <td><a href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c?a=0x2C8FbB5E9b56050401C283a7bd22a8594b64c6d1" target="_blank" class="text-decoration-none"><code>0x2C8FbB5E9b56050401C283a7bd22a8594b64c6d1</code> <i class="fas fa-external-link-alt ms-1"></i></a></td>
+                    </tr>
+                    <tr data-address="0xdA96DBeDD6eF3f4f2b503565A7c6a5a65fbabf17">
+                      <td class="balance balance-loading">Loading…</td>
+                      <td>Liquidity Pool</td>
+                      <td><a href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c?a=0xdA96DBeDD6eF3f4f2b503565A7c6a5a65fbabf17" target="_blank" class="text-decoration-none"><code>0xdA96DBeDD6eF3f4f2b503565A7c6a5a65fbabf17</code> <i class="fas fa-external-link-alt ms-1"></i></a></td>
+                    </tr>
+                    <tr data-address="0x75F5f7d68AD14f467c935d6B375D350614F9cF68">
+                      <td class="balance balance-loading">Loading…</td>
+                      <td>GERD Dignitary Reserve</td>
+                      <td><a href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c?a=0x75F5f7d68AD14f467c935d6B375D350614F9cF68" target="_blank" class="text-decoration-none"><code>0x75F5f7d68AD14f467c935d6B375D350614F9cF68</code> <i class="fas fa-external-link-alt ms-1"></i></a></td>
+                    </tr>
+                    <tr data-address="0xB2d784C9DDFE33359D1Af13E9121D7bd94C28578">
+                      <td class="balance balance-loading">Loading…</td>
+                      <td>Claim Dispensing System</td>
+                      <td><a href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c?a=0xB2d784C9DDFE33359D1Af13E9121D7bd94C28578" target="_blank" class="text-decoration-none"><code>0xB2d784C9DDFE33359D1Af13E9121D7bd94C28578</code> <i class="fas fa-external-link-alt ms-1"></i></a></td>
+                    </tr>
+                    <tr data-address="0x3B84a366a2f25BbB48f34b2b8D587c02237E6a13">
+                      <td class="balance balance-loading">Loading…</td>
+                      <td>Staking Rewards</td>
+                      <td><a href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c?a=0x3B84a366a2f25BbB48f34b2b8D587c02237E6a13" target="_blank" class="text-decoration-none"><code>0x3B84a366a2f25BbB48f34b2b8D587c02237E6a13</code> <i class="fas fa-external-link-alt ms-1"></i></a></td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
   <section class="bg-success-subtle py-5 mb-0">
     <div class="container">
@@ -143,6 +213,38 @@
       </p>
     </div>
   </footer>
+
+  <script>
+    window.addEventListener('load', async () => {
+      const rpc = "https://bsc-dataseed.binance.org/";
+      const web3 = new Web3(rpc);
+      const tokenAddress = "0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c";
+      const tokenABI = [
+        { "constant":true, "inputs":[], "name":"decimals", "outputs":[{"name":"","type":"uint8"}], "type":"function" },
+        { "constant":true, "inputs":[{"name":"account","type":"address"}], "name":"balanceOf", "outputs":[{"name":"","type":"uint256"}], "type":"function" }
+      ];
+      const contract = new web3.eth.Contract(tokenABI, tokenAddress);
+      const decimals = await contract.methods.decimals().call();
+
+      document.querySelectorAll('tr[data-address]').forEach(async row => {
+        const addr = row.getAttribute('data-address');
+        try {
+          const raw = await contract.methods.balanceOf(addr).call();
+          const formatted = (Number(raw) / (10 ** decimals)).toLocaleString();
+          const balanceCell = row.querySelector('.balance');
+          balanceCell.textContent = formatted;
+          balanceCell.classList.remove('balance-loading');
+          balanceCell.classList.add('fw-bold', 'text-success');
+        } catch (err) {
+          console.error(`Failed to fetch for ${addr}:`, err);
+          const balanceCell = row.querySelector('.balance');
+          balanceCell.textContent = 'Error';
+          balanceCell.classList.remove('balance-loading');
+          balanceCell.classList.add('text-danger');
+        }
+      });
+    });
+  </script>
 
   <!-- Bootstrap 5.3.3 JS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
