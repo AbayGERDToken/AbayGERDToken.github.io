@@ -1,143 +1,137 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Abay GERD Token</title>
-
-  <!-- Bulma + Tailwind + Flowbite -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            green: {
-              600: '#047857',
-              100: '#d1fae5',
-              200: '#a7f3d0'
-            }
-          }
-        }
-      }
-    }
-  </script>
-  <script src="https://unpkg.com/flowbite@2.2.1/dist/flowbite.min.js"></script>
+  <title>MetaMask Wallet Setup - Abay GERD Token</title>
+  
+  <!-- Bootstrap 5.3.3 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/main.css"/>
 </head>
-<body class="pt-16">
-
-  <!-- Injected Navbar -->
+<body>
+  <!-- Dynamic Navbar -->
   <div id="navbar-container"></div>
   <script>
     fetch('navtest.html')
       .then(res => res.text())
       .then(html => {
         document.getElementById('navbar-container').innerHTML = html;
-        setTimeout(() => {
-          if (window.initFlowbite) initFlowbite();
-        }, 200);
-      });
+      })
+      .catch(err => console.error('Error loading navbar:', err));
   </script>
 
-  <section class="section">
+  <section class="py-5 mt-5">
     <div class="container">
-      <h2 class="title">MetaMask Wallet Setup</h2>
-      <p>Here's a step-by-step guide for downloading MetaMask Wallet, importing the Abay GERD contract, and getting the GERD wallet address on the Binance Smart Chain:</p>
-    </div>
-
-    <br><br>
-    <div class="container">
-      <h2 class="subtitle">1. Download MetaMask Wallet:</h2>
-      <ul>
-        <li>For desktop users: Visit the <a href="https://metamask.io/download.html" target="_blank">MetaMask website</a> and choose the appropriate browser extension for Chrome, Firefox, Brave, or Edge. Follow the instructions to install the extension.</li>
-        <li>For mobile users: Visit the <a href="https://metamask.io/download.html" target="_blank">Google Play Store</a> for Android or <a href="https://metamask.io/download.html" target="_blank">App Store</a> for iOS to download the app.</li>
-      </ul>
-    </div>
-
-    <br><br>
-    <div class="container">
-      <h2 class="subtitle">2. Set up MetaMask:</h2>
-      <ul>
-        <li>Open the MetaMask extension or app on your device.</li>
-        <li>Select “Create a New Wallet.”</li>
-        <li>Choose a strong password and accept the terms of use.</li>
-        <li>Save your 12-word recovery phrase securely. Do not share it.</li>
-        <li>Confirm your recovery phrase and proceed to the dashboard.</li>
-      </ul>
-    </div>
-
-    <br><br>
-    <div class="container">
-      <h2 class="subtitle">3. Add the Binance Smart Chain Network:</h2>
-      <ul>
-        <li>Click the network dropdown at the top (default is "Ethereum Mainnet").</li>
-        <li>Select “Custom RPC” to add a new network.</li>
-        <li>Enter:
-          <ul>
-            <li><strong>Network Name:</strong> Binance Smart Chain</li>
-            <li><strong>New RPC URL:</strong> https://bsc-dataseed.binance.org/</li>
-            <li><strong>Chain ID:</strong> 56</li>
-            <li><strong>Currency Symbol:</strong> BNB</li>
-            <li><strong>Block Explorer URL:</strong> https://bscscan.com</li>
-          </ul>
-        </li>
-        <li>Click “Save.”</li>
-      </ul>
-    </div>
-
-    <br><br>
-    <div class="container">
-      <h2 class="subtitle">4. Import the Abay GERD Contract:</h2>
-      <ul>
-        <li>Click “Add Token” on the dashboard.</li>
-        <li>Select “Custom Token.”</li>
-        <li>Copy and Paste contract address: <code><strong>0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c</strong></code></li>
-        <li>The rest should auto-fill. Click “Next” and “Add Tokens.”</li>
-      </ul>
-    </div>
-
-    <br><br>
-    <div class="container">
-      <h2 class="subtitle">5. Get Your GERD Wallet Address:</h2>
-      <ul>
-        <li>Ensure Binance Smart Chain is selected.</li>
-        <li>Your address appears under your account name. Tap to copy.</li>
-        <li>Use this address to receive GERD tokens. Never share your private key or recovery phrase.</li>
-      </ul>
-    </div>
-
-    <br><br>
-    <div class="container">
-      <p>You're all set! You can now manage your GERD tokens using MetaMask. You’ll need a small amount of BNB for gas fees to send tokens. Receiving is free.</p>
+      <h2 class="h2 mb-3"><i class="fas fa-wallet text-success me-2"></i>MetaMask Wallet Setup</h2>
+      <p class="lead">Here's a step-by-step guide for downloading MetaMask Wallet, importing the Abay GERD contract, and getting the GERD wallet address on the Binance Smart Chain:</p>
     </div>
   </section>
 
-  <section class="hero is-success is-bold">
-    <div class="hero-body">
-      <div class="container">
-        <div class="columns is-vcentered">
-          <div class="column">
-            <h2 class="subtitle">
-              DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY AND SUPPORTING THE GRAND ETHIOPIAN RENAISSANCE DAM PROJECT.
-              JOIN US IN CREATING A BRIGHTER FUTURE! 🌍💰 #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD
-            </h2>
-          </div>
-          <div class="column has-text-centered">
-            <img src="image/abay_bluesky.png" alt="AbayGERDToken" style="width: 300px; height: auto;">
-          </div>
+  <section class="py-4">
+    <div class="container">
+      <div class="card mb-4">
+        <div class="card-body">
+          <h3 class="h5 mb-3"><i class="fas fa-download text-success me-2"></i>1. Download MetaMask Wallet:</h3>
+          <ul class="list-unstyled">
+            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>For desktop users: Visit the <a href="https://metamask.io/download.html" target="_blank" class="text-decoration-none">MetaMask website</a> and choose the appropriate browser extension for Chrome, Firefox, Brave, or Edge. Follow the instructions to install the extension.</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>For mobile users: Visit the <a href="https://metamask.io/download.html" target="_blank" class="text-decoration-none">Google Play Store</a> for Android or <a href="https://metamask.io/download.html" target="_blank" class="text-decoration-none">App Store</a> for iOS to download the app.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h3 class="h5 mb-3"><i class="fas fa-cog text-success me-2"></i>2. Set up MetaMask:</h3>
+          <ul class="list-unstyled">
+            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Open the MetaMask extension or app on your device.</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Select "Create a New Wallet."</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Choose a strong password and accept the terms of use.</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Save your 12-word recovery phrase securely. Do not share it.</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Confirm your recovery phrase and proceed to the dashboard.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h3 class="h5 mb-3"><i class="fas fa-network-wired text-success me-2"></i>3. Add the Binance Smart Chain Network:</h3>
+          <ul class="list-unstyled">
+            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Click the network dropdown at the top (default is "Ethereum Mainnet").</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Select "Custom RPC" to add a new network.</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Enter:
+              <ul class="mt-2 ms-4">
+                <li><strong>Network Name:</strong> Binance Smart Chain</li>
+                <li><strong>New RPC URL:</strong> https://bsc-dataseed.binance.org/</li>
+                <li><strong>Chain ID:</strong> 56</li>
+                <li><strong>Currency Symbol:</strong> BNB</li>
+                <li><strong>Block Explorer URL:</strong> https://bscscan.com</li>
+              </ul>
+            </li>
+            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Click "Save."</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h3 class="h5 mb-3"><i class="fas fa-file-contract text-success me-2"></i>4. Import the Abay GERD Contract:</h3>
+          <ul class="list-unstyled">
+            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Click "Add Token" on the dashboard.</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Select "Custom Token."</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Copy and Paste contract address: <code class="bg-light p-1 rounded"><strong>0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c</strong></code></li>
+            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>The rest should auto-fill. Click "Next" and "Add Tokens."</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h3 class="h5 mb-3"><i class="fas fa-qrcode text-success me-2"></i>5. Get Your GERD Wallet Address:</h3>
+          <ul class="list-unstyled">
+            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Ensure Binance Smart Chain is selected.</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Your address appears under your account name. Tap to copy.</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Use this address to receive GERD tokens. Never share your private key or recovery phrase.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="alert alert-success">
+        <i class="fas fa-info-circle me-2"></i>You're all set! You can now manage your GERD tokens using MetaMask. You'll need a small amount of BNB for gas fees to send tokens. Receiving is free.
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-success-subtle py-5 mb-0">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <h2 class="h5 mb-3">
+            DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY AND SUPPORTING THE GRAND ETHIOPIAN RENAISSANCE DAM PROJECT.
+            JOIN US IN CREATING A BRIGHTER FUTURE! #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD
+          </h2>
+        </div>
+        <div class="col-md-4 text-center">
+          <img src="image/abay_bluesky.png" alt="AbayGERDToken" class="img-fluid img-hero">
         </div>
       </div>
     </div>
   </section>
 
-  <footer class="footer">
-    <div class="content has-text-centered">
-      <p style="font-size: 0.85rem;">
+  <footer class="bg-dark text-light py-4">
+    <div class="container text-center">
+      <p class="small mb-0">
         Copyright 2023 Abay GERD Token. All rights reserved.
       </p>
     </div>
   </footer>
 
+  <!-- Bootstrap 5.3.3 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Abay GERD Token - Project Timeline</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script src="https://unpkg.com/flowbite@2.2.1/dist/flowbite.min.js"></script>
+  
+  <!-- Bootstrap 5.3.3 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/main.css"/>
 </head>
 
-<body class="pt-16 bg-gray-50 text-gray-800 font-sans">
-
+<body>
   <!-- Injected Navbar -->
   <div id="navbar-container"></div>
   <script>
@@ -18,162 +23,164 @@
       .then(res => res.text())
       .then(html => {
         document.getElementById('navbar-container').innerHTML = html;
-        setTimeout(() => {
-          if (window.initFlowbite) initFlowbite();
-        }, 200);
-      });
+      })
+      .catch(err => console.error('Error loading navbar:', err));
   </script>
   
-  <div class="max-w-4xl mx-auto p-6">
-    <h1 class="text-3xl font-bold text-green-600 mb-4">Abay GERD Token - Project Timeline</h1>
+  <div class="container my-5">
+    <h1 class="display-5 fw-bold text-success mb-4">Abay GERD Token - Project Timeline</h1>
 
-    <section class="mb-6">
-      <h2 class="text-2xl font-semibold text-gray-700 mb-2">🧾 White Paper Development</h2>
+    <section class="mb-5">
+      <h2 class="h3 fw-semibold mb-3">White Paper Development</h2>
       <p>Comprehensive white paper written and updated through multiple iterations.</p>
       <p>Key sections include:</p>
-      <ul class="list-disc list-inside ml-4">
-        <li>Vision and mission</li>
-        <li>Tokenomics (supply, allocation, vesting)</li>
-        <li>Airdrop and staking logic</li>
-        <li>Long-term sustainability plan</li>
-        <li>ETH migration readiness if needed</li>
-        <li>Open source and transparency commitment</li>
+      <ul class="list-unstyled ms-4">
+        <li class="mb-1">Vision and mission</li>
+        <li class="mb-1">Tokenomics (supply, allocation, vesting)</li>
+        <li class="mb-1">Airdrop and staking logic</li>
+        <li class="mb-1">Long-term sustainability plan</li>
+        <li class="mb-1">ETH migration readiness if needed</li>
+        <li class="mb-1">Open source and transparency commitment</li>
       </ul>
       <p>Adjustments reflected real-time project decisions (e.g., updated vesting mechanics, and developer outreach).</p>
     </section>
 
-    <section class="mb-6">
-      <h2 class="text-2xl font-semibold text-gray-700 mb-2">💰 GERD Token Smart Contract</h2>
+    <section class="mb-5">
+      <h2 class="h3 fw-semibold mb-3">GERD Token Smart Contract</h2>
       <p><strong>Network:</strong> Binance Smart Chain (BSC)</p>
       <p><strong>Total Supply:</strong> 120,000,000,000 (120 billion)</p>
       <p><strong>Decimals:</strong> 2 (to support micro-distributions)</p>
       <p>Key features:</p>
-      <ul class="list-disc list-inside ml-4">
-        <li>transfer, transferFrom, approve, balanceOf (standard ERC-20 style)</li>
-        <li>No minting beyond total supply</li>
-        <li>Manually created and removed initial liquidity on PancakeSwap for testing</li>
+      <ul class="list-unstyled ms-4">
+        <li class="mb-1">transfer, transferFrom, approve, balanceOf (standard ERC-20 style)</li>
+        <li class="mb-1">No minting beyond total supply</li>
+        <li class="mb-1">Manually created and removed initial liquidity on PancakeSwap for testing</li>
       </ul>
     </section>
 
-    <section class="mb-6">
-      <h2 class="text-2xl font-semibold text-gray-700 mb-2">⛓️ Vesting Smart Contract</h2>
+    <section class="mb-5">
+      <h2 class="h3 fw-semibold mb-3">Vesting Smart Contract</h2>
       <p><strong>Purpose:</strong> Lock and gradually release 115B tokens</p>
       <p><strong>Release Schedule:</strong> 1 billion GERD tokens per year (modified to weekly for testnet)</p>
       <p><strong>Final Distribution Logic:</strong></p>
-      <ul class="list-disc list-inside ml-4">
-        <li>500M to airdrop holders</li>
-        <li>250M to staking rewards</li>
-        <li>250M to liquidity pool if &lt;0.5B tokens; otherwise burned</li>
+      <ul class="list-unstyled ms-4">
+        <li class="mb-1">500M to airdrop holders</li>
+        <li class="mb-1">250M to staking rewards</li>
+        <li class="mb-1">250M to liquidity pool if &lt;0.5B tokens; otherwise burned</li>
       </ul>
       <p><strong>Testnet Address:</strong> 0xC3C2b095C3aA55ACecc7fBA44C6B9D3f56dC43Da</p>
-      <ul class="list-disc list-inside ml-4">
-        <li>Deployed immutably (no transferOwnership() in final version)</li>
-        <li>releaseToken() emits event & distributes to 3 wallets</li>
-        <li>Added getNextReleaseDate() to support UI</li>
-        <li>Release frequency changed to weekly (every Wednesday) for test runs</li>
+      <ul class="list-unstyled ms-4">
+        <li class="mb-1">Deployed immutably (no transferOwnership() in final version)</li>
+        <li class="mb-1">releaseToken() emits event & distributes to 3 wallets</li>
+        <li class="mb-1">Added getNextReleaseDate() to support UI</li>
+        <li class="mb-1">Release frequency changed to weekly (every Wednesday) for test runs</li>
       </ul>
     </section>
 
-    <section class="mb-6">
-      <h2 class="text-2xl font-semibold text-gray-700 mb-2">🖥️ Frontend Web UI</h2>
-      <ul class="list-disc list-inside ml-4">
-        <li>Claim Page — secure, backend-verified token claiming</li>
-        <li>Dashboard — real-time vesting updates, countdown, release history, next eligible release date</li>
-        <li>Developer Landing Page — call to action for open-source contributions</li>
+    <section class="mb-5">
+      <h2 class="h3 fw-semibold mb-3">Frontend Web UI</h2>
+      <ul class="list-unstyled ms-4">
+        <li class="mb-1">Claim Page — secure, backend-verified token claiming</li>
+        <li class="mb-1">Dashboard — real-time vesting updates, countdown, release history, next eligible release date</li>
+        <li class="mb-1">Developer Landing Page — call to action for open-source contributions</li>
       </ul>
       <p>Implemented:</p>
-      <ul class="list-disc list-inside ml-4">
-        <li>TailwindCSS styling</li>
-        <li>Mobile-responsive designs</li>
-        <li>QR scanner (planned for mobile app)</li>
-        <li>Countdown timer to next vesting release</li>
+      <ul class="list-unstyled ms-4">
+        <li class="mb-1">Bootstrap 5 styling</li>
+        <li class="mb-1">Mobile-responsive designs</li>
+        <li class="mb-1">QR scanner (planned for mobile app)</li>
+        <li class="mb-1">Countdown timer to next vesting release</li>
       </ul>
     </section>
 
-    <section class="mb-6">
-      <h2 class="text-2xl font-semibold text-gray-700 mb-2">🔐 Backend Development</h2>
+    <section class="mb-5">
+      <h2 class="h3 fw-semibold mb-3">Backend Development</h2>
       <p>Moved sensitive logic (like claiming & releaseToken() calls) from client-side JS to secure backend (Python Flask on Render)</p>
       <p>Now in two separate Render services:</p>
-      <ul class="list-disc list-inside ml-4">
-        <li>Mainnet backend for claims</li>
-        <li>Testnet backend for vesting functions</li>
+      <ul class="list-unstyled ms-4">
+        <li class="mb-1">Mainnet backend for claims</li>
+        <li class="mb-1">Testnet backend for vesting functions</li>
       </ul>
       <p>Added:</p>
-      <ul class="list-disc list-inside ml-4">
-        <li>CAPTCHA verification (Google reCAPTCHA with Netlify Functions)</li>
-        <li>IP throttling and session token validation to prevent abuse</li>
-        <li>CORS control for security</li>
-        <li>Built can-release and release-token APIs</li>
+      <ul class="list-unstyled ms-4">
+        <li class="mb-1">CAPTCHA verification (Google reCAPTCHA with Netlify Functions)</li>
+        <li class="mb-1">IP throttling and session token validation to prevent abuse</li>
+        <li class="mb-1">CORS control for security</li>
+        <li class="mb-1">Built can-release and release-token APIs</li>
       </ul>
     </section>
 
-    <section class="mb-6">
-      <h2 class="text-2xl font-semibold text-gray-700 mb-2">📦 Fair Distribution Strategy</h2>
+    <section class="mb-5">
+      <h2 class="h3 fw-semibold mb-3">Fair Distribution Strategy</h2>
       <p><strong>Token claim limits:</strong></p>
-      <ul class="list-disc list-inside ml-4">
-        <li>Initially 1,000 global / 7,500 Ethiopia → Later raised to 10,000 global / 75,000 Ethiopia</li>
-        <li>Retroactive airdrops to early claimants to ensure fairness</li>
+      <ul class="list-unstyled ms-4">
+        <li class="mb-1">Initially 1,000 global / 7,500 Ethiopia → Later raised to 10,000 global / 75,000 Ethiopia</li>
+        <li class="mb-1">Retroactive airdrops to early claimants to ensure fairness</li>
       </ul>
       <p>Claims validated via:</p>
-      <ul class="list-disc list-inside ml-4">
-        <li>IP region checks</li>
-        <li>Firebase database</li>
-        <li>ReCaptcha validation</li>
-        <li>Tableau dashboard to visualize claims per country</li>
+      <ul class="list-unstyled ms-4">
+        <li class="mb-1">IP region checks</li>
+        <li class="mb-1">Firebase database</li>
+        <li class="mb-1">ReCaptcha validation</li>
+        <li class="mb-1">Tableau dashboard to visualize claims per country</li>
       </ul>
     </section>
 
-    <section class="mb-6">
-      <h2 class="text-2xl font-semibold text-gray-700 mb-2">📱 Mobile App Vision</h2>
-      <ul class="list-disc list-inside ml-4">
-        <li>Wallet app for Android/iOS (QR scanner, GERD token display, balance fetch)</li>
-        <li>Plans for: Direct claiming, sending, receiving, Built-in GERD transfer tools</li>
-        <li>Developer incentives offered (GERD tokens for tested contributions)</li>
+    <section class="mb-5">
+      <h2 class="h3 fw-semibold mb-3">Mobile App Vision</h2>
+      <ul class="list-unstyled ms-4">
+        <li class="mb-1">Wallet app for Android/iOS (QR scanner, GERD token display, balance fetch)</li>
+        <li class="mb-1">Plans for: Direct claiming, sending, receiving, Built-in GERD transfer tools</li>
+        <li class="mb-1">Developer incentives offered (GERD tokens for tested contributions)</li>
       </ul>
     </section>
 
-    <section class="mb-6">
-      <h2 class="text-2xl font-semibold text-gray-700 mb-2">👥 Governance & Transparency</h2>
-      <ul class="list-disc list-inside ml-4">
-        <li>3-of-5 Gnosis Safe multisig deployed to control vesting, airdrop, and staking wallets</li>
-        <li>Open source GitHub repository</li>
-        <li>Telegram, TikTok, and X (Twitter) used for public communication</li>
-        <li>Emphasis on “nothing hidden” — all token flows verifiable on chain</li>
-        <li>Community was encouraged to promote the token as stakeholders, not paid influencers</li>
+    <section class="mb-5">
+      <h2 class="h3 fw-semibold mb-3">Governance & Transparency</h2>
+      <ul class="list-unstyled ms-4">
+        <li class="mb-1">3-of-5 Gnosis Safe multisig deployed to control vesting, airdrop, and staking wallets</li>
+        <li class="mb-1">Open source GitHub repository</li>
+        <li class="mb-1">Telegram, TikTok, and X (Twitter) used for public communication</li>
+        <li class="mb-1">Emphasis on "nothing hidden" — all token flows verifiable on chain</li>
+        <li class="mb-1">Community was encouraged to promote the token as stakeholders, not paid influencers</li>
       </ul>
     </section>
 
-    <section class="mb-6">
-      <h2 class="text-2xl font-semibold text-gray-700 mb-2">🎁 Token Allocation</h2>
-      <ul class="list-disc list-inside ml-4">
-        <li>5B tokens immediately available out of 120B — used for global distribution, initial liquidity provision, early community rewards, and project development efforts</li>
-        <li>115B tokens will be locked under vesting contract</li>
-        <li>No team or founder allocation hidden — all transparent on blockchain and website</li>
+    <section class="mb-5">
+      <h2 class="h3 fw-semibold mb-3">Token Allocation</h2>
+      <ul class="list-unstyled ms-4">
+        <li class="mb-1">5B tokens immediately available out of 120B — used for global distribution, initial liquidity provision, early community rewards, and project development efforts</li>
+        <li class="mb-1">115B tokens will be locked under vesting contract</li>
+        <li class="mb-1">No team or founder allocation hidden — all transparent on blockchain and website</li>
       </ul>
     </section>
 
-    <section class="mb-6">
-      <h2 class="text-2xl font-semibold text-gray-700 mb-2">🔧 Technical Highlights</h2>
+    <section class="mb-5">
+      <h2 class="h3 fw-semibold mb-3">Technical Highlights</h2>
       <p><strong>JavaScript:</strong></p>
-      <ul class="list-disc list-inside ml-4">
-        <li>Dynamic UTC countdown, API calls, and DOM updates</li>
-        <li>Error handling for time format and fetch failures</li>
+      <ul class="list-unstyled ms-4">
+        <li class="mb-1">Dynamic UTC countdown, API calls, and DOM updates</li>
+        <li class="mb-1">Error handling for time format and fetch failures</li>
       </ul>
       <p><strong>HTML:</strong></p>
-      <ul class="list-disc list-inside ml-4">
-        <li>Clean Tailwind-based layouts with green accent color for branding</li>
+      <ul class="list-unstyled ms-4">
+        <li class="mb-1">Clean Bootstrap-based layouts with green accent color for branding</li>
       </ul>
       <p><strong>Python:</strong></p>
-      <ul class="list-disc list-inside ml-4">
-        <li>Flask app with CORS, datetime logic, JWT/session tracking</li>
-        <li>Signed release transaction functionality under testnet</li>
+      <ul class="list-unstyled ms-4">
+        <li class="mb-1">Flask app with CORS, datetime logic, JWT/session tracking</li>
+        <li class="mb-1">Signed release transaction functionality under testnet</li>
       </ul>
     </section>
 
-    <footer class="mt-12 border-t pt-4 text-sm text-gray-500">
-      Visit: <a href="https://www.abaygerdtoken.com" class="text-green-600 underline">www.abaygerdtoken.com</a> — Powered by the Community 🇪🇹
+    <footer class="mt-5 pt-4 border-top">
+      <p class="text-muted small text-center">
+        Visit: <a href="https://www.abaygerdtoken.com" class="text-success text-decoration-none">www.abaygerdtoken.com</a> — Powered by the Community
+      </p>
     </footer>
   </div>
-</body>
 
+  <!-- Bootstrap 5.3.3 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>

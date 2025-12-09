@@ -1,125 +1,118 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Abay GERD Token</title>
-
-  <!-- Bulma + Tailwind + Flowbite -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            green: {
-              600: '#047857',
-              100: '#d1fae5',
-              200: '#a7f3d0'
-            }
-          }
-        }
-      }
-    }
-  </script>
-  <script src="https://unpkg.com/flowbite@2.2.1/dist/flowbite.min.js"></script>
+  <title>Trust Wallet Setup - Abay GERD Token</title>
+  
+  <!-- Bootstrap 5.3.3 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/main.css"/>
 </head>
-<body class="pt-16">
-
-  <!-- Injected Navbar -->
+<body>
+  <!-- Dynamic Navbar -->
   <div id="navbar-container"></div>
   <script>
     fetch('navtest.html')
       .then(res => res.text())
       .then(html => {
         document.getElementById('navbar-container').innerHTML = html;
-        setTimeout(() => {
-          if (window.initFlowbite) initFlowbite();
-        }, 200);
-      });
+      })
+      .catch(err => console.error('Error loading navbar:', err));
   </script>
 
-  <section class="section">
+  <section class="py-5 mt-5">
     <div class="container">
-      <h2 class="title">Trust Wallet Setup</h2>
-      <p>Here's a step-by-step guide for downloading Trust Wallet, importing the Abay GERD contract, and getting your GERD wallet address on the Binance Smart Chain:</p>
-    </div>
-
-    <br><br>
-    <div class="container">
-      <h2 class="subtitle">1. Download Trust Wallet:</h2>
-      <ul>
-        <li>For Android users: Visit the <a href="https://trustwallet.com/" target="_blank">[Google Play Store]</a> and install the app.</li>
-        <li>For iOS users: Visit the <a href="https://trustwallet.com/" target="_blank">[App Store]</a> and install the app.</li>
-      </ul>
-    </div>
-
-    <br><br>
-    <div class="container">
-      <h2 class="subtitle">2. Set up Trust Wallet:</h2>
-      <ul>
-        <li>Open the Trust Wallet app on your device.</li>
-        <li>Select "Create a New Wallet" if you’re new.</li>
-        <li>Accept the terms and conditions.</li>
-        <li>Write down the 12-word recovery phrase in a secure location. Never share it.</li>
-        <li>Confirm the recovery phrase by selecting the words in order.</li>
-      </ul>
-    </div>
-
-    <br><br>
-    <div class="container">
-      <h2 class="subtitle">3. Import the Abay GERD contract:</h2>
-      <ul>
-        <li>On the main screen, tap the "+" icon to add a custom token.</li>
-        <li>Select "BNB Smart Chain" as the network.</li>
-        <li>Copy and Paste contract address: <code><strong>0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c</strong></code></li>
-        <li>Other fields (Name, Symbol, Decimals) should auto-fill.</li>
-        <li>Tap "Save" or "Add."</li>
-      </ul>
-    </div>
-
-    <br><br>
-    <div class="container">
-      <h2 class="subtitle">4. Get your GERD wallet address:</h2>
-      <ul>
-        <li>Tap the GERD Token or BNB Smart Chain icon.</li>
-        <li>Tap "Receive" or the QR icon to display your address.</li>
-        <li>Use this address to receive GERD tokens. Never share your private key or recovery phrase.</li>
-      </ul>
-    </div>
-
-    <br><br>
-    <div class="container">
-      <p>You're all set! You can now manage your GERD tokens using Trust Wallet. Remember: you’ll need a small amount of BNB for gas fees when sending tokens, but receiving is free.</p>
+      <h2 class="h2 mb-3"><i class="fas fa-wallet text-success me-2"></i>Trust Wallet Setup</h2>
+      <p class="lead">Here's a step-by-step guide for downloading Trust Wallet, importing the Abay GERD contract, and getting your GERD wallet address on the Binance Smart Chain:</p>
     </div>
   </section>
 
-  <section class="hero is-success is-bold">
-    <div class="hero-body">
-      <div class="container">
-        <div class="columns is-vcentered">
-          <div class="column">
-            <h2 class="subtitle">
-              DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY AND SUPPORTING THE GRAND ETHIOPIAN RENAISSANCE DAM PROJECT.
-              JOIN US IN CREATING A BRIGHTER FUTURE! 🌍💰 #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD
-            </h2>
-          </div>
-          <div class="column has-text-centered">
-            <img src="image/abay_bluesky.png" alt="AbayGERDToken" style="width: 300px; height: auto;">
-          </div>
+  <section class="py-4">
+    <div class="container">
+      <div class="card mb-4">
+        <div class="card-body">
+          <h3 class="h5 mb-3"><i class="fas fa-download text-success me-2"></i>1. Download Trust Wallet:</h3>
+          <ul class="list-unstyled">
+            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>For Android users: Visit the <a href="https://trustwallet.com/" target="_blank" class="text-decoration-none">Google Play Store</a> and install the app.</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>For iOS users: Visit the <a href="https://trustwallet.com/" target="_blank" class="text-decoration-none">App Store</a> and install the app.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h3 class="h5 mb-3"><i class="fas fa-cog text-success me-2"></i>2. Set up Trust Wallet:</h3>
+          <ul class="list-unstyled">
+            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Open the Trust Wallet app on your device.</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Select "Create a New Wallet" if you're new.</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Accept the terms and conditions.</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Write down the 12-word recovery phrase in a secure location. Never share it.</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Confirm the recovery phrase by selecting the words in order.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h3 class="h5 mb-3"><i class="fas fa-file-contract text-success me-2"></i>3. Import the Abay GERD contract:</h3>
+          <ul class="list-unstyled">
+            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>On the main screen, tap the "+" icon to add a custom token.</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Select "BNB Smart Chain" as the network.</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Copy and Paste contract address: <code class="bg-light p-1 rounded"><strong>0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c</strong></code></li>
+            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Other fields (Name, Symbol, Decimals) should auto-fill.</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Tap "Save" or "Add."</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="card mb-4">
+        <div class="card-body">
+          <h3 class="h5 mb-3"><i class="fas fa-qrcode text-success me-2"></i>4. Get your GERD wallet address:</h3>
+          <ul class="list-unstyled">
+            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Tap the GERD Token or BNB Smart Chain icon.</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Tap "Receive" or the QR icon to display your address.</li>
+            <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i>Use this address to receive GERD tokens. Never share your private key or recovery phrase.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="alert alert-success">
+        <i class="fas fa-info-circle me-2"></i>You're all set! You can now manage your GERD tokens using Trust Wallet. Remember: you'll need a small amount of BNB for gas fees when sending tokens, but receiving is free.
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-success-subtle py-5 mb-0">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <h2 class="h5 mb-3">
+            DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY AND SUPPORTING THE GRAND ETHIOPIAN RENAISSANCE DAM PROJECT.
+            JOIN US IN CREATING A BRIGHTER FUTURE! #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD
+          </h2>
+        </div>
+        <div class="col-md-4 text-center">
+          <img src="image/abay_bluesky.png" alt="AbayGERDToken" class="img-fluid img-hero">
         </div>
       </div>
     </div>
   </section>
 
-  <footer class="footer">
-    <div class="content has-text-centered">
-      <p style="font-size: 0.85rem;">
+  <footer class="bg-dark text-light py-4">
+    <div class="container text-center">
+      <p class="small mb-0">
         Copyright 2023 Abay GERD Token. All rights reserved.
       </p>
     </div>
   </footer>
 
+  <!-- Bootstrap 5.3.3 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -1,124 +1,134 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Abay GERD Token AMA</title>
-  <!-- Tailwind CSS and Flowbite -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            green: {
-              600: '#047857',
-              100: '#d1fae5',
-              200: '#a7f3d0'
-            }
-          }
-        }
-      }
-    }
-  </script>
-  <script src="https://unpkg.com/flowbite@2.2.1/dist/flowbite.min.js"></script>
+  
+  <!-- Bootstrap 5.3.3 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/main.css"/>
 </head>
-
-<body class="pt-16">
-
-  <!-- Injected Navbar -->
+<body>
+  <!-- Dynamic Navbar -->
   <div id="navbar-container"></div>
   <script>
     fetch('navtest.html')
       .then(res => res.text())
       .then(html => {
         document.getElementById('navbar-container').innerHTML = html;
-        setTimeout(() => {
-          if (window.initFlowbite) initFlowbite();
-        }, 200);
-      });
+      })
+      .catch(err => console.error('Error loading navbar:', err));
   </script>
 
-  <div class=" bg-gray-50 text-gray-800 font-sans max-w-4xl mx-auto p-6">
-    <h1 class="text-3xl font-bold text-green-600 mb-4">Abay GERD Token - Community AMA</h1>
-    <p class="mb-6">Everything you need to know about GERD Token — straight from the team. Learn more about the mission, technology, and vision behind this unique community project.</p>
+  <div class="container my-5">
+    <h1 class="h2 mb-4 text-success"><i class="fas fa-comments me-2"></i>Abay GERD Token - Community AMA</h1>
+    <p class="lead mb-5">Everything you need to know about GERD Token — straight from the team. Learn more about the mission, technology, and vision behind this unique community project.</p>
 
-    <section class="mb-6">
-      <h2 class="text-xl font-semibold text-gray-700 mb-2">Q1: What exactly is the Abay GERD Token?</h2>
-      <p>GERD Token is a <strong>community-powered cryptocurrency</strong> created to honor the spirit of the Grand Ethiopian Renaissance Dam. It symbolizes unity, resilience, and forward-thinking. There are no insiders, no presales — just fair access for everyone.</p>
-    </section>
-<br>
-    <section class="mb-6">
-      <h2 class="text-xl font-semibold text-gray-700 mb-2">Q2: Who can claim GERD tokens?</h2>
-      <p>Anyone, anywhere! Special priority is given to users in Ethiopia. Originally, users could claim 1,000 GERD globally or 7,500 in Ethiopia — later increased to 10,000 and 75,000 respectively.</p>
-    </section>
-<br>
-    <section class="mb-6">
-      <h2 class="text-xl font-semibold text-gray-700 mb-2">Q3: How many tokens exist, and how are they distributed?</h2>
-      <p>Total supply is <strong>120 billion GERD</strong> tokens. 115B are locked in a smart contract with 1B released annually over 115 years. The remaining 5B are used for <strong>distribution, liquidity, rewards, and development</strong>.</p>
-    </section>
-<br>
-    <section class="mb-6">
-      <h2 class="text-xl font-semibold text-gray-700 mb-2">Q4: What ensures fairness and transparency?</h2>
-      <p>All token flows are verifiable on the blockchain. Governance is via a <strong>3-of-5 Gnosis Safe multisig</strong>. Smart contracts are <strong>immutable</strong> and open-source - public, verifiable on GitHub and Binance Smart Chain.</p>
-    </section>
-<br>
-    <section class="mb-6">
-      <h2 class="text-xl font-semibold text-gray-700 mb-2">Q5: How does the vesting system work?</h2>
-      <p>Each year, 1B tokens are released and distributed as:</p>
-      <ul class="list-disc list-inside ml-4">
-        <li>500M to airdrops</li>
-        <li>250M to staking</li>
-        <li>250M to liquidity (or burned if pool is full)</li>
-      </ul>
-      <p>Trackable via our public <strong>vesting dashboard</strong>.</p>
-    </section>
-<br>
-    <section class="mb-6">
-  <h2 class="text-xl font-semibold text-gray-700 mb-2">Q6: What platforms support GERD Token?</h2>
-  <p><strong>GERD Token is currently deployed on the Binance Smart Chain (BSC)</strong>, chosen for its low transaction fees and widespread wallet compatibility.</p>
+    <div class="card mb-4">
+      <div class="card-body">
+        <h2 class="h5 mb-3">Q1: What exactly is the Abay GERD Token?</h2>
+        <p class="mb-0">GERD Token is a <strong>community-powered cryptocurrency</strong> created to honor the spirit of the Grand Ethiopian Renaissance Dam. It symbolizes unity, resilience, and forward-thinking. There are no insiders, no presales — just fair access for everyone.</p>
+      </div>
+    </div>
 
-  
-  <p class="mt-4"><strong>Ethereum Network Readiness (if ever needed)</strong><br>
-   While there are <strong>no current plans to migrate to Ethereum</strong>, GERD Token is technically prepared in case the community ever decides a migration is necessary in the future. Wallet addresses on BSC and Ethereum are identical due to shared key derivation, so holders would automatically receive their migrated tokens on Ethereum — simply by importing the new ETH contract address into their existing wallet.</p>
-  <p>This provides:</p>
-  <ul class="list-disc list-inside ml-4">
-    <li>A seamless option for future cross-chain support if ever required</li>
-    <li>Zero friction for token holders in case of migration</li>
-    <li>Community flexibility and future-proof design</li>
-  </ul>
-</section>
-<br>
-    <section class="mb-6">
-      <h2 class="text-xl font-semibold text-gray-700 mb-2">Q7: Is this project open-source? Can I contribute?</h2>
-      <p>Yes! The project welcomes developers and contributors. We offer <strong>GERD token rewards</strong> for completed work — mobile apps, frontend, backend, smart contracts, you name it.</p>
-    </section>
-<br>
-    <section class="mb-6">
-      <h2 class="text-xl font-semibold text-gray-700 mb-2">Q8: What about mobile access?</h2>
-      <p>A mobile wallet is in development. It will support QR scanning, balance checking, future claiming, and transfers. Both Android and iOS versions are planned.</p>
-    </section>
-<br>
-    <section class="mb-6">
-      <h2 class="text-xl font-semibold text-gray-700 mb-2">Q9: Can users trust the claim process?</h2>
-      <p>Yes. Claims go through a secure Python backend with <strong>IP checks</strong>, <strong>session tokens</strong>, <strong>Firebase validation</strong>, and <strong>Google reCAPTCHA</strong>. Everything is transparent.</p>
-    </section>
-<br>
-    <section class="mb-6">
-  <h2 class="text-xl font-semibold text-gray-700 mb-2">Q10: What’s the long-term vision?</h2>
-  <p>We aim to <strong>digitize the unbanked community finance</strong> and build a <strong>sustainable, community-powered economy</strong>. GERD Token is designed to last 115 years — with every step fully decentralized, auditable, and fair.</p>
-  <p class="mt-4">Our broader goal is <strong>digital value creation within the GERD community</strong>, especially for the unbanked population who already have the most important tools: <strong>internet access and a mobile device</strong>. By lowering the barriers to entry, we are creating a system where anyone can participate, own, and benefit from a decentralized digital future.</p>
-</section>
-<br>
-    <section class="mb-6">
-      <h2 class="text-xl font-semibold text-gray-700 mb-2">🚀 Final Words?</h2>
-      <p>GERD is more than a token. It's a movement. Claim your share. Contribute. Grow with us.</p>
-      <p class="mt-2">🔗 <a href="https://www.abaygerdtoken.com" class="text-green-600 underline">www.abaygerdtoken.com</a><br>
-      📈 <a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019" class="text-green-600 underline" target="_blank">View on BscScan</a><br>
-      🗣️ Follow us on <a href="https://x.com/abaygerdtoken" class="text-green-600 underline" target="_blank">X</a>, <a href="https://tiktok.com/@abaygerdtoken" class="text-green-600 underline" target="_blank">TikTok</a>, and Telegram</p>
-    </section>
+    <div class="card mb-4">
+      <div class="card-body">
+        <h2 class="h5 mb-3">Q2: Who can claim GERD tokens?</h2>
+        <p class="mb-0">Anyone, anywhere! Special priority is given to users in Ethiopia. Originally, users could claim 1,000 GERD globally or 7,500 in Ethiopia — later increased to 10,000 and 75,000 respectively.</p>
+      </div>
+    </div>
+
+    <div class="card mb-4">
+      <div class="card-body">
+        <h2 class="h5 mb-3">Q3: How many tokens exist, and how are they distributed?</h2>
+        <p class="mb-0">Total supply is <strong>120 billion GERD</strong> tokens. 115B are locked in a smart contract with 1B released annually over 115 years. The remaining 5B are used for <strong>distribution, liquidity, rewards, and development</strong>.</p>
+      </div>
+    </div>
+
+    <div class="card mb-4">
+      <div class="card-body">
+        <h2 class="h5 mb-3">Q4: What ensures fairness and transparency?</h2>
+        <p class="mb-0">All token flows are verifiable on the blockchain. Governance is via a <strong>3-of-5 Gnosis Safe multisig</strong>. Smart contracts are <strong>immutable</strong> and open-source - public, verifiable on GitHub and Binance Smart Chain.</p>
+      </div>
+    </div>
+
+    <div class="card mb-4">
+      <div class="card-body">
+        <h2 class="h5 mb-3">Q5: How does the vesting system work?</h2>
+        <p class="mb-2">Each year, 1B tokens are released and distributed as:</p>
+        <ul class="mb-0">
+          <li>500M to airdrops</li>
+          <li>250M to staking</li>
+          <li>250M to liquidity (or burned if pool is full)</li>
+        </ul>
+        <p class="mt-2 mb-0">Trackable via our public <strong>vesting dashboard</strong>.</p>
+      </div>
+    </div>
+
+    <div class="card mb-4">
+      <div class="card-body">
+        <h2 class="h5 mb-3">Q6: What platforms support GERD Token?</h2>
+        <p class="mb-2"><strong>GERD Token is currently deployed on the Binance Smart Chain (BSC)</strong>, chosen for its low transaction fees and widespread wallet compatibility.</p>
+        <p class="mb-2"><strong>Ethereum Network Readiness (if ever needed)</strong><br>
+        While there are <strong>no current plans to migrate to Ethereum</strong>, GERD Token is technically prepared in case the community ever decides a migration is necessary in the future. Wallet addresses on BSC and Ethereum are identical due to shared key derivation, so holders would automatically receive their migrated tokens on Ethereum — simply by importing the new ETH contract address into their existing wallet.</p>
+        <p class="mb-0">This provides:</p>
+        <ul class="mb-0">
+          <li>A seamless option for future cross-chain support if ever required</li>
+          <li>Zero friction for token holders in case of migration</li>
+          <li>Community flexibility and future-proof design</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="card mb-4">
+      <div class="card-body">
+        <h2 class="h5 mb-3">Q7: Is this project open-source? Can I contribute?</h2>
+        <p class="mb-0">Yes! The project welcomes developers and contributors. We offer <strong>GERD token rewards</strong> for completed work — mobile apps, frontend, backend, smart contracts, you name it.</p>
+      </div>
+    </div>
+
+    <div class="card mb-4">
+      <div class="card-body">
+        <h2 class="h5 mb-3">Q8: What about mobile access?</h2>
+        <p class="mb-0">A mobile wallet is in development. It will support QR scanning, balance checking, future claiming, and transfers. Both Android and iOS versions are planned.</p>
+      </div>
+    </div>
+
+    <div class="card mb-4">
+      <div class="card-body">
+        <h2 class="h5 mb-3">Q9: Can users trust the claim process?</h2>
+        <p class="mb-0">Yes. Claims go through a secure Python backend with <strong>IP checks</strong>, <strong>session tokens</strong>, <strong>Firebase validation</strong>, and <strong>Google reCAPTCHA</strong>. Everything is transparent.</p>
+      </div>
+    </div>
+
+    <div class="card mb-4">
+      <div class="card-body">
+        <h2 class="h5 mb-3">Q10: What's the long-term vision?</h2>
+        <p class="mb-2">We aim to <strong>digitize the unbanked community finance</strong> and build a <strong>sustainable, community-powered economy</strong>. GERD Token is designed to last 115 years — with every step fully decentralized, auditable, and fair.</p>
+        <p class="mb-0">Our broader goal is <strong>digital value creation within the GERD community</strong>, especially for the unbanked population who already have the most important tools: <strong>internet access and a mobile device</strong>. By lowering the barriers to entry, we are creating a system where anyone can participate, own, and benefit from a decentralized digital future.</p>
+      </div>
+    </div>
+
+    <div class="card mb-4 bg-success-subtle">
+      <div class="card-body">
+        <h2 class="h5 mb-3"><i class="fas fa-rocket me-2"></i>Final Words?</h2>
+        <p class="mb-2">GERD is more than a token. It's a movement. Claim your share. Contribute. Grow with us.</p>
+        <p class="mb-0">
+          <i class="fas fa-link me-1"></i> <a href="index.html" class="text-decoration-none">www.abaygerdtoken.com</a><br>
+          <i class="fas fa-chart-line me-1"></i> <a href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c" class="text-decoration-none" target="_blank">View on BscScan</a><br>
+          <i class="fas fa-comments me-1"></i> Follow us on <a href="https://x.com/abaygerdtoken" class="text-decoration-none" target="_blank">X</a>, <a href="https://tiktok.com/@abaygerdtoken" class="text-decoration-none" target="_blank">TikTok</a>, and Telegram
+        </p>
+      </div>
+    </div>
   </div>
-</body>
 
+  <!-- Bootstrap 5.3.3 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
 </html>
