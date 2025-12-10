@@ -1,456 +1,910 @@
 <!DOCTYPE html>
-
-<html>
+<html lang="en">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
-<style>
-  @media (max-width: 480px) {
-    #changeModal > div {
-      width: 95% !important;
-      margin: 30px auto !important;
-      padding: 15px !important;
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>Abay GERD Token</title>
+  
+  <!-- Bootstrap 5.3.3 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  
+  <!-- Google Fonts - Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/main.css"/>
+  
+  <!-- Firebase -->
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+  <script src="js/init.js"></script>
+  
+  <style>
+    :root {
+      --gerd-primary: #198754;
+      --gerd-dark: #0f5132;
+      --gerd-light: #d1e7dd;
     }
-  }
-
-  /* Optional: Make modal flex layout always centered */
-  #changeModal {
-    display: none;
-    align-items: center;
-    justify-content: center;
-    overflow: auto;
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    background: rgba(0, 0, 0, 0.6);
-    z-index: 1000;
-    flex-direction: column;
-  }
-</style>
-
-<title>Abay GERD Token</title>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css" rel="stylesheet"/>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script> <!-- needed for init -->
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script> <!-- needed for init -->
-<script src="js/init.js"></script>
-
-<style>
-  a code {
-    color: #1e90ff !important; /* DodgerBlue */
-    text-decoration: none;
-    font-weight: 500;
-    background-color: transparent !important; /* optional override */
-  }
-
-  a:hover code {
-    color: #344d67 !important; /* darker on hover */
-    text-decoration: none;
-  }
-</style>
-<!-- Tailwind CSS -->
-<script src="https://cdn.tailwindcss.com"></script>
-<script>
-  tailwind.config = {
-    theme: {
-      extend: {
-        colors: {
-          green: {
-            600: '#047857',
-            100: '#d1fae5',
-            200: '#a7f3d0'
-          }
-        }
-      }
+    
+    .hero-section {
+      background: linear-gradient(135deg, var(--gerd-primary) 0%, var(--gerd-dark) 100%);
+      color: white;
+      padding: 80px 0;
+      position: relative;
+      overflow: hidden;
     }
-  }
-</script>
-<script src="https://unpkg.com/flowbite@2.2.1/dist/flowbite.min.js"></script>
+    
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+      opacity: 0.3;
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+    
+    .hero-logo {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      border: 5px solid rgba(255,255,255,0.3);
+      box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-20px); }
+    }
+    
+    .feature-card {
+      border: none;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      height: 100%;
+      overflow: hidden;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    }
+    
+    .feature-icon {
+      width: 64px;
+      height: 64px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 28px;
+      margin-bottom: 20px;
+    }
+    
+    .stat-card {
+      background: linear-gradient(135deg, var(--gerd-light) 0%, white 100%);
+      border-radius: 12px;
+      padding: 30px;
+      text-align: center;
+      border: 2px solid var(--gerd-light);
+      transition: all 0.3s ease;
+    }
+    
+    .stat-card:hover {
+      border-color: var(--gerd-primary);
+      transform: scale(1.05);
+    }
+    
+    .stat-number {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--gerd-primary);
+      line-height: 1;
+    }
+    
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gerd-light), transparent);
+      margin: 60px 0;
+    }
+    
+    .cta-button {
+      padding: 16px 40px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 50px;
+      box-shadow: 0 8px 24px rgba(25, 135, 84, 0.3);
+      transition: all 0.3s ease;
+    }
+    
+    .cta-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(25, 135, 84, 0.4);
+    }
+    
+    .contract-address {
+      background: var(--gerd-light);
+      padding: 20px;
+      border-radius: 12px;
+      border-left: 4px solid var(--gerd-primary);
+    }
+    
+    .content-section {
+      padding: 80px 0;
+    }
+    
+    .content-section:nth-child(even) {
+      background-color: #f8f9fa;
+    }
+  </style>
 </head>
-<body class="pt-16">
+<body>
 <div id="navbar-container"></div>
 <script>
+  // Load navbar and initialize Bootstrap dropdowns
+  function initDropdowns() {
+    if (typeof bootstrap !== 'undefined') {
+      var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
+      dropdownElementList.forEach(function (dropdownToggleEl) {
+        try {
+          new bootstrap.Dropdown(dropdownToggleEl);
+        } catch(e) {
+          // Dropdown already initialized, ignore
+        }
+      });
+    }
+  }
+  
+  // Load navbar
   fetch('navtest.html')
     .then(res => res.text())
     .then(html => {
       document.getElementById('navbar-container').innerHTML = html;
-      setTimeout(() => {
-        if (window.initFlowbite) initFlowbite();
-      }, 200);
-    });
+      // Initialize dropdowns after navbar is inserted
+      setTimeout(initDropdowns, 50);
+    })
+    .catch(err => console.error('Error loading navbar:', err));
 </script>
 
-<section class="hero is-success is-bold">
-<div class="hero-body">
-<div class="container">
-<div class="columns is-vcentered">
-<div class="column">
-<h1 class="title">
-                  Abay GERD Token
-                </h1><br/>
-<h2 class="subtitle">
-                    🎉💎 Abay GERD Token distribution is LIVE! Get your hands on 10,000 free GERD tokens and join the financial revolution.
-                </h2>
-                <!-- Left-align and blinking -->
-  <div style="text-align: left; margin-top: 10px;">
-    <a href="#" onclick="openChangeModal()" class="blink">📢 Click for Migration Announcement-05/31/2025</a>
-  </div>
-</div>
-<div class="column has-text-centered"><center>
-<figure class="image is-128x128">
-<img alt="AbayGERDToken" class="is-rounded" src="image/gerdlogo.png"/>
-</figure></center>
-</div>
-</div>
-</div>
-</div>
-</section>
-
-<style>
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
-}
-.blink {
-  animation: blink 2s step-start 3;
-}
-</style>
-
-<div class="container" align="right">
-  GERD CA:
-  <a href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c" target="_blank">
-    <code>0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c</code>
-  </a>
-  <p>
-    Old-Legacy CA - Do not use:
-    <a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019" target="_blank">
-      <code>0x660941bb4AA9FcBED00375673D21088A9d0C5019</code>
-    </a>
-  </p>
-</div>
-
-<section class="section">
- <div class="container">
-
-
-
-<!-- Modal Container -->
-<div id="changeModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:1000; align-items:center; justify-content:center; overflow:auto;">
-
-  <div style="background:white; max-width:600px; width:90%; margin:50px auto; padding:20px; border-radius:12px; position:relative; box-shadow:0 5px 15px rgba(0,0,0,0.3); font-family:sans-serif;">
-
-    <!-- Close Button -->
-    <span style="position:absolute; top:10px; right:15px; font-size:24px; font-weight:bold; cursor:pointer;" onclick="closeChangeModal()">&times;</span>
-
-    <!-- Modal Content (Migration Announcement) -->
-    <h3 style="font-size:20px; margin-top:10px;">🚨 GERD Token Contract Migration - May 31, 2025</h3>
-    <p>We’ve upgraded the GERD Token smart contract to a new, more secure and immutable version.</p>
-    <ul style="padding-left: 20px;">
-      <li>✅ New Contract: <br><strong>0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c</strong></li>
-      <li>📜 Legacy Contract: <br><strong>0x660941bb4AA9FcBED00375673D21088A9d0C5019</strong> (now labeled as <em>Legacy GERD</em>)</li>
-    </ul>
-    <p>🛡️ The migration fixes a minor risk in the old contract’s allowance logic. No exploit occurred, and no tokens were lost. See
-    <a href="migration_announcement.html" style="color: blue; text-decoration: underline;">Migration Announcement</a></p>
-    <p><strong>Please update any saved contract references to the new address.</strong></p>
-    <p style="margin-top:10px;">🔗 <a href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c" target="_blank">View on BscScan</a> </p>
-    <p>🙏 Thank you for your continued trust and support.</p>
-  </div>
-</div>
-
-
-<h2 class="title">Abstract</h2>
-<p>Abay GERD Token (GERD) is a decentralized cryptocurrency inspired by Ethiopia’s Grand Renaissance Dam and the Abay River. Built for the world but rooted in Ethiopia, GERD Token honors the people who made the dam possible.</p><br/>
-<p>While many crypto projects successfully launch with the support of seed investors or private sales, GERD takes a different path—one that is entirely community-powered. With no presales or insider allocations, the focus is on ensuring transparent and fair access for everyone from the start.</p><br>
-
-  <p>With 120 billion total tokens and 115 billion locked under a 115-year release schedule, GERD Token is engineered for generational impact. Its smart contract is open-source and deployed on the Binance Smart Chain (BSC), ensuring full verifiability.</p><br>
-         
-        <p>We especially invite participation from unbanked communities with internet access. Help us expand awareness and empower more people to claim their share of this national digital legacy.</p><br/>
-<div class="level">
-<div class="level-item has-text-centered">
-<a href="claim_form.html">
-<button class="button is-success">Claim your 10,000 GERD Tokens</button>
-</a>
-</div>
-</div>
-</div>
-<!-- </section>
-
-  <section class="section"> --> <br/>
-<div class="container">
- <h2 class="title">Tokenomics <span style="font-size: 1.5rem;">📦</span></h2>
-<!-- Add more content here --> 
-<ul><li><strong>Total Supply: </strong> <li>120,000,000,000 GERD Tokens (2 decimal places)</li></li><br>
-  <li><strong>Locked Reserve:</strong><li> 115,000,000,000 tokens will be locked,
-   with a vesting release of 1 billion per year for 115 years, ending in 2140 (same year Bitcoin is projected to finish minting)</li></li><br>
-   <li><strong>Annual Release Mechanism:</strong></li>
-   <li>✨ <strong>500M GERD</strong> airdropped evenly to all holders</li>
-   <li>🌟 <strong>250M GERD</strong> allocated to staking rewards</li>
-   <li>📈 <strong>250M GERD</strong> to liquidity pool <em>only if</em> total liquidity is under 500M; otherwise, <strong>burned</strong> 🔥</li>
-
-   <br>
-   <li><strong>Airdrop Frequency:</strong> <li>Once per year, every year, for 115 years</li></li>
-   <br>
-   <li><strong>Eligibility:</strong> <li>All wallets holding GERD at the time of distribution automatically qualify. Every wallet holding GERD will receive tokens.</li></li><br>
-   <li><strong> Adopter Advantage:</strong><li> The earlier you join, the more years of airdrops you receive.</li></li>
-   <li>This long-term mechanism guarantees recurring benefits and builds strong incentives for community retention.</li><br><br>
-  </ul></div>
-  
-
+<!-- Hero Section -->
+<section class="hero-section">
   <div class="container">
-    <h2 class="title">Token Distribution 🌍🎯</h2>
-    <p>
-      GERD Token is 100% community-driven—<strong>no presales</strong>, <strong>no early investor advantages</strong>, and 
-      <strong>no centralized ownership</strong>. Everyone starts on equal ground.
-    </p>
-    <br/>
-
-    <div class="box">
-      <h3 class="subtitle">🌐 Global Claim Offer</h3>
-      <ul class="content">
-        <li>🎁 <strong>10,000 GERD tokens</strong> per wallet</li>
-        <li>🔒 Capped at <strong>50,000 wallets</strong></li>
-      </ul>
+    <div class="hero-content">
+      <div class="row align-items-center">
+        <div class="col-lg-6 mb-4 mb-lg-0">
+          <h1 class="display-3 fw-bold mb-4">Abay GERD Token</h1>
+          <p class="lead fs-4 mb-4 opacity-90">
+            Abay GERD Token distribution is LIVE! Get your hands on 10,000 free GERD tokens and join the financial revolution.
+          </p>
+          <div class="d-flex flex-column flex-sm-row gap-3 mb-4">
+            <a href="claim_form.html" class="btn btn-light btn-lg cta-button">
+              <i class="fas fa-gift me-2"></i>Claim Your Tokens
+            </a>
+            <button type="button" class="btn btn-outline-light btn-lg" data-bs-toggle="modal" data-bs-target="#changeModal">
+              <i class="fas fa-bullhorn me-2"></i>Migration Announcement
+            </button>
+          </div>
+        </div>
+        <div class="col-lg-6 text-center">
+          <img alt="AbayGERDToken" class="hero-logo" src="image/gerdlogo.png"/>
+        </div>
+      </div>
     </div>
+  </div>
+</section>
 
-    <div class="box">
-      <h3 class="subtitle">🇪🇹 Ethiopia-Specific Claim</h3>
-      <ul class="content">
-        <li>🎁 <strong>75,000 GERD tokens</strong> per wallet</li>
-        <li>🔒 Capped at <strong>25,000 wallets</strong></li>
-      </ul>
+<!-- Contract Addresses -->
+<section class="py-4 bg-light">
+  <div class="container">
+    <div class="row g-3">
+      <div class="col-md-6">
+        <div class="contract-address">
+          <p class="mb-2 small text-muted"><i class="fas fa-link me-2"></i>GERD Contract Address:</p>
+          <div class="d-flex align-items-center">
+            <a href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c" target="_blank" class="text-decoration-none me-2 flex-grow-1">
+              <code class="text-success fw-bold">0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c</code>
+            </a>
+            <button type="button" class="btn btn-sm btn-outline-success copy-address-btn" data-address="0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c" title="Copy to clipboard">
+              <i class="fas fa-copy"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="contract-address" style="border-left-color: #ffc107;">
+          <p class="mb-2 small text-muted"><i class="fas fa-exclamation-triangle text-warning me-2"></i>Legacy CA (Do not use):</p>
+          <a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019" target="_blank" class="text-decoration-none">
+            <code class="text-muted">0x660941bb4AA9FcBED00375673D21088A9d0C5019</code>
+          </a>
+        </div>
+      </div>
     </div>
-
-    <p>
-      This hybrid model promotes <strong>global inclusion</strong> while giving special priority to users in Ethiopia—
-      especially <strong>unbanked communities</strong> with access to mobile devices and internet. 
-      It’s our way of honoring the people behind the GERD project.
-    </p>
-  </div>
-
-  
-<!-- </section>
-
-  <section class="section"> --> <br/>
-<!-- </section>
-
-  <section class="section"> --> <br/>
-<div class="container">
-    <h2 class="title">Smart Contracts 🔐</h2>
-    <p>
-      The Abay GERD Token is deployed on the <strong>Binance Smart Chain (BSC)</strong> using the <strong>Solidity</strong> programming language.
-      The core contract implements standard BEP-20 functionality—secure transfers, approvals, and balance checks—ensuring trustless, decentralized token management.
-    </p>
-    <br/>
-    <p>To support GERD’s long-term mission and fair distribution, the following smart contracts are under development:</p><br>
-    <ul class="content">
-      <li>📜 <strong>Vesting Contract:</strong> Locks 115 billion tokens and releases 1 billion per year over 115 years</li>
-      <li>🔁 <strong>Staking Contract:</strong> Enables users to lock GERD and earn rewards proportionally</li>
-      <li>📊 <strong>Airdrop Tracker:</strong> Determines reward eligibility via snapshot data</li>
-    </ul>
-    <p>
-      All contracts will be <strong>open-source</strong>, publicly auditable via <a href="https://bscscan.com/" target="_blank">BSCScan</a> and
-      <a href="https://github.com/AbayGERDToken" target="_blank">GitHub</a>, reinforcing our core values of transparency and community trust.
-    </p>
-  </div>
-<!-- </section>
-
-<section class="section"> -->
-<!-- </section>
-
-  <section class="section"> --> <br/><br/>
-<div class="container">
-    <h2 class="title">Use Cases <span style="font-size: 1.5rem;">📊</span></h2>
-    <ul class="content">
-      <li>🏦 <strong>Digital Economy:</strong> Enables businesses to accept crypto</li>
-      <li>📤 <strong>Remittance Gateway:</strong> Low-cost transfers from the diaspora</li>
-      <li>🏛️ <strong>Financial Inclusion:</strong> Access to digital money for the unbanked</li>
-      <li>💼 <strong>Community Development:</strong> Funding local projects via decentralized grants</li>
-    </ul>
-  </div>
-<!-- </section>
-
-
-  <section class="section"> --> <br/><br/>
-<div class="container">
-  <h2 class="title">Special Token Distribution – Honoring the Pioneers of GERD 🎖️</h2>
-  <p>
-    The construction of the <strong>Grand Ethiopian Renaissance Dam (GERD)</strong> is a defining achievement in Ethiopia’s modern history—powered by the collective will of its people and the leadership of remarkable individuals.
-    <br/><br/>
-
-    To recognize those who played a pivotal role in this national effort, the Abay GERD Token team is awarding <strong>symbolic grants of 10 million GERD tokens</strong> to key pioneers. These tokens are not taken from the 115 billion locked national reserve but instead allocated from a separate pool set aside for special recognition and future development.
-    <br/><br/>
-
-    <strong>🇪🇹 Engineer Simegnew Bekele</strong><br/>
-    As the Chief Project Manager of GERD, Engineer Simegnew embodied resilience and conviction. His tireless leadership under pressure earned him widespread admiration. Though his life was tragically cut short, his contributions live on through the dam—and now through this digital tribute.
-    <br/>
-    We are honored to posthumously grant him <strong>10 million GERD tokens</strong>, held in reserve at:
-    <a href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c?a=0x75F5f7d68AD14f467c935d6B375D350614F9cF68" target="_blank">
-      <code>0x75F5f7d68AD14f467c935d6B375D350614F9cF68</code>
-    </a>
-    until claimed by his rightful heirs.
-    <br/><br/>
-
-    <strong>🇪🇹 Prime Minister Meles Zenawi</strong><br/>
-    As the visionary who championed the GERD from its inception, the late Prime Minister Meles Zenawi laid the groundwork for this generational project. His leadership and unwavering belief in Ethiopia’s potential continue to inspire millions.
-    <br/>
-    In his memory, we are also awarding <strong>10 million GERD tokens</strong>, reserved at:
-    <a href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c?a=0x75F5f7d68AD14f467c935d6B375D350614F9cF68" target="_blank">
-      <code>0x75F5f7d68AD14f467c935d6B375D350614F9cF68 </code>
-    </a>
-    until claimed by his rightful heirs.
-    <br/><br/>
-
-    These gestures are a humble yet lasting tribute to their efforts. More leaders will be recognized in due time, as we continue to honor those whose actions have shaped not only GERD—but Ethiopia’s future.
-  </p>
-</div>
-
-<!-- </section>
-
-  <section class="section"> --> <br/><br/>
-  
-  <div class="container">
-    <h2 class="title">Forward-Looking Statement 📜</h2>
-
-    <p>
-      The <strong>Abay GERD Token</strong> is more than a digital asset—it's a national vision realized through blockchain. Inspired by the unity and ambition of the <strong>Grand Ethiopian Renaissance Dam (GERD)</strong>, this project aims to help build a <strong>decentralized digital economy</strong> that empowers Ethiopians and includes the world.
-    </p>
-    <br/>
-
-    <p>
-      💬 Currently, GERD tokens do not carry a monetary value in traditional fiat currencies. That’s because their true worth isn’t measured in dollars, but in what they represent: <strong>shared ownership</strong>, <strong>community pride</strong>, and <strong>long-term digital equity</strong>.
-    </p>
-    <br/>
-
-    <p>
-      📣 These tokens are distributed fairly and widely, with special access for the <strong>unbanked citizens</strong> who have been overlooked by global finance. Every GERD token issued is a symbol of national inclusion—an equitable stake in a generational project that reflects the people's contribution to GERD.
-    </p>
-    <br/>
-
-    <p>
-      🧬 The real strength of GERD Tokens lies in their <strong>generational potential</strong>. They’re designed to outlast market cycles—serving not just today's holders, but also future generations. A token claimed today could hold greater utility, cultural significance, or value tomorrow.
-    </p>
-    <br/>
-
-    <p>
-      🔮 As the GERD project evolves and delivers national benefits like energy access, development funding, and economic opportunity, the token’s symbolic and real-world value may grow—alongside a thriving holder community.
-    </p>
-    <br/>
-
-    <p>
-      💡 At its core, the Abay GERD Token is not a speculative venture. It’s a <strong>movement of unity, transparency, and empowerment</strong>. With a fixed, predictable supply and a fair global distribution model, it is built to endure—just like the dam that inspired it.
-    </p>
-  </div>
-<br><br>
-<div class="container">
-    <h2 class="title">Claim Your Share 👐🎁</h2>
-    <p>
-      The <strong>Abay GERD Token team</strong> invites everyone to take part in this historic movement by <strong>claiming your free tokens</strong> and joining our mission-driven distribution process.
-    </p>
-    <br/>
-    <p>
-      📢 Whether you're in Ethiopia or abroad, your participation helps expand a fair, people-powered digital economy that honors the GERD legacy.
-    </p>
-    <br/>
-    <p>
-      ⏳ Don't miss the opportunity—<strong>claim your tokens today</strong> and become a part of Ethiopia's digital future.
-    </p>
-  </div>
-      <br/><br/>
-     
-  <div class="container">
-    <h2 class="title">CEX Listing Roadmap 📈</h2>
-    <p>
-      As part of our long-term strategy for accessibility and liquidity, 
-      <strong>Abay GERD Token</strong> will pursue a listing on a 
-      <strong>Centralized Exchange (CEX)</strong> once we reach:
-    </p>
-    <ul class="content">
-      <li>🚀 <strong>10,000 unique wallet holders</strong> milestone</li>
-    </ul>
-    <br/>
-    <p>
-      This goal reflects <strong>organic adoption</strong> and <strong>grassroots support</strong>—the foundation of our 
-      people-powered mission.
-    </p>
-    <br/>
-    <p>
-      A CEX listing will:
-    </p>
-    <ul class="content">
-      <li>🌍 Make GERD more accessible to a global audience</li>
-      <li>📊 Boost visibility and trading opportunities</li>
-      <li>✅ Strengthen credibility and token utility</li>
-    </ul>
-    <br/>
-    <p>
-      We believe this approach ensures a <strong>robust and active holder base</strong> is in place before strategic expansion—
-      reinforcing our commitment to sustainable, community-led growth.
-    </p>
-  </div>
-
-<br><br>
-<div class="container">
-    <h2 class="title">Fun Fact: Bitcoin’s $250 Million Pizza 🍕💸</h2>
-    <p>
-      On <strong>May 22, 2010</strong>, programmer <strong>Laszlo Hanyecz</strong> made history by spending 
-      <strong>10,000 Bitcoins</strong> on two pizzas—valued at just <strong>$41</strong> at the time. 
-      This marked the <em>first real-world transaction</em> using cryptocurrency.
-      The day is now celebrated globally as <strong>Bitcoin Pizza Day</strong>—a milestone that helped validate 
-      Bitcoin as a functional medium of exchange.
-    </p>
-    <br/>
-    <p>
-      To put the value in perspective:  
-      <ul class="content">
-        <li>📈 1 BTC = <strong>$25,000</strong> (May 2023)</li>
-        <li>💰 10,000 BTC = <strong>$250 million</strong></li>
-      </ul>
-      Those two pizzas are now among the most expensive meals in history—symbolizing the explosive potential of early crypto adoption.
-    </p>
-    <br/>
-    <p>
-      A timeless reminder: today's small crypto steps could become tomorrow's monumental milestones.
-    </p>
   </div>
 </section>
-<section class="hero is-success is-bold">
-<div class="hero-body">
-<div class="container">
-<div class="columns is-vcentered">
-<div class="column">
-<h2 class="subtitle">
-                DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY AND SUPPORTING THE GRAND ETHIOPIAN RENAISSANCE DAM PROJECT.
-                 JOIN US IN CREATING A BRIGHTER FUTURE! 🌍💰 #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD
-            </h2>
-</div>
-<div class="column has-text-centered">
-<img alt="AbayGERDToken" src="image/abay_bluesky.png" style="width: 300px; height: auto;"/>
 
+<!-- Bootstrap Modal -->
+<div class="modal fade" id="changeModal" tabindex="-1" aria-labelledby="changeModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg">
+    <div class="modal-content">
+      <div class="modal-header border-0 pb-0">
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body px-4 pb-4">
+        <div class="text-center mb-4">
+          <div class="bg-success-subtle text-success rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 80px; height: 80px; font-size: 36px;">
+            <i class="fas fa-exchange-alt"></i>
+          </div>
+          <h3 class="h3 fw-bold mb-2" id="changeModalLabel">GERD Token Contract Migration</h3>
+          <p class="text-muted mb-0">May 31, 2025</p>
+        </div>
+
+        <div class="alert alert-info border-info mb-4">
+          <p class="mb-0"><i class="fas fa-info-circle me-2"></i>We've upgraded the GERD Token smart contract to a new, more secure and immutable version.</p>
+        </div>
+
+        <div class="row g-3 mb-4">
+          <div class="col-md-6">
+            <div class="card border-success h-100">
+              <div class="card-body p-4">
+                <div class="d-flex align-items-center mb-3">
+                  <div class="bg-success-subtle text-success rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 48px; height: 48px; font-size: 20px;">
+                    <i class="fas fa-check-circle"></i>
+                  </div>
+                  <h4 class="h6 fw-bold mb-0">New Contract</h4>
+                </div>
+                <div class="d-flex align-items-center">
+                  <code class="text-success fw-bold small me-2 flex-grow-1">0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c</code>
+                  <button type="button" class="btn btn-sm btn-outline-success copy-address-btn" data-address="0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c" title="Copy to clipboard">
+                    <i class="fas fa-copy"></i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="card border-warning h-100">
+              <div class="card-body p-4">
+                <div class="d-flex align-items-center mb-3">
+                  <div class="bg-warning-subtle text-warning rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 48px; height: 48px; font-size: 20px;">
+                    <i class="fas fa-archive"></i>
+                  </div>
+                  <h4 class="h6 fw-bold mb-0">Legacy Contract</h4>
+                </div>
+                <code class="text-muted small">0x660941bb4AA9FcBED00375673D21088A9d0C5019</code>
+                <p class="small text-muted mb-0 mt-2">(now labeled as <em>Legacy GERD</em>)</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="alert alert-warning border-warning mb-4">
+          <p class="mb-2"><i class="fas fa-exclamation-triangle me-2"></i>The migration fixes a minor risk in the old contract's allowance logic. No exploit occurred, and no tokens were lost.</p>
+          <p class="mb-0">See <a href="migration_announcement.html" class="text-decoration-none fw-bold">Migration Announcement</a> for more details.</p>
+        </div>
+
+        <div class="alert alert-success border-success mb-4">
+          <p class="mb-0"><i class="fas fa-check-circle me-2"></i><strong>Please update any saved contract references to the new address.</strong></p>
+        </div>
+
+        <div class="text-center mb-4">
+          <a href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c" target="_blank" class="btn btn-success">
+            <i class="fas fa-external-link-alt me-2"></i>View on BscScan
+          </a>
+        </div>
+
+        <div class="text-center">
+          <div class="bg-success-subtle text-success rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 48px; height: 48px; font-size: 24px;">
+            <i class="fas fa-heart"></i>
+          </div>
+          <p class="fw-bold mb-0">Thank you for your continued trust and support.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
-</div>
-</div>
-</div>
+
+<!-- Abstract Section -->
+<section class="content-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto text-center mb-5">
+        <h2 class="display-5 fw-bold mb-4">A Community-Powered Digital Legacy</h2>
+        <p class="lead text-muted">Abay GERD Token (GERD) is a decentralized cryptocurrency inspired by Ethiopia's Grand Renaissance Dam and the Abay River. Built for the world but rooted in Ethiopia, GERD Token honors the people who made the dam possible.</p>
+      </div>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6">
+        <div class="feature-card card p-4 h-100">
+          <div class="feature-icon bg-success-subtle text-success">
+            <i class="fas fa-users"></i>
+          </div>
+          <h3 class="h5 fw-bold mb-3">Community-Powered</h3>
+          <p class="text-muted mb-0">While many crypto projects launch with seed investors or private sales, GERD takes a different path—one that is entirely community-powered. With no presales or insider allocations, the focus is on ensuring transparent and fair access for everyone from the start.</p>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="feature-card card p-4 h-100">
+          <div class="feature-icon bg-primary-subtle text-primary">
+            <i class="fas fa-lock"></i>
+          </div>
+          <h3 class="h5 fw-bold mb-3">Generational Impact</h3>
+          <p class="text-muted mb-0">With 120 billion total tokens and 115 billion locked under a 115-year release schedule, GERD Token is engineered for generational impact. Its smart contract is open-source and deployed on the Binance Smart Chain (BSC), ensuring full verifiability.</p>
+        </div>
+      </div>
+    </div>
+    <div class="text-center mt-5">
+      <p class="text-muted mb-4">We especially invite participation from unbanked communities with internet access. Help us expand awareness and empower more people to claim their share of this national digital legacy.</p>
+      <a href="claim_form.html" class="btn btn-success btn-lg cta-button">
+        <i class="fas fa-gift me-2"></i>Claim your 10,000 GERD Tokens
+      </a>
+    </div>
+  </div>
 </section>
-<!-- Add more sections as needed -->
-<footer class="footer">
-<div class="content has-text-centered">
-<p style="font-size: 0.85rem;"><a href="mailto:contact@abaygerdtoken.com?subject=Inquiry">contact@abaygerdtoken.com</a><br/>
-        Copyright 2023 Abay GERD Token. All rights reserved.
-      </p>
-</div>
+
+<div class="section-divider"></div>
+
+<!-- Tokenomics Section -->
+<section class="content-section">
+  <div class="container">
+    <div class="row mb-5">
+      <div class="col-lg-8 mx-auto text-center">
+        <h2 class="display-5 fw-bold mb-3"><i class="fas fa-chart-pie text-success me-2"></i>Tokenomics</h2>
+        <p class="lead text-muted">A sustainable model designed for long-term value and community growth</p>
+      </div>
+    </div>
+    <div class="row g-4 mb-5">
+      <div class="col-md-4">
+        <div class="stat-card">
+          <div class="stat-number">120B</div>
+          <p class="text-muted mb-0">Total Supply</p>
+          <small class="text-muted">GERD Tokens</small>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="stat-card">
+          <div class="stat-number">115B</div>
+          <p class="text-muted mb-0">Locked Reserve</p>
+          <small class="text-muted">Vesting over 115 years</small>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="stat-card">
+          <div class="stat-number">1B</div>
+          <p class="text-muted mb-0">Annual Release</p>
+          <small class="text-muted">Per year until 2140</small>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-10 mx-auto">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body p-4">
+            <h3 class="h5 fw-bold mb-4">Annual Release Mechanism</h3>
+            <div class="row g-3">
+              <div class="col-md-4">
+                <div class="d-flex align-items-start">
+                  <div class="feature-icon bg-success-subtle text-success me-3" style="width: 48px; height: 48px; font-size: 20px;">
+                    <i class="fas fa-parachute-box"></i>
+                  </div>
+                  <div>
+                    <h4 class="h6 fw-bold mb-1">500M GERD</h4>
+                    <p class="small text-muted mb-0">Airdropped evenly to all holders</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="d-flex align-items-start">
+                  <div class="feature-icon bg-warning-subtle text-warning me-3" style="width: 48px; height: 48px; font-size: 20px;">
+                    <i class="fas fa-coins"></i>
+                  </div>
+                  <div>
+                    <h4 class="h6 fw-bold mb-1">250M GERD</h4>
+                    <p class="small text-muted mb-0">Allocated to staking rewards</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="d-flex align-items-start">
+                  <div class="feature-icon bg-info-subtle text-info me-3" style="width: 48px; height: 48px; font-size: 20px;">
+                    <i class="fas fa-fire"></i>
+                  </div>
+                  <div>
+                    <h4 class="h6 fw-bold mb-1">250M GERD</h4>
+                    <p class="small text-muted mb-0">To liquidity or burned if pool is full</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <hr class="my-4">
+            <ul class="list-unstyled mb-0">
+              <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i><strong>Airdrop Frequency:</strong> Once per year, every year, for 115 years</li>
+              <li class="mb-2"><i class="fas fa-check-circle text-success me-2"></i><strong>Eligibility:</strong> All wallets holding GERD at the time of distribution automatically qualify</li>
+              <li class="mb-0"><i class="fas fa-check-circle text-success me-2"></i><strong>Adopter Advantage:</strong> The earlier you join, the more years of airdrops you receive</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- Token Distribution Section -->
+<section class="content-section">
+  <div class="container">
+    <div class="row mb-5">
+      <div class="col-lg-8 mx-auto text-center">
+        <h2 class="display-5 fw-bold mb-3"><i class="fas fa-globe text-primary me-2"></i>Token Distribution</h2>
+        <p class="lead text-muted">100% community-driven with no presales, no early investor advantages, and no centralized ownership</p>
+      </div>
+    </div>
+    <div class="row g-4 mb-5">
+      <div class="col-md-6">
+        <div class="card feature-card border-primary">
+          <div class="card-body p-4">
+            <div class="feature-icon bg-primary-subtle text-primary mx-auto mb-3">
+              <i class="fas fa-globe-americas"></i>
+            </div>
+            <h3 class="h5 fw-bold text-center mb-3">Global Claim Offer</h3>
+            <div class="text-center">
+              <div class="stat-number mb-2" style="font-size: 2rem;">10,000</div>
+              <p class="text-muted mb-3">GERD tokens per wallet</p>
+              <div class="badge bg-primary-subtle text-primary px-3 py-2">
+                <i class="fas fa-lock me-1"></i>Capped at 50,000 wallets
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="card feature-card border-danger">
+          <div class="card-body p-4">
+            <div class="feature-icon bg-danger-subtle text-danger mx-auto mb-3">
+              <i class="fas fa-flag"></i>
+            </div>
+            <h3 class="h5 fw-bold text-center mb-3">Ethiopia-Specific Claim</h3>
+            <div class="text-center">
+              <div class="stat-number mb-2" style="font-size: 2rem; color: #dc3545;">75,000</div>
+              <p class="text-muted mb-3">GERD tokens per wallet</p>
+              <div class="badge bg-danger-subtle text-danger px-3 py-2">
+                <i class="fas fa-lock me-1"></i>Capped at 25,000 wallets
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <div class="alert alert-info border-0 shadow-sm">
+          <p class="mb-0">This hybrid model promotes <strong>global inclusion</strong> while giving special priority to users in Ethiopia—especially <strong>unbanked communities</strong> with access to mobile devices and internet. It's our way of honoring the people behind the GERD project.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- Smart Contracts Section -->
+<section class="content-section">
+  <div class="container">
+    <div class="row mb-5">
+      <div class="col-lg-8 mx-auto text-center">
+        <h2 class="display-5 fw-bold mb-3"><i class="fas fa-file-contract text-primary me-2"></i>Smart Contracts</h2>
+        <p class="lead text-muted">Built on Binance Smart Chain with full transparency and verifiability</p>
+      </div>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="card feature-card h-100">
+          <div class="card-body p-4">
+            <div class="feature-icon bg-success-subtle text-success mb-3">
+              <i class="fas fa-lock"></i>
+            </div>
+            <h3 class="h5 fw-bold mb-3">Vesting Contract</h3>
+            <p class="text-muted mb-0">Locks 115 billion tokens and releases 1 billion per year over 115 years</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card feature-card h-100">
+          <div class="card-body p-4">
+            <div class="feature-icon bg-warning-subtle text-warning mb-3">
+              <i class="fas fa-coins"></i>
+            </div>
+            <h3 class="h5 fw-bold mb-3">Staking Contract</h3>
+            <p class="text-muted mb-0">Enables users to lock GERD and earn rewards proportionally</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card feature-card h-100">
+          <div class="card-body p-4">
+            <div class="feature-icon bg-info-subtle text-info mb-3">
+              <i class="fas fa-parachute-box"></i>
+            </div>
+            <h3 class="h5 fw-bold mb-3">Airdrop Tracker</h3>
+            <p class="text-muted mb-0">Determines reward eligibility via snapshot data</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row mt-5">
+      <div class="col-lg-8 mx-auto text-center">
+        <p class="text-muted">The Abay GERD Token is deployed on the <strong>Binance Smart Chain (BSC)</strong> using <strong>Solidity</strong>. All contracts will be <strong>open-source</strong>, publicly auditable via <a href="https://bscscan.com/" target="_blank" class="text-decoration-none"><i class="fas fa-external-link-alt me-1"></i>BSCScan</a> and <a href="https://github.com/AbayGERDToken" target="_blank" class="text-decoration-none"><i class="fab fa-github me-1"></i>GitHub</a>, reinforcing our core values of transparency and community trust.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- Use Cases Section -->
+<section class="content-section">
+  <div class="container">
+    <div class="row mb-5">
+      <div class="col-lg-8 mx-auto text-center">
+        <h2 class="display-5 fw-bold mb-3"><i class="fas fa-lightbulb text-warning me-2"></i>Use Cases</h2>
+        <p class="lead text-muted">Empowering communities through practical blockchain applications</p>
+      </div>
+    </div>
+    <div class="row g-4">
+      <div class="col-md-6 col-lg-3">
+        <div class="card feature-card h-100">
+          <div class="card-body p-4 text-center">
+            <div class="feature-icon bg-success-subtle text-success mx-auto mb-3">
+              <i class="fas fa-store"></i>
+            </div>
+            <h4 class="h6 fw-bold mb-2">Digital Economy</h4>
+            <p class="small text-muted mb-0">Enables businesses to accept crypto</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="card feature-card h-100">
+          <div class="card-body p-4 text-center">
+            <div class="feature-icon bg-info-subtle text-info mx-auto mb-3">
+              <i class="fas fa-paper-plane"></i>
+            </div>
+            <h4 class="h6 fw-bold mb-2">Remittance Gateway</h4>
+            <p class="small text-muted mb-0">Low-cost transfers from the diaspora</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="card feature-card h-100">
+          <div class="card-body p-4 text-center">
+            <div class="feature-icon bg-primary-subtle text-primary mx-auto mb-3">
+              <i class="fas fa-universal-access"></i>
+            </div>
+            <h4 class="h6 fw-bold mb-2">Financial Inclusion</h4>
+            <p class="small text-muted mb-0">Access to digital money for the unbanked</p>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 col-lg-3">
+        <div class="card feature-card h-100">
+          <div class="card-body p-4 text-center">
+            <div class="feature-icon bg-warning-subtle text-warning mx-auto mb-3">
+              <i class="fas fa-hands-helping"></i>
+            </div>
+            <h4 class="h6 fw-bold mb-2">Community Development</h4>
+            <p class="small text-muted mb-0">Funding local projects via decentralized grants</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- Special Token Distribution Section -->
+<section class="content-section">
+  <div class="container">
+    <div class="row mb-5">
+      <div class="col-lg-10 mx-auto">
+        <h2 class="display-5 fw-bold mb-4 text-center"><i class="fas fa-medal text-warning me-2"></i>Special Token Distribution – Honoring the Pioneers of GERD</h2>
+        <div class="card border-0 shadow-sm">
+          <div class="card-body p-5">
+            <p class="lead mb-4">
+              The construction of the <strong>Grand Ethiopian Renaissance Dam (GERD)</strong> is a defining achievement in Ethiopia's modern history—powered by the collective will of its people and the leadership of remarkable individuals.
+            </p>
+            <p class="mb-4">
+              To recognize those who played a pivotal role in this national effort, the Abay GERD Token team is awarding <strong>symbolic grants of 10 million GERD tokens</strong> to key pioneers. These tokens are not taken from the 115 billion locked national reserve but instead allocated from a separate pool set aside for special recognition and future development.
+            </p>
+            
+            <div class="row g-4 mt-4">
+              <div class="col-md-6">
+                <div class="card border-primary h-100">
+                  <div class="card-body p-4">
+                    <h3 class="h5 fw-bold mb-3">🇪🇹 Engineer Simegnew Bekele</h3>
+                    <p class="text-muted mb-3">As the Chief Project Manager of GERD, Engineer Simegnew embodied resilience and conviction. His tireless leadership under pressure earned him widespread admiration. Though his life was tragically cut short, his contributions live on through the dam—and now through this digital tribute.</p>
+                    <p class="mb-2 small"><strong>10 million GERD tokens</strong> reserved at:</p>
+                    <a href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c?a=0x75F5f7d68AD14f467c935d6B375D350614F9cF68" target="_blank" class="text-decoration-none">
+                      <code class="small">0x75F5f7d68AD14f467c935d6B375D350614F9cF68</code>
+                    </a>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="card border-primary h-100">
+                  <div class="card-body p-4">
+                    <h3 class="h5 fw-bold mb-3">🇪🇹 Prime Minister Meles Zenawi</h3>
+                    <p class="text-muted mb-3">As the visionary who championed the GERD from its inception, the late Prime Minister Meles Zenawi laid the groundwork for this generational project. His leadership and unwavering belief in Ethiopia's potential continue to inspire millions.</p>
+                    <p class="mb-2 small"><strong>10 million GERD tokens</strong> reserved at:</p>
+                    <a href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c?a=0x75F5f7d68AD14f467c935d6B375D350614F9cF68" target="_blank" class="text-decoration-none">
+                      <code class="small">0x75F5f7d68AD14f467c935d6B375D350614F9cF68</code>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="alert alert-light border mt-4 mb-0">
+              <p class="mb-0">These gestures are a humble yet lasting tribute to their efforts. More leaders will be recognized in due time, as we continue to honor those whose actions have shaped not only GERD—but Ethiopia's future.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- Forward-Looking Statement Section -->
+<section class="content-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 mx-auto">
+        <h2 class="display-5 fw-bold mb-4 text-center"><i class="fas fa-eye text-info me-2"></i>Forward-Looking Statement</h2>
+        <div class="card border-0 shadow-sm">
+          <div class="card-body p-5">
+            <p class="mb-4">
+              The <strong>Abay GERD Token</strong> is more than a digital asset—it's a national vision realized through blockchain. Inspired by the unity and ambition of the <strong>Grand Ethiopian Renaissance Dam (GERD)</strong>, this project aims to help build a <strong>decentralized digital economy</strong> that empowers Ethiopians and includes the world.
+            </p>
+            <p class="mb-4">
+              Currently, GERD tokens do not carry a monetary value in traditional fiat currencies. That's because their true worth isn't measured in dollars, but in what they represent: <strong>shared ownership</strong>, <strong>community pride</strong>, and <strong>long-term digital equity</strong>.
+            </p>
+            <p class="mb-4">
+              These tokens are distributed fairly and widely, with special access for the <strong>unbanked citizens</strong> who have been overlooked by global finance. Every GERD token issued is a symbol of national inclusion—an equitable stake in a generational project that reflects the people's contribution to GERD.
+            </p>
+            <p class="mb-4">
+              The real strength of GERD Tokens lies in their <strong>generational potential</strong>. They're designed to outlast market cycles—serving not just today's holders, but also future generations. A token claimed today could hold greater utility, cultural significance, or value tomorrow.
+            </p>
+            <p class="mb-4">
+              As the GERD project evolves and delivers national benefits like energy access, development funding, and economic opportunity, the token's symbolic and real-world value may grow—alongside a thriving holder community.
+            </p>
+            <p class="mb-0">
+              At its core, the Abay GERD Token is not a speculative venture. It's a <strong>movement of unity, transparency, and empowerment</strong>. With a fixed, predictable supply and a fair global distribution model, it is built to endure—just like the dam that inspired it.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- Claim Section -->
+<section class="content-section bg-success-subtle">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 mx-auto text-center">
+        <h2 class="display-5 fw-bold mb-4"><i class="fas fa-hand-holding-usd text-success me-2"></i>Claim Your Share</h2>
+        <p class="lead mb-4">
+          The <strong>Abay GERD Token team</strong> invites everyone to take part in this historic movement by <strong>claiming your free tokens</strong> and joining our mission-driven distribution process.
+        </p>
+        <p class="mb-5">
+          Whether you're in Ethiopia or abroad, your participation helps expand a fair, people-powered digital economy that honors the GERD legacy.
+        </p>
+        <a href="claim_form.html" class="btn btn-success btn-lg cta-button">
+          <i class="fas fa-gift me-2"></i>Claim Your Tokens Today
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- CEX Listing Roadmap Section -->
+<section class="content-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 mx-auto">
+        <h2 class="display-5 fw-bold mb-4 text-center"><i class="fas fa-route text-primary me-2"></i>CEX Listing Roadmap</h2>
+        <div class="card border-primary shadow-sm">
+          <div class="card-body p-5">
+            <div class="text-center mb-4">
+              <div class="stat-number mb-2" style="font-size: 2.5rem;">10,000</div>
+              <p class="lead text-muted">Unique Wallet Holders Milestone</p>
+            </div>
+            <p class="mb-4 text-center">
+              As part of our long-term strategy for accessibility and liquidity, <strong>Abay GERD Token</strong> will pursue a listing on a <strong>Centralized Exchange (CEX)</strong> once we reach this goal. This reflects <strong>organic adoption</strong> and <strong>grassroots support</strong>—the foundation of our people-powered mission.
+            </p>
+            <div class="row g-3 mt-4">
+              <div class="col-md-4">
+                <div class="text-center p-3">
+                  <i class="fas fa-globe fa-2x text-primary mb-3"></i>
+                  <h4 class="h6 fw-bold">Global Accessibility</h4>
+                  <p class="small text-muted mb-0">Make GERD more accessible to a global audience</p>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="text-center p-3">
+                  <i class="fas fa-chart-line fa-2x text-success mb-3"></i>
+                  <h4 class="h6 fw-bold">Boost Visibility</h4>
+                  <p class="small text-muted mb-0">Increase trading opportunities and market presence</p>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="text-center p-3">
+                  <i class="fas fa-shield-alt fa-2x text-warning mb-3"></i>
+                  <h4 class="h6 fw-bold">Strengthen Credibility</h4>
+                  <p class="small text-muted mb-0">Enhance token utility and trust</p>
+                </div>
+              </div>
+            </div>
+            <div class="alert alert-light border mt-4 mb-0">
+              <p class="mb-0">We believe this approach ensures a <strong>robust and active holder base</strong> is in place before strategic expansion—reinforcing our commitment to sustainable, community-led growth.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- Fun Fact Section -->
+<section class="content-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-10 mx-auto">
+        <h2 class="display-5 fw-bold mb-4 text-center"><i class="fas fa-pizza-slice text-warning me-2"></i>Fun Fact: Bitcoin's $250 Million Pizza</h2>
+        <div class="card border-warning shadow-sm">
+          <div class="card-body p-5">
+            <p class="mb-4">
+              On <strong>May 22, 2010</strong>, programmer <strong>Laszlo Hanyecz</strong> made history by spending <strong>10,000 Bitcoins</strong> on two pizzas—valued at just <strong>$41</strong> at the time. This marked the <em>first real-world transaction</em> using cryptocurrency. The day is now celebrated globally as <strong>Bitcoin Pizza Day</strong>—a milestone that helped validate Bitcoin as a functional medium of exchange.
+            </p>
+            <div class="row g-4 mb-4">
+              <div class="col-md-6">
+                <div class="stat-card text-center">
+                  <div class="stat-number" style="font-size: 2rem;">1 BTC</div>
+                  <p class="text-muted mb-0">= $25,000 (May 2023)</p>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="stat-card text-center">
+                  <div class="stat-number" style="font-size: 2rem; color: #ffc107;">$250M</div>
+                  <p class="text-muted mb-0">Value of those 10,000 BTC</p>
+                </div>
+              </div>
+            </div>
+            <div class="alert alert-warning border-warning mb-0">
+              <p class="mb-0"><strong>A timeless reminder:</strong> today's small crypto steps could become tomorrow's monumental milestones.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="bg-success-subtle py-5 mb-0">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-md-8">
+        <h2 class="h4 mb-3">
+          DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY AND SUPPORTING THE GRAND ETHIOPIAN RENAISSANCE DAM PROJECT.
+          JOIN US IN CREATING A BRIGHTER FUTURE! #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD
+        </h2>
+      </div>
+      <div class="col-md-4 text-center">
+        <img alt="AbayGERDToken" src="image/abay_bluesky.png" class="img-fluid img-hero"/>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="bg-dark text-light py-4">
+  <div class="container text-center">
+    <p class="small mb-0">
+      <a href="mailto:contact@abaygerdtoken.com?subject=Inquiry" class="text-light text-decoration-none">contact@abaygerdtoken.com</a><br/>
+      Copyright 2023 Abay GERD Token. All rights reserved.
+    </p>
+  </div>
 </footer>
 
-  <!-- JavaScript to control modal -->
+<!-- JavaScript - Bootstrap modal is handled automatically -->
+
+<!-- Bootstrap 5.3.3 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-  function openChangeModal() {
-    document.getElementById('changeModal').style.display = 'flex';
+  // Re-initialize dropdowns after Bootstrap loads (in case navbar loaded first)
+  if (typeof bootstrap !== 'undefined') {
+    setTimeout(function() {
+      var dropdownElementList = [].slice.call(document.querySelectorAll('.dropdown-toggle'));
+      dropdownElementList.forEach(function (dropdownToggleEl) {
+        try {
+          new bootstrap.Dropdown(dropdownToggleEl);
+        } catch(e) {
+          // Dropdown already initialized, ignore
+        }
+      });
+    }, 100);
   }
 
-  function closeChangeModal() {
-    document.getElementById('changeModal').style.display = 'none';
-  }
+  // Copy address to clipboard functionality
+  document.addEventListener('DOMContentLoaded', function() {
+    const copyButtons = document.querySelectorAll('.copy-address-btn');
+    
+    copyButtons.forEach(function(button) {
+      button.addEventListener('click', function() {
+        const address = this.getAttribute('data-address');
+        const icon = this.querySelector('i');
+        
+        // Copy to clipboard
+        navigator.clipboard.writeText(address).then(function() {
+          // Visual feedback
+          const originalClass = icon.className;
+          icon.className = 'fas fa-check';
+          button.classList.remove('btn-outline-success');
+          button.classList.add('btn-success');
+          
+          // Reset after 2 seconds
+          setTimeout(function() {
+            icon.className = originalClass;
+            button.classList.remove('btn-success');
+            button.classList.add('btn-outline-success');
+          }, 2000);
+        }).catch(function(err) {
+          console.error('Failed to copy address:', err);
+          // Fallback for older browsers
+          const textArea = document.createElement('textarea');
+          textArea.value = address;
+          textArea.style.position = 'fixed';
+          textArea.style.opacity = '0';
+          document.body.appendChild(textArea);
+          textArea.select();
+          try {
+            document.execCommand('copy');
+            const originalClass = icon.className;
+            icon.className = 'fas fa-check';
+            button.classList.remove('btn-outline-success');
+            button.classList.add('btn-success');
+            setTimeout(function() {
+              icon.className = originalClass;
+              button.classList.remove('btn-success');
+              button.classList.add('btn-outline-success');
+            }, 2000);
+          } catch (err) {
+            console.error('Fallback copy failed:', err);
+          }
+          document.body.removeChild(textArea);
+        });
+      });
+    });
+  });
 </script>
-
 
 </body>
 </html>

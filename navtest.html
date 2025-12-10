@@ -1,178 +1,175 @@
-<!-- navtest.html -->
-<!-- Include Tailwind and Flowbite directly -->
-
-
-
-
-<nav class="bg-emerald-500 px-4 py-2 fixed top-0 left-0 w-full z-50 text-white">
-  <div class="mx-auto px-4 max-w-7xl flex flex-wrap items-center justify-between">
-    <a href="https://www.abaygerdtoken.com">
-      <img src="image/gerdlogo.jpeg" alt="Abay GERD Token Logo" class="h-10 w-auto">
+<!-- navtest.html - Bootstrap 5.3.3 Navbar -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-success fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand d-flex align-items-center" href="/index.html">
+      <img src="/image/gerdlogo.png" alt="Abay GERD Token Logo" height="40" width="40" class="me-2 rounded-circle" style="background: transparent; border: none; object-fit: contain;">
+      <span class="fw-bold">AbayGERDToken</span>
     </a>
-
-    <button data-collapse-toggle="mega-menu" type="button" class="md:hidden p-2 text-white hover:bg-green-300">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-      </svg>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
     </button>
-
-    <div class="hidden w-full md:block md:w-auto" id="mega-menu">
-      <ul class="flex flex-col md:flex-row md:space-x-6 mt-4 md:mt-0 text-sm font-medium">
-        <li><a href="https://www.abaygerdtoken.com/index.html" class="block py-2 text-white hover:text-green-300">Home</a></li>
-        
-        <li>
-          <button id="dropdown1" data-dropdown-toggle="dropdown1menu" class="flex items-center py-2 text-white hover:text-green-200">
-           Token Claims
-          </button>
-          <div id="dropdown1menu" class="hidden z-10 bg-white shadow rounded w-64">
-            <ul class="py-1 text-gray-700">
-              <li>
-                <a href="claim_form.html" class="block px-4 py-2 hover:bg-green-200">
-                  <div class="font-medium"><span>💧</span>Token Claim</div>
-                  <p class="text-xs text-gray-500">Claim Free Tokens - Faucet</p>
-                </a>
-              </li>
-              <li>
-                <a href="distribution_rpt.html" class="block px-4 py-2 hover:bg-green-200">
-                  <div class="font-medium"><span>📊</span>Claim Report</div>
-                  <p class="text-xs text-gray-500">Global claims per country graph</p>
-                </a>
-              </li>
-              <li>
-                <a href="gerd-airdrop.html" class="block px-4 py-2 hover:bg-green-200">
-                  <div class="font-medium"><span>🪂</span>Airdrop</div>
-                  <p class="text-xs text-gray-500">Airdrop calculator for the yearly vesting release</p>
-                </a>
-              </li>
-              <li>
-                <a href="trust-wallet.html" class="block px-4 py-2 hover:bg-green-200">
-                  <div class="font-medium">Trust Wallet</div>
-                  <p class="text-xs text-gray-500">Setup instruction for Trust wallet</p>
-                </a>
-              </li>
-              <li>
-                <a href="metamask-wallet.html" class="block px-4 py-2 hover:bg-green-200">
-                  <div class="font-medium">Metamask Wallet</div>
-                  <p class="text-xs text-gray-500">Setup instruction for Metamask wallet</p>
-                </a>
-              </li>
-            </ul>
-          </div>
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav ms-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/index.html">Home</a>
         </li>
         
-        <li>
-          <button id="dropdown8" data-dropdown-toggle="dropdown8menu" class="flex items-center py-2 text-white hover:text-green-200">
+        <!-- Token Claims Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="dropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Token Claims
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="dropdown1">
+            <li>
+              <a class="dropdown-item" href="/claim_form.html">
+                <div class="fw-bold">Token Claim</div>
+                <small class="text-muted">Claim Free Tokens - Faucet</small>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="/distribution_rpt.html">
+                <div class="fw-bold">Claim Report</div>
+                <small class="text-muted">Global claims per country graph</small>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="/gerd-airdrop.html">
+                <div class="fw-bold">Airdrop</div>
+                <small class="text-muted">Airdrop calculator for the yearly vesting release</small>
+              </a>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <a class="dropdown-item" href="/trust-wallet.html">
+                <div class="fw-bold">Trust Wallet</div>
+                <small class="text-muted">Setup instruction for Trust wallet</small>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="/metamask-wallet.html">
+                <div class="fw-bold">Metamask Wallet</div>
+                <small class="text-muted">Setup instruction for Metamask wallet</small>
+              </a>
+            </li>
+          </ul>
+        </li>
+        
+        <!-- Vesting Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="dropdown8" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Vesting
-          </button>
-          <div id="dropdown8menu" class="hidden z-10 bg-white shadow rounded w-64">
-            <ul class="py-1 text-gray-700">
-              <li>
-                <a href="dashboard_vesting.html" class="block px-4 py-2 hover:bg-green-200">
-                  <div class="font-medium"><span>🧭</span>Vesting Dashboard</div>
-                  <p class="text-xs text-gray-500">Main vesting release dashboard</p>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="dropdown8">
+            <li>
+              <a class="dropdown-item" href="/dashboard_vesting.html">
+                <div class="fw-bold">Vesting Dashboard</div>
+                <small class="text-muted">Main vesting release dashboard</small>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="/Testnet_vesting_dashboard.html">
+                <div class="fw-bold">Testnet Dashboard</div>
+                <small class="text-muted">Monitor live GERD's vesting release on Testnet</small>
+              </a>
+            </li>
+            <li><hr class="dropdown-divider"></li>
+            <li>
+              <a class="dropdown-item" href="/Vesting.html">
+                <div class="fw-bold">Vesting Strategy</div>
+                <small class="text-muted">Reinforcing Transparency and Sustainable Growth</small>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="/image/GERDVesting_Roadmap.pdf" target="_blank">
+                <div class="fw-bold">Vesting Roadmap</div>
+                <small class="text-muted">Smart contract development roadmap for the vesting release</small>
+              </a>
+            </li>
+          </ul>
+        </li>
+        
+        <!-- Project Insights Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="dropdown5" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Project Insights
+          </a>
+          <div class="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdown5" style="min-width: 400px;">
+            <div class="row g-0">
+              <div class="col-6 p-3">
+                <h6 class="dropdown-header text-uppercase small text-muted">Assets info</h6>
+                <a class="dropdown-item" href="/GERDwallets.html">
+                  Project Wallets
                 </a>
-              </li>
-              <li>
-                <a href="Testnet_vesting_dashboard.html" class="block px-4 py-2 hover:bg-green-200">
-                  <div class="font-medium"><span>✨</span>Testnet Dashboard</div>
-                  <p class="text-xs text-gray-500">Monitor live GERD's vesting release on Testnet</p>
+                <a class="dropdown-item" href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c#balances" target="_blank">
+                  Top Holders
                 </a>
-              </li>
-              
-              <li>
-                <a href="Vesting.html" class="block px-4 py-2 hover:bg-green-200">
-                  <div class="font-medium"><span>⏳</span>Vesting Strategy</div>
-                  <p class="text-xs text-gray-500">Reinforcing Transparency and Sustainable Growth</p>
+                <a class="dropdown-item" href="/migration_announcement.html">
+                  Migration Announcement
                 </a>
-              </li>
-              <li>
-                <a href="image/GERDVesting_Roadmap.pdf" target="_blank" class="block px-4 py-2 hover:bg-green-200">
-                  <div class="font-medium"><span>📜</span>Vesting Roadmap</div>
-                  <p class="text-xs text-gray-500">Smart contract development roadmap for the vesting release</p>
+              </div>
+              <div class="col-6 p-3">
+                <h6 class="dropdown-header text-uppercase small text-muted">Info</h6>
+                <a class="dropdown-item" href="/timeline.html">
+                  Project Timeline
                 </a>
-              </li>
-              
-
-            </ul>
+                <a class="dropdown-item" href="/gerd-ama.html">
+                  AMA (Ask Me Anything)
+                </a>
+                <a class="dropdown-item" href="/QnA.html">
+                  QnA
+                </a>
+              </div>
+            </div>
           </div>
         </li>
         
-        <li>
-          <button id="dropdown5" data-dropdown-toggle="dropdown5menu" class="flex items-center py-2 text-white hover:text-green-200">
-            Project Insights
-          </button>
-          <div id="dropdown5menu" class="hidden z-10 bg-white shadow rounded p-4 w-80 grid grid-cols-2 gap-4">
-            <div>
-              <h6 class="text-xs font-semibold text-gray-500">Assets info</h6>
-
-              <ul class="text-gray-700">
-                <li><a href="GERDwallets.html" class="block py-1 text-sm hover:text-green-600"><span>📲</span>Project Wallets</a></li>
-                
-                <li><a href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c#balances" target="_blank" class="block py-1 text-sm hover:text-green-600"> ↗ Top Holders</a></li>
-                <li><a href="migration_announcement.html" class="block py-1 text-sm hover:text-green-600"><span>📢</span>Migration Announcement</a></li>
-              </ul>
-            </div>
-            <div>
-              <h6 class="text-xs font-semibold text-gray-500">Info</h6>
-              <ul class="text-gray-700">
-                
-                
-                <li><a href="timeline.html" class="block py-1 text-sm hover:text-green-600"><span>⏳</span>Project Timeline</a></li>
-                <li><a href="gerd-ama.html" class="block py-1 text-sm hover:text-green-600"><span>💬</span>AMA (Ask Me Anything)</a></li>
-                <li><a href="QnA.html" class="block py-1 text-sm hover:text-green-600"><span>❔</span>QnA</a></li>
-              </ul>
-            </div>
-          </div>
-        </li>
-        <li>
-          <button id="dropdown7" data-dropdown-toggle="dropdown7menu" class="flex items-center py-2 text-white hover:text-green-200">
+        <!-- Resources Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="dropdown7" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Resources
-          </button>
-          <div id="dropdown7menu" class="hidden z-10 bg-white shadow rounded w-64">
-            <ul class="py-1 text-gray-700">
-              <li>
-                <a href="image/AbayGERDToken.pdf" target="_blank" class="block px-4 py-2 hover:bg-green-200">
-                  <div class="font-medium">Whitepaper<span>📄</span></div>
-                  <p class="text-xs text-gray-500">Project overview and economics pdf</p>
-                </a>
-              </li>
-              <li>
-                <a href="dev/GERD_Token_Audit_Summary.pdf" target="_blank" class="block px-4 py-2 hover:bg-green-200">
-                  <div class="font-medium">Audit Report<span>📄</span></div>
-                  <p class="text-xs text-gray-500">Basic internal audit summary pdf</p>
-                </a>
-              </li>
-              <li>
-                <a href="dev/gerd.gif" target="_blank" class="block px-4 py-2 hover:bg-green-200">
-                  <div class="font-medium">GERD Video Clip</div>
-                  <p class="text-xs text-gray-500">Just for fun</p>
-                </a>
-              </li>
-              
-            </ul>
-          </div>
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="dropdown7">
+            <li>
+              <a class="dropdown-item" href="/image/AbayGERDToken.pdf" target="_blank">
+                <div class="fw-bold">Whitepaper</div>
+                <small class="text-muted">Project overview and economics pdf</small>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="/dev/GERD_Token_Audit_Summary.pdf" target="_blank">
+                <div class="fw-bold">Audit Report</div>
+                <small class="text-muted">Basic internal audit summary pdf</small>
+              </a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="/dev/gerd.gif" target="_blank">
+                <div class="fw-bold">GERD Video Clip</div>
+                <small class="text-muted">Just for fun</small>
+              </a>
+            </li>
+          </ul>
         </li>
-
-        <li>
-          <button id="dropdown2" data-dropdown-toggle="dropdown2menu" class="flex items-center py-2 text-white hover:text-green-200">
-           Community
-          </button>
-          <div id="dropdown2menu" class="hidden z-10 bg-white shadow rounded w-48">
-            <ul class="py-1 text-gray-700">
-              <li><a href="dev/index.html" class="block px-4 py-2 hover:bg-green-200">Contributors</a></li>
-              <li><a href="https://github.com/AbayGERDToken" target="_blank" class="block px-4 py-2 hover:bg-green-200">GitHub</a></li>
-              <li><a href="https://x.com/abaygerdtoken" target="_blank" class="block px-4 py-2 hover:bg-green-200">X (formerly Twitter)</a></li>
-              <li><a href="https://www.tiktok.com/@abaygerdtoken" target="_blank" class="block px-4 py-2 hover:bg-green-200">TikTok</a></li>
-              <li><a href="https://t.me/GERDToken" target="_blank" class="block px-4 py-2 hover:bg-green-200">Telegram</a></li>
-            </ul>
-          </div>
+        
+        <!-- Community Dropdown -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="dropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+            Community
+          </a>
+          <ul class="dropdown-menu" aria-labelledby="dropdown2">
+            <li><a class="dropdown-item" href="/dev/index.html">Contributors</a></li>
+            <li><a class="dropdown-item" href="https://github.com/AbayGERDToken" target="_blank">GitHub</a></li>
+            <li><a class="dropdown-item" href="https://x.com/abaygerdtoken" target="_blank">X (formerly Twitter)</a></li>
+            <li><a class="dropdown-item" href="https://www.tiktok.com/@abaygerdtoken" target="_blank">TikTok</a></li>
+            <li><a class="dropdown-item" href="https://t.me/GERDToken" target="_blank">Telegram</a></li>
+          </ul>
         </li>
-
-        <li>
-          <a href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c" target="_blank" class="block py-2 text-white hover:text-green-100"> <i class="fas fa-network-wired"></i> Block Explorer</a>
+        
+        <li class="nav-item">
+          <a class="nav-link" href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c" target="_blank">
+            <i class="fas fa-network-wired"></i> Block Explorer
+          </a>
         </li>
       </ul>
     </div>
   </div>
 </nav>
-

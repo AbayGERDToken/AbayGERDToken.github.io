@@ -1,116 +1,357 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>GERD Token Migration Announcement</title>
+    
+    <!-- Bootstrap 5.3.3 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+    
+    <!-- Font Awesome 6 -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+    
+    <!-- Google Fonts - Outfit -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/main.css"/>
+    
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f4fefc;
-            color: #1a1a1a;
-            margin: 0;
-            padding: 0;
-        }
-        .container {
-            max-width: 900px;
-            margin: 3rem auto;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
-            padding: 2rem;
-        }
-        h1 {
-            color: #00753e;
-            font-size: 1.8rem;
-            border-bottom: 2px solid #00753e;
-            padding-bottom: 0.5rem;
-        }
-        h2 {
-            color: #00753e;
-            margin-top: 2rem;
-        }
-        p {
-            line-height: 1.6;
-        }
-        a {
-            color: #00753e;
-            text-decoration: underline;
-        }
-        ul {
-            margin: 1rem 0;
-            padding-left: 1.5rem;
-        }
+      :root {
+        --gerd-primary: #198754;
+        --gerd-dark: #0f5132;
+        --gerd-light: #d1e7dd;
+      }
+      
+      .hero-section {
+        background: linear-gradient(135deg, var(--gerd-primary) 0%, var(--gerd-dark) 100%);
+        color: white;
+        padding: 60px 0;
+        position: relative;
+        overflow: hidden;
+      }
+      
+      .hero-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+        opacity: 0.3;
+      }
+      
+      .hero-content {
+        position: relative;
+        z-index: 1;
+      }
+      
+      .feature-card {
+        border: none;
+        border-radius: 16px;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      
+      .feature-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+      }
+      
+      .content-section {
+        padding: 80px 0;
+      }
+      
+      .contract-box {
+        background: var(--gerd-light);
+        padding: 20px;
+        border-radius: 12px;
+        border-left: 4px solid var(--gerd-primary);
+      }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>🚨 Official GERD Token Migration Announcement</h1>
-        <p><strong>Date:</strong> May 31, 2025</p>
-        <h2>Why was this migration necessary?</h2>
-        <p>
-            The original GERD Token contract, deployed on April 23, 2023, was designed to support a long-term,
-            community-first initiative for digital value creation in underserved regions. During a routine
-            security audit, we identified a minor vulnerability in the allowance logic. No funds were lost,
-            but to maintain trust and transparency, we migrated to a new, immutable contract.</p><p>
-             <strong>99.99% of the legacy contract's supply has been burned to a dead address. </strong><a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019?a=0x000000000000000000000000000000000000dead" target="_blank">View Burned Supply</a>
+    <!-- Dynamic Navbar -->
+    <div id="navbar-container"></div>
+    <script>
+      fetch('navtest.html')
+        .then(res => res.text())
+        .then(html => {
+          document.getElementById('navbar-container').innerHTML = html;
+        })
+        .catch(err => console.error('Error loading navbar:', err));
+    </script>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="container">
+        <div class="hero-content">
+          <div class="row">
+            <div class="col-lg-10 mx-auto text-center">
+              <h1 class="display-4 fw-bold mb-4"><i class="fas fa-exchange-alt me-3"></i>Official GERD Token Migration Announcement</h1>
+              <p class="lead fs-5 opacity-90">Date: May 31, 2025</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <section class="content-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-10 mx-auto">
+            
+            <!-- Why Migration Section -->
+            <div class="card feature-card mb-5">
+              <div class="card-body p-5">
+                <h2 class="h3 fw-bold text-success mb-4"><i class="fas fa-question-circle me-2"></i>Why was this migration necessary?</h2>
+                <p class="mb-4">
+                  The original GERD Token contract, deployed on April 23, 2023, was designed to support a long-term,
+                  community-first initiative for digital value creation in underserved regions. During a routine
+                  security audit, we identified a minor vulnerability in the allowance logic. No funds were lost,
+                  but to maintain trust and transparency, we migrated to a new, immutable contract.
+                </p>
+                <div class="alert alert-warning border-warning">
+                  <p class="mb-0">
+                    <strong>99.99% of the legacy contract's supply has been burned to a dead address.</strong> 
+                    <a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019?a=0x000000000000000000000000000000000000dead" target="_blank" class="text-decoration-none fw-bold">View Burned Supply <i class="fas fa-external-link-alt ms-1"></i></a>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- What's New Section -->
+            <div class="card feature-card mb-5">
+              <div class="card-body p-5">
+                <h2 class="h3 fw-bold text-success mb-4"><i class="fas fa-star me-2"></i>What's new in the upgraded GERD contract?</h2>
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <div class="d-flex align-items-start">
+                      <div class="bg-success-subtle text-success rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 48px; height: 48px; font-size: 20px; flex-shrink: 0;">
+                        <i class="fas fa-lock"></i>
+                      </div>
+                      <div>
+                        <h4 class="h6 fw-bold mb-1">Immutable</h4>
+                        <p class="small text-muted mb-0">No admin, no upgrade mechanism</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="d-flex align-items-start">
+                      <div class="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 48px; height: 48px; font-size: 20px; flex-shrink: 0;">
+                        <i class="fas fa-ban"></i>
+                      </div>
+                      <div>
+                        <h4 class="h6 fw-bold mb-1">No Minting</h4>
+                        <p class="small text-muted mb-0">Fixed supply, hard-capped forever</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="d-flex align-items-start">
+                      <div class="bg-info-subtle text-info rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 48px; height: 48px; font-size: 20px; flex-shrink: 0;">
+                        <i class="fas fa-user-slash"></i>
+                      </div>
+                      <div>
+                        <h4 class="h6 fw-bold mb-1">Ownerless</h4>
+                        <p class="small text-muted mb-0">No centralized privileges</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="d-flex align-items-start">
+                      <div class="bg-warning-subtle text-warning rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 48px; height: 48px; font-size: 20px; flex-shrink: 0;">
+                        <i class="fas fa-shield-alt"></i>
+                      </div>
+                      <div>
+                        <h4 class="h6 fw-bold mb-1">Hardened Security</h4>
+                        <p class="small text-muted mb-0">Improved transferFrom() logic</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <hr class="my-4">
+                <p class="mb-0"><strong>Total Supply:</strong> 120,000,000,000 GERD (2 decimals) | <strong>ERC-20 Compliant:</strong> Fully standard and compatible</p>
+              </div>
+            </div>
+
+            <!-- Contract Details Section -->
+            <div class="card feature-card mb-5">
+              <div class="card-body p-5">
+                <h2 class="h3 fw-bold text-success mb-4"><i class="fas fa-file-contract me-2"></i>Contract Details</h2>
+                <div class="row g-4">
+                  <div class="col-md-6">
+                    <div class="contract-box h-100">
+                      <p class="mb-2 small text-muted"><i class="fas fa-check-circle text-success me-2"></i>New GERD Token Contract:</p>
+                      <a href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c" target="_blank" class="text-decoration-none">
+                        <code class="text-success fw-bold">0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c</code>
+                        <i class="fas fa-external-link-alt ms-2 text-success"></i>
+                      </a>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="contract-box h-100" style="border-left-color: #ffc107;">
+                      <p class="mb-2 small text-muted"><i class="fas fa-archive text-warning me-2"></i>Legacy Contract (archived):</p>
+                      <a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019" target="_blank" class="text-decoration-none">
+                        <code class="text-muted">0x660941bb4AA9FcBED00375673D21088A9d0C5019</code>
+                        <i class="fas fa-external-link-alt ms-2 text-muted"></i>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Airdrop Completed Section -->
+            <div class="card feature-card border-success mb-5">
+              <div class="card-body p-5">
+                <div class="text-center mb-4">
+                  <div class="bg-success-subtle text-success rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 80px; height: 80px; font-size: 36px;">
+                    <i class="fas fa-check-circle"></i>
+                  </div>
+                  <h2 class="h3 fw-bold text-success mb-3">Airdrop Completed — What You Need to Know</h2>
+                </div>
+                <p class="text-center lead mb-4">
+                  The token migration and airdrop process has successfully completed ahead of schedule.
+                  All balances have been updated under the new contract.
+                </p>
+                <div class="alert alert-success text-center mb-0">
+                  <p class="mb-0 fw-bold"><i class="fas fa-info-circle me-2"></i>No action is required — if you held GERD before the migration, your new token balance is already in your wallet.</p>
+                </div>
+              </div>
+            </div>
+
+            <!-- How to View Section -->
+            <div class="card feature-card mb-5">
+              <div class="card-body p-5">
+                <h2 class="h3 fw-bold text-success mb-4"><i class="fas fa-eye me-2"></i>How to View Your GERD Tokens</h2>
+                <p class="mb-4">To view your new GERD token balance:</p>
+                <div class="row g-3">
+                  <div class="col-md-6">
+                    <div class="d-flex align-items-start">
+                      <div class="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px; font-size: 18px; flex-shrink: 0;">
+                        <span class="fw-bold">1</span>
+                      </div>
+                      <div>
+                        <p class="mb-0">Open your wallet app (e.g., MetaMask, Trust Wallet)</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="d-flex align-items-start">
+                      <div class="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px; font-size: 18px; flex-shrink: 0;">
+                        <span class="fw-bold">2</span>
+                      </div>
+                      <div>
+                        <p class="mb-0">Select "Import Token" or "Add Custom Token"</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="d-flex align-items-start">
+                      <div class="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px; font-size: 18px; flex-shrink: 0;">
+                        <span class="fw-bold">3</span>
+                      </div>
+                      <div>
+                        <p class="mb-0">Enter the contract details below</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="d-flex align-items-start">
+                      <div class="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px; font-size: 18px; flex-shrink: 0;">
+                        <span class="fw-bold">4</span>
+                      </div>
+                      <div>
+                        <p class="mb-0">Save and refresh your wallet</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="contract-box mt-4">
+                  <p class="mb-2 small text-muted">Contract Details:</p>
+                  <ul class="list-unstyled mb-0">
+                    <li class="mb-1"><strong>Contract Address:</strong> <code>0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c</code></li>
+                    <li class="mb-1"><strong>Symbol:</strong> <code>GERD</code></li>
+                    <li class="mb-0"><strong>Decimals:</strong> <code>2</code></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+
+            <!-- Thank You Section -->
+            <div class="card feature-card border-success mb-5">
+              <div class="card-body p-5 text-center">
+                <h2 class="h3 fw-bold text-success mb-4"><i class="fas fa-heart me-2"></i>Thank You</h2>
+                <p class="lead mb-0">
+                  Thank you for your continued trust in the GERD Token project. This migration strengthens our foundation
+                  for the next phase of growth and guarantees a secure, transparent, and decentralized future.
+                </p>
+              </div>
+            </div>
+
+            <!-- Stay Connected Section -->
+            <div class="card feature-card">
+              <div class="card-body p-5">
+                <h2 class="h3 fw-bold text-success mb-4"><i class="fas fa-link me-2"></i>Stay Connected</h2>
+                <div class="row g-3">
+                  <div class="col-md-4">
+                    <a href="index.html" class="text-decoration-none d-block p-3 border rounded text-center feature-card">
+                      <i class="fas fa-globe fa-2x text-success mb-2"></i>
+                      <p class="mb-0 fw-bold">Website</p>
+                    </a>
+                  </div>
+                  <div class="col-md-4">
+                    <a href="https://t.me/gerdtoken" target="_blank" class="text-decoration-none d-block p-3 border rounded text-center feature-card">
+                      <i class="fab fa-telegram fa-2x text-primary mb-2"></i>
+                      <p class="mb-0 fw-bold">@gerdtoken</p>
+                    </a>
+                  </div>
+                  <div class="col-md-4">
+                    <a href="https://x.com/abaygerdtoken" target="_blank" class="text-decoration-none d-block p-3 border rounded text-center feature-card">
+                      <i class="fab fa-x-twitter fa-2x text-dark mb-2"></i>
+                      <p class="mb-0 fw-bold">@abaygerdtoken</p>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="bg-success-subtle py-5 mb-0">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-md-8">
+            <h2 class="h5 mb-3">
+              DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY AND SUPPORTING THE GRAND ETHIOPIAN RENAISSANCE DAM PROJECT.
+              JOIN US IN CREATING A BRIGHTER FUTURE! #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD
+            </h2>
+          </div>
+          <div class="col-md-4 text-center">
+            <img src="image/abay_bluesky.png" alt="AbayGERDToken" class="img-fluid img-hero">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="bg-dark text-light py-4">
+      <div class="container text-center">
+        <p class="small mb-0">
+          Copyright 2023 Abay GERD Token. All rights reserved.
         </p>
+      </div>
+    </footer>
 
-        <h2>What’s new in the upgraded GERD contract?</h2>
-        <ul>
-            <li>✅ Immutable: No admin, no upgrade mechanism</li>
-            <li>✅ No Minting: Fixed supply, hard-capped forever</li>
-            <li>✅ Ownerless: No centralized privileges</li>
-            <li>✅ ERC-20 Compliant: Fully standard and compatible</li>
-            <li>✅ Hardened transferFrom() logic</li>
-            <li>✅ Total Supply: 120,000,000,000 GERD (2 decimals)</li>
-        </ul>
-
-        <h2>Contract Details</h2>
-        <p>
-            <strong>New GERD Token Contract:</strong><br>
-            <a href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c" target="_blank">
-            0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c</a>
-        </p>
-        <p>
-            <strong>Legacy Contract (archived):</strong><br>
-            <a href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019" target="_blank">
-            0x660941bb4AA9FcBED00375673D21088A9d0C5019</a>
-        </p>
-
-        <h2>Airdrop Completed — What You Need to Know</h2>
-        <p>
-            The token migration and airdrop process has successfully completed ahead of schedule.
-            All balances have been updated under the new contract.
-        </p>
-        <p><strong>No action is required</strong> — if you held GERD before the migration, your new token balance is already in your wallet.</p>
-
-        <h2>How to View Your GERD Tokens</h2>
-        <p>To view your new GERD token balance:</p>
-        <ul>
-            <li>Open your wallet app (e.g., MetaMask, Trust Wallet)</li>
-            <li>Select “Import Token” or “Add Custom Token”</li>
-            <li>Enter the following:</li>
-            <ul>
-                <li>Contract Address: <code>0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c</code></li>
-                <li>Symbol: <code>GERD</code></li>
-                <li>Decimals: <code>2</code></li>
-            </ul>
-            <li>Save and refresh your wallet</li>
-        </ul>
-
-        <h2>Thank You</h2>
-        <p>
-            Thank you for your continued trust in the GERD Token project. This migration strengthens our foundation
-            for the next phase of growth and guarantees a secure, transparent, and decentralized future.
-        </p>
-
-        <h2>Stay Connected</h2>
-        <ul>
-            <li>🌐 <a href="https://www.abaygerdtoken.com" target="_blank">Website</a></li>
-            <li>📢 <a href="https://t.me/gerdtoken" target="_blank">@gerdtoken</a></li>
-            <li>🧵 <a href="https://x.com/abaygerdtoken" target="_blank">@abaygerdtoken</a></li>
-        </ul>
-    </div>
+    <!-- Bootstrap 5.3.3 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

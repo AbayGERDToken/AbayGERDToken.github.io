@@ -1,32 +1,98 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>GERD Token Vesting</title>
-
-  <!-- Bulma + Tailwind + Flowbite -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            green: {
-              600: '#047857',
-              100: '#d1fae5',
-              200: '#a7f3d0'
-            }
-          }
-        }
-      }
+  <title>GERD Token Vesting Strategy</title>
+  
+  <!-- Bootstrap 5.3.3 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  
+  <!-- Google Fonts - Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/main.css"/>
+  
+  <style>
+    :root {
+      --gerd-primary: #198754;
+      --gerd-dark: #0f5132;
+      --gerd-light: #d1e7dd;
     }
-  </script>
-  <script src="https://unpkg.com/flowbite@2.2.1/dist/flowbite.min.js"></script>
+    
+    .hero-section {
+      background: linear-gradient(135deg, var(--gerd-primary) 0%, var(--gerd-dark) 100%);
+      color: white;
+      padding: 60px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+      opacity: 0.3;
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+    
+    .feature-card {
+      border: none;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      margin-bottom: 30px;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    }
+    
+    .content-section {
+      padding: 80px 0;
+    }
+    
+    .content-section:nth-child(even) {
+      background-color: #f8f9fa;
+    }
+    
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gerd-light), transparent);
+      margin: 60px 0;
+    }
+    
+    .stat-box {
+      background: linear-gradient(135deg, var(--gerd-light) 0%, white 100%);
+      border-radius: 12px;
+      padding: 30px;
+      text-align: center;
+      border: 2px solid var(--gerd-light);
+      transition: all 0.3s ease;
+    }
+    
+    .stat-box:hover {
+      border-color: var(--gerd-primary);
+      transform: scale(1.05);
+    }
+  </style>
 </head>
-<body class="pt-16">
-
+<body>
   <!-- Dynamic Navbar -->
   <div id="navbar-container"></div>
   <script>
@@ -34,110 +100,229 @@
       .then(res => res.text())
       .then(html => {
         document.getElementById('navbar-container').innerHTML = html;
-        setTimeout(() => {
-          if (window.initFlowbite) initFlowbite();
-        }, 200);
-      });
+      })
+      .catch(err => console.error('Error loading navbar:', err));
   </script>
 
-  <section class="section">
+  <!-- Hero Section -->
+  <section class="hero-section">
     <div class="container">
-      <h1 class="title">Abay GERD Token Vesting Strategy: Reinforcing Transparency and Sustainable Growth</h1>
-      <br>
-      <p>
-        The <strong>Abay GERD Token (GERD)</strong> has a transformative vesting strategy designed to enhance long-term value,
-        promote stability, and build trust through full transparency. This development marks a major milestone in the token’s evolution.
-      </p>
-      <br>
-
-      <h2 class="subtitle">Overview of the Vesting Plan</h2>
-      <p>
-        In addition to the milestone airdrop distributed to all existing wallet addresses on May 5, 2025, to commemorate its
-        <strong>2-year anniversary</strong>, GERD Token has introduced a long-term vesting framework to further demonstrate its
-        commitment to sustainability and ongoing community rewards.
-      </p>
-      <br>
-      <p>
-        A total of <strong>115 billion tokens</strong> will be locked in a secure, immutable smart contract, with a scheduled release
-        of <strong>1 billion tokens per year</strong> over the next 115 years. This approach ensures a consistent and predictable
-        distribution model that incentivizes long-term holding and active participation.
-      </p>
-      <br>
-      <p>
-        The smart contract is fully autonomous and irreversible. Once deployed, its rules cannot be modified or bypassed—neither by
-        the original developers nor any external party. The vesting schedule and token release conditions will be permanently embedded
-        in the blockchain and remain verifiable by anyone at any time.
-      </p>
-      <br>
-
-      <h2 class="subtitle">Key Details</h2>
-      <ul>
-        <li><strong>115 Billion Tokens Will Be Locked:</strong> Secured in an irreversible smart contract on Binance Smart Chain (BSC).</li>
-        <li><strong>Annual Release of 1 Billion Tokens:</strong> Starting April 23, 2026, 1 billion tokens will be released annually.</li>
-        <li><strong>500 Million Airdropped to Holders:</strong> Distributed evenly to all active GERD holders—no action needed.</li>
-        <li><strong>250 Million for Staking Rewards:</strong> For users who stake GERD tokens, encouraging engagement.</li>
-        <li><strong>Up to 250 Million for Liquidity or Burn:</strong> Added to liquidity if under 500M; otherwise burned.</li>
-        <li><strong>Publicly Verifiable:</strong> All activity is traceable and transparent on-chain.</li>
-      </ul>
-      <br>
-
-      <h2 class="subtitle">Why It Matters</h2>
-      <ul>
-        <li>Encourages long-term participation with annual rewards.</li>
-        <li>Promotes sustainable and predictable growth.</li>
-        <li>Aligns with a decentralized financial model for the GERD community.</li>
-      </ul>
-      <br>
-
-      <h2 class="subtitle">A Community-Driven Digital Asset</h2>
-      <p>
-        GERD Token’s value comes from its community, not institutions. Its adoption and utility define its worth—like Bitcoin, it’s a
-        decentralized people-powered asset.
-      </p>
-      <br>
-
-      <h2 class="subtitle">A Generational Asset</h2>
-      <p>
-        Designed to last over a century, GERD Token is a long-term digital inheritance. Early holders benefit most from the annual
-        airdrop structure, and as the number of wallets increases, each share becomes smaller—rewarding early adopters significantly.
-      </p>
-      <br>
-
-      <h2 class="subtitle">Looking Ahead</h2>
-      <p>
-        GERD Token continues to grow on principles of fairness, transparency, and generational wealth. Its vesting mechanism offers a
-        rare chance to build digital legacy for years to come.
-      </p>
-      <br>
-      <h2 class="title has-text-success">The journey has just begun. GERD is built to last.</h2>
-    </div>
-  </section>
-
-  <section class="hero is-success is-bold">
-    <div class="hero-body">
-      <div class="container">
-        <div class="columns is-vcentered">
-          <div class="column">
-            <h2 class="subtitle">
-              DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY AND SUPPORTING THE GRAND 
-              ETHIOPIAN RENAISSANCE DAM PROJECT. JOIN US IN CREATING A BRIGHTER FUTURE! 🌍💰 #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD
-            </h2>
-          </div>
-          <div class="column has-text-centered">
-            <img src="image/abay_bluesky.png" alt="AbayGERDToken" style="width: 300px; height: auto;">
+      <div class="hero-content">
+        <div class="row">
+          <div class="col-lg-10 mx-auto text-center">
+            <h1 class="display-4 fw-bold mb-4"><i class="fas fa-lock me-3"></i>Abay GERD Token Vesting Strategy</h1>
+            <p class="lead fs-5 opacity-90">Reinforcing Transparency and Sustainable Growth</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <footer class="footer">
-    <div class="content has-text-centered">
-      <p style="font-size: 0.85rem;">
+  <!-- Main Content -->
+  <section class="content-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 mx-auto">
+          
+          <!-- Overview Card -->
+          <div class="card feature-card">
+            <div class="card-body p-5">
+              <h2 class="h3 fw-bold mb-4"><i class="fas fa-chart-line text-success me-2"></i>Overview of the Vesting Plan</h2>
+              <p class="lead mb-4">
+                The <strong>Abay GERD Token (GERD)</strong> has a transformative vesting strategy designed to enhance long-term value,
+                promote stability, and build trust through full transparency. This development marks a major milestone in the token's evolution.
+              </p>
+              <p class="mb-3">
+                In addition to the milestone airdrop distributed to all existing wallet addresses on May 5, 2025, to commemorate its
+                <strong>2-year anniversary</strong>, GERD Token has introduced a long-term vesting framework to further demonstrate its
+                commitment to sustainability and ongoing community rewards.
+              </p>
+              <p class="mb-3">
+                A total of <strong>115 billion tokens</strong> will be locked in a secure, immutable smart contract, with a scheduled release
+                of <strong>1 billion tokens per year</strong> over the next 115 years. This approach ensures a consistent and predictable
+                distribution model that incentivizes long-term holding and active participation.
+              </p>
+              <div class="alert alert-info border-info">
+                <p class="mb-0"><i class="fas fa-info-circle me-2"></i>The smart contract is fully autonomous and irreversible. Once deployed, its rules cannot be modified or bypassed—neither by the original developers nor any external party. The vesting schedule and token release conditions will be permanently embedded in the blockchain and remain verifiable by anyone at any time.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Key Details Card -->
+          <div class="card feature-card">
+            <div class="card-body p-5">
+              <h2 class="h3 fw-bold mb-4"><i class="fas fa-key text-primary me-2"></i>Key Details</h2>
+              <div class="row g-3">
+                <div class="col-md-6">
+                  <div class="d-flex align-items-start">
+                    <div class="bg-success-subtle text-success rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 48px; height: 48px; font-size: 20px; flex-shrink: 0;">
+                      <i class="fas fa-lock"></i>
+                    </div>
+                    <div>
+                      <h4 class="h6 fw-bold mb-1">115 Billion Tokens Locked</h4>
+                      <p class="small text-muted mb-0">Secured in an irreversible smart contract on Binance Smart Chain (BSC)</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="d-flex align-items-start">
+                    <div class="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 48px; height: 48px; font-size: 20px; flex-shrink: 0;">
+                      <i class="fas fa-calendar-alt"></i>
+                    </div>
+                    <div>
+                      <h4 class="h6 fw-bold mb-1">Annual Release of 1 Billion</h4>
+                      <p class="small text-muted mb-0">Starting April 23, 2026, 1 billion tokens released annually</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="d-flex align-items-start">
+                    <div class="bg-success-subtle text-success rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 48px; height: 48px; font-size: 20px; flex-shrink: 0;">
+                      <i class="fas fa-parachute-box"></i>
+                    </div>
+                    <div>
+                      <h4 class="h6 fw-bold mb-1">500 Million Airdropped</h4>
+                      <p class="small text-muted mb-0">Distributed evenly to all active GERD holders—no action needed</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="d-flex align-items-start">
+                    <div class="bg-warning-subtle text-warning rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 48px; height: 48px; font-size: 20px; flex-shrink: 0;">
+                      <i class="fas fa-coins"></i>
+                    </div>
+                    <div>
+                      <h4 class="h6 fw-bold mb-1">250 Million for Staking</h4>
+                      <p class="small text-muted mb-0">For users who stake GERD tokens, encouraging engagement</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="d-flex align-items-start">
+                    <div class="bg-info-subtle text-info rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 48px; height: 48px; font-size: 20px; flex-shrink: 0;">
+                      <i class="fas fa-fire"></i>
+                    </div>
+                    <div>
+                      <h4 class="h6 fw-bold mb-1">250 Million for Liquidity or Burn</h4>
+                      <p class="small text-muted mb-0">Added to liquidity if under 500M; otherwise burned</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="d-flex align-items-start">
+                    <div class="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 48px; height: 48px; font-size: 20px; flex-shrink: 0;">
+                      <i class="fas fa-eye"></i>
+                    </div>
+                    <div>
+                      <h4 class="h6 fw-bold mb-1">Publicly Verifiable</h4>
+                      <p class="small text-muted mb-0">All activity is traceable and transparent on-chain</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Why It Matters Card -->
+          <div class="card feature-card">
+            <div class="card-body p-5">
+              <h2 class="h3 fw-bold mb-4"><i class="fas fa-star text-warning me-2"></i>Why It Matters</h2>
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <div class="stat-box h-100">
+                    <div class="bg-success-subtle text-success rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 64px; height: 64px; font-size: 28px;">
+                      <i class="fas fa-users"></i>
+                    </div>
+                    <h4 class="h6 fw-bold mb-2">Long-Term Participation</h4>
+                    <p class="small text-muted mb-0">Encourages long-term participation with annual rewards</p>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="stat-box h-100">
+                    <div class="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 64px; height: 64px; font-size: 28px;">
+                      <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h4 class="h6 fw-bold mb-2">Sustainable Growth</h4>
+                    <p class="small text-muted mb-0">Promotes sustainable and predictable growth</p>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="stat-box h-100">
+                    <div class="bg-info-subtle text-info rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 64px; height: 64px; font-size: 28px;">
+                      <i class="fas fa-network-wired"></i>
+                    </div>
+                    <h4 class="h6 fw-bold mb-2">Decentralized Model</h4>
+                    <p class="small text-muted mb-0">Aligns with a decentralized financial model for the GERD community</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Community-Driven Card -->
+          <div class="card feature-card">
+            <div class="card-body p-5">
+              <h2 class="h3 fw-bold mb-3"><i class="fas fa-users text-success me-2"></i>A Community-Driven Digital Asset</h2>
+              <p class="mb-0">GERD Token's value comes from its community, not institutions. Its adoption and utility define its worth—like Bitcoin, it's a decentralized people-powered asset.</p>
+            </div>
+          </div>
+
+          <!-- Generational Asset Card -->
+          <div class="card feature-card">
+            <div class="card-body p-5">
+              <h2 class="h3 fw-bold mb-3"><i class="fas fa-infinity text-primary me-2"></i>A Generational Asset</h2>
+              <p class="mb-0">Designed to last over a century, GERD Token is a long-term digital inheritance. Early holders benefit most from the annual airdrop structure, and as the number of wallets increases, each share becomes smaller—rewarding early adopters significantly.</p>
+            </div>
+          </div>
+
+          <!-- Looking Ahead Card -->
+          <div class="card feature-card">
+            <div class="card-body p-5">
+              <h2 class="h3 fw-bold mb-3"><i class="fas fa-eye text-info me-2"></i>Looking Ahead</h2>
+              <p class="mb-0">GERD Token continues to grow on principles of fairness, transparency, and generational wealth. Its vesting mechanism offers a rare chance to build digital legacy for years to come.</p>
+            </div>
+          </div>
+
+          <!-- Final Message Card -->
+          <div class="card feature-card border-success bg-success-subtle">
+            <div class="card-body p-5 text-center">
+              <div class="bg-success text-white rounded-circle d-flex align-items-center justify-content-center mx-auto mb-4" style="width: 80px; height: 80px; font-size: 36px;">
+                <i class="fas fa-rocket"></i>
+              </div>
+              <h2 class="h3 fw-bold mb-0">The journey has just begun. GERD is built to last.</h2>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-success-subtle py-5 mb-0">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <h2 class="h5 mb-3">
+            DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY AND SUPPORTING THE GRAND ETHIOPIAN RENAISSANCE DAM PROJECT.
+            JOIN US IN CREATING A BRIGHTER FUTURE! #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD
+          </h2>
+        </div>
+        <div class="col-md-4 text-center">
+          <img src="image/abay_bluesky.png" alt="AbayGERDToken" class="img-fluid img-hero">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-dark text-light py-4">
+    <div class="container text-center">
+      <p class="small mb-0">
         Copyright 2023 Abay GERD Token. All rights reserved.
       </p>
     </div>
   </footer>
 
+  <!-- Bootstrap 5.3.3 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

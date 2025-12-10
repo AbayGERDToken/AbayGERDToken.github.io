@@ -1,149 +1,294 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>GERD Token Vesting Dashboard</title>
 
-  <!-- Tailwind & Flowbite -->
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            green: {
-              600: '#047857',
-              100: '#d1fae5',
-              200: '#a7f3d0'
-            }
-          }
-        }
-      }
-    }
-  </script>
-  <script src="https://unpkg.com/flowbite@2.2.1/dist/flowbite.min.js"></script>
+  <!-- Bootstrap 5.3.3 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
-  <style>
-    .copy-icon {
-      transition: opacity 0.3s ease;
-    }
-  </style>
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Google Fonts - Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
 </head>
-<body class="pt-16 bg-gray-100 text-gray-800">
 
-  <!-- Injected Navbar -->
+<body>
+  <!-- Dynamic Navbar -->
   <div id="navbar-container"></div>
   <script>
     fetch('navtest.html')
       .then(res => res.text())
       .then(html => {
         document.getElementById('navbar-container').innerHTML = html;
-        setTimeout(() => {
-          if (window.initFlowbite) initFlowbite();
-        }, 200);
-      });
+      })
+      .catch(err => console.error('Error loading navbar:', err));
   </script>
 
-  <div class="max-w-4xl mx-auto p-6 mt-10 bg-white shadow-xl rounded-2xl">
-    <h1 class="text-3xl font-bold mb-4 text-center text-green-600">GERD Token Vesting Dashboard</h1>
-
-    <div class="text-center text-sm text-gray-600 mb-6 flex items-center justify-center gap-2">
-      <span>Contract Address:</span>
-      <span id="contractAddress" class="font-mono text-blue-600 break-all">0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c</span>
-        
-      <button onclick="copyToClipboard()" class="relative group">
-        <svg id="copyIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500 hover:text-blue-600 copy-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2M16 8h2a2 2 0 012 2v8a2 2 0 01-2 2h-8a2 2 0 01-2-2v-2" />
-        </svg>
-        <svg id="checkIcon" xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600 absolute top-0 left-0 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-        </svg>
-      </button>
-    </div>
-    
-
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-      <div class="bg-gray-50 p-4 rounded-xl shadow">
-        <h2 class="text-xl font-semibold">Next Release In</h2>
-        <p id="countdown" class="text-2xl font-mono text-green-500">...</p>
-      </div>
-      <div class="bg-gray-50 p-4 rounded-xl shadow">
-        <h2 class="text-xl font-semibold">Total Tokens Locked</h2>
-        <p id="locked" class="text-2xl font-mono text-blue-600">...</p>
-      </div>
-      
-      <div class="bg-gray-50 p-4 rounded-xl shadow">
-        <h2 class="text-xl font-semibold">Tokens Released</h2>
-        <p id="released" class="text-2xl font-mono text-green-600">...</p>
-      </div>
-      <div class="bg-gray-50 p-4 rounded-xl shadow">
-        <h2 class="text-xl font-semibold">Remaining Locked</h2>
-        <p id="remaining" class="text-2xl font-mono text-red-500">...</p>
-      </div>
-      
-
-      <div class="bg-gray-50 p-4 rounded-xl shadow md:col-span-2">
-        <h2 class="text-xl font-semibold">Next Release Details</h2>
-        <p class="text-lg font-mono text-gray-700 mt-2">
-          <strong>Date:</strong> <span id="releaseDate">...</span><br />
-          <strong>Total Amount:</strong> 1,000,000,000 GERD<br />
-          ➤ 500,000,000 Airdropped to all holders<br />
-          ➤ 250,000,000 Allocated for staking rewards<br />
-          ➤ 250,000,000 Added to liquidity only if liquidity is below 500M GERD; otherwise, burned
-        </p>
+  <!-- Hero Section -->
+  <section class="bg-success text-white py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 mx-auto text-center">
+          <h1 class="display-4 fw-bold mb-4"><i class="fas fa-chart-line me-3"></i>GERD Token Vesting Dashboard</h1>
+          <p class="lead fs-5">Real-time tracking of token vesting, releases, and distribution</p>
+        </div>
       </div>
     </div>
+  </section>
 
-    <p class="text-sm text-center text-gray-500 mt-4">
-      This vesting smart contract is currently under development on the BSC Testnet and is expected to be completed by <strong>Sep 30, 2025</strong>.
-    </p>
-  </div>
+  <!-- Main Dashboard -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 mx-auto">
+
+          <!-- Contract Address Card -->
+          <div class="card shadow-sm mb-5">
+            <div class="card-body p-4 text-center">
+              <h2 class="h6 fw-bold mb-3 text-muted">Contract Address</h2>
+              <div class="d-flex align-items-center justify-content-center flex-wrap">
+                <code id="contractAddress"
+                  class="font-monospace text-primary fs-6 me-2">0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c</code>
+                <button onclick="copyToClipboard()" class="btn btn-sm btn-outline-success" type="button">
+                  <i id="copyIcon" class="fas fa-copy"></i>
+                  <i id="checkIcon" class="fas fa-check d-none"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stats Grid -->
+          <div class="row g-4 mb-5">
+            <div class="col-md-6 col-lg-3">
+              <div class="card h-100 border-success-subtle">
+                <div class="card-body text-center">
+                  <div
+                    class="bg-success-subtle text-success rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3"
+                    style="width: 64px; height: 64px; font-size: 28px;">
+                    <i class="fas fa-clock"></i>
+                  </div>
+                  <h3 class="h6 fw-bold mb-2">Next Release In</h3>
+                  <p id="countdown" class="fs-5 fw-bold text-success font-monospace mb-0">...</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <div class="card h-100 border-primary-subtle">
+                <div class="card-body text-center">
+                  <div
+                    class="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3"
+                    style="width: 64px; height: 64px; font-size: 28px;">
+                    <i class="fas fa-lock"></i>
+                  </div>
+                  <h3 class="h6 fw-bold mb-2">Total Tokens Locked</h3>
+                  <p id="locked" class="fs-5 fw-bold text-success font-monospace mb-0">...</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <div class="card h-100 border-success-subtle">
+                <div class="card-body text-center">
+                  <div
+                    class="bg-success-subtle text-success rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3"
+                    style="width: 64px; height: 64px; font-size: 28px;">
+                    <i class="fas fa-arrow-up"></i>
+                  </div>
+                  <h3 class="h6 fw-bold mb-2">Tokens Released</h3>
+                  <p id="released" class="fs-5 fw-bold text-success font-monospace mb-0">...</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <div class="card h-100 border-danger-subtle">
+                <div class="card-body text-center">
+                  <div
+                    class="bg-danger-subtle text-danger rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3"
+                    style="width: 64px; height: 64px; font-size: 28px;">
+                    <i class="fas fa-hourglass-half"></i>
+                  </div>
+                  <h3 class="h6 fw-bold mb-2">Remaining Locked</h3>
+                  <p id="remaining" class="fs-5 fw-bold text-danger font-monospace mb-0">...</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Next Release Details Card -->
+          <div class="card shadow-sm border-success">
+            <div class="card-body p-5">
+              <h2 class="h4 fw-bold mb-4 text-center"><i class="fas fa-calendar-check text-success me-2"></i>Next
+                Release Details</h2>
+              <div class="row g-4">
+                <div class="col-md-6">
+                  <div class="bg-light p-4 rounded">
+                    <p class="mb-2"><strong>Release Date:</strong></p>
+                    <p class="h5 text-success mb-0" id="releaseDate">...</p>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="bg-light p-4 rounded">
+                    <p class="mb-2"><strong>Total Amount:</strong></p>
+                    <p class="h5 text-primary mb-0">1,000,000,000 GERD</p>
+                  </div>
+                </div>
+              </div>
+              <hr class="my-4">
+              <h3 class="h6 fw-bold mb-3">Distribution Breakdown:</h3>
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <div class="d-flex align-items-start">
+                    <div
+                      class="bg-success-subtle text-success rounded-circle d-flex align-items-center justify-content-center me-3"
+                      style="width: 40px; height: 40px; font-size: 18px; flex-shrink: 0;">
+                      <i class="fas fa-parachute-box"></i>
+                    </div>
+                    <div>
+                      <p class="mb-0 fw-bold">500,000,000 GERD</p>
+                      <small class="text-muted">Airdropped to all holders</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="d-flex align-items-start">
+                    <div
+                      class="bg-warning-subtle text-warning rounded-circle d-flex align-items-center justify-content-center me-3"
+                      style="width: 40px; height: 40px; font-size: 18px; flex-shrink: 0;">
+                      <i class="fas fa-coins"></i>
+                    </div>
+                    <div>
+                      <p class="mb-0 fw-bold">250,000,000 GERD</p>
+                      <small class="text-muted">Allocated for staking rewards</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="d-flex align-items-start">
+                    <div
+                      class="bg-info-subtle text-info rounded-circle d-flex align-items-center justify-content-center me-3"
+                      style="width: 40px; height: 40px; font-size: 18px; flex-shrink: 0;">
+                      <i class="fas fa-fire"></i>
+                    </div>
+                    <div>
+                      <p class="mb-0 fw-bold">250,000,000 GERD</p>
+                      <small class="text-muted">To liquidity or burned</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Development Notice -->
+          <div class="alert alert-info border-info mt-5 text-center">
+            <p class="mb-0">
+              <i class="fas fa-info-circle me-2"></i>
+              This vesting smart contract is currently under development on the BSC Testnet and is expected to be
+              completed by <strong>Sep 30, 2025</strong>.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-success-subtle py-5 mb-0">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <h2 class="h5 mb-3">
+            DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY AND SUPPORTING THE
+            GRAND ETHIOPIAN RENAISSANCE DAM PROJECT.
+            JOIN US IN CREATING A BRIGHTER FUTURE! #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD
+          </h2>
+        </div>
+        <div class="col-md-4 text-center">
+          <img src="image/abay_bluesky.png" alt="AbayGERDToken" class="img-fluid">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-dark text-light py-4">
+    <div class="container text-center">
+      <p class="small mb-0">
+        Copyright 2023 Abay GERD Token. All rights reserved.
+      </p>
+    </div>
+  </footer>
 
   <script>
-    const lockedTotal = 115_000_000_000;
-    const releasePerYear = 1_000_000_000;
-    const startDate = new Date("2025-04-24T00:00:00Z");
+    document.addEventListener('DOMContentLoaded', function () {
+      const lockedTotal = 115_000_000_000;
+      const releasePerYear = 1_000_000_000;
+      const startDate = new Date("2025-04-24T00:00:00Z");
 
-    const now = new Date();
-    const yearsElapsed = Math.floor((now - startDate) / (365.25 * 24 * 3600 * 1000));
-    const released = Math.min(yearsElapsed, 115) * releasePerYear;
-    const remaining = lockedTotal - released;
+      const now = new Date();
+      const yearsElapsed = Math.floor((now - startDate) / (365.25 * 24 * 3600 * 1000));
+      const released = Math.min(yearsElapsed, 115) * releasePerYear;
+      const remaining = lockedTotal - released;
 
-    document.getElementById("locked").innerText = lockedTotal.toLocaleString();
-    document.getElementById("released").innerText = released.toLocaleString();
-    document.getElementById("remaining").innerText = remaining.toLocaleString();
+      const lockedEl = document.getElementById("locked");
+      const releasedEl = document.getElementById("released");
+      const remainingEl = document.getElementById("remaining");
 
-    const nextRelease = new Date(startDate.getTime());
-    nextRelease.setUTCFullYear(startDate.getUTCFullYear() + yearsElapsed + 1);
-    document.getElementById("releaseDate").innerText = nextRelease.toDateString();
+      if (lockedEl) lockedEl.innerText = lockedTotal.toLocaleString();
+      if (releasedEl) releasedEl.innerText = released.toLocaleString();
+      if (remainingEl) remainingEl.innerText = remaining.toLocaleString();
 
-    function updateCountdown() {
-      const diff = nextRelease - new Date();
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / (1000 * 60)) % 60);
-      const seconds = Math.floor((diff / 1000) % 60);
-      document.getElementById("countdown").innerText =
-        `${days}d ${hours}h ${minutes}m ${seconds}s`;
-    }
+      const nextRelease = new Date(startDate.getTime());
+      nextRelease.setUTCFullYear(startDate.getUTCFullYear() + yearsElapsed + 1);
+      const releaseDateEl = document.getElementById("releaseDate");
+      if (releaseDateEl) releaseDateEl.innerText = nextRelease.toDateString();
 
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
+      function updateCountdown() {
+        const countdownEl = document.getElementById("countdown");
+        if (!countdownEl) return;
+
+        const diff = nextRelease - new Date();
+        if (diff <= 0) {
+          countdownEl.innerText = "Available Now!";
+          return;
+        }
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+        countdownEl.innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+      }
+
+      setInterval(updateCountdown, 1000);
+      updateCountdown();
+    });
 
     function copyToClipboard() {
-      const text = document.getElementById("contractAddress").innerText;
+      const contractAddressEl = document.getElementById("contractAddress");
+      if (!contractAddressEl) return;
+
+      const text = contractAddressEl.innerText;
       navigator.clipboard.writeText(text).then(() => {
-        document.getElementById("copyIcon").classList.add("hidden");
-        document.getElementById("checkIcon").classList.remove("hidden");
+        const copyIcon = document.getElementById("copyIcon");
+        const checkIcon = document.getElementById("checkIcon");
+        if (copyIcon) copyIcon.classList.add("d-none");
+        if (checkIcon) checkIcon.classList.remove("d-none");
         setTimeout(() => {
-          document.getElementById("checkIcon").classList.add("hidden");
-          document.getElementById("copyIcon").classList.remove("hidden");
+          if (checkIcon) checkIcon.classList.add("d-none");
+          if (copyIcon) copyIcon.classList.remove("d-none");
         }, 1500);
       });
     }
   </script>
 
+  <!-- Bootstrap 5.3.3 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
+
 </html>
