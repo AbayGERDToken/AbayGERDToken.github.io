@@ -40,13 +40,13 @@ a:hover code {
    ============================================ */
 
 #navbar-container,
-#navbar-container > nav {
+#navbar-container>nav {
   margin-top: 0 !important;
   padding-top: 0 !important;
 }
 
 .navbar {
-  box-shadow: 0 2px 4px rgba(0,0,0,.1);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, .1);
 }
 
 .navbar-brand img {
@@ -62,8 +62,8 @@ a:hover code {
 
 /* Ensure dropdowns work properly */
 .dropdown-menu {
-  border: 1px solid rgba(0,0,0,.15);
-  box-shadow: 0 0.5rem 1rem rgba(0,0,0,.175);
+  border: 1px solid rgba(0, 0, 0, .15);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, .175);
 }
 
 .dropdown-item {
@@ -79,11 +79,14 @@ a:hover code {
    ============================================ */
 
 @keyframes blink {
-  0%, 100% { 
-    opacity: 1; 
+
+  0%,
+  100% {
+    opacity: 1;
   }
-  50% { 
-    opacity: 0; 
+
+  50% {
+    opacity: 0;
   }
 }
 
@@ -200,7 +203,7 @@ a:hover code {
   .modal-dialog {
     margin: 10px;
   }
-  
+
   .modal-content {
     border-radius: 16px;
   }
@@ -226,7 +229,30 @@ a:hover code {
   color: var(--gerd-primary);
 }
 
-.bg-gerd-light {
-  background-color: var(--gerd-bg-light);
+
+/* ============================================
+   Vesting Dashboard Styles
+   ============================================ */
+
+.countdown-text {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--gerd-primary);
+  font-family: 'Courier New', monospace;
 }
 
+#wallet-table {
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+#wallet-table th {
+  background-color: var(--gerd-primary);
+  color: white;
+  font-weight: 600;
+  padding: 16px;
+}
+
+#wallet-table td {
+  padding: 14px 16px;
+}
