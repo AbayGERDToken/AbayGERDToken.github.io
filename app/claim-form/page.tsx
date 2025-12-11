@@ -55,13 +55,16 @@ export default function ClaimForm() {
     fetchSessionToken();
   }, []);
 
-  const fetchSessionToken = async () => {
+  const fetchSessionToken = async (): Promise<string | null> => {
     try {
       const res = await fetch('https://abay-gerd-backend.onrender.com/auth/session');
       const data = await res.json();
-      setSessionToken(data.session_token);
+      const token = data.session_token;
+      setSessionToken(token);
+      return token;
     } catch (err) {
       console.error('Failed to get session token:', err);
+      return null;
     }
   };
 
@@ -100,9 +103,10 @@ export default function ClaimForm() {
       return;
     }
 
-    if (!sessionToken) {
-      await fetchSessionToken();
-      if (!sessionToken) {
+    let currentSessionToken: string | null = sessionToken;
+    if (!currentSessionToken) {
+      currentSessionToken = await fetchSessionToken();
+      if (!currentSessionToken) {
         setResponse({ type: 'danger', message: 'Error: Session not initialized. Please wait a few seconds and try again.' });
         return;
       }
@@ -127,7 +131,7 @@ export default function ClaimForm() {
         body: JSON.stringify({
           recipient,
           recaptchaToken,
-          session_token: sessionToken
+          session_token: currentSessionToken! // Non-null assertion: we've already checked it's not null above
         })
       });
 

@@ -23,13 +23,23 @@ const WALLETS = [
   { name: 'GERD Test Wallet', address: '0xd84DB57e0d89cF6487b426e6BBbAb235b1139445' },
 ];
 
+interface ReleaseStatus {
+  value: boolean;
+  label: string;
+}
+
+interface ReleaseHistoryItem {
+  hasRelease: boolean;
+  releaseDate?: string;
+}
+
 export default function TestnetVestingDashboard() {
   const [releaseCountdown, setReleaseCountdown] = useState<string>('Calculating...');
-  const [canRelease, setCanRelease] = useState<string>('Loading...');
+  const [canRelease, setCanRelease] = useState<ReleaseStatus>({ value: false, label: 'Loading...' });
   const [lastRelease, setLastRelease] = useState<string>('Loading...');
-  const [isWednesday, setIsWednesday] = useState<string>('Loading...');
+  const [isWednesday, setIsWednesday] = useState<ReleaseStatus>({ value: false, label: 'Loading...' });
   const [nextReleaseDate, setNextReleaseDate] = useState<string>('Loading...');
-  const [releaseHistory, setReleaseHistory] = useState<string>('Loading...');
+  const [releaseHistory, setReleaseHistory] = useState<ReleaseHistoryItem>({ hasRelease: false });
   const [walletBalances, setWalletBalances] = useState<WalletBalance[]>(
     WALLETS.map(w => ({ ...w, balance: null, loading: true }))
   );
@@ -70,11 +80,10 @@ export default function TestnetVestingDashboard() {
 
         const jsDay = new Date().getUTCDay();
         const isWed = jsDay === 3;
-        setIsWednesday(
-          isWed
-            ? '<span class="badge bg-success"><i class="fas fa-check-circle me-1"></i>Yes</span>'
-            : '<span class="badge bg-danger"><i class="fas fa-times-circle me-1"></i>No</span>'
-        );
+        setIsWednesday({
+          value: isWed,
+          label: isWed ? 'Yes' : 'No'
+        });
 
         const nextReleaseTime = isNeverReleased
           ? getNextWednesdayTimestamp(now)
@@ -92,26 +101,24 @@ export default function TestnetVestingDashboard() {
 
         // Can Release
         const releaseReady = now >= nextReleaseTime && isWed;
-        setCanRelease(
-          releaseReady
-            ? '<span class="badge bg-success fs-6"><i class="fas fa-check-circle me-1"></i>Yes</span>'
-            : '<span class="badge bg-danger fs-6"><i class="fas fa-times-circle me-1"></i>No</span>'
-        );
+        setCanRelease({
+          value: releaseReady,
+          label: releaseReady ? 'Yes' : 'No'
+        });
 
         // Release History
         if (isNeverReleased) {
-          setReleaseHistory(
-            '<li class="text-center text-muted"><i class="fas fa-info-circle me-2"></i>No releases yet</li>'
-          );
+          setReleaseHistory({ hasRelease: false });
         } else {
-          setReleaseHistory(
-            `<li class="d-flex align-items-center justify-content-center"><i class="fas fa-clock text-primary me-2"></i><span>Last release: <strong>${new Date(Number(lastRelease) * 1000).toUTCString()}</strong></span></li>`
-          );
+          setReleaseHistory({
+            hasRelease: true,
+            releaseDate: new Date(Number(lastRelease) * 1000).toUTCString()
+          });
         }
       } catch (err) {
         console.error('Error loading dashboard:', err);
         setReleaseCountdown('Error loading');
-        setCanRelease('<span class="text-danger">Error</span>');
+        setCanRelease({ value: false, label: 'Error' });
       }
     };
 
@@ -244,7 +251,10 @@ export default function TestnetVestingDashboard() {
                           <i className="fas fa-check-circle"></i>
                         </div>
                         <h3 className="h6 fw-bold mb-2">Can Release Now</h3>
-                        <p className="h5 text-primary mb-0" dangerouslySetInnerHTML={{ __html: canRelease }}></p>
+                        <span className={`badge ${canRelease.value ? 'bg-success' : 'bg-danger'} fs-6`}>
+                          <i className={`fas ${canRelease.value ? 'fa-check-circle' : 'fa-times-circle'} me-1`}></i>
+                          {canRelease.label}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -321,7 +331,10 @@ export default function TestnetVestingDashboard() {
                     </div>
                     <div className="col-md-4">
                       <p className="mb-2 small text-muted"><strong>Is Today Wednesday:</strong></p>
-                      <p className="fw-bold text-primary mb-0" dangerouslySetInnerHTML={{ __html: isWednesday }}></p>
+                      <span className={`badge ${isWednesday.value ? 'bg-success' : 'bg-danger'}`}>
+                        <i className={`fas ${isWednesday.value ? 'fa-check-circle' : 'fa-times-circle'} me-1`}></i>
+                        {isWednesday.label}
+                      </span>
                     </div>
                     <div className="col-md-4">
                       <p className="mb-2 small text-muted"><strong>Next Scheduled Release:</strong></p>
@@ -384,7 +397,18 @@ export default function TestnetVestingDashboard() {
                   <h2 className="h4 fw-bold mb-4 text-center">
                     <i className="fas fa-history text-info me-2"></i>Release History
                   </h2>
-                  <ul className="list-unstyled mb-0" dangerouslySetInnerHTML={{ __html: releaseHistory }}></ul>
+                  <ul className="list-unstyled mb-0">
+                    {!releaseHistory.hasRelease ? (
+                      <li className="text-center text-muted">
+                        <i className="fas fa-info-circle me-2"></i>No releases yet
+                      </li>
+                    ) : (
+                      <li className="d-flex align-items-center justify-content-center">
+                        <i className="fas fa-clock text-primary me-2"></i>
+                        <span>Last release: <strong>{releaseHistory.releaseDate}</strong></span>
+                      </li>
+                    )}
+                  </ul>
                 </div>
               </div>
 
