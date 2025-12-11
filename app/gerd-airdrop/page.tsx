@@ -8,14 +8,16 @@ export default function GerdAirdrop() {
 
   useEffect(() => {
     const startDate = new Date('2025-04-24T00:00:00Z');
-    const now = new Date();
-    const yearsElapsed = Math.floor((now.getTime() - startDate.getTime()) / (365.25 * 24 * 3600 * 1000));
-    
-    const nextRelease = new Date(startDate.getTime());
-    nextRelease.setUTCFullYear(startDate.getUTCFullYear() + yearsElapsed + 1);
 
     const updateCountdown = () => {
-      const diff = nextRelease.getTime() - new Date().getTime();
+      // Recalculate next release date dynamically each time to ensure accuracy after year transitions
+      const now = new Date();
+      const yearsElapsed = Math.floor((now.getTime() - startDate.getTime()) / (365.25 * 24 * 3600 * 1000));
+      
+      const nextRelease = new Date(startDate.getTime());
+      nextRelease.setUTCFullYear(startDate.getUTCFullYear() + yearsElapsed + 1);
+
+      const diff = nextRelease.getTime() - now.getTime();
       if (diff <= 0) {
         setCountdown('Airdrop Available Now!');
         return;

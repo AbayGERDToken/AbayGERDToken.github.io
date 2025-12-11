@@ -17,20 +17,27 @@ export default function DashboardVesting() {
   const [releaseDate, setReleaseDate] = useState<string>('...');
 
   useEffect(() => {
-    const now = new Date();
-    const yearsElapsed = Math.floor((now.getTime() - START_DATE.getTime()) / (365.25 * 24 * 3600 * 1000));
-    const releasedAmount = Math.min(yearsElapsed, 115) * RELEASE_PER_YEAR;
-    const remainingAmount = LOCKED_TOTAL - releasedAmount;
+    const updateStats = () => {
+      const now = new Date();
+      const yearsElapsed = Math.floor((now.getTime() - START_DATE.getTime()) / (365.25 * 24 * 3600 * 1000));
+      const releasedAmount = Math.min(yearsElapsed, 115) * RELEASE_PER_YEAR;
+      const remainingAmount = LOCKED_TOTAL - releasedAmount;
 
-    setLocked(LOCKED_TOTAL.toLocaleString());
-    setReleased(releasedAmount.toLocaleString());
-    setRemaining(remainingAmount.toLocaleString());
+      setLocked(LOCKED_TOTAL.toLocaleString());
+      setReleased(releasedAmount.toLocaleString());
+      setRemaining(remainingAmount.toLocaleString());
 
-    const nextRelease = new Date(START_DATE.getTime());
-    nextRelease.setUTCFullYear(START_DATE.getUTCFullYear() + yearsElapsed + 1);
-    setReleaseDate(nextRelease.toDateString());
+      // Calculate next release date dynamically (recalculates each time to handle year transitions)
+      const nextRelease = new Date(START_DATE.getTime());
+      nextRelease.setUTCFullYear(START_DATE.getUTCFullYear() + yearsElapsed + 1);
+      setReleaseDate(nextRelease.toDateString());
+
+      return nextRelease;
+    };
 
     const updateCountdown = () => {
+      // Recalculate next release date each time to ensure accuracy after year transitions
+      const nextRelease = updateStats();
       const diff = nextRelease.getTime() - new Date().getTime();
       if (diff <= 0) {
         setCountdown('Available Now!');
@@ -53,203 +60,102 @@ export default function DashboardVesting() {
       {/* Hero Section */}
       <section className="hero-section">
         <div className="container">
-          <div className="hero-content">
-            <div className="row">
-              <div className="col-lg-10 mx-auto text-center">
-                <h1 className="display-4 fw-bold mb-4">
-                  <i className="fas fa-chart-line me-3"></i>GERD Token Vesting Dashboard
-                </h1>
-                <p className="lead fs-5 opacity-90">Real-time tracking of token vesting, releases, and distribution</p>
-              </div>
-            </div>
+          <div className="hero-content text-center">
+            <h1 className="display-3 fw-bold mb-4">GERD Token Vesting Dashboard</h1>
+            <p className="lead fs-4 mb-4 opacity-90">
+              Track the locked tokens and upcoming release schedule
+            </p>
           </div>
         </div>
       </section>
 
-      {/* Main Dashboard */}
-      <section className="content-section">
+      {/* Main Content */}
+      <section className="content-section py-5">
         <div className="container">
+          {/* Countdown Section */}
+          <div className="row mb-5">
+            <div className="col-12">
+              <div className="countdown-box text-center p-4 rounded">
+                <h2 className="h4 mb-3">Next Release Countdown</h2>
+                <p className="h3 fw-bold text-primary mb-0">{countdown}</p>
+                <p className="text-muted mt-2 mb-0">Scheduled for: {releaseDate}</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Stats Section */}
+          <div className="row g-4 mb-5">
+            <div className="col-md-4">
+              <div className="stat-box text-center p-4 rounded">
+                <h3 className="h5 text-muted mb-2">Total Locked</h3>
+                <p className="h3 fw-bold text-success mb-0">{locked}</p>
+                <p className="text-muted small mb-0">GERD Tokens</p>
+              </div>
+            </div>
+            <div className="col-md-4">
+              <div className="stat-box text-center p-4 rounded">
+                <h3 className="h5 text-muted mb-2">Released</h3>
+                <p className="h3 fw-bold text-primary mb-0">{released}</p>
+                <p className="text-muted small mb-0">GERD Tokens</p>
+              </div>
+            </div>
+            <div className="col-md-4">
+              <div className="stat-box text-center p-4 rounded">
+                <h3 className="h5 text-muted mb-2">Remaining</h3>
+                <p className="h3 fw-bold text-warning mb-0">{remaining}</p>
+                <p className="text-muted small mb-0">GERD Tokens</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Contract Address */}
+          <div className="row mb-5">
+            <div className="col-12">
+              <div className="contract-box p-4 rounded">
+                <h3 className="h5 mb-3">Contract Address</h3>
+                <div className="d-flex align-items-center flex-wrap gap-2">
+                  <code className="text-success fw-bold text-break" style={{ wordBreak: 'break-all', minWidth: 0 }}>
+                    {CONTRACT_ADDRESS}
+                  </code>
+                  <CopyButton address={CONTRACT_ADDRESS} className="flex-shrink-0" />
+                  <a
+                    href={`https://bscscan.com/token/${CONTRACT_ADDRESS}`}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="btn btn-sm btn-outline-success flex-shrink-0"
+                  >
+                    <i className="fas fa-external-link-alt me-1"></i>View on BSCScan
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Distribution Breakdown */}
           <div className="row">
-            <div className="col-lg-10 mx-auto">
-
-              {/* Contract Address Card */}
-              <div className="card shadow-sm mb-5">
-                <div className="card-body p-4 text-center">
-                  <h2 className="h6 fw-bold mb-3 text-muted">Contract Address</h2>
-                  <div className="d-flex align-items-center justify-content-center flex-wrap gap-2">
-                    <code 
-                      id="contractAddress"
-                      className="font-monospace text-primary fs-6 text-break flex-grow-1" 
-                      style={{ wordBreak: 'break-all', minWidth: 0 }}
-                    >
-                      {CONTRACT_ADDRESS}
-                    </code>
-                    <CopyButton address={CONTRACT_ADDRESS} className="flex-shrink-0" />
+            <div className="col-12">
+              <h3 className="h4 mb-4">Annual Release Breakdown</h3>
+              <div className="graph">
+                <div className="bar" style={{ width: '100%', height: '40px', backgroundColor: '#198754', marginBottom: '10px' }}>
+                  <div className="d-flex align-items-center justify-content-center h-100 text-white fw-bold">
+                    Year 1: 1 Billion GERD
                   </div>
                 </div>
-              </div>
-
-              {/* Stats Grid */}
-              <div className="row g-4 mb-5">
-                <div className="col-md-6 col-lg-3">
-                  <div className="card h-100 border-success-subtle">
-                    <div className="card-body text-center">
-                      <div
-                        className="bg-success-subtle text-success rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3"
-                        style={{ width: '64px', height: '64px', fontSize: '28px' }}
-                      >
-                        <i className="fas fa-clock"></i>
-                      </div>
-                      <h3 className="h6 fw-bold mb-2">Next Release In</h3>
-                      <p className="fs-5 fw-bold text-success font-monospace mb-0">{countdown}</p>
-                    </div>
+                <div className="bar" style={{ width: '100%', height: '40px', backgroundColor: '#0d6efd', marginBottom: '10px' }}>
+                  <div className="d-flex align-items-center justify-content-center h-100 text-white fw-bold">
+                    Year 2: 1 Billion GERD
                   </div>
                 </div>
-                <div className="col-md-6 col-lg-3">
-                  <div className="card h-100 border-primary-subtle">
-                    <div className="card-body text-center">
-                      <div
-                        className="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3"
-                        style={{ width: '64px', height: '64px', fontSize: '28px' }}
-                      >
-                        <i className="fas fa-lock"></i>
-                      </div>
-                      <h3 className="h6 fw-bold mb-2">Total Tokens Locked</h3>
-                      <p className="fs-5 fw-bold text-success font-monospace mb-0">{locked}</p>
-                    </div>
+                <div className="bar" style={{ width: '100%', height: '40px', backgroundColor: '#ffc107', marginBottom: '10px' }}>
+                  <div className="d-flex align-items-center justify-content-center h-100 text-dark fw-bold">
+                    Year 3: 1 Billion GERD
                   </div>
                 </div>
-                <div className="col-md-6 col-lg-3">
-                  <div className="card h-100 border-success-subtle">
-                    <div className="card-body text-center">
-                      <div
-                        className="bg-success-subtle text-success rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3"
-                        style={{ width: '64px', height: '64px', fontSize: '28px' }}
-                      >
-                        <i className="fas fa-arrow-up"></i>
-                      </div>
-                      <h3 className="h6 fw-bold mb-2">Tokens Released</h3>
-                      <p className="fs-5 fw-bold text-success font-monospace mb-0">{released}</p>
-                    </div>
-                  </div>
-                </div>
-                <div className="col-md-6 col-lg-3">
-                  <div className="card h-100 border-danger-subtle">
-                    <div className="card-body text-center">
-                      <div
-                        className="bg-danger-subtle text-danger rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3"
-                        style={{ width: '64px', height: '64px', fontSize: '28px' }}
-                      >
-                        <i className="fas fa-hourglass-half"></i>
-                      </div>
-                      <h3 className="h6 fw-bold mb-2">Remaining Locked</h3>
-                      <p className="fs-5 fw-bold text-danger font-monospace mb-0">{remaining}</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Next Release Details Card */}
-              <div className="card shadow-sm border-success">
-                <div className="card-body p-5">
-                  <h2 className="h4 fw-bold mb-4 text-center">
-                    <i className="fas fa-calendar-check text-success me-2"></i>Next Release Details
-                  </h2>
-                  <div className="row g-4">
-                    <div className="col-md-6">
-                      <div className="bg-light p-4 rounded">
-                        <p className="mb-2"><strong>Release Date:</strong></p>
-                        <p className="h5 text-success mb-0">{releaseDate}</p>
-                      </div>
-                    </div>
-                    <div className="col-md-6">
-                      <div className="bg-light p-4 rounded">
-                        <p className="mb-2"><strong>Total Amount:</strong></p>
-                        <p className="h5 text-primary mb-0">1,000,000,000 GERD</p>
-                      </div>
-                    </div>
-                  </div>
-                  <hr className="my-4" />
-                  <h3 className="h6 fw-bold mb-3">Distribution Breakdown:</h3>
-                  <div className="row g-3">
-                    <div className="col-md-4">
-                      <div className="d-flex align-items-start">
-                        <div
-                          className="bg-success-subtle text-success rounded-circle d-flex align-items-center justify-content-center me-3"
-                          style={{ width: '40px', height: '40px', fontSize: '18px', flexShrink: 0 }}
-                        >
-                          <i className="fas fa-parachute-box"></i>
-                        </div>
-                        <div>
-                          <p className="mb-0 fw-bold">500,000,000 GERD</p>
-                          <small className="text-muted">Airdropped to all holders</small>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-md-4">
-                      <div className="d-flex align-items-start">
-                        <div
-                          className="bg-warning-subtle text-warning rounded-circle d-flex align-items-center justify-content-center me-3"
-                          style={{ width: '40px', height: '40px', fontSize: '18px', flexShrink: 0 }}
-                        >
-                          <i className="fas fa-coins"></i>
-                        </div>
-                        <div>
-                          <p className="mb-0 fw-bold">250,000,000 GERD</p>
-                          <small className="text-muted">Allocated for staking rewards</small>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-md-4">
-                      <div className="d-flex align-items-start">
-                        <div
-                          className="bg-info-subtle text-info rounded-circle d-flex align-items-center justify-content-center me-3"
-                          style={{ width: '40px', height: '40px', fontSize: '18px', flexShrink: 0 }}
-                        >
-                          <i className="fas fa-fire"></i>
-                        </div>
-                        <div>
-                          <p className="mb-0 fw-bold">250,000,000 GERD</p>
-                          <small className="text-muted">To liquidity or burned</small>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Development Notice */}
-              <div className="alert alert-info border-info mt-5 text-center">
-                <p className="mb-0">
+                <p className="text-muted mt-3">
                   <i className="fas fa-info-circle me-2"></i>
-                  This vesting smart contract is currently under development on the BSC Testnet and is expected to be
-                  completed by <strong>Sep 30, 2025</strong>.
+                  Each year, 1 billion GERD tokens are released from the vesting contract, continuing for 115 years.
                 </p>
               </div>
-
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="bg-success-subtle py-5 mb-0">
-        <div className="container">
-          <div className="row align-items-center">
-            <div className="col-md-8">
-              <h2 className="h5 mb-3">
-                DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY AND SUPPORTING THE
-                GRAND ETHIOPIAN RENAISSANCE DAM PROJECT.
-                JOIN US IN CREATING A BRIGHTER FUTURE! #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD
-              </h2>
-            </div>
-            <div className="col-md-4 text-center">
-              <Image 
-                src="/image/abay_bluesky.png" 
-                alt="AbayGERDToken" 
-                className="img-fluid"
-                width={300}
-                height={300}
-              />
             </div>
           </div>
         </div>

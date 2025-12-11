@@ -12,9 +12,14 @@ export default function ReleaseToken() {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
+    let cleanup: (() => void) | undefined;
+
     const setupReleaseCountdown = async () => {
       try {
         const res = await fetch(`${BACKEND_URL}/can-release`);
+        if (!res.ok) {
+          throw new Error(`Failed to fetch release status: ${res.status} ${res.statusText}`);
+        }
         const data = await res.json();
 
         if (!data.nextEligibleUTC) {
@@ -53,13 +58,20 @@ export default function ReleaseToken() {
 
         updateCountdown();
         const interval = setInterval(updateCountdown, 1000);
-        return () => clearInterval(interval);
+        cleanup = () => clearInterval(interval);
       } catch (err: any) {
         setCountdown('Error: ' + (err.message || 'Failed to connect to backend'));
       }
     };
 
     setupReleaseCountdown();
+
+    // Return cleanup function that will be called on unmount
+    return () => {
+      if (cleanup) {
+        cleanup();
+      }
+    };
   }, []);
 
   const handleRelease = async () => {
@@ -69,14 +81,26 @@ export default function ReleaseToken() {
 
     try {
       const res = await fetch(`${BACKEND_URL}/release-token`, { method: 'POST' });
+      if (!res.ok) {
+        const errorText = await res.text();
+        let errorMessage = `Server error: ${res.status} ${res.statusText}`;
+        try {
+          const errorData = JSON.parse(errorText);
+          errorMessage = errorData.message || errorMessage;
+        } catch {
+          // If error response isn't JSON, use the text or default message
+          errorMessage = errorText || errorMessage;
+        }
+        throw new Error(errorMessage);
+      }
       const data = await res.json();
       if (data.success) {
         setReleaseStatus('✅ Release successful! TX: 0x' + data.tx_hash);
       } else {
         setReleaseStatus('❌ Error: ' + data.message);
       }
-    } catch (e) {
-      setReleaseStatus('❌ Could not connect to backend.');
+    } catch (e: any) {
+      setReleaseStatus('❌ ' + (e.message || 'Could not connect to backend.'));
     } finally {
       setIsLoading(false);
     }

@@ -34,6 +34,18 @@ jobs:
       - name: Build
         run: npm run build
       
+      - name: Verify build output
+        run: |
+          if [ ! -d "out" ]; then
+            echo "Error: Build output directory 'out' does not exist"
+            exit 1
+          fi
+          if [ ! -f "out/index.html" ]; then
+            echo "Error: Build output is incomplete - index.html not found"
+            exit 1
+          fi
+          echo "Build output verified successfully"
+      
       - name: Setup Pages
         uses: actions/configure-pages@v4
       

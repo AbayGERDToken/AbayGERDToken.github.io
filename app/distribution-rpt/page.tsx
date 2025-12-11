@@ -85,6 +85,9 @@ export default function DistributionReport() {
 
   useEffect(() => {
     // Initialize Tableau visualization - matching original HTML structure
+    let cleanup: (() => void) | undefined;
+    let timer: NodeJS.Timeout;
+
     const initTableau = () => {
       const divElement = document.getElementById('viz1686619041159');
       if (!divElement) return;
@@ -110,7 +113,8 @@ export default function DistributionReport() {
         };
         updateTableauSize();
         window.addEventListener('resize', updateTableauSize);
-        return () => window.removeEventListener('resize', updateTableauSize);
+        cleanup = () => window.removeEventListener('resize', updateTableauSize);
+        return;
       }
 
       // Set initial size
@@ -142,7 +146,7 @@ export default function DistributionReport() {
       // Handle resize
       window.addEventListener('resize', updateTableauSize);
 
-      return () => {
+      cleanup = () => {
         window.removeEventListener('resize', updateTableauSize);
         // Cleanup script if component unmounts
         if (scriptElement.parentNode) {
@@ -152,9 +156,14 @@ export default function DistributionReport() {
     };
 
     // Initialize after DOM is ready
-    const timer = setTimeout(initTableau, 100);
+    timer = setTimeout(initTableau, 100);
     
-    return () => clearTimeout(timer);
+    return () => {
+      clearTimeout(timer);
+      if (cleanup) {
+        cleanup();
+      }
+    };
   }, []);
 
   return (

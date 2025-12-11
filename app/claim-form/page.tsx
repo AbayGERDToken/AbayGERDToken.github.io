@@ -23,8 +23,8 @@ export default function ClaimForm() {
   const [web3, setWeb3] = useState<any>(null);
   const [contract, setContract] = useState<any>(null);
 
-  useEffect(() => {
-    // Initialize Web3
+  // Initialize Web3 and contract when Web3 library is loaded
+  const initializeWeb3 = () => {
     if (typeof window !== 'undefined' && window.Web3) {
       const web3Instance = new window.Web3('https://bsc-dataseed.binance.org/');
       setWeb3(web3Instance);
@@ -49,7 +49,7 @@ export default function ClaimForm() {
       const contractInstance = new web3Instance.eth.Contract(contractABI, contractAddress);
       setContract(contractInstance);
     }
-  }, []);
+  };
 
   useEffect(() => {
     fetchSessionToken();
@@ -58,6 +58,9 @@ export default function ClaimForm() {
   const fetchSessionToken = async (): Promise<string | null> => {
     try {
       const res = await fetch('https://abay-gerd-backend.onrender.com/auth/session');
+      if (!res.ok) {
+        throw new Error(`Failed to fetch session token: ${res.status} ${res.statusText}`);
+      }
       const data = await res.json();
       const token = data.session_token;
       setSessionToken(token);
@@ -117,6 +120,9 @@ export default function ClaimForm() {
 
     try {
       const locResponse = await fetch('https://ipapi.co/json/');
+      if (!locResponse.ok) {
+        throw new Error(`Failed to fetch location: ${locResponse.status} ${locResponse.statusText}`);
+      }
       const locData = await locResponse.json();
       const estimatedAmount = locData.country_code === 'ET' ? 75000 : 10000;
 
@@ -134,6 +140,19 @@ export default function ClaimForm() {
           session_token: currentSessionToken! // Non-null assertion: we've already checked it's not null above
         })
       });
+
+      if (!res.ok) {
+        const errorText = await res.text();
+        let errorMessage = `Server error: ${res.status} ${res.statusText}`;
+        try {
+          const errorData = JSON.parse(errorText);
+          errorMessage = errorData.message || errorMessage;
+        } catch {
+          // If error response isn't JSON, use the text or default message
+          errorMessage = errorText || errorMessage;
+        }
+        throw new Error(errorMessage);
+      }
 
       const data = await res.json();
       if (data.status === 'success') {
@@ -160,10 +179,7 @@ export default function ClaimForm() {
         src="https://cdn.jsdelivr.net/npm/web3@1.8.2/dist/web3.min.js"
         strategy="beforeInteractive"
         onLoad={() => {
-          if (typeof window !== 'undefined' && window.Web3) {
-            const web3Instance = new window.Web3('https://bsc-dataseed.binance.org/');
-            setWeb3(web3Instance);
-          }
+          initializeWeb3();
         }}
       />
       <Script
