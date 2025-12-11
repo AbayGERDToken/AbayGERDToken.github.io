@@ -228,29 +228,40 @@ export default function Navbar() {
               >
                 Project Insights
               </a>
-              <div className="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdown5" style={{ minWidth: '400px' }}>
-                <div className="row g-0">
-                  <div className="col-6 p-3">
-                    <h6 className="dropdown-header text-uppercase small text-muted">Assets info</h6>
-                    <Link className="dropdown-item" href="/gerd-wallets">Project Wallets</Link>
-                    <a 
-                      className="dropdown-item" 
-                      href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c#balances" 
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Top Holders <i className="fas fa-external-link-alt ms-1 small"></i>
-                    </a>
-                    <Link className="dropdown-item" href="/migration-announcement">Migration Announcement</Link>
-                  </div>
-                  <div className="col-6 p-3">
-                    <h6 className="dropdown-header text-uppercase small text-muted">Info</h6>
-                    <Link className="dropdown-item" href="/timeline">Project Timeline</Link>
-                    <Link className="dropdown-item" href="/gerd-ama">AMA (Ask Me Anything)</Link>
-                    <Link className="dropdown-item" href="/qna">QnA</Link>
-                  </div>
-                </div>
-              </div>
+              <ul className="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdown5">
+                <li>
+                  <h6 className="dropdown-header text-uppercase small text-muted">Assets info</h6>
+                </li>
+                <li>
+                  <Link className="dropdown-item" href="/gerd-wallets">Project Wallets</Link>
+                </li>
+                <li>
+                  <a 
+                    className="dropdown-item" 
+                    href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c#balances" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    Top Holders <i className="fas fa-external-link-alt ms-1 small"></i>
+                  </a>
+                </li>
+                <li>
+                  <Link className="dropdown-item" href="/migration-announcement">Migration Announcement</Link>
+                </li>
+                <li><hr className="dropdown-divider" /></li>
+                <li>
+                  <h6 className="dropdown-header text-uppercase small text-muted">Info</h6>
+                </li>
+                <li>
+                  <Link className="dropdown-item" href="/timeline">Project Timeline</Link>
+                </li>
+                <li>
+                  <Link className="dropdown-item" href="/gerd-ama">AMA (Ask Me Anything)</Link>
+                </li>
+                <li>
+                  <Link className="dropdown-item" href="/qna">QnA</Link>
+                </li>
+              </ul>
             </li>
             
             {/* Resources Dropdown */}
