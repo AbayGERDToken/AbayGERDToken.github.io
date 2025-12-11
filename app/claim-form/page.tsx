@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import Script from 'next/script';
 import Image from 'next/image';
 import CopyButton from '@/components/CopyButton';
@@ -22,10 +22,13 @@ export default function ClaimForm() {
   const [sessionToken, setSessionToken] = useState('');
   const [web3, setWeb3] = useState<any>(null);
   const [contract, setContract] = useState<any>(null);
+  const isInitializing = useRef(false);
 
   // Initialize Web3 and contract when Web3 library is loaded
   const initializeWeb3 = () => {
-    if (typeof window !== 'undefined' && window.Web3) {
+    // Use ref to prevent multiple initializations
+    if (typeof window !== 'undefined' && window.Web3 && !isInitializing.current && !web3) {
+      isInitializing.current = true;
       const web3Instance = new window.Web3('https://bsc-dataseed.binance.org/');
       setWeb3(web3Instance);
 
@@ -48,8 +51,38 @@ export default function ClaimForm() {
       const contractAddress = '0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c';
       const contractInstance = new web3Instance.eth.Contract(contractABI, contractAddress);
       setContract(contractInstance);
+      isInitializing.current = false; // Reset after successful initialization
     }
   };
+
+  // Watch for Web3 library to become available and initialize
+  useEffect(() => {
+    // Try to initialize immediately if Web3 is already loaded
+    if (typeof window !== 'undefined' && window.Web3 && !web3 && !isInitializing.current) {
+      initializeWeb3();
+      return;
+    }
+
+    // If Web3 is not available yet, poll for it (fallback in case onLoad doesn't fire)
+    if (typeof window !== 'undefined' && !window.Web3) {
+      const checkInterval = setInterval(() => {
+        if (window.Web3 && !web3 && !isInitializing.current) {
+          initializeWeb3();
+          clearInterval(checkInterval);
+        }
+      }, 100);
+
+      // Clean up after 10 seconds to avoid infinite polling
+      const timeout = setTimeout(() => {
+        clearInterval(checkInterval);
+      }, 10000);
+
+      return () => {
+        clearInterval(checkInterval);
+        clearTimeout(timeout);
+      };
+    }
+  }, [web3]);
 
   useEffect(() => {
     fetchSessionToken();
