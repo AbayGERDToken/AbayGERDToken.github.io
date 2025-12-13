@@ -42,13 +42,13 @@ export default function MigrationModal() {
             </div>
 
             <div className="row g-3 mb-4">
-              <div className="col-12">
+              <div className="col-md-6">
                 <ContractAddress
                   address="0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c"
                   label="New Contract"
                 />
               </div>
-              <div className="col-12">
+              <div className="col-md-6">
                 <ContractAddress
                   address="0x660941bb4AA9FcBED00375673D21088A9d0C5019"
                   label="Legacy Contract"
