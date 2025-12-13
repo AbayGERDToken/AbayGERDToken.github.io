@@ -374,7 +374,7 @@ export default function TestnetVestingDashboard() {
                               <td className="fw-bold text-success">{wallet.balance}</td>
                               <td className="font-monospace small">
                                 <a 
-                                  href={`https://testnet.bscscan.com/address/${wallet.address}`} 
+                                  href={`https://testnet.bscscan.com/token/${GERD_TOKEN_ADDRESS}?a=${wallet.address}`} 
                                   target="_blank" 
                                   rel="noopener noreferrer"
                                   className="text-decoration-none"
