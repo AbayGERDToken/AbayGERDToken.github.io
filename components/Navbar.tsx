@@ -336,7 +336,12 @@ export default function Navbar() {
                 Community
               </a>
               <ul className="dropdown-menu" aria-labelledby="dropdown2">
-                <li><Link className="dropdown-item" href="/dev">Contributors</Link></li>
+                <li>
+                  <Link className="dropdown-item" href="/dev">
+                    <div className="fw-bold">Contributors</div>
+                    <small className="text-muted">Meet the team behind the project</small>
+                  </Link>
+                </li>
                 <li>
                   <a
                     className="dropdown-item"
@@ -344,7 +349,8 @@ export default function Navbar() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    GitHub <i className="fas fa-external-link-alt ms-1 small"></i>
+                    <div className="fw-bold">GitHub <i className="fas fa-external-link-alt ms-1 small"></i></div>
+                    <small className="text-muted">Source code and repositories</small>
                   </a>
                 </li>
                 <li>
@@ -354,7 +360,8 @@ export default function Navbar() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    X (formerly Twitter) <i className="fas fa-external-link-alt ms-1 small"></i>
+                    <div className="fw-bold">X (Twitter) <i className="fas fa-external-link-alt ms-1 small"></i></div>
+                    <small className="text-muted">Official updates and announcements</small>
                   </a>
                 </li>
                 <li>
@@ -364,7 +371,8 @@ export default function Navbar() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    TikTok <i className="fas fa-external-link-alt ms-1 small"></i>
+                    <div className="fw-bold">TikTok <i className="fas fa-external-link-alt ms-1 small"></i></div>
+                    <small className="text-muted">Short-form video content</small>
                   </a>
                 </li>
                 <li>
@@ -374,7 +382,8 @@ export default function Navbar() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Telegram <i className="fas fa-external-link-alt ms-1 small"></i>
+                    <div className="fw-bold">Telegram <i className="fas fa-external-link-alt ms-1 small"></i></div>
+                    <small className="text-muted">Join the community chat</small>
                   </a>
                 </li>
               </ul>
