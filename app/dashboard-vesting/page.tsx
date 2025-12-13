@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
-import CopyButton from '@/components/CopyButton';
+import ContractAddress from '@/components/ContractAddress';
 
 const CONTRACT_ADDRESS = '0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c';
 const LOCKED_TOTAL = 115_000_000_000;
@@ -111,23 +111,10 @@ export default function DashboardVesting() {
           {/* Contract Address */}
           <div className="row mb-5">
             <div className="col-12">
-              <div className="contract-box p-4 rounded">
-                <h3 className="h5 mb-3">Contract Address</h3>
-                <div className="d-flex align-items-center flex-wrap gap-2">
-                  <code className="text-success fw-bold text-break" style={{ wordBreak: 'break-all', minWidth: 0 }}>
-                    {CONTRACT_ADDRESS}
-                  </code>
-                  <CopyButton address={CONTRACT_ADDRESS} className="flex-shrink-0" />
-                  <a
-                    href={`https://bscscan.com/token/${CONTRACT_ADDRESS}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn btn-sm btn-outline-success flex-shrink-0"
-                  >
-                    <i className="fas fa-external-link-alt me-1"></i>View on BSCScan
-                  </a>
-                </div>
-              </div>
+              <ContractAddress
+                address={CONTRACT_ADDRESS}
+                label="Contract Address"
+              />
             </div>
           </div>
 

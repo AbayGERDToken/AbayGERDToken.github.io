@@ -20,10 +20,10 @@ export default function Navbar() {
           });
         }
       };
-      
+
       // Try to initialize immediately
       initDropdowns();
-      
+
       // Also try after a short delay in case Bootstrap loads later
       setTimeout(initDropdowns, 100);
 
@@ -32,12 +32,12 @@ export default function Navbar() {
       const closeNavbar = (event: Event) => {
         const target = event.target as HTMLElement;
         const link = target.closest('a, [role="button"]');
-        
+
         // Don't close if clicking on a dropdown toggle
         if (link && (link.classList.contains('dropdown-toggle') || link.hasAttribute('data-bs-toggle'))) {
           return;
         }
-        
+
         // Only close for actual navigation links (not dropdown toggles)
         const navbarCollapse = document.getElementById('navbarNav');
         if (navbarCollapse && navbarCollapse.classList.contains('show')) {
@@ -71,11 +71,11 @@ export default function Navbar() {
       const navLinks = document.querySelectorAll('#navbarNav .nav-link:not(.dropdown-toggle)');
       // Dropdown items (actual page links)
       const dropdownItems = document.querySelectorAll('#navbarNav .dropdown-item');
-      
+
       navLinks.forEach((link) => {
         link.addEventListener('click', closeNavbar);
       });
-      
+
       dropdownItems.forEach((item) => {
         item.addEventListener('click', closeNavbar);
       });
@@ -96,23 +96,23 @@ export default function Navbar() {
     <nav className="navbar navbar-expand-lg navbar-dark bg-success fixed-top">
       <div className="container-fluid">
         <Link className="navbar-brand d-flex align-items-center" href="/">
-          <Image 
-            src="/image/gerdlogo.png" 
-            alt="Abay GERD Token Logo" 
-            height={40} 
-            width={40} 
-            className="me-2 rounded-circle" 
+          <Image
+            src="/image/gerdlogo.png"
+            alt="Abay GERD Token Logo"
+            height={40}
+            width={40}
+            className="me-2 rounded-circle"
             style={{ background: 'transparent', border: 'none', objectFit: 'contain' }}
           />
           <span className="fw-bold">AbayGERDToken</span>
         </Link>
-        <button 
-          className="navbar-toggler" 
-          type="button" 
-          data-bs-toggle="collapse" 
-          data-bs-target="#navbarNav" 
-          aria-controls="navbarNav" 
-          aria-expanded="false" 
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
           aria-label="Toggle navigation"
         >
           <span className="navbar-toggler-icon"></span>
@@ -122,15 +122,15 @@ export default function Navbar() {
             <li className="nav-item">
               <Link className="nav-link" href="/">Home</Link>
             </li>
-            
+
             {/* Token Claims Dropdown */}
             <li className="nav-item dropdown">
-              <a 
-                className="nav-link dropdown-toggle" 
-                href="#" 
-                id="dropdown1" 
-                role="button" 
-                data-bs-toggle="dropdown" 
+              <a
+                className="nav-link dropdown-toggle"
+                href="#"
+                id="dropdown1"
+                role="button"
+                data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
                 Token Claims
@@ -169,15 +169,15 @@ export default function Navbar() {
                 </li>
               </ul>
             </li>
-            
+
             {/* Vesting Dropdown */}
             <li className="nav-item dropdown">
-              <a 
-                className="nav-link dropdown-toggle" 
-                href="#" 
-                id="dropdown8" 
-                role="button" 
-                data-bs-toggle="dropdown" 
+              <a
+                className="nav-link dropdown-toggle"
+                href="#"
+                id="dropdown8"
+                role="button"
+                data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
                 Vesting
@@ -203,9 +203,9 @@ export default function Navbar() {
                   </Link>
                 </li>
                 <li>
-                  <a 
-                    className="dropdown-item" 
-                    href="/image/GERDVesting_Roadmap.pdf" 
+                  <a
+                    className="dropdown-item"
+                    href="/image/GERDVesting_Roadmap.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -215,72 +215,82 @@ export default function Navbar() {
                 </li>
               </ul>
             </li>
-            
+
             {/* Project Insights Dropdown */}
             <li className="nav-item dropdown">
-              <a 
-                className="nav-link dropdown-toggle" 
-                href="#" 
-                id="dropdown5" 
-                role="button" 
-                data-bs-toggle="dropdown" 
+              <a
+                className="nav-link dropdown-toggle"
+                href="#"
+                id="dropdown5"
+                role="button"
+                data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
                 Project Insights
               </a>
               <ul className="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdown5">
                 <li>
-                  <h6 className="dropdown-header text-uppercase small text-muted">Assets info</h6>
+                  <Link className="dropdown-item" href="/gerd-wallets">
+                    <div className="fw-bold">Project Wallets</div>
+                    <small className="text-muted">View official project wallet balances</small>
+                  </Link>
                 </li>
                 <li>
-                  <Link className="dropdown-item" href="/gerd-wallets">Project Wallets</Link>
-                </li>
-                <li>
-                  <a 
-                    className="dropdown-item" 
-                    href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c#balances" 
+                  <a
+                    className="dropdown-item"
+                    href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c#balances"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    Top Holders <i className="fas fa-external-link-alt ms-1 small"></i>
+                    <div className="fw-bold">Top Holders <i className="fas fa-external-link-alt ms-1 small"></i></div>
+                    <small className="text-muted">Transparency on token distribution</small>
                   </a>
                 </li>
                 <li>
-                  <Link className="dropdown-item" href="/migration-announcement">Migration Announcement</Link>
+                  <Link className="dropdown-item" href="/migration-announcement">
+                    <div className="fw-bold">Migration Announcement</div>
+                    <small className="text-muted">Details on the token migration</small>
+                  </Link>
                 </li>
                 <li><hr className="dropdown-divider" /></li>
                 <li>
-                  <h6 className="dropdown-header text-uppercase small text-muted">Info</h6>
+                  <Link className="dropdown-item" href="/timeline">
+                    <div className="fw-bold">Project Timeline</div>
+                    <small className="text-muted">Roadmap and key milestones</small>
+                  </Link>
                 </li>
                 <li>
-                  <Link className="dropdown-item" href="/timeline">Project Timeline</Link>
+                  <Link className="dropdown-item" href="/gerd-ama">
+                    <div className="fw-bold">AMA (Ask Me Anything)</div>
+                    <small className="text-muted">Community Q&A sessions</small>
+                  </Link>
                 </li>
                 <li>
-                  <Link className="dropdown-item" href="/gerd-ama">AMA (Ask Me Anything)</Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item" href="/qna">QnA</Link>
+                  <Link className="dropdown-item" href="/qna">
+                    <div className="fw-bold">QnA</div>
+                    <small className="text-muted">Frequently Asked Questions</small>
+                  </Link>
                 </li>
               </ul>
             </li>
-            
+
             {/* Resources Dropdown */}
             <li className="nav-item dropdown">
-              <a 
-                className="nav-link dropdown-toggle" 
-                href="#" 
-                id="dropdown7" 
-                role="button" 
-                data-bs-toggle="dropdown" 
+              <a
+                className="nav-link dropdown-toggle"
+                href="#"
+                id="dropdown7"
+                role="button"
+                data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
                 Resources
               </a>
               <ul className="dropdown-menu" aria-labelledby="dropdown7">
                 <li>
-                  <a 
-                    className="dropdown-item" 
-                    href="/image/AbayGERDToken.pdf" 
+                  <a
+                    className="dropdown-item"
+                    href="/image/AbayGERDToken.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -289,9 +299,9 @@ export default function Navbar() {
                   </a>
                 </li>
                 <li>
-                  <a 
-                    className="dropdown-item" 
-                    href="/dev/GERD_Token_Audit_Summary.pdf" 
+                  <a
+                    className="dropdown-item"
+                    href="/dev/GERD_Token_Audit_Summary.pdf"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -300,9 +310,9 @@ export default function Navbar() {
                   </a>
                 </li>
                 <li>
-                  <a 
-                    className="dropdown-item" 
-                    href="/dev/gerd.gif" 
+                  <a
+                    className="dropdown-item"
+                    href="/dev/gerd.gif"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -312,15 +322,15 @@ export default function Navbar() {
                 </li>
               </ul>
             </li>
-            
+
             {/* Community Dropdown */}
             <li className="nav-item dropdown">
-              <a 
-                className="nav-link dropdown-toggle" 
-                href="#" 
-                id="dropdown2" 
-                role="button" 
-                data-bs-toggle="dropdown" 
+              <a
+                className="nav-link dropdown-toggle"
+                href="#"
+                id="dropdown2"
+                role="button"
+                data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
                 Community
@@ -328,9 +338,9 @@ export default function Navbar() {
               <ul className="dropdown-menu" aria-labelledby="dropdown2">
                 <li><Link className="dropdown-item" href="/dev">Contributors</Link></li>
                 <li>
-                  <a 
-                    className="dropdown-item" 
-                    href="https://github.com/AbayGERDToken" 
+                  <a
+                    className="dropdown-item"
+                    href="https://github.com/AbayGERDToken"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -338,9 +348,9 @@ export default function Navbar() {
                   </a>
                 </li>
                 <li>
-                  <a 
-                    className="dropdown-item" 
-                    href="https://x.com/abaygerdtoken" 
+                  <a
+                    className="dropdown-item"
+                    href="https://x.com/abaygerdtoken"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -348,9 +358,9 @@ export default function Navbar() {
                   </a>
                 </li>
                 <li>
-                  <a 
-                    className="dropdown-item" 
-                    href="https://www.tiktok.com/@abaygerdtoken" 
+                  <a
+                    className="dropdown-item"
+                    href="https://www.tiktok.com/@abaygerdtoken"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -358,9 +368,9 @@ export default function Navbar() {
                   </a>
                 </li>
                 <li>
-                  <a 
-                    className="dropdown-item" 
-                    href="https://t.me/GERDToken" 
+                  <a
+                    className="dropdown-item"
+                    href="https://t.me/GERDToken"
                     target="_blank"
                     rel="noopener noreferrer"
                   >
@@ -369,11 +379,11 @@ export default function Navbar() {
                 </li>
               </ul>
             </li>
-            
+
             <li className="nav-item">
-              <a 
-                className="nav-link" 
-                href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c" 
+              <a
+                className="nav-link"
+                href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c"
                 target="_blank"
                 rel="noopener noreferrer"
               >

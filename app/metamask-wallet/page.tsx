@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import CopyButton from '@/components/CopyButton';
+import ContractAddress from '@/components/ContractAddress';
 
 export default function MetamaskWallet() {
   return (
@@ -27,7 +27,7 @@ export default function MetamaskWallet() {
         <div className="container">
           <div className="row">
             <div className="col-lg-10 mx-auto">
-              
+
               {/* Step 1 */}
               <div className="card step-card">
                 <div className="card-body p-5">
@@ -156,20 +156,10 @@ export default function MetamaskWallet() {
                           <i className="fas fa-check-circle text-success me-2"></i>The rest should auto-fill. Click &quot;Next&quot; and &quot;Add Tokens&quot;
                         </li>
                       </ul>
-                      <div className="contract-box">
-                        <p className="mb-2 small text-muted">
-                          <i className="fas fa-info-circle me-2"></i>GERD Contract Address:
-                        </p>
-                        <div className="d-flex align-items-center flex-wrap gap-2">
-                          <code 
-                            className="text-success fw-bold fs-6 text-break flex-grow-1" 
-                            style={{ wordBreak: 'break-all', minWidth: 0 }}
-                          >
-                            0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c
-                          </code>
-                          <CopyButton address="0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c" className="flex-shrink-0" />
-                        </div>
-                      </div>
+                      <ContractAddress
+                        address="0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c"
+                        label="GERD Contract Address"
+                      />
                     </div>
                   </div>
                 </div>
@@ -204,8 +194,8 @@ export default function MetamaskWallet() {
               {/* Success Alert */}
               <div className="alert alert-success border-0 shadow-sm">
                 <div className="d-flex align-items-center">
-                  <div 
-                    className="bg-success-subtle text-success rounded-circle d-flex align-items-center justify-content-center me-3" 
+                  <div
+                    className="bg-success-subtle text-success rounded-circle d-flex align-items-center justify-content-center me-3"
                     style={{ width: '48px', height: '48px', fontSize: '24px' }}
                   >
                     <i className="fas fa-check-circle"></i>
@@ -234,9 +224,9 @@ export default function MetamaskWallet() {
               </h2>
             </div>
             <div className="col-md-4 text-center">
-              <Image 
-                src="/image/abay_bluesky.png" 
-                alt="AbayGERDToken" 
+              <Image
+                src="/image/abay_bluesky.png"
+                alt="AbayGERDToken"
                 className="img-fluid img-hero"
                 width={300}
                 height={300}

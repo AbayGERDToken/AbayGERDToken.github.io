@@ -26,7 +26,7 @@ export default function MigrationAnnouncement() {
         <div className="container">
           <div className="row">
             <div className="col-lg-10 mx-auto">
-              
+
               {/* Why Migration Section */}
               <div className="card feature-card mb-5">
                 <div className="card-body p-5">
@@ -42,9 +42,9 @@ export default function MigrationAnnouncement() {
                   <div className="alert alert-warning border-warning">
                     <p className="mb-0">
                       <strong>99.99% of the legacy contract&apos;s supply has been burned to a dead address.</strong>{' '}
-                      <a 
-                        href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019?a=0x000000000000000000000000000000000000dead" 
-                        target="_blank" 
+                      <a
+                        href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019?a=0x000000000000000000000000000000000000dead"
+                        target="_blank"
                         rel="noopener noreferrer"
                         className="text-decoration-none fw-bold"
                       >
@@ -64,8 +64,8 @@ export default function MigrationAnnouncement() {
                   <div className="row g-3">
                     <div className="col-md-6">
                       <div className="d-flex align-items-start">
-                        <div 
-                          className="bg-success-subtle text-success rounded-circle d-flex align-items-center justify-content-center me-3" 
+                        <div
+                          className="bg-success-subtle text-success rounded-circle d-flex align-items-center justify-content-center me-3"
                           style={{ width: '48px', height: '48px', fontSize: '20px', flexShrink: 0 }}
                         >
                           <i className="fas fa-lock"></i>
@@ -78,8 +78,8 @@ export default function MigrationAnnouncement() {
                     </div>
                     <div className="col-md-6">
                       <div className="d-flex align-items-start">
-                        <div 
-                          className="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center me-3" 
+                        <div
+                          className="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center me-3"
                           style={{ width: '48px', height: '48px', fontSize: '20px', flexShrink: 0 }}
                         >
                           <i className="fas fa-ban"></i>
@@ -92,8 +92,8 @@ export default function MigrationAnnouncement() {
                     </div>
                     <div className="col-md-6">
                       <div className="d-flex align-items-start">
-                        <div 
-                          className="bg-info-subtle text-info rounded-circle d-flex align-items-center justify-content-center me-3" 
+                        <div
+                          className="bg-info-subtle text-info rounded-circle d-flex align-items-center justify-content-center me-3"
                           style={{ width: '48px', height: '48px', fontSize: '20px', flexShrink: 0 }}
                         >
                           <i className="fas fa-user-slash"></i>
@@ -106,8 +106,8 @@ export default function MigrationAnnouncement() {
                     </div>
                     <div className="col-md-6">
                       <div className="d-flex align-items-start">
-                        <div 
-                          className="bg-warning-subtle text-warning rounded-circle d-flex align-items-center justify-content-center me-3" 
+                        <div
+                          className="bg-warning-subtle text-warning rounded-circle d-flex align-items-center justify-content-center me-3"
                           style={{ width: '48px', height: '48px', fontSize: '20px', flexShrink: 0 }}
                         >
                           <i className="fas fa-shield-alt"></i>
@@ -155,8 +155,8 @@ export default function MigrationAnnouncement() {
               <div className="card feature-card border-success mb-5">
                 <div className="card-body p-5">
                   <div className="text-center mb-4">
-                    <div 
-                      className="bg-success-subtle text-success rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" 
+                    <div
+                      className="bg-success-subtle text-success rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3"
                       style={{ width: '80px', height: '80px', fontSize: '36px' }}
                     >
                       <i className="fas fa-check-circle"></i>
@@ -185,8 +185,8 @@ export default function MigrationAnnouncement() {
                   <div className="row g-3">
                     <div className="col-md-6">
                       <div className="d-flex align-items-start">
-                        <div 
-                          className="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center me-3" 
+                        <div
+                          className="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center me-3"
                           style={{ width: '40px', height: '40px', fontSize: '18px', flexShrink: 0 }}
                         >
                           <span className="fw-bold">1</span>
@@ -198,8 +198,8 @@ export default function MigrationAnnouncement() {
                     </div>
                     <div className="col-md-6">
                       <div className="d-flex align-items-start">
-                        <div 
-                          className="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center me-3" 
+                        <div
+                          className="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center me-3"
                           style={{ width: '40px', height: '40px', fontSize: '18px', flexShrink: 0 }}
                         >
                           <span className="fw-bold">2</span>
@@ -211,8 +211,8 @@ export default function MigrationAnnouncement() {
                     </div>
                     <div className="col-md-6">
                       <div className="d-flex align-items-start">
-                        <div 
-                          className="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center me-3" 
+                        <div
+                          className="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center me-3"
                           style={{ width: '40px', height: '40px', fontSize: '18px', flexShrink: 0 }}
                         >
                           <span className="fw-bold">3</span>
@@ -224,8 +224,8 @@ export default function MigrationAnnouncement() {
                     </div>
                     <div className="col-md-6">
                       <div className="d-flex align-items-start">
-                        <div 
-                          className="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center me-3" 
+                        <div
+                          className="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center me-3"
                           style={{ width: '40px', height: '40px', fontSize: '18px', flexShrink: 0 }}
                         >
                           <span className="fw-bold">4</span>
@@ -236,19 +236,11 @@ export default function MigrationAnnouncement() {
                       </div>
                     </div>
                   </div>
-                  <div className="contract-box mt-4">
-                    <p className="mb-2 small text-muted">Contract Details:</p>
-                    <ul className="list-unstyled mb-0">
-                      <li className="mb-1">
-                        <strong>Contract Address:</strong> <code className="text-break" style={{ wordBreak: 'break-all' }}>0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c</code>
-                      </li>
-                      <li className="mb-1">
-                        <strong>Symbol:</strong> <code>GERD</code>
-                      </li>
-                      <li className="mb-0">
-                        <strong>Decimals:</strong> <code>2</code>
-                      </li>
-                    </ul>
+                  <div className="mt-4">
+                    <ContractAddress
+                      address="0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c"
+                      label="New Contract Details (Symbol: GERD, Decimals: 2)"
+                    />
                   </div>
                 </div>
               </div>
@@ -280,9 +272,9 @@ export default function MigrationAnnouncement() {
                       </Link>
                     </div>
                     <div className="col-md-4">
-                      <a 
-                        href="https://t.me/gerdtoken" 
-                        target="_blank" 
+                      <a
+                        href="https://t.me/gerdtoken"
+                        target="_blank"
                         rel="noopener noreferrer"
                         className="text-decoration-none d-block p-3 border rounded text-center feature-card"
                       >
@@ -291,9 +283,9 @@ export default function MigrationAnnouncement() {
                       </a>
                     </div>
                     <div className="col-md-4">
-                      <a 
-                        href="https://x.com/abaygerdtoken" 
-                        target="_blank" 
+                      <a
+                        href="https://x.com/abaygerdtoken"
+                        target="_blank"
                         rel="noopener noreferrer"
                         className="text-decoration-none d-block p-3 border rounded text-center feature-card"
                       >
@@ -320,9 +312,9 @@ export default function MigrationAnnouncement() {
               </h2>
             </div>
             <div className="col-md-4 text-center">
-              <Image 
-                src="/image/abay_bluesky.png" 
-                alt="AbayGERDToken" 
+              <Image
+                src="/image/abay_bluesky.png"
+                alt="AbayGERDToken"
                 className="img-fluid img-hero"
                 width={300}
                 height={300}

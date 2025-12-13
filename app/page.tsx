@@ -112,8 +112,8 @@ export default function Home() {
                   <div className="row g-3">
                     <div className="col-md-4">
                       <div className="d-flex align-items-start">
-                        <div 
-                          className="feature-icon bg-success-subtle text-success me-3" 
+                        <div
+                          className="feature-icon bg-success-subtle text-success me-3"
                           style={{ width: '48px', height: '48px', fontSize: '20px' }}
                         >
                           <i className="fas fa-parachute-box"></i>
@@ -126,8 +126,8 @@ export default function Home() {
                     </div>
                     <div className="col-md-4">
                       <div className="d-flex align-items-start">
-                        <div 
-                          className="feature-icon bg-warning-subtle text-warning me-3" 
+                        <div
+                          className="feature-icon bg-warning-subtle text-warning me-3"
                           style={{ width: '48px', height: '48px', fontSize: '20px' }}
                         >
                           <i className="fas fa-coins"></i>
@@ -140,8 +140,8 @@ export default function Home() {
                     </div>
                     <div className="col-md-4">
                       <div className="d-flex align-items-start">
-                        <div 
-                          className="feature-icon bg-info-subtle text-info me-3" 
+                        <div
+                          className="feature-icon bg-info-subtle text-info me-3"
                           style={{ width: '48px', height: '48px', fontSize: '20px' }}
                         >
                           <i className="fas fa-fire"></i>
@@ -198,6 +198,7 @@ export default function Home() {
                 iconColor="text-primary"
                 title="Global Claim Offer"
                 borderColor="primary"
+                center={true}
               >
                 <div className="text-center">
                   <div className="stat-number mb-2" style={{ fontSize: '2rem' }}>10,000</div>
@@ -215,6 +216,7 @@ export default function Home() {
                 iconColor="text-danger"
                 title="Ethiopia-Specific Claim"
                 borderColor="danger"
+                center={true}
               >
                 <div className="text-center">
                   <div className="stat-number mb-2" style={{ fontSize: '2rem', color: '#dc3545' }}>75,000</div>
@@ -385,7 +387,7 @@ export default function Home() {
                   <p className="mb-4">
                     To recognize those who played a pivotal role in this national effort, the Abay GERD Token team is awarding <strong>symbolic grants of 10 million GERD tokens</strong> to key pioneers. These tokens are not taken from the 115 billion locked national reserve but instead allocated from a separate pool set aside for special recognition and future development.
                   </p>
-                  
+
                   <div className="row g-4 mt-4">
                     <div className="col-md-6">
                       <div className="card border-primary h-100">
@@ -395,14 +397,12 @@ export default function Home() {
                             As the Chief Project Manager of GERD, Engineer Simegnew embodied resilience and conviction. His tireless leadership under pressure earned him widespread admiration. Though his life was tragically cut short, his contributions live on through the dam—and now through this digital tribute.
                           </p>
                           <p className="mb-2 small"><strong>10 million GERD tokens</strong> reserved at:</p>
-                          <a 
-                            href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c?a=0x75F5f7d68AD14f467c935d6B375D350614F9cF68" 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="text-decoration-none"
-                          >
-                            <code className="small">0x75F5f7d68AD14f467c935d6B375D350614F9cF68</code> <i className="fas fa-external-link-alt ms-1 small"></i>
-                          </a>
+                          <ContractAddress
+                            address="0x75F5f7d68AD14f467c935d6B375D350614F9cF68"
+                            label="Reserved Address"
+                            isLegacy={true}
+                            borderColor="#ffc107"
+                          />
                         </div>
                       </div>
                     </div>
@@ -414,14 +414,12 @@ export default function Home() {
                             As the visionary who championed the GERD from its inception, the late Prime Minister Meles Zenawi laid the groundwork for this generational project. His leadership and unwavering belief in Ethiopia&apos;s potential continue to inspire millions.
                           </p>
                           <p className="mb-2 small"><strong>10 million GERD tokens</strong> reserved at:</p>
-                          <a 
-                            href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c?a=0x75F5f7d68AD14f467c935d6B375D350614F9cF68" 
-                            target="_blank" 
-                            rel="noopener noreferrer"
-                            className="text-decoration-none"
-                          >
-                            <code className="small">0x75F5f7d68AD14f467c935d6B375D350614F9cF68</code> <i className="fas fa-external-link-alt ms-1 small"></i>
-                          </a>
+                          <ContractAddress
+                            address="0x75F5f7d68AD14f467c935d6B375D350614F9cF68"
+                            label="Reserved Address"
+                            isLegacy={true}
+                            borderColor="#ffc107"
+                          />
                         </div>
                       </div>
                     </div>
@@ -604,9 +602,9 @@ export default function Home() {
               </h2>
             </div>
             <div className="col-md-4 text-center">
-              <Image 
-                alt="AbayGERDToken" 
-                src="/image/abay_bluesky.png" 
+              <Image
+                alt="AbayGERDToken"
+                src="/image/abay_bluesky.png"
                 className="img-fluid img-hero"
                 width={300}
                 height={300}

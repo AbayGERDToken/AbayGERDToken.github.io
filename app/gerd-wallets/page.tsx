@@ -36,12 +36,12 @@ export default function GerdWallets() {
         // Dynamically import Web3
         const Web3 = (await import('web3')).default;
         const web3 = new Web3(BSC_RPC);
-        
+
         const tokenABI = [
           { constant: true, inputs: [], name: 'decimals', outputs: [{ name: '', type: 'uint8' }], type: 'function' },
           { constant: true, inputs: [{ name: 'account', type: 'address' }], name: 'balanceOf', outputs: [{ name: '', type: 'uint256' }], type: 'function' },
         ];
-        
+
         const contract = new web3.eth.Contract(tokenABI as any, GERD_TOKEN_ADDRESS);
         const decimals = await contract.methods.decimals().call();
 
@@ -66,6 +66,8 @@ export default function GerdWallets() {
 
     fetchBalances();
   }, []);
+
+
 
   return (
     <>
@@ -110,13 +112,12 @@ export default function GerdWallets() {
                         {balances.map((wallet) => (
                           <tr key={wallet.address}>
                             <td
-                              className={`balance ${
-                                wallet.loading
-                                  ? 'balance-loading'
-                                  : wallet.error
+                              className={`balance ${wallet.loading
+                                ? 'balance-loading'
+                                : wallet.error
                                   ? 'text-danger'
                                   : 'fw-bold text-success'
-                              }`}
+                                }`}
                             >
                               {wallet.loading ? 'Loading…' : wallet.balance}
                             </td>
@@ -154,9 +155,9 @@ export default function GerdWallets() {
               </h2>
             </div>
             <div className="col-md-4 text-center">
-              <Image 
-                src="/image/abay_bluesky.png" 
-                alt="AbayGERDToken" 
+              <Image
+                src="/image/abay_bluesky.png"
+                alt="AbayGERDToken"
                 className="img-fluid img-hero"
                 width={300}
                 height={300}
