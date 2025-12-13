@@ -32,7 +32,7 @@ export default function ClaimForm() {
     const existing = document.querySelector(`script[src="${src}"]`) as HTMLScriptElement | null;
     if (existing) {
       // If already loaded, call onload immediately when possible
-      if ((existing as any).loaded || existing.readyState === 'complete') {
+      if ((existing as any).loaded || (existing as any).readyState === 'complete') {
         try { onload(); } catch (e) { console.warn(e); }
         return () => {};
       }
