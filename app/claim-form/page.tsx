@@ -25,16 +25,18 @@ export default function ClaimForm() {
   const [isWeb3Ready, setIsWeb3Ready] = useState(false);
   const [isRecaptchaReady, setIsRecaptchaReady] = useState(false);
   const isInitializing = useRef(false);
+  const recaptchaRef = useRef<HTMLDivElement>(null);
+  const recaptchaWidgetId = useRef<number | null>(null);
 
   // Utility to load script if absent, or attach load handler if present
   const ensureScriptLoaded = (src: string, onload: () => void) => {
-    if (typeof document === 'undefined') return () => {};
+    if (typeof document === 'undefined') return () => { };
     const existing = document.querySelector(`script[src="${src}"]`) as HTMLScriptElement | null;
     if (existing) {
       // If already loaded, call onload immediately when possible
       if ((existing as any).loaded || (existing as any).readyState === 'complete') {
         try { onload(); } catch (e) { console.warn(e); }
-        return () => {};
+        return () => { };
       }
       const listener = () => onload();
       existing.addEventListener('load', listener);
@@ -262,7 +264,10 @@ export default function ClaimForm() {
       return;
     }
     const recipient = walletAddress.trim();
-    const recaptchaToken = window.grecaptcha?.getResponse();
+    // Use widget ID if available, otherwise fallback to default (though explicit generic is better)
+    const recaptchaToken = typeof recaptchaWidgetId.current === 'number'
+      ? window.grecaptcha?.getResponse(recaptchaWidgetId.current)
+      : window.grecaptcha?.getResponse();
 
     if (!web3?.utils.isAddress(recipient)) {
       setResponse({ type: 'danger', message: 'Please enter a valid wallet address.' });
@@ -294,9 +299,9 @@ export default function ClaimForm() {
       const locData = await locResponse.json();
       const estimatedAmount = locData.country_code === 'ET' ? 75000 : 10000;
 
-      setResponse({ 
-        type: 'info', 
-        message: `Detected Country: ${locData.country_name}. Preparing to send approximately ${estimatedAmount} GERD Tokens...` 
+      setResponse({
+        type: 'info',
+        message: `Detected Country: ${locData.country_name}. Preparing to send approximately ${estimatedAmount} GERD Tokens...`
       });
 
       const res = await fetch('https://abay-gerd-backend.onrender.com/send-token', {
@@ -324,22 +329,44 @@ export default function ClaimForm() {
 
       const data = await res.json();
       if (data.status === 'success') {
-        setResponse({ 
-          type: 'success', 
-          message: `Success! Tokens sent. Tx Hash: 0x${data.tx_hash}` 
+        setResponse({
+          type: 'success',
+          message: `Success! Tokens sent. Tx Hash: 0x${data.tx_hash}`
         });
       } else {
         setResponse({ type: 'danger', message: `Error: ${data.message}` });
       }
     } catch (err: any) {
-      setResponse({ type: 'danger', message: `Error: ${err.message}` });
     } finally {
       setLoading(false);
       if (window.grecaptcha) {
-        window.grecaptcha.reset();
+        if (typeof recaptchaWidgetId.current === 'number') {
+          window.grecaptcha.reset(recaptchaWidgetId.current);
+        } else {
+          window.grecaptcha.reset();
+        }
       }
     }
   };
+
+  // Render reCAPTCHA explicitly when ready
+  useEffect(() => {
+    if (isRecaptchaReady && recaptchaRef.current && window.grecaptcha) {
+      // Clean up any existing instance if we can (though difficult with just innerHTML check)
+      if (recaptchaRef.current.innerHTML.trim() !== '') {
+        return; // Already rendered
+      }
+
+      try {
+        const id = window.grecaptcha.render(recaptchaRef.current, {
+          'sitekey': '6LdQyRkrAAAAANv5siZlVghMFzQ2AEPIg8501G9P',
+        });
+        recaptchaWidgetId.current = id;
+      } catch (e) {
+        console.warn('reCAPTCHA render failed:', e);
+      }
+    }
+  }, [isRecaptchaReady]);
 
   return (
     <>
@@ -378,10 +405,10 @@ export default function ClaimForm() {
                 <p className="lead fs-5 mb-4 opacity-90">
                   Get your free GERD tokens in seconds. No wallet connection required—just submit your address and receive your tokens.
                 </p>
-                <button 
-                  type="button" 
-                  className="btn btn-outline-light btn-lg" 
-                  data-bs-toggle="modal" 
+                <button
+                  type="button"
+                  className="btn btn-outline-light btn-lg"
+                  data-bs-toggle="modal"
                   data-bs-target="#changeModal"
                 >
                   <i className="fas fa-bullhorn me-2"></i>See Claim Update
@@ -402,8 +429,8 @@ export default function ClaimForm() {
               <div className="card feature-card h-100">
                 <div className="card-body p-4">
                   <div className="d-flex align-items-center mb-3">
-                    <div 
-                      className="bg-success-subtle text-success rounded-circle d-flex align-items-center justify-content-center" 
+                    <div
+                      className="bg-success-subtle text-success rounded-circle d-flex align-items-center justify-content-center"
                       style={{ width: '64px', height: '64px', fontSize: '28px' }}
                     >
                       <i className="fas fa-check-circle"></i>
@@ -423,8 +450,8 @@ export default function ClaimForm() {
               <div className="card feature-card h-100">
                 <div className="card-body p-4">
                   <div className="d-flex align-items-center mb-3">
-                    <div 
-                      className="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center" 
+                    <div
+                      className="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center"
                       style={{ width: '64px', height: '64px', fontSize: '28px' }}
                     >
                       <i className="fas fa-search"></i>
@@ -467,8 +494,8 @@ export default function ClaimForm() {
             <div className="col-md-6">
               <div className="card border-danger h-100">
                 <div className="card-body p-4 text-center">
-                  <div 
-                    className="bg-danger-subtle text-danger rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" 
+                  <div
+                    className="bg-danger-subtle text-danger rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3"
                     style={{ width: '80px', height: '80px', fontSize: '36px' }}
                   >
                     🇪🇹
@@ -482,8 +509,8 @@ export default function ClaimForm() {
             <div className="col-md-6">
               <div className="card border-primary h-100">
                 <div className="card-body p-4 text-center">
-                  <div 
-                    className="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" 
+                  <div
+                    className="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3"
                     style={{ width: '80px', height: '80px', fontSize: '36px' }}
                   >
                     <i className="fas fa-globe"></i>
@@ -511,24 +538,24 @@ export default function ClaimForm() {
                 </h2>
                 <div className="mb-4">
                   <label htmlFor="recipient" className="form-label fw-semibold">Wallet Address:</label>
-                  <input 
-                    className="form-control form-control-lg" 
-                    type="text" 
-                    id="recipient" 
+                  <input
+                    className="form-control form-control-lg"
+                    type="text"
+                    id="recipient"
                     placeholder="Enter your GERD wallet address"
                     value={walletAddress}
                     onChange={(e) => setWalletAddress(e.target.value)}
                   />
                 </div>
                 <div className="mb-4">
-                  <div 
-                    className="g-recaptcha d-flex justify-content-center" 
-                    data-sitekey="6LdQyRkrAAAAANv5siZlVghMFzQ2AEPIg8501G9P"
+                  <div
+                    ref={recaptchaRef}
+                    className="d-flex justify-content-center"
                   ></div>
                 </div>
                 <div className="d-grid">
-                  <button 
-                    className="btn btn-success btn-lg btn-claim" 
+                  <button
+                    className="btn btn-success btn-lg btn-claim"
                     onClick={claimTokens}
                     disabled={!isWeb3Ready || !isRecaptchaReady || loading}
                   >
@@ -545,12 +572,11 @@ export default function ClaimForm() {
                 </div>
                 {response && (
                   <div className={`mt-4 alert alert-${response.type}`}>
-                    <i className={`fas ${
-                      response.type === 'success' ? 'fa-check-circle' :
+                    <i className={`fas ${response.type === 'success' ? 'fa-check-circle' :
                       response.type === 'danger' ? 'fa-times-circle' :
-                      response.type === 'warning' ? 'fa-exclamation-triangle' :
-                      'fa-info-circle'
-                    } me-2`}></i>
+                        response.type === 'warning' ? 'fa-exclamation-triangle' :
+                          'fa-info-circle'
+                      } me-2`}></i>
                     {response.message}
                   </div>
                 )}
@@ -580,19 +606,19 @@ export default function ClaimForm() {
                   </h2>
                   <div className="mb-4">
                     <label htmlFor="bwallet-address" className="form-label fw-semibold">Wallet Address:</label>
-                    <input 
-                      className="form-control form-control-lg" 
-                      type="text" 
-                      placeholder="Enter wallet address to check balance" 
-                      id="bwallet-address" 
+                    <input
+                      className="form-control form-control-lg"
+                      type="text"
+                      placeholder="Enter wallet address to check balance"
+                      id="bwallet-address"
                       value={balanceAddress}
                       onChange={(e) => setBalanceAddress(e.target.value)}
                     />
                   </div>
                   <div className="d-grid">
-                    <button 
-                      className="btn btn-success btn-lg" 
-                      type="button" 
+                    <button
+                      className="btn btn-success btn-lg"
+                      type="button"
                       onClick={checkBalance}
                       disabled={!isWeb3Ready}
                     >
@@ -600,9 +626,8 @@ export default function ClaimForm() {
                     </button>
                   </div>
                   {balance && (
-                    <div className={`mt-4 text-center fw-bold fs-5 ${
-                      balance.includes('Error') ? 'text-danger' : 'text-success'
-                    }`}>
+                    <div className={`mt-4 text-center fw-bold fs-5 ${balance.includes('Error') ? 'text-danger' : 'text-success'
+                      }`}>
                       {balance.includes('Error') ? (
                         <>
                           <i className="fas fa-exclamation-circle me-2"></i>{balance}
@@ -631,9 +656,9 @@ export default function ClaimForm() {
               </h2>
             </div>
             <div className="col-md-4 text-center">
-              <Image 
-                src="/image/abay_bluesky.png" 
-                alt="AbayGERDToken" 
+              <Image
+                src="/image/abay_bluesky.png"
+                alt="AbayGERDToken"
                 className="img-fluid img-hero"
                 width={300}
                 height={300}
