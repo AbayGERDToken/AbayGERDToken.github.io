@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>GERD Token Vesting Dashboard</title>
+
+  <!-- Bootstrap 5.3.3 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Google Fonts - Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+</head>
+
+<body>
+  <!-- Dynamic Navbar -->
+  <div id="navbar-container"></div>
+  <script>
+    fetch('navtest.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('navbar-container').innerHTML = html;
+      })
+      .catch(err => console.error('Error loading navbar:', err));
+  </script>
+
+  <!-- Hero Section -->
+  <section class="bg-success text-white py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 mx-auto text-center">
+          <h1 class="display-4 fw-bold mb-4 pt-3"><i class="fas fa-chart-line me-3"></i>GERD Token Vesting Dashboard</h1>
+          <p class="lead fs-5">Real-time tracking of token vesting, releases, and distribution</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Dashboard -->
+  <section class="py-5">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-10 mx-auto">
+
+          <!-- Contract Address Card -->
+          <div class="card shadow-sm mb-5">
+            <div class="card-body p-4 text-center">
+              <h2 class="h6 fw-bold mb-3 text-muted">Contract Address</h2>
+              <div class="d-flex align-items-center justify-content-center flex-wrap">
+                <code id="contractAddress"
+                  class="font-monospace text-primary fs-6 me-2 text-break">0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c</code>
+                <button onclick="copyToClipboard()" class="btn btn-sm btn-outline-success" type="button">
+                  <i id="copyIcon" class="fas fa-copy"></i>
+                  <i id="checkIcon" class="fas fa-check d-none"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Stats Grid -->
+          <div class="row g-4 mb-5">
+            <div class="col-md-6 col-lg-3">
+              <div class="card h-100 border-success-subtle">
+                <div class="card-body text-center">
+                  <div
+                    class="bg-success-subtle text-success rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3"
+                    style="width: 64px; height: 64px; font-size: 28px;">
+                    <i class="fas fa-clock"></i>
+                  </div>
+                  <h3 class="h6 fw-bold mb-2">Next Release In</h3>
+                  <p id="countdown" class="fs-5 fw-bold text-success font-monospace mb-0">...</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <div class="card h-100 border-primary-subtle">
+                <div class="card-body text-center">
+                  <div
+                    class="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3"
+                    style="width: 64px; height: 64px; font-size: 28px;">
+                    <i class="fas fa-lock"></i>
+                  </div>
+                  <h3 class="h6 fw-bold mb-2">Total Tokens Locked</h3>
+                  <p id="locked" class="fs-5 fw-bold text-success font-monospace mb-0">...</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <div class="card h-100 border-success-subtle">
+                <div class="card-body text-center">
+                  <div
+                    class="bg-success-subtle text-success rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3"
+                    style="width: 64px; height: 64px; font-size: 28px;">
+                    <i class="fas fa-arrow-up"></i>
+                  </div>
+                  <h3 class="h6 fw-bold mb-2">Tokens Released</h3>
+                  <p id="released" class="fs-5 fw-bold text-success font-monospace mb-0">...</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-3">
+              <div class="card h-100 border-danger-subtle">
+                <div class="card-body text-center">
+                  <div
+                    class="bg-danger-subtle text-danger rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3"
+                    style="width: 64px; height: 64px; font-size: 28px;">
+                    <i class="fas fa-hourglass-half"></i>
+                  </div>
+                  <h3 class="h6 fw-bold mb-2">Remaining Locked</h3>
+                  <p id="remaining" class="fs-5 fw-bold text-danger font-monospace mb-0">...</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Next Release Details Card -->
+          <div class="card shadow-sm border-success">
+            <div class="card-body p-5">
+              <h2 class="h4 fw-bold mb-4 text-center"><i class="fas fa-calendar-check text-success me-2"></i>Next
+                Release Details</h2>
+              <div class="row g-4">
+                <div class="col-md-6">
+                  <div class="bg-light p-4 rounded">
+                    <p class="mb-2"><strong>Release Date:</strong></p>
+                    <p class="h5 text-success mb-0" id="releaseDate">...</p>
+                  </div>
+                </div>
+                <div class="col-md-6">
+                  <div class="bg-light p-4 rounded">
+                    <p class="mb-2"><strong>Total Amount:</strong></p>
+                    <p class="h5 text-primary mb-0">1,000,000,000 GERD</p>
+                  </div>
+                </div>
+              </div>
+              <hr class="my-4">
+              <h3 class="h6 fw-bold mb-3">Distribution Breakdown:</h3>
+              <div class="row g-3">
+                <div class="col-md-4">
+                  <div class="d-flex align-items-start">
+                    <div
+                      class="bg-success-subtle text-success rounded-circle d-flex align-items-center justify-content-center me-3"
+                      style="width: 40px; height: 40px; font-size: 18px; flex-shrink: 0;">
+                      <i class="fas fa-parachute-box"></i>
+                    </div>
+                    <div>
+                      <p class="mb-0 fw-bold">500,000,000 GERD</p>
+                      <small class="text-muted">Airdropped to all holders</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="d-flex align-items-start">
+                    <div
+                      class="bg-warning-subtle text-warning rounded-circle d-flex align-items-center justify-content-center me-3"
+                      style="width: 40px; height: 40px; font-size: 18px; flex-shrink: 0;">
+                      <i class="fas fa-coins"></i>
+                    </div>
+                    <div>
+                      <p class="mb-0 fw-bold">250,000,000 GERD</p>
+                      <small class="text-muted">Allocated for staking rewards</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <div class="d-flex align-items-start">
+                    <div
+                      class="bg-info-subtle text-info rounded-circle d-flex align-items-center justify-content-center me-3"
+                      style="width: 40px; height: 40px; font-size: 18px; flex-shrink: 0;">
+                      <i class="fas fa-fire"></i>
+                    </div>
+                    <div>
+                      <p class="mb-0 fw-bold">250,000,000 GERD</p>
+                      <small class="text-muted">To liquidity or burned</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Development Notice -->
+          <div class="alert alert-info border-info mt-5 text-center">
+            <p class="mb-0">
+              <i class="fas fa-info-circle me-2"></i>
+              This vesting smart contract is currently under development on the BSC Testnet and is expected to be
+              completed by <strong>Sep 30, 2025</strong>.
+            </p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-success-subtle py-5 mb-0">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <h2 class="h5 mb-3">
+            DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY AND SUPPORTING THE
+            GRAND ETHIOPIAN RENAISSANCE DAM PROJECT.
+            JOIN US IN CREATING A BRIGHTER FUTURE! #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD
+          </h2>
+        </div>
+        <div class="col-md-4 text-center">
+          <img src="image/abay_bluesky.png" alt="AbayGERDToken" class="img-fluid">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-dark text-light py-4">
+    <div class="container text-center">
+      <p class="small mb-0">
+        Copyright 2023 Abay GERD Token. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const lockedTotal = 115_000_000_000;
+      const releasePerYear = 1_000_000_000;
+      const startDate = new Date("2025-04-24T00:00:00Z");
+
+      const now = new Date();
+      const yearsElapsed = Math.floor((now - startDate) / (365.25 * 24 * 3600 * 1000));
+      const released = Math.min(yearsElapsed, 115) * releasePerYear;
+      const remaining = lockedTotal - released;
+
+      const lockedEl = document.getElementById("locked");
+      const releasedEl = document.getElementById("released");
+      const remainingEl = document.getElementById("remaining");
+
+      if (lockedEl) lockedEl.innerText = lockedTotal.toLocaleString();
+      if (releasedEl) releasedEl.innerText = released.toLocaleString();
+      if (remainingEl) remainingEl.innerText = remaining.toLocaleString();
+
+      const nextRelease = new Date(startDate.getTime());
+      nextRelease.setUTCFullYear(startDate.getUTCFullYear() + yearsElapsed + 1);
+      const releaseDateEl = document.getElementById("releaseDate");
+      if (releaseDateEl) releaseDateEl.innerText = nextRelease.toDateString();
+
+      function updateCountdown() {
+        const countdownEl = document.getElementById("countdown");
+        if (!countdownEl) return;
+
+        const diff = nextRelease - new Date();
+        if (diff <= 0) {
+          countdownEl.innerText = "Available Now!";
+          return;
+        }
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+        countdownEl.innerText = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+      }
+
+      setInterval(updateCountdown, 1000);
+      updateCountdown();
+    });
+
+    function copyToClipboard() {
+      const contractAddressEl = document.getElementById("contractAddress");
+      if (!contractAddressEl) return;
+
+      const text = contractAddressEl.innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        const copyIcon = document.getElementById("copyIcon");
+        const checkIcon = document.getElementById("checkIcon");
+        if (copyIcon) copyIcon.classList.add("d-none");
+        if (checkIcon) checkIcon.classList.remove("d-none");
+        setTimeout(() => {
+          if (checkIcon) checkIcon.classList.add("d-none");
+          if (copyIcon) copyIcon.classList.remove("d-none");
+        }, 1500);
+      });
+    }
+  </script>
+
+  <!-- Bootstrap 5.3.3 JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Abay GERD Token</title>
+
+  <!-- Bulma + Tailwind + Flowbite -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            green: {
+              600: '#047857',
+              100: '#d1fae5',
+              200: '#a7f3d0'
+            }
+          }
+        }
+      }
+    }
+  </script>
+  <script src="https://unpkg.com/flowbite@2.2.1/dist/flowbite.min.js"></script>
+</head>
+
+<body>
+  <!-- Injected Navbar -->
+  <div id="navbar-container"></div>
+  <script>
+    fetch('navtest.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('navbar-container').innerHTML = html;
+        setTimeout(() => {
+          if (window.initFlowbite) initFlowbite();
+        }, 200);
+      });
+  </script>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="title">Trust Wallet Setup</h2>
+      <p><li>sahask shodwruuth  kfhakdsh kf hskfhfka hfa fak </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="subtitle">Section 1</h2>
+      <p>sahask <strong>shodwruuth  kfhakdsh</strong> kf hskfhfka hfa fak </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="subtitle">Section 2</h2>
+      <p>sahask shodwruuth  kfhakdsh kf hskfhfka hfa fak </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <h2 class="title">Section 4.</h2>
+      <p>T sfak fhda shfafh sdkhf afakf</p>
+    </div>
+  </section>
+
+  <section class="hero is-success is-bold">
+    <div class="hero-body">
+      <div class="container">
+        <div class="columns is-vcentered">
+          <div class="column">
+            <h2 class="subtitle">
+              DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY AND SUPPORTING THE GRAND ETHIOPIAN RENAISSANCE DAM PROJECT.
+              JOIN US IN CREATING A BRIGHTER FUTURE! 🌍💰 #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD
+            </h2>
+          </div>
+          <div class="column has-text-centered">
+            <img src="image/abay_bluesky.png" alt="AbayGERDToken" style="width: 300px; height: auto;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="content has-text-centered">
+      <p style="font-size: 0.85rem;">
+        Copyright 2023 Abay GERD Token. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+</body>
+</html>

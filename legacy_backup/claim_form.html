@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Abay GERD Token Claim</title>
+  
+  <!-- Bootstrap 5.3.3 CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"/>
+  
+  <!-- Font Awesome 6 -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"/>
+  
+  <!-- Google Fonts - Outfit -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/main.css"/>
+  
+  <!-- Web3 -->
+  <script src="https://cdn.jsdelivr.net/npm/web3@1.8.2/dist/web3.min.js"></script>
+  
+  <!-- reCAPTCHA -->
+  <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+  
+  <style>
+    :root {
+      --gerd-primary: #198754;
+      --gerd-dark: #0f5132;
+      --gerd-light: #d1e7dd;
+    }
+    
+    .hero-section {
+      background: linear-gradient(135deg, var(--gerd-primary) 0%, var(--gerd-dark) 100%);
+      color: white;
+      padding: 60px 0;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .hero-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><defs><pattern id="grid" width="100" height="100" patternUnits="userSpaceOnUse"><path d="M 100 0 L 0 0 0 100" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="1"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+      opacity: 0.3;
+    }
+    
+    .hero-content {
+      position: relative;
+      z-index: 1;
+    }
+    
+    .feature-card {
+      border: none;
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      height: 100%;
+    }
+    
+    .feature-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 12px 40px rgba(0,0,0,0.15);
+    }
+    
+    .claim-card {
+      border: 2px solid var(--gerd-light);
+      border-radius: 16px;
+      padding: 40px;
+      background: white;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    }
+    
+    .contract-box {
+      background: var(--gerd-light);
+      padding: 20px;
+      border-radius: 12px;
+      border-left: 4px solid var(--gerd-primary);
+    }
+    
+    .section-divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gerd-light), transparent);
+      margin: 60px 0;
+    }
+    
+    .content-section {
+      padding: 80px 0;
+    }
+    
+    .btn-claim {
+      padding: 16px 40px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      border-radius: 50px;
+      box-shadow: 0 8px 24px rgba(25, 135, 84, 0.3);
+      transition: all 0.3s ease;
+    }
+    
+    .btn-claim:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 32px rgba(25, 135, 84, 0.4);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Dynamic Navbar -->
+  <div id="navbar-container"></div>
+  <script>
+    fetch('navtest.html')
+      .then(res => res.text())
+      .then(html => {
+        document.getElementById('navbar-container').innerHTML = html;
+      })
+      .catch(err => console.error('Error loading navbar:', err));
+  </script>
+
+  <!-- Hero Section -->
+  <section class="hero-section">
+    <div class="container">
+      <div class="hero-content">
+        <div class="row align-items-center">
+          <div class="col-lg-8 mx-auto text-center">
+            <h1 class="display-4 fw-bold mb-4"><i class="fas fa-gift me-3"></i>Claim Your GERD Tokens</h1>
+            <p class="lead fs-5 mb-4 opacity-90">
+              Get your free GERD tokens in seconds. No wallet connection required—just submit your address and receive your tokens.
+            </p>
+            <button type="button" class="btn btn-outline-light btn-lg" data-bs-toggle="modal" data-bs-target="#changeModal">
+              <i class="fas fa-bullhorn me-2"></i>See Claim Update
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Bootstrap Modal -->
+  <div class="modal fade" id="changeModal" tabindex="-1" aria-labelledby="changeModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-lg">
+      <div class="modal-content">
+        <div class="modal-header border-0 pb-0">
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body px-4 pb-4">
+          <div class="text-center mb-4">
+                   <h3 class="h3 fw-bold mb-2" id="changeModalLabel"> <i class="fas fa-gift"></i> GERD Token Claim Update</h3>
+            <p class="text-muted mb-0">Starting May 5, 2025</p>
+          </div>
+
+          <div class="alert alert-info border-info mb-4">
+            <p class="mb-0"><i class="fas fa-info-circle me-2"></i>Increase in the total amount of GERD Tokens available for claiming:</p>
+          </div>
+
+          <div class="row g-3 mb-4">
+            <div class="col-md-6">
+              <div class="card border-primary h-100">
+                <div class="card-body p-4 text-center">
+                  <h4 class="h6 fw-bold mb-2"><i class="fas fa-globe"></i> Global Claim</h4>
+                  <div class="mb-2">
+                    <div class="h5 text-muted mb-0">1,000 GERD</div>
+                  </div>
+                  <div class="mb-0">
+                    <i class="fas fa-arrow-down text-primary mb-2 d-block"></i>
+                    <div class="h4 fw-bold text-primary mb-0">10,000 GERD</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card border-danger h-100">
+                <div class="card-body p-4 text-center">
+                  <h4 class="h6 fw-bold mb-2">🇪🇹 Ethiopia-Specific Claim</h4>
+                  <div class="mb-2">
+                    <div class="h5 text-muted mb-0">7,500 GERD</div>
+                  </div>
+                  <div class="mb-0">
+                    <i class="fas fa-arrow-down text-danger mb-2 d-block"></i>
+                    <div class="h4 fw-bold text-danger mb-0">75,000 GERD</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="alert alert-success border-success mb-4">
+            <div class="d-flex align-items-start">
+              <div class="bg-success-subtle text-success rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 40px; height: 40px; font-size: 20px; flex-shrink: 0;">
+                <i class="fas fa-gift"></i>
+              </div>
+              <div>
+                <h5 class="h6 fw-bold mb-2">10x Airdrop Bonus for Early Claimers!</h5>
+                <p class="mb-2"><strong>Wallets that have previously claimed before the increase</strong> will receive a <strong>10x airdrop bonus</strong> based on their original claim amount.</p>
+                <p class="mb-0"><em>Example: If you previously claimed 1,000 GERD, you will receive 10,000 GERD via airdrop on 05/05/2025.</em></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center">
+            <div class="bg-success-subtle text-success rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 48px; height: 48px; font-size: 24px;">
+              <i class="fas fa-check-circle"></i>
+            </div>
+            <p class="fw-bold mb-0">Thank you for supporting the GERD mission!</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Info Section -->
+  <section class="content-section">
+    <div class="container">
+      <div class="row g-4 mb-5">
+        <div class="col-md-6">
+          <div class="card feature-card h-100">
+            <div class="card-body p-4">
+              <div class="d-flex align-items-center mb-3">
+                <div class="bg-success-subtle text-success rounded-circle d-flex align-items-center justify-content-center" style="width: 64px; height: 64px; font-size: 28px;">
+                  <i class="fas fa-check-circle"></i>
+                </div>
+                <div class="ms-3">
+                  <h3 class="h5 fw-bold mb-0">No Wallet Connection</h3>
+                  <p class="text-muted small mb-0">Privacy and safety first</p>
+                </div>
+              </div>
+              <p class="text-muted mb-0">We never ask users to connect or sign transactions. Simply submit your wallet address and receive your tokens securely.</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card feature-card h-100">
+            <div class="card-body p-4">
+              <div class="d-flex align-items-center mb-3">
+                <div class="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center" style="width: 64px; height: 64px; font-size: 28px;">
+                  <i class="fas fa-search"></i>
+                </div>
+                <div class="ms-3">
+                  <h3 class="h5 fw-bold mb-0">Before You Claim</h3>
+                  <p class="text-muted small mb-0">Important preparation steps</p>
+                </div>
+              </div>
+              <ul class="list-unstyled mb-0">
+                <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Import the GERD contract into your wallet</li>
+                <li class="mb-0"><i class="fas fa-check text-success me-2"></i>Use a supported wallet (Trust Wallet, MetaMask, etc.)</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contract Address -->
+      <div class="row mb-5">
+        <div class="col-lg-8 mx-auto">
+          <div class="contract-box">
+            <p class="mb-2 small text-muted"><i class="fas fa-info-circle me-2"></i>GERD Contract Address (Import this into your wallet):</p>
+            <div class="align-items-center justify-content-between flex-wrap gap-2">
+              <code id="contractAddress" class="text-success fw-bold fs-6">0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c</code>
+              <button onclick="copyToClipboard()" class="btn btn-sm btn-outline-success" type="button">
+                <i id="copyIcon" class="fas fa-copy"></i>
+                <i id="checkIcon" class="fas fa-check text-success d-none"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Eligibility Cards -->
+      <div class="row g-4 mb-5">
+        <div class="col-md-6">
+          <div class="card border-danger h-100">
+            <div class="card-body p-4 text-center">
+              <div class="bg-danger-subtle text-danger rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 80px; height: 80px; font-size: 36px;">
+                🇪🇹 
+              </div>
+              <h3 class="h5 fw-bold mb-2">Ethiopia-Based Wallets</h3>
+              <div class="display-6 fw-bold text-danger mb-2">75,000</div>
+              <p class="text-muted mb-0">GERD tokens per wallet</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class="card border-primary h-100">
+            <div class="card-body p-4 text-center">
+              <div class="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3" style="width: 80px; height: 80px; font-size: 36px;">
+                <i class="fas fa-globe"></i>
+              </div>
+              <h3 class="h5 fw-bold mb-2">Global Wallets</h3>
+              <div class="display-6 fw-bold text-primary mb-2">10,000</div>
+              <p class="text-muted mb-0">GERD tokens per wallet</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- Claim Form Section -->
+  <section class="content-section bg-light">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <div class="claim-card">
+            <h2 class="h3 fw-bold mb-4 text-center"><i class="fas fa-wallet text-success me-2"></i>Claim Your Tokens</h2>
+            <div class="mb-4">
+              <label for="recipient" class="form-label fw-semibold">Wallet Address:</label>
+              <input class="form-control form-control-lg" type="text" id="recipient" placeholder="Enter your GERD wallet address" />
+            </div>
+            <div class="mb-4">
+              <div class="g-recaptcha d-flex justify-content-center" data-sitekey="6LdQyRkrAAAAANv5siZlVghMFzQ2AEPIg8501G9P"></div>
+            </div>
+            <div class="d-grid">
+              <button class="btn btn-success btn-lg btn-claim" onclick="claimTokens()">
+                <i class="fas fa-gift me-2"></i>Claim Tokens
+              </button>
+            </div>
+            <div id="response" class="mt-4 text-center"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- Balance Check Section -->
+  <section class="content-section">
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <div class="card feature-card">
+            <div class="card-body p-5">
+              <h2 class="h3 fw-bold mb-4 text-center"><i class="fas fa-balance-scale text-info me-2"></i>Check Your Balance</h2>
+              <div class="mb-4">
+                <label for="bwallet-address" class="form-label fw-semibold">Wallet Address:</label>
+                <input class="form-control form-control-lg" type="text" placeholder="Enter wallet address to check balance" id="bwallet-address" name="bwallet-address"/>
+              </div>
+              <div class="d-grid">
+                <button class="btn btn-success btn-lg" type="button" id="check-balance">
+                  <i class="fas fa-search me-2"></i>Check Balance
+                </button>
+              </div>
+              <div id="balance-result" class="mt-4 text-center fw-bold fs-5">Balance: N/A</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-success-subtle py-5 mb-0">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-8">
+          <h2 class="h5 mb-3">
+            DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY AND SUPPORTING THE GRAND ETHIOPIAN RENAISSANCE DAM PROJECT.
+            JOIN US IN CREATING A BRIGHTER FUTURE! <i class="fas fa-earth-americas text-primary"></i> <i class="fas fa-coins text-warning"></i> #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD
+          </h2>
+        </div>
+        <div class="col-md-4 text-center">
+          <img src="image/abay_bluesky.png" alt="AbayGERDToken" class="img-fluid img-hero">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="bg-dark text-light py-4">
+    <div class="container text-center">
+      <p class="small mb-0">
+        <a href="mailto:contact@abaygerdtoken.com?subject=Claim Form" class="text-light text-decoration-none"><strong>Contact us</strong></a> with claim related issues<br>
+        Copyright 2023 Abay GERD Token. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+<script>
+  const web3a = new Web3("https://bsc-dataseed.binance.org/");
+const contractABI = [{"inputs":[],"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"owner","type":"address"},{"indexed":true,"internalType":"address","name":"spender","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Approval","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"internalType":"address","name":"from","type":"address"},
+  {"indexed":true,"internalType":"address","name":"to","type":"address"},{"indexed":false,"internalType":"uint256","name":"value","type":"uint256"}],"name":"Transfer","type":"event"},{"inputs":[{"internalType":"address","name":"","type":"address"},{"internalType":"address","name":"","type":"address"}],"name":"allowance","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
+           {"inputs":[{"internalType":"address","name":"spender","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"approve","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},{"inputs":[{"internalType":"address","name":"owner","type":"address"}],"name":"balanceOf","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},
+           {"inputs":[{"internalType":"address","name":"","type":"address"}],"name":"balances","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"decimals","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"name","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},
+           {"inputs":[],"name":"symbol","outputs":[{"internalType":"string","name":"","type":"string"}],"stateMutability":"view","type":"function"},{"inputs":[],"name":"totalSupply","outputs":[{"internalType":"uint256","name":"","type":"uint256"}],"stateMutability":"view","type":"function"},{"inputs":[{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transfer","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"},
+           {"inputs":[{"internalType":"address","name":"from","type":"address"},{"internalType":"address","name":"to","type":"address"},{"internalType":"uint256","name":"value","type":"uint256"}],"name":"transferFrom","outputs":[{"internalType":"bool","name":"","type":"bool"}],"stateMutability":"nonpayable","type":"function"}];
+
+const contractAddress = "0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c";
+const gerdContract = new web3a.eth.Contract(contractABI, contractAddress);
+
+document.getElementById("check-balance").addEventListener("click", async () => {
+  const walletAddress = document.getElementById("bwallet-address").value;
+
+  if (!web3a.utils.isAddress(walletAddress)) {
+    document.getElementById("balance-result").innerHTML = `<span class="text-danger"><i class="fas fa-exclamation-circle me-2"></i>Error: Please enter a valid address</span>`;
+    return;
+  }
+
+  try {
+  const balance = await gerdContract.methods.balanceOf(walletAddress).call();
+  const formattedBalance = (balance / 10**2).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  document.getElementById("balance-result").innerHTML = `<span class="text-success"><i class="fas fa-check-circle me-2"></i>Balance: ${formattedBalance} GERD</span>`;
+  } catch (error) {
+    console.error("Error fetching balance:", error);
+    document.getElementById("balance-result").innerHTML = `<span class="text-danger"><i class="fas fa-times-circle me-2"></i>Error fetching balance. Please try again.</span>`;
+  }
+});
+</script>
+
+<script>
+  let sessionToken = "";
+
+  async function fetchSessionToken() {
+    try {
+      const res = await fetch('https://abay-gerd-backend.onrender.com/auth/session');
+      const data = await res.json();
+      sessionToken = data.session_token;
+      return sessionToken;
+   }  catch (err) {
+      console.error("Failed to get session token:", err);
+      return null;
+    }
+  }
+
+
+  async function claimTokens() {
+    const recipient = document.getElementById('recipient').value.trim();
+    const responseEl = document.getElementById('response');
+    const buttonEl = document.querySelector('.btn-claim');
+    const recaptchaToken = grecaptcha.getResponse();
+
+    if (!web3a.utils.isAddress(recipient)) {
+      responseEl.innerHTML = '<div class="alert alert-danger"><i class="fas fa-exclamation-circle me-2"></i>Please enter a valid wallet address.</div>';
+      return;
+    }
+
+    if (!recaptchaToken) {
+      responseEl.innerHTML = '<div class="alert alert-warning"><i class="fas fa-exclamation-triangle me-2"></i>Please complete the reCAPTCHA.</div>';
+      return;
+    }
+    if (!sessionToken) {
+      await fetchSessionToken();
+      if (!sessionToken) {
+        responseEl.innerHTML = '<div class="alert alert-danger"><i class="fas fa-times-circle me-2"></i>Error: Session not initialized. Please wait a few seconds and try again.</div>';
+        return;
+      }
+    }
+
+
+    buttonEl.disabled = true;
+    buttonEl.innerHTML = '<i class="fas fa-spinner fa-spin me-2"></i>Processing...';
+      responseEl.innerHTML = '<div class="alert alert-info"><i class="fas fa-search me-2"></i>Checking your location...</div>';
+
+    try {
+      const locResponse = await fetch('https://ipapi.co/json/');
+      const locData = await locResponse.json();
+      const estimatedAmount = (locData.country_code === "ET") ? 75000 : 10000;
+
+      responseEl.innerHTML = `<div class="alert alert-info"><i class="fas fa-earth-americas me-2"></i>Detected Country: ${locData.country_name}. Preparing to send approximately ${estimatedAmount} GERD Tokens...</div>`;
+
+      const res = await fetch('https://abay-gerd-backend.onrender.com/send-token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          recipient,
+          recaptchaToken,
+          session_token: sessionToken
+        })
+      });
+
+      const data = await res.json();
+      if (data.status === 'success') {
+        responseEl.innerHTML = `<div class="alert alert-success"><i class="fas fa-check-circle me-2"></i>Success! Tokens sent.<br>Tx Hash: <a href="https://bscscan.com/tx/0x${data.tx_hash}" target="_blank" class="text-decoration-none">0x${data.tx_hash}</a> <i class="fas fa-gift text-warning ms-2"></i></div>`;
+      } else {
+        responseEl.innerHTML = `<div class="alert alert-danger"><i class="fas fa-times-circle me-2"></i>Error: ${data.message}</div>`;
+      }
+    } catch (err) {
+      responseEl.innerHTML = `<div class="alert alert-danger"><i class="fas fa-times-circle me-2"></i>Error: ${err.message}</div>`;
+    } finally {
+      buttonEl.disabled = false;
+      buttonEl.innerHTML = '<i class="fas fa-gift me-2"></i>Claim Tokens';
+      grecaptcha.reset();
+    }
+  }
+</script>
+
+<!-- JavaScript - Bootstrap modal is handled automatically -->
+<script>
+  function copyToClipboard() {
+    const contractAddress = "0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c";
+    const copyIcon = document.getElementById("copyIcon");
+    const checkIcon = document.getElementById("checkIcon");
+
+    navigator.clipboard.writeText(contractAddress).then(function() {
+      copyIcon.classList.add('d-none');
+      checkIcon.classList.remove('d-none');
+      setTimeout(() => {
+        checkIcon.classList.add('d-none');
+        copyIcon.classList.remove('d-none');
+      }, 1500);
+    }).catch(function(err) {
+      alert("Copy failed. Please copy manually.");
+    });
+  }
+</script>
+
+<!-- Bootstrap 5.3.3 JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
