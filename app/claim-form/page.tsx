@@ -3,8 +3,9 @@
 import { useState, useEffect, useRef } from 'react';
 import Script from 'next/script';
 import Image from 'next/image';
-import CopyButton from '@/components/CopyButton';
+
 import ClaimUpdateModal from '@/components/ClaimUpdateModal';
+import ContractAddress from '@/components/ContractAddress';
 
 declare global {
   interface Window {
@@ -477,15 +478,10 @@ export default function ClaimForm() {
           {/* Contract Address */}
           <div className="row mb-5">
             <div className="col-lg-8 mx-auto">
-              <div className="contract-box">
-                <p className="mb-2 small text-muted">
-                  <i className="fas fa-info-circle me-2"></i>GERD Contract Address (Import this into your wallet):
-                </p>
-                <div className="d-flex align-items-center justify-content-between flex-wrap gap-2">
-                  <code className="text-success fw-bold fs-6 text-break" style={{ wordBreak: 'break-all', minWidth: 0 }}>0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c</code>
-                  <CopyButton address="0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c" />
-                </div>
-              </div>
+              <ContractAddress
+                address="0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c"
+                label="GERD Contract Address (Import this into your wallet)"
+              />
             </div>
           </div>
 
