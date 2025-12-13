@@ -22,7 +22,32 @@ export default function ClaimForm() {
   const [sessionToken, setSessionToken] = useState('');
   const [web3, setWeb3] = useState<any>(null);
   const [contract, setContract] = useState<any>(null);
+  const [isWeb3Ready, setIsWeb3Ready] = useState(false);
+  const [isRecaptchaReady, setIsRecaptchaReady] = useState(false);
   const isInitializing = useRef(false);
+
+  // Utility to load script if absent, or attach load handler if present
+  const ensureScriptLoaded = (src: string, onload: () => void) => {
+    if (typeof document === 'undefined') return () => {};
+    const existing = document.querySelector(`script[src="${src}"]`) as HTMLScriptElement | null;
+    if (existing) {
+      // If already loaded, call onload immediately when possible
+      if ((existing as any).loaded || existing.readyState === 'complete') {
+        try { onload(); } catch (e) { console.warn(e); }
+        return () => {};
+      }
+      const listener = () => onload();
+      existing.addEventListener('load', listener);
+      return () => existing.removeEventListener('load', listener);
+    }
+
+    const s = document.createElement('script');
+    s.src = src;
+    s.async = true;
+    s.onload = () => onload();
+    document.head.appendChild(s);
+    return () => { /* cannot reliably remove created script without more bookkeeping */ };
+  };
 
   // Initialize Web3 and contract when Web3 library is loaded
   const initializeWeb3 = () => {
@@ -51,6 +76,7 @@ export default function ClaimForm() {
       const contractAddress = '0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c';
       const contractInstance = new web3Instance.eth.Contract(contractABI, contractAddress);
       setContract(contractInstance);
+      setIsWeb3Ready(true);
       isInitializing.current = false; // Reset after successful initialization
     }
   };
@@ -84,9 +110,103 @@ export default function ClaimForm() {
     }
   }, [web3]);
 
+  // Ensure Web3 and reCAPTCHA scripts are present and initialized on client-side navigation
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+
+    // Web3 script ensure
+    const web3Src = 'https://cdn.jsdelivr.net/npm/web3@1.8.2/dist/web3.min.js';
+    const web3Cleanup = ensureScriptLoaded(web3Src, () => {
+      if (!web3 && window.Web3) {
+        initializeWeb3();
+      }
+    });
+
+    // reCAPTCHA script ensure
+    const recaptchaSrc = 'https://www.google.com/recaptcha/api.js';
+    const recaptchaCleanup = ensureScriptLoaded(recaptchaSrc, () => {
+      try {
+        if (window.grecaptcha && typeof window.grecaptcha.ready === 'function') {
+          window.grecaptcha.ready(() => setIsRecaptchaReady(true));
+        } else if (window.grecaptcha) {
+          setIsRecaptchaReady(true);
+        }
+      } catch (e) {
+        console.warn('grecaptcha.ready call failed in ensureScriptLoaded', e);
+      }
+    });
+
+    // As a fallback, poll in case script doesn't emit load for some reason
+    const pollTimeout = setTimeout(() => {
+      clearInterval(pollInterval);
+    }, 10000);
+    const pollInterval = setInterval(() => {
+      if (window.Web3 && !web3) {
+        initializeWeb3();
+      }
+      if (window.grecaptcha && !isRecaptchaReady) {
+        try {
+          window.grecaptcha.ready(() => setIsRecaptchaReady(true));
+        } catch { setIsRecaptchaReady(true); }
+      }
+    }, 200);
+
+    return () => {
+      web3Cleanup();
+      recaptchaCleanup();
+      clearInterval(pollInterval);
+      clearTimeout(pollTimeout);
+    };
+  }, []);
+
+  // Initialize reCAPTCHA readiness check
+  useEffect(() => {
+    if (typeof window === 'undefined' || isRecaptchaReady) return;
+
+    const tryInit = () => {
+      if (window.grecaptcha && typeof window.grecaptcha.ready === 'function') {
+        try {
+          window.grecaptcha.ready(() => {
+            setIsRecaptchaReady(true);
+          });
+          return true;
+        } catch (e) {
+          console.warn('grecaptcha.ready failed', e);
+        }
+      }
+      return false;
+    };
+
+    // Try immediately
+    if (tryInit()) return;
+
+    // Poll as a fallback in case the script loads after the component
+    const interval = setInterval(() => {
+      if (tryInit()) {
+        clearInterval(interval);
+      }
+    }, 200);
+
+    const timeout = setTimeout(() => {
+      clearInterval(interval);
+    }, 10000);
+
+    return () => {
+      clearInterval(interval);
+      clearTimeout(timeout);
+    };
+  }, [isRecaptchaReady]);
+
   useEffect(() => {
     fetchSessionToken();
   }, []);
+
+  // Prefill balance input when the claim wallet address is provided
+  useEffect(() => {
+    if (!balanceAddress && walletAddress) {
+      setBalanceAddress(walletAddress);
+    }
+  }, [walletAddress]);
 
   const fetchSessionToken = async (): Promise<string | null> => {
     try {
@@ -105,18 +225,25 @@ export default function ClaimForm() {
   };
 
   const checkBalance = async () => {
-    if (!web3 || !contract) {
-      setBalance('Error: Web3 not initialized');
+    if (!isWeb3Ready || !web3 || !contract) {
+      setBalance('Error: Web3 not initialized. Please wait for the page to finish loading.');
+      return;
+    }
+    // If no explicit balance address is provided, fall back to the wallet address input
+    const effectiveAddress = (balanceAddress || walletAddress || '').trim();
+
+    if (!effectiveAddress) {
+      setBalance('Error: Please enter a wallet address to check');
       return;
     }
 
-    if (!web3.utils.isAddress(balanceAddress)) {
-      setBalance('Error: Please enter a valid address');
+    if (!web3.utils.isAddress(effectiveAddress)) {
+      setBalance('Error: Please enter a valid wallet address');
       return;
     }
 
     try {
-      const balanceResult = await contract.methods.balanceOf(balanceAddress).call();
+      const balanceResult = await contract.methods.balanceOf(effectiveAddress).call();
       const formattedBalance = (Number(balanceResult) / 10 ** 2).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
       setBalance(`Balance: ${formattedBalance} GERD`);
     } catch (error) {
@@ -126,6 +253,14 @@ export default function ClaimForm() {
   };
 
   const claimTokens = async () => {
+    if (!isWeb3Ready) {
+      setResponse({ type: 'danger', message: 'Please wait for Web3 to finish initializing.' });
+      return;
+    }
+    if (!isRecaptchaReady) {
+      setResponse({ type: 'warning', message: 'Please wait for reCAPTCHA to finish initializing.' });
+      return;
+    }
     const recipient = walletAddress.trim();
     const recaptchaToken = window.grecaptcha?.getResponse();
 
@@ -220,6 +355,15 @@ export default function ClaimForm() {
         strategy="lazyOnload"
         async
         defer
+        onLoad={() => {
+          if (typeof window !== 'undefined' && window.grecaptcha && typeof window.grecaptcha.ready === 'function') {
+            try {
+              window.grecaptcha.ready(() => setIsRecaptchaReady(true));
+            } catch (e) {
+              console.warn('grecaptcha.ready failed on onLoad', e);
+            }
+          }
+        }}
       />
 
       {/* Hero Section */}
@@ -386,7 +530,7 @@ export default function ClaimForm() {
                   <button 
                     className="btn btn-success btn-lg btn-claim" 
                     onClick={claimTokens}
-                    disabled={loading}
+                    disabled={!isWeb3Ready || !isRecaptchaReady || loading}
                   >
                     {loading ? (
                       <>
@@ -408,6 +552,12 @@ export default function ClaimForm() {
                       'fa-info-circle'
                     } me-2`}></i>
                     {response.message}
+                  </div>
+                )}
+                {!response && (!isWeb3Ready || !isRecaptchaReady) && (
+                  <div className="mt-3 text-center text-muted small">
+                    {!isWeb3Ready && <span className="me-2">Initializing Web3...</span>}
+                    {!isRecaptchaReady && <span>Initializing reCAPTCHA...</span>}
                   </div>
                 )}
               </div>
@@ -444,6 +594,7 @@ export default function ClaimForm() {
                       className="btn btn-success btn-lg" 
                       type="button" 
                       onClick={checkBalance}
+                      disabled={!isWeb3Ready}
                     >
                       <i className="fas fa-search me-2"></i>Check Balance
                     </button>
