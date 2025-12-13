@@ -290,11 +290,11 @@ export default function Home() {
               <p className="text-muted">
                 The Abay GERD Token is deployed on the <strong>Binance Smart Chain (BSC)</strong> using <strong>Solidity</strong>. All contracts will be <strong>open-source</strong>, publicly auditable via{' '}
                 <a href="https://bscscan.com/" target="_blank" rel="noopener noreferrer" className="text-decoration-none">
-                  <i className="fas fa-external-link-alt me-1"></i>BSCScan
+                  BSCScan<i className="fas fa-external-link-alt ms-1 small"></i>
                 </a>
                 {' '}and{' '}
                 <a href="https://github.com/AbayGERDToken" target="_blank" rel="noopener noreferrer" className="text-decoration-none">
-                  <i className="fab fa-github me-1"></i>GitHub
+                  <i className="fab fa-github me-1"></i>GitHub<i className="fas fa-external-link-alt ms-1 small"></i>
                 </a>
                 , reinforcing our core values of transparency and community trust.
               </p>

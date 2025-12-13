@@ -9,11 +9,11 @@ interface ContractAddressProps {
   isLegacy?: boolean;
 }
 
-export default function ContractAddress({ 
-  address, 
-  label, 
+export default function ContractAddress({
+  address,
+  label,
   borderColor = '#198754',
-  isLegacy = false 
+  isLegacy = false
 }: ContractAddressProps) {
   const [copied, setCopied] = useState(false);
 
@@ -28,47 +28,46 @@ export default function ContractAddress({
   };
 
   return (
-    <div 
-      className="contract-address" 
+    <div
+      className="contract-address"
       style={{ borderLeftColor: borderColor }}
     >
       <p className="mb-2 small text-muted">
         <i className={`fas ${isLegacy ? 'fa-exclamation-triangle text-warning' : 'fa-link'} me-2`}></i>
         {label}:
       </p>
-      <div className="d-flex align-items-center flex-wrap">
+      <div className="text-break">
         {!isLegacy ? (
           <>
-            <a 
-              href={`https://bscscan.com/token/${address}`} 
-              target="_blank" 
+            <a
+              href={`https://bscscan.com/token/${address}`}
+              target="_blank"
               rel="noopener noreferrer"
-              className="text-decoration-none me-2 flex-grow-1"
-              style={{ minWidth: 0 }}
+              className="text-decoration-none me-2 align-middle"
             >
-              <code className={`text-${copied ? 'success' : 'success'} fw-bold text-break`} style={{ wordBreak: 'break-all' }}>
+              <code className={`text-${copied ? 'success' : 'success'} fw-bold`} style={{ wordBreak: 'break-all' }}>
                 {address}
               </code>
               <i className="fas fa-external-link-alt ms-1 small"></i>
             </a>
             <button
               type="button"
-              className={`btn btn-sm ${copied ? 'btn-success' : 'btn-outline-success'} copy-address-btn flex-shrink-0`}
+              className="btn btn-link p-0 text-success text-decoration-none border-0 d-inline-block align-middle"
               onClick={handleCopy}
               title="Copy to clipboard"
+              style={{ fontSize: '1rem', lineHeight: 1 }}
             >
               <i className={`fas ${copied ? 'fa-check' : 'fa-copy'}`}></i>
             </button>
           </>
         ) : (
-          <a 
-            href={`https://bscscan.com/token/${address}`} 
-            target="_blank" 
+          <a
+            href={`https://bscscan.com/token/${address}`}
+            target="_blank"
             rel="noopener noreferrer"
-            className="text-decoration-none"
-            style={{ wordBreak: 'break-all' }}
+            className="text-decoration-none align-middle"
           >
-            <code className="text-muted text-break" style={{ wordBreak: 'break-all' }}>{address}</code>
+            <code className="text-muted" style={{ wordBreak: 'break-all' }}>{address}</code>
             <i className="fas fa-external-link-alt ms-1 small"></i>
           </a>
         )}
