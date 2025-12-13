@@ -338,6 +338,9 @@ export default function ClaimForm() {
         setResponse({ type: 'danger', message: `Error: ${data.message}` });
       }
     } catch (err: any) {
+      const message = err?.message || String(err) || 'Unexpected error occurred';
+      console.error('Claim tokens error:', err);
+      setResponse({ type: 'danger', message });
     } finally {
       setLoading(false);
       if (window.grecaptcha) {
