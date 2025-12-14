@@ -470,7 +470,7 @@ export default function ClaimForm() {
                       <i className="fas fa-check text-success me-2"></i>Import the GERD contract into your wallet
                     </li>
                     <li className="mb-0">
-                      <i className="fas fa-check text-success me-2"></i>Use a supported wallet (Trust Wallet, MetaMask, etc.)
+                      <i className="fas fa-check text-success me-2"></i>Use a supported wallet (Trust Wallet, MetaMask, Base Wallet, etc.)
                     </li>
                   </ul>
                 </div>

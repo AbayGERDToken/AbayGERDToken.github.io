@@ -162,6 +162,12 @@ export default function Navbar() {
                   </Link>
                 </li>
                 <li>
+                  <Link className="dropdown-item" href="/base-wallet">
+                    <div className="fw-bold">Base Wallet</div>
+                    <small className="text-muted">Setup instruction for Base wallet</small>
+                  </Link>
+                </li>
+                <li>
                   <Link className="dropdown-item" href="/metamask-wallet">
                     <div className="fw-bold">Metamask Wallet</div>
                     <small className="text-muted">Setup instruction for Metamask wallet</small>
