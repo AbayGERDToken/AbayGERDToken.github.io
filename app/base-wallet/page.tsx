@@ -41,7 +41,7 @@ export default function BaseWallet() {
                         <li className="mb-0">
                           <i className="fas fa-check-circle text-success me-2"></i>
                           For Android and iOS users: Visit the{' '}
-                          <a href="https://wallet.base.org/" target="_blank" rel="noopener noreferrer" className="text-decoration-none fw-semibold">
+                          <a href="https://base.org/" target="_blank" rel="noopener noreferrer" className="text-decoration-none fw-semibold">
                             Base Wallet website <i className="fas fa-external-link-alt ms-1 small"></i>
                           </a>{' '}
                           and follow the platform-specific install instructions
@@ -95,10 +95,10 @@ export default function BaseWallet() {
                       </h2>
                       <ul className="list-unstyled mb-3">
                         <li className="mb-2">
-                          <i className="fas fa-check-circle text-success me-2"></i>On the main screen, tap the &quot;+&quot; icon to add a custom token
+                          <i className="fas fa-check-circle text-success me-2"></i>On the main screen, tap the search icon
                         </li>
                         <li className="mb-2">
-                          <i className="fas fa-check-circle text-success me-2"></i>Select the <strong>Base</strong> network (or Base Mainnet) as the network
+                          <i className="fas fa-check-circle text-success me-2"></i>Top right corner 
                         </li>
                         <li className="mb-2">
                           <i className="fas fa-check-circle text-success me-2"></i>Copy and paste the contract address below
@@ -157,7 +157,7 @@ export default function BaseWallet() {
                   <div>
                     <h4 className="h6 fw-bold mb-1">You&apos;re All Set!</h4>
                     <p className="mb-0">
-                      You can now manage your GERD tokens using Base Wallet. Remember: you&apos;ll need a small amount of ETH for gas fees when sending tokens, but receiving is free.
+                      You can now manage your GERD tokens using Base Wallet. Remember: you&apos;ll need a small amount of BNB for gas fees when sending tokens, but receiving is free.
                     </p>
                   </div>
                 </div>
