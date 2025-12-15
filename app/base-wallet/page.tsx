@@ -41,7 +41,7 @@ export default function BaseWallet() {
                         <li className="mb-0">
                           <i className="fas fa-check-circle text-success me-2"></i>
                           For Android and iOS users: Visit the{' '}
-                          <a href="https://base.org/" target="_blank" rel="noopener noreferrer" className="text-decoration-none fw-semibold">
+                          <a href="https://www.coinbase.com/wallet" target="_blank" rel="noopener noreferrer" className="text-decoration-none fw-semibold">
                             Base Wallet website <i className="fas fa-external-link-alt ms-1 small"></i>
                           </a>{' '}
                           and follow the platform-specific install instructions
