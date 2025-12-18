@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import LocalizedText from '@/components/LocalizedText';
+import { useTranslations } from 'next-intl';
 
 const CONTRACT_ADDRESS = '0xC3C2b095C3aA55ACecc7fBA44C6B9D3f56dC43Da';
 const GERD_TOKEN_ADDRESS = '0x85a4850d0c2bdd6202c919c481bf0f186222fa89';
@@ -34,11 +36,12 @@ interface ReleaseHistoryItem {
 }
 
 export default function TestnetVestingDashboard() {
-  const [releaseCountdown, setReleaseCountdown] = useState<string>('Calculating...');
-  const [canRelease, setCanRelease] = useState<ReleaseStatus>({ value: false, label: 'Loading...' });
-  const [lastRelease, setLastRelease] = useState<string>('Loading...');
-  const [isWednesday, setIsWednesday] = useState<ReleaseStatus>({ value: false, label: 'Loading...' });
-  const [nextReleaseDate, setNextReleaseDate] = useState<string>('Loading...');
+  const t = useTranslations();
+  const [releaseCountdown, setReleaseCountdown] = useState<string>(t('testnet.loading.calculating'));
+  const [canRelease, setCanRelease] = useState<ReleaseStatus>({ value: false, label: t('testnet.loading.generic') });
+  const [lastRelease, setLastRelease] = useState<string>(t('testnet.loading.generic'));
+  const [isWednesday, setIsWednesday] = useState<ReleaseStatus>({ value: false, label: t('testnet.loading.generic') });
+  const [nextReleaseDate, setNextReleaseDate] = useState<string>(t('testnet.loading.generic'));
   const [releaseHistory, setReleaseHistory] = useState<ReleaseHistoryItem>({ hasRelease: false });
   const [walletBalances, setWalletBalances] = useState<WalletBalance[]>(
     WALLETS.map(w => ({ ...w, balance: null, loading: true }))
@@ -74,7 +77,7 @@ export default function TestnetVestingDashboard() {
 
         setLastRelease(
           isNeverReleased
-            ? 'No token release has occurred yet'
+            ? t('testnet.no_release')
             : new Date(Number(lastRelease) * 1000).toUTCString()
         );
 
@@ -82,7 +85,7 @@ export default function TestnetVestingDashboard() {
         const isWed = jsDay === 3;
         setIsWednesday({
           value: isWed,
-          label: isWed ? 'Yes' : 'No'
+          label: isWed ? t('testnet.yes') : t('testnet.no')
         });
 
         const nextReleaseTime = isNeverReleased
@@ -96,14 +99,14 @@ export default function TestnetVestingDashboard() {
         const hours = Math.floor((secondsLeft % 86400) / 3600);
         const minutes = Math.floor((secondsLeft % 3600) / 60);
         setReleaseCountdown(
-          secondsLeft > 0 ? `${days}d ${hours}h ${minutes}m` : 'Ready to release'
+          secondsLeft > 0 ? `${days}d ${hours}h ${minutes}m` : t('testnet.countdown.ready')
         );
 
         // Can Release
         const releaseReady = now >= nextReleaseTime && isWed;
         setCanRelease({
           value: releaseReady,
-          label: releaseReady ? 'Yes' : 'No'
+          label: releaseReady ? t('testnet.yes') : t('testnet.no')
         });
 
         // Release History
@@ -117,8 +120,8 @@ export default function TestnetVestingDashboard() {
         }
       } catch (err) {
         console.error('Error loading dashboard:', err);
-        setReleaseCountdown('Error loading');
-        setCanRelease({ value: false, label: 'Error' });
+        setReleaseCountdown(t('testnet.loading.error'));
+        setCanRelease({ value: false, label: t('testnet.loading.error') });
       }
     };
 
@@ -183,10 +186,10 @@ export default function TestnetVestingDashboard() {
             <div className="row">
               <div className="col-lg-10 mx-auto text-center">
                 <h1 className="display-4 fw-bold mb-4">
-                  <i className="fas fa-chart-line me-3"></i>Vesting Release Dashboard on Testnet
+                  <i className="fas fa-chart-line me-3"></i><LocalizedText id="testnet.title" tag="span" />
                 </h1>
                 <p className="lead fs-5 opacity-90">
-                  Real-time tracking of the GERD Token Vesting contract testing on BSC Testnet
+                  <LocalizedText id="testnet.lead" tag="span" />
                 </p>
               </div>
             </div>
@@ -210,9 +213,9 @@ export default function TestnetVestingDashboard() {
                     <i className="fas fa-info-circle"></i>
                   </div>
                   <div>
-                    <h4 className="h6 fw-bold mb-2">Testnet Testing Information</h4>
+                    <h4 className="h6 fw-bold mb-2"><LocalizedText id="testnet.info.title" tag="span" /></h4>
                     <p className="mb-0 small">
-                      This dashboard is for community members to follow the progress of the GERD Token Vesting contract testing on the BSC Testnet. To simulate a long-term token release (1 billion GERD tokens per year for 115 years), the vesting contract on testnet is configured to release 1 billion tokens every Wednesday. This allows for faster testing of what would normally happen over years in production. The data below is read directly from the blockchain and updates in real-time.
+                      <LocalizedText id="testnet.info.body" tag="span" />
                     </p>
                   </div>
                 </div>
@@ -222,11 +225,11 @@ export default function TestnetVestingDashboard() {
               <div className="card feature-card mb-5">
                 <div className="card-body p-5">
                   <h2 className="h4 fw-bold mb-4 text-center">
-                    <i className="fas fa-rocket text-success me-2"></i>Release Control
+                    <i className="fas fa-rocket text-success me-2"></i><LocalizedText id="testnet.release_control.title" tag="span" />
                   </h2>
                   <div className="text-center mb-4">
                     <Link href="/dev/release-token" className="btn btn-success btn-lg">
-                      <i className="fas fa-rocket me-2"></i>Release Tokens
+                      <i className="fas fa-rocket me-2"></i><LocalizedText id="testnet.release_control.button" tag="span" />
                     </Link>
                   </div>
                   <div className="row g-4">
@@ -238,7 +241,7 @@ export default function TestnetVestingDashboard() {
                         >
                           <i className="fas fa-clock"></i>
                         </div>
-                        <h3 className="h6 fw-bold mb-2">Countdown to Next Release</h3>
+                        <h3 className="h6 fw-bold mb-2"><LocalizedText id="testnet.stat.countdown_title" tag="span" /></h3>
                         <p className="countdown-text mb-0">{releaseCountdown}</p>
                       </div>
                     </div>
@@ -250,10 +253,10 @@ export default function TestnetVestingDashboard() {
                         >
                           <i className="fas fa-check-circle"></i>
                         </div>
-                        <h3 className="h6 fw-bold mb-2">Can Release Now</h3>
+                        <h3 className="h6 fw-bold mb-2"><LocalizedText id="testnet.stat.can_release_title" tag="span" /></h3>
                         <span className={`badge ${canRelease.value ? 'bg-success' : 'bg-danger'} fs-6`}>
                           <i className={`fas ${canRelease.value ? 'fa-check-circle' : 'fa-times-circle'} me-1`}></i>
-                          {canRelease.label}
+                          <LocalizedText id={canRelease.value ? 'testnet.yes' : 'testnet.no'} tag="span" />
                         </span>
                       </div>
                     </div>
@@ -270,7 +273,7 @@ export default function TestnetVestingDashboard() {
                   <div className="row g-3">
                     <div className="col-md-6">
                       <div className="contract-box">
-                        <p className="mb-2 small text-muted"><strong>Testnet CA:</strong></p>
+                        <p className="mb-2 small text-muted"><strong><LocalizedText id="testnet.contracts.testnet_ca" tag="span" /></strong></p>
                         <a 
                           href="https://testnet.bscscan.com/token/0x85a4850d0c2bdd6202c919c481bf0f186222fa89" 
                           target="_blank" 
@@ -286,7 +289,7 @@ export default function TestnetVestingDashboard() {
                     </div>
                     <div className="col-md-6">
                       <div className="contract-box">
-                        <p className="mb-2 small text-muted"><strong>Testnet VC:</strong></p>
+                        <p className="mb-2 small text-muted"><strong><LocalizedText id="testnet.contracts.testnet_vc" tag="span" /></strong></p>
                         <a 
                           href="https://testnet.bscscan.com/address/0xC3C2b095C3aA55ACecc7fBA44C6B9D3f56dC43Da" 
                           target="_blank" 
@@ -302,7 +305,7 @@ export default function TestnetVestingDashboard() {
                     </div>
                     <div className="col-md-6">
                       <div className="contract-box">
-                        <p className="mb-2 small text-muted"><strong>Testnet VC2:</strong></p>
+                        <p className="mb-2 small text-muted"><strong><LocalizedText id="testnet.contracts.testnet_vc2" tag="span" /></strong></p>
                         <a 
                           href="https://testnet.bscscan.com/address/0x2005408916003b37555D5A9B539867b387534e34" 
                           target="_blank" 
@@ -318,26 +321,26 @@ export default function TestnetVestingDashboard() {
                     </div>
                     <div className="col-md-6">
                       <div className="contract-box">
-                        <p className="mb-2 small text-muted"><strong>Network:</strong></p>
-                        <p className="mb-0 fw-bold text-primary">BSC Testnet</p>
+                        <p className="mb-2 small text-muted"><strong><LocalizedText id="testnet.contracts.network" tag="span" /></strong></p>
+                        <p className="mb-0 fw-bold text-primary"><LocalizedText id="testnet.contracts.network_value" tag="span" /></p>
                       </div>
                     </div>
                   </div>
                   <hr className="my-4" />
                   <div className="row g-3">
                     <div className="col-md-4">
-                      <p className="mb-2 small text-muted"><strong>Last Release Time:</strong></p>
+                      <p className="mb-2 small text-muted"><strong><LocalizedText id="testnet.last_release_label" tag="span" /></strong></p>
                       <p className="fw-bold text-primary mb-0">{lastRelease}</p>
                     </div>
                     <div className="col-md-4">
-                      <p className="mb-2 small text-muted"><strong>Is Today Wednesday:</strong></p>
+                      <p className="mb-2 small text-muted"><strong><LocalizedText id="testnet.is_wednesday_label" tag="span" /></strong></p>
                       <span className={`badge ${isWednesday.value ? 'bg-success' : 'bg-danger'}`}>
                         <i className={`fas ${isWednesday.value ? 'fa-check-circle' : 'fa-times-circle'} me-1`}></i>
-                        {isWednesday.label}
+                        <LocalizedText id={isWednesday.value ? 'testnet.yes' : 'testnet.no'} tag="span" />
                       </span>
                     </div>
                     <div className="col-md-4">
-                      <p className="mb-2 small text-muted"><strong>Next Scheduled Release:</strong></p>
+                      <p className="mb-2 small text-muted"><strong><LocalizedText id="testnet.next_release_label" tag="span" /></strong></p>
                       <p className="fw-bold text-primary mb-0">{nextReleaseDate}</p>
                     </div>
                   </div>
@@ -348,15 +351,15 @@ export default function TestnetVestingDashboard() {
               <div className="card feature-card mb-5">
                 <div className="card-body p-4">
                   <h2 className="h4 fw-bold mb-4 text-center">
-                    <i className="fas fa-wallet text-success me-2"></i>Wallet Balances
+                    <i className="fas fa-wallet text-success me-2"></i><LocalizedText id="testnet.wallets.title" tag="span" />
                   </h2>
                   <div className="table-responsive">
                     <table id="wallet-table" className="table table-striped table-hover mb-0">
                       <thead>
                         <tr>
-                          <th>Name</th>
-                          <th>Balance (GERD)</th>
-                          <th>Wallet Address</th>
+                          <th><LocalizedText id="testnet.wallets.table.name" tag="span" /></th>
+                          <th><LocalizedText id="testnet.wallets.table.balance" tag="span" /></th>
+                          <th><LocalizedText id="testnet.wallets.table.address" tag="span" /></th>
                         </tr>
                       </thead>
                       <tbody>
@@ -364,7 +367,7 @@ export default function TestnetVestingDashboard() {
                           <tr>
                             <td colSpan={3} className="text-center py-5">
                               <i className="fas fa-spinner fa-spin fa-2x text-muted mb-3 d-block"></i>
-                              <p className="text-muted mb-0">Loading balances...</p>
+                              <p className="text-muted mb-0"><LocalizedText id="testnet.wallets.loading" tag="span" /></p>
                             </td>
                           </tr>
                         ) : (
@@ -395,17 +398,17 @@ export default function TestnetVestingDashboard() {
               <div className="card feature-card">
                 <div className="card-body p-5">
                   <h2 className="h4 fw-bold mb-4 text-center">
-                    <i className="fas fa-history text-info me-2"></i>Release History
+                    <i className="fas fa-history text-info me-2"></i><LocalizedText id="testnet.history.title" tag="span" />
                   </h2>
                   <ul className="list-unstyled mb-0">
                     {!releaseHistory.hasRelease ? (
                       <li className="text-center text-muted">
-                        <i className="fas fa-info-circle me-2"></i>No releases yet
+                        <i className="fas fa-info-circle me-2"></i><LocalizedText id="testnet.history.no_releases" tag="span" />
                       </li>
                     ) : (
                       <li className="d-flex align-items-center justify-content-center">
                         <i className="fas fa-clock text-primary me-2"></i>
-                        <span>Last release: <strong>{releaseHistory.releaseDate}</strong></span>
+                        <span><LocalizedText id="testnet.history.last_release_label" tag="span" /> <strong>{releaseHistory.releaseDate}</strong></span>
                       </li>
                     )}
                   </ul>
@@ -421,10 +424,7 @@ export default function TestnetVestingDashboard() {
         <div className="container">
           <div className="row align-items-center">
             <div className="col-md-8">
-              <h2 className="h5 mb-3">
-                DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY AND SUPPORTING THE GRAND ETHIOPIAN RENAISSANCE DAM PROJECT.
-                JOIN US IN CREATING A BRIGHTER FUTURE! #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD
-              </h2>
+              <h2 className="h5 mb-3"><LocalizedText id="site.promo" tag="span" /></h2>
             </div>
             <div className="col-md-4 text-center">
               <Image 

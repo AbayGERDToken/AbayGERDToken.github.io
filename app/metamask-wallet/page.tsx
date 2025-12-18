@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import ContractAddress from '@/components/ContractAddress';
+import LocalizedText from '@/components/LocalizedText';
 
 export default function MetamaskWallet() {
   return (
@@ -11,10 +12,11 @@ export default function MetamaskWallet() {
             <div className="row">
               <div className="col-lg-10 mx-auto text-center">
                 <h1 className="display-4 fw-bold mb-4">
-                  <i className="fas fa-wallet me-3"></i>MetaMask Wallet Setup
+                  <i className="fas fa-wallet me-3"></i>
+                  <LocalizedText id="metamask_wallet.hero.title" tag="span" />
                 </h1>
                 <p className="lead fs-5 opacity-90">
-                  Step-by-step guide for downloading MetaMask Wallet, importing the Abay GERD contract, and getting your GERD wallet address on the Binance Smart Chain
+                  <LocalizedText id="metamask_wallet.hero.lead" tag="span" />
                 </p>
               </div>
             </div>
@@ -35,7 +37,8 @@ export default function MetamaskWallet() {
                     <div className="step-number me-4">1</div>
                     <div className="flex-grow-1">
                       <h2 className="h4 fw-bold mb-3">
-                        <i className="fas fa-download text-success me-2"></i>Download MetaMask Wallet
+                        <i className="fas fa-download text-success me-2"></i>
+                        <LocalizedText id="metamask_wallet.steps.step1.title" tag="span" />
                       </h2>
                       <ul className="list-unstyled mb-0">
                         <li className="mb-2">
@@ -71,7 +74,8 @@ export default function MetamaskWallet() {
                     <div className="step-number me-4">2</div>
                     <div className="flex-grow-1">
                       <h2 className="h4 fw-bold mb-3">
-                        <i className="fas fa-cog text-success me-2"></i>Set up MetaMask
+                        <i className="fas fa-cog text-success me-2"></i>
+                        <LocalizedText id="metamask_wallet.steps.step2.title" tag="span" />
                       </h2>
                       <ul className="list-unstyled mb-0">
                         <li className="mb-2">
@@ -103,7 +107,8 @@ export default function MetamaskWallet() {
                     <div className="step-number me-4">3</div>
                     <div className="flex-grow-1">
                       <h2 className="h4 fw-bold mb-3">
-                        <i className="fas fa-network-wired text-success me-2"></i>Add the Binance Smart Chain Network
+                        <i className="fas fa-network-wired text-success me-2"></i>
+                        <LocalizedText id="metamask_wallet.steps.step3.title" tag="span" />
                       </h2>
                       <ul className="list-unstyled mb-3">
                         <li className="mb-2">
@@ -140,7 +145,8 @@ export default function MetamaskWallet() {
                     <div className="step-number me-4">4</div>
                     <div className="flex-grow-1">
                       <h2 className="h4 fw-bold mb-3">
-                        <i className="fas fa-file-contract text-success me-2"></i>Import the Abay GERD Contract
+                        <i className="fas fa-file-contract text-success me-2"></i>
+                        <LocalizedText id="metamask_wallet.steps.step4.title" tag="span" />
                       </h2>
                       <ul className="list-unstyled mb-3">
                         <li className="mb-2">
@@ -172,7 +178,8 @@ export default function MetamaskWallet() {
                     <div className="step-number me-4">5</div>
                     <div className="flex-grow-1">
                       <h2 className="h4 fw-bold mb-3">
-                        <i className="fas fa-qrcode text-success me-2"></i>Get Your GERD Wallet Address
+                        <i className="fas fa-qrcode text-success me-2"></i>
+                        <LocalizedText id="metamask_wallet.steps.step5.title" tag="span" />
                       </h2>
                       <ul className="list-unstyled mb-0">
                         <li className="mb-2">
@@ -201,10 +208,10 @@ export default function MetamaskWallet() {
                     <i className="fas fa-check-circle"></i>
                   </div>
                   <div>
-                    <h4 className="h6 fw-bold mb-1">You&apos;re All Set!</h4>
+                    <h4 className="h6 fw-bold mb-1"><LocalizedText id="metamask_wallet.success.title" tag="span" /></h4>
                     <p className="mb-0">
-                      You can now manage your GERD tokens using MetaMask. You&apos;ll need a small amount of BNB for gas fees to send tokens. Receiving is free.
-                    </p>
+                      <LocalizedText id="metamask_wallet.success.lead" tag="span" />
+                    </p> 
                   </div>
                 </div>
               </div>
@@ -219,8 +226,7 @@ export default function MetamaskWallet() {
           <div className="row align-items-center">
             <div className="col-md-8">
               <h2 className="h5 mb-3">
-                DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY AND SUPPORTING THE GRAND ETHIOPIAN RENAISSANCE DAM PROJECT.
-                JOIN US IN CREATING A BRIGHTER FUTURE! #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD
+                <LocalizedText id="metamask_wallet.promo" tag="span" />
               </h2>
             </div>
             <div className="col-md-4 text-center">

@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
+import LocalizedText from '@/components/LocalizedText';
+import { useTranslations } from 'next-intl';
 
 const BACKEND_URL = 'https://testnet-vesting.onrender.com';
 
@@ -10,12 +12,14 @@ export default function ReleaseToken() {
   const [releaseStatus, setReleaseStatus] = useState<string>('');
   const [canRelease, setCanRelease] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const t = useTranslations();
 
   useEffect(() => {
     let cleanup: (() => void) | undefined;
 
     const setupReleaseCountdown = async () => {
       try {
+        setCountdown(t('dev.release.countdown.checking'));
         const res = await fetch(`${BACKEND_URL}/can-release`);
         if (!res.ok) {
           throw new Error(`Failed to fetch release status: ${res.status} ${res.statusText}`);
@@ -39,19 +43,19 @@ export default function ReleaseToken() {
 
           if (diff <= 0) {
             if (data.canRelease) {
-              setReleaseStatus('✅ Release is available!');
+              setReleaseStatus(t('dev.release.status.available'));
               setCanRelease(true);
-              setCountdown('⏱ Next release is now eligible.');
+              setCountdown(t('dev.release.countdown.available'));
             } else {
-              setReleaseStatus('❌ Already released this Wednesday.');
-              setCountdown('⏱ Waiting for next release window...');
+              setReleaseStatus(t('dev.release.status.already_released'));
+              setCountdown(t('dev.release.countdown.waiting'));
               setCanRelease(false);
             }
           } else {
             const hours = Math.floor(diff / 3600000);
             const minutes = Math.floor((diff % 3600000) / 60000);
             const seconds = Math.floor((diff % 60000) / 1000);
-            setCountdown(`⏱ Next eligible release in ${hours}h ${minutes}m ${seconds}s`);
+            setCountdown(`${t('dev.release.countdown.in_prefix')} ${hours}h ${minutes}m ${seconds}s`);
             setCanRelease(false);
           }
         };
@@ -75,7 +79,7 @@ export default function ReleaseToken() {
   }, []);
 
   const handleRelease = async () => {
-    setReleaseStatus('Submitting release transaction...');
+    setReleaseStatus(t('dev.release.status.submitting'));
     setIsLoading(true);
     setCanRelease(false);
 
@@ -95,12 +99,12 @@ export default function ReleaseToken() {
       }
       const data = await res.json();
       if (data.success) {
-        setReleaseStatus('✅ Release successful! TX: 0x' + data.tx_hash);
+        setReleaseStatus(t('dev.release.status.success', { tx: '0x' + data.tx_hash }));
       } else {
-        setReleaseStatus('❌ Error: ' + data.message);
+        setReleaseStatus(`${t('dev.release.status.error_prefix')} ${data.message}`);
       }
     } catch (e: any) {
-      setReleaseStatus('❌ ' + (e.message || 'Could not connect to backend.'));
+      setReleaseStatus(`${t('dev.release.status.error_prefix')} ${e.message || t('dev.release.status.could_not_connect')}`);
     } finally {
       setIsLoading(false);
     }
@@ -138,11 +142,11 @@ export default function ReleaseToken() {
                       href="/testnet-vesting-dashboard" 
                       className="text-decoration-none"
                     >
-                      <i className="fas fa-arrow-left me-2"></i>Back to Dashboard
+                      <i className="fas fa-arrow-left me-2"></i><LocalizedText id="dev.release.back" tag="span" />
                     </Link>
                   </div>
 
-                  <h2 className="h4 fw-bold mb-4">Release Control</h2>
+                  <LocalizedText id="dev.release.control.title" tag="h2" className="h4 fw-bold mb-4" />
                   
                   <div className="mb-4">
                     <p id="countdown" className="fs-5 fw-bold text-primary mb-3">
@@ -163,11 +167,11 @@ export default function ReleaseToken() {
                     >
                       {isLoading ? (
                         <>
-                          <i className="fas fa-spinner fa-spin me-2"></i>Processing...
+                          <i className="fas fa-spinner fa-spin me-2"></i><LocalizedText id="dev.release.button.processing" tag="span" />
                         </>
                       ) : (
                         <>
-                          <i className="fas fa-rocket me-2"></i>Release Now
+                          <i className="fas fa-rocket me-2"></i><LocalizedText id="dev.release.button.release_now" tag="span" />
                         </>
                       )}
                     </button>
@@ -190,7 +194,7 @@ export default function ReleaseToken() {
                       rel="noopener noreferrer"
                       className="text-decoration-none"
                     >
-                      <i className="fas fa-external-link-alt me-2"></i>Check transaction log on BscScan
+                      <i className="fas fa-external-link-alt me-2"></i><LocalizedText id="dev.release.check_bscscan" tag="span" />
                     </a>
                   </div>
                 </div>
@@ -200,20 +204,20 @@ export default function ReleaseToken() {
               <div className="card feature-card mt-4">
                 <div className="card-body p-4">
                   <h3 className="h6 fw-bold mb-3">
-                    <i className="fas fa-info-circle text-info me-2"></i>How It Works
+                    <i className="fas fa-info-circle text-info me-2"></i><LocalizedText id="dev.release.how.title" tag="span" />
                   </h3>
                   <ul className="list-unstyled mb-0">
                     <li className="mb-2">
                       <i className="fas fa-check-circle text-success me-2"></i>
-                      Tokens can be released every Wednesday on the testnet
+                      <LocalizedText id="dev.release.how.item1" tag="span" />
                     </li>
                     <li className="mb-2">
                       <i className="fas fa-check-circle text-success me-2"></i>
-                      The button will be enabled when a release is eligible
+                      <LocalizedText id="dev.release.how.item2" tag="span" />
                     </li>
                     <li className="mb-0">
                       <i className="fas fa-check-circle text-success me-2"></i>
-                      Each release distributes 1 billion GERD tokens to designated wallets
+                      <LocalizedText id="dev.release.how.item3" tag="span" />
                     </li>
                   </ul>
                 </div>

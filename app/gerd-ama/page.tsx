@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import LocalizedText from '@/components/LocalizedText';
 
 export default function GerdAma() {
   return (
@@ -11,10 +12,11 @@ export default function GerdAma() {
             <div className="row">
               <div className="col-lg-10 mx-auto text-center">
                 <h1 className="display-4 fw-bold mb-4">
-                  <i className="fas fa-comments me-3"></i>Abay GERD Token - Community AMA
+                  <i className="fas fa-comments me-3"></i>
+                  <LocalizedText id="ama.hero.title" tag="span" />
                 </h1>
                 <p className="lead fs-5 opacity-90">
-                  Everything you need to know about GERD Token — straight from the team. Learn more about the mission, technology, and vision behind this unique community project.
+                  <LocalizedText id="ama.hero.lead" tag="span" />
                 </p>
               </div>
             </div>
@@ -233,9 +235,10 @@ export default function GerdAma() {
               <div className="card qa-card border-success bg-success-subtle">
                 <div className="card-body p-5 text-center">
                   <h2 className="h4 fw-bold mb-3">
-                    <i className="fas fa-rocket text-success me-2"></i>Final Words?
+                    <i className="fas fa-rocket text-success me-2"></i>
+                    <LocalizedText id="ama.final.title" tag="span" />
                   </h2>
-                  <p className="lead mb-4">GERD is more than a token. It&apos;s a movement. Claim your share. Contribute. Grow with us.</p>
+                  <p className="lead mb-4"><LocalizedText id="ama.final.lead" tag="span" /></p>
                   <div className="d-flex flex-column flex-md-row gap-3 justify-content-center">
                     <Link href="/" className="text-decoration-none">
                       <i className="fas fa-link me-2"></i>www.abaygerdtoken.com

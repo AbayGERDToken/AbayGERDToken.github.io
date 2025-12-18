@@ -2,9 +2,12 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import LocalizedText from '@/components/LocalizedText';
+import { useTranslations } from 'next-intl';
 
 export default function GerdAirdrop() {
-  const [countdown, setCountdown] = useState<string>('...');
+  const t = useTranslations();
+  const [countdown, setCountdown] = useState<string>(t('airdrop.loading.calculating'));
 
   useEffect(() => {
     const startDate = new Date('2025-04-24T00:00:00Z');
@@ -19,7 +22,7 @@ export default function GerdAirdrop() {
 
       const diff = nextRelease.getTime() - now.getTime();
       if (diff <= 0) {
-        setCountdown('Airdrop Available Now!');
+        setCountdown(t('airdrop.available_now'));
         return;
       }
       const days = Math.floor(diff / (1000 * 60 * 60 * 24));
@@ -43,10 +46,11 @@ export default function GerdAirdrop() {
             <div className="row">
               <div className="col-lg-10 mx-auto text-center">
                 <h1 className="display-4 fw-bold mb-4">
-                  <i className="fas fa-parachute-box me-3"></i>Airdrop – Every Year on April 23rd
+                  <i className="fas fa-parachute-box me-3"></i>
+                  <LocalizedText id="airdrop.hero.title" tag="span" />
                 </h1>
                 <p className="lead fs-5 opacity-90">
-                  Calculate your potential airdrop rewards based on the number of wallet holders
+                  <LocalizedText id="airdrop.hero.lead" tag="span" />
                 </p>
               </div>
             </div>
@@ -64,7 +68,8 @@ export default function GerdAirdrop() {
               <div className="card feature-card mb-5">
                 <div className="card-body p-5 text-center">
                   <h2 className="h4 fw-bold mb-4">
-                    <i className="fas fa-clock me-2"></i>Next Release In
+                    <i className="fas fa-clock me-2"></i>
+                    <LocalizedText id="airdrop.next_release" tag="span" />
                   </h2>
                   <div className="countdown-box">
                     <p className="countdown-text mb-0">{countdown}</p>
@@ -76,18 +81,17 @@ export default function GerdAirdrop() {
               <div className="card feature-card mb-5">
                 <div className="card-body p-5">
                   <h2 className="h4 fw-bold mb-4">
-                    <i className="fas fa-calculator me-2"></i>Airdrop Formula
+                    <i className="fas fa-calculator me-2"></i>
+                    <LocalizedText id="airdrop.formula.title" tag="span" />
                   </h2>
                   <div className="bg-light p-4 rounded text-center mb-4">
-                    <p className="h5 mb-2">Airdrop per User =</p>
+                    <LocalizedText id="airdrop.formula.per_user" tag="p" className="h5 mb-2" />
                     <div className="display-6 fw-bold text-success">
                       <sup style={{ fontSize: '1.5rem' }}>500,000,000 GERD</sup>⁄
                       <sub style={{ fontSize: '1.5rem' }}>Number of Wallets</sub>
                     </div>
                   </div>
-                  <p className="text-muted mb-0">
-                    The earlier you join, the more tokens you&apos;ll receive in each annual airdrop!
-                  </p>
+                  <LocalizedText id="airdrop.formula.lead" tag="p" className="text-muted mb-0" />
                 </div>
               </div>
 
@@ -95,14 +99,15 @@ export default function GerdAirdrop() {
               <div className="card feature-card mb-5">
                 <div className="card-body p-4">
                   <h2 className="h4 fw-bold mb-4 text-center">
-                    <i className="fas fa-table me-2"></i>Airdrop Projections
+                    <i className="fas fa-table me-2"></i>
+                    <LocalizedText id="airdrop.projections.title" tag="span" />
                   </h2>
                   <div className="table-responsive">
                     <table className="table table-striped table-hover">
                       <thead className="table-success">
                         <tr>
-                          <th>If Number of Wallets</th>
-                          <th>Airdrop per Wallet (GERD)</th>
+                          <th><LocalizedText id="airdrop.projections.table.wallets" tag="span" /></th>
+                          <th><LocalizedText id="airdrop.projections.table.per_wallet" tag="span" /></th>
                         </tr>
                       </thead>
                       <tbody>
@@ -125,7 +130,7 @@ export default function GerdAirdrop() {
               <div className="card feature-card mb-5">
                 <div className="card-body p-4">
                   <h2 className="h4 fw-bold mb-4 text-center">
-                    <i className="fas fa-chart-bar me-2"></i>Visualization (Logarithmic Scale)
+                    <i className="fas fa-chart-bar me-2"></i><LocalizedText id="airdrop.visualization.title" tag="span" />
                   </h2>
                   <div className="graph">
                     <div className="bar" style={{ width: '100%' }}>5,000 wallets → 100k GERD per wallet</div>
@@ -152,7 +157,8 @@ export default function GerdAirdrop() {
               <div className="card feature-card border-success">
                 <div className="card-body p-5">
                   <h2 className="h4 fw-bold mb-4 text-center">
-                    <i className="fas fa-lightbulb text-warning me-2"></i>Key Observations
+                    <i className="fas fa-lightbulb text-warning me-2"></i>
+                    <LocalizedText id="airdrop.key_observations.title" tag="span" />
                   </h2>
                   <div className="row g-3">
                     <div className="col-md-6">
@@ -164,8 +170,8 @@ export default function GerdAirdrop() {
                           <i className="fas fa-rocket"></i>
                         </div>
                         <div>
-                          <h4 className="h6 fw-bold mb-1">Early Adopter Advantage</h4>
-                          <p className="small text-muted mb-0">Early adopters receive exponentially more tokens per wallet</p>
+                          <h4 className="h6 fw-bold mb-1"><LocalizedText id="airdrop.key_observations.early_adopter" tag="span" /></h4>
+                          <p className="small text-muted mb-0"><LocalizedText id="airdrop.key_observations.early_adopter_lead" tag="span" /></p>
                         </div>
                       </div>
                     </div>
@@ -178,8 +184,8 @@ export default function GerdAirdrop() {
                           <i className="fas fa-calendar-alt"></i>
                         </div>
                         <div>
-                          <h4 className="h6 fw-bold mb-1">115-Year Commitment</h4>
-                          <p className="small text-muted mb-0">Annual airdrops continue for 115 years, ensuring long-term value</p>
+                          <h4 className="h6 fw-bold mb-1"><LocalizedText id="airdrop.key_observations.commitment" tag="span" /></h4>
+                          <p className="small text-muted mb-0"><LocalizedText id="airdrop.key_observations.commitment_lead" tag="span" /></p>
                         </div>
                       </div>
                     </div>
@@ -196,10 +202,7 @@ export default function GerdAirdrop() {
         <div className="container">
           <div className="row align-items-center">
             <div className="col-md-8">
-              <h2 className="h5 mb-3">
-                DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY AND SUPPORTING THE GRAND ETHIOPIAN RENAISSANCE DAM PROJECT.
-                JOIN US IN CREATING A BRIGHTER FUTURE! #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD
-              </h2>
+              <LocalizedText id="site.promo" tag="h2" className="h5 mb-3" />
             </div>
             <div className="col-md-4 text-center">
               <Image 

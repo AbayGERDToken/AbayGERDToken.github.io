@@ -55,8 +55,8 @@ export default function AmharicHome() {
             <div className="col-md-6 mx-auto">
               <FeatureCard iconBg="bg-success-subtle" iconColor="text-success" center={true}>
                 <div>
-                  <p className="mb-2" style={{ fontSize: '1rem', lineHeight: 1.6, marginBottom: '0.5rem' }}>{t('intro.feature_p2')}</p>
-                  <p className="mb-0 text-muted">{t('intro.feature_p1')}</p>
+                  <LocalizedText id="intro.feature_p2" tag="p" className="mb-2" style={{ fontSize: '1rem', lineHeight: 1.6, marginBottom: '0.5rem' }} />
+                  <LocalizedText id="intro.feature_p1" tag="p" className="mb-0 text-muted" />
                 </div>
               </FeatureCard>
             </div>

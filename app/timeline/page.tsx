@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import LocalizedText from '@/components/LocalizedText';
 
 export default function Timeline() {
   return (
@@ -10,10 +11,11 @@ export default function Timeline() {
             <div className="row">
               <div className="col-lg-10 mx-auto text-center">
                 <h1 className="display-4 fw-bold mb-4">
-                  <i className="fas fa-history me-3"></i>Abay GERD Token - Project Timeline
+                  <i className="fas fa-history me-3"></i>
+                  <LocalizedText id="timeline.hero.title" tag="span" />
                 </h1>
                 <p className="lead fs-5 opacity-90">
-                  A comprehensive journey through the development and milestones of the GERD Token project
+                  <LocalizedText id="timeline.hero.lead" tag="span" />
                 </p>
               </div>
             </div>

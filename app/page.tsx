@@ -77,7 +77,7 @@ export default function Home() {
                 icon="fas fa-users"
                 iconBg="bg-success-subtle"
                 iconColor="text-success"
-                title="Community-Powered"
+                title={<LocalizedText id="home.feature.community" />}
               >
                 While many crypto projects launch with seed investors or private sales, GERD takes a different path—one that is entirely community-powered. With no presales or insider allocations, the focus is on ensuring transparent and fair access for everyone from the start.
               </FeatureCard>
@@ -87,16 +87,14 @@ export default function Home() {
                 icon="fas fa-lock"
                 iconBg="bg-primary-subtle"
                 iconColor="text-primary"
-                title="Generational Impact"
+                title={<LocalizedText id="home.feature.impact" />}
               >
                 With 120 billion total tokens and 115 billion locked under a 115-year release schedule, GERD Token is engineered for generational impact. Its smart contract is open-source and deployed on the Binance Smart Chain (BSC), ensuring full verifiability.
               </FeatureCard>
             </div>
           </div>
           <div className="text-center mt-5">
-            <p className="text-muted mb-4">
-              We especially invite participation from unbanked communities with internet access. Help us expand awareness and empower more people to claim their share of this national digital legacy.
-            </p>
+            <LocalizedText id="home.invite" tag="p" className="text-muted mb-4" />
             <Link href="/claim-form" className="btn btn-success btn-lg cta-button">
               <i className="fas fa-gift me-2"></i><LocalizedText id="intro.cta" />
             </Link>
@@ -132,7 +130,7 @@ export default function Home() {
             <div className="col-lg-10 mx-auto">
               <div className="card border-0 shadow-sm">
                 <div className="card-body p-4">
-                  <h3 className="h5 fw-bold mb-4">Annual Release Mechanism</h3>
+                  <LocalizedText id="tokenomics.mechanism.title" tag="h3" className="h5 fw-bold mb-4" />
                   <div className="row g-3">
                     <div className="col-md-4">
                       <div className="d-flex align-items-start">
@@ -144,7 +142,7 @@ export default function Home() {
                         </div>
                         <div>
                           <h4 className="h6 fw-bold mb-1">500M GERD</h4>
-                          <p className="small text-muted mb-0">Airdropped evenly to all holders</p>
+                          <LocalizedText id="tokenomics.mechanism.item1" tag="p" className="small text-muted mb-0" />
                         </div>
                       </div>
                     </div>
@@ -158,7 +156,7 @@ export default function Home() {
                         </div>
                         <div>
                           <h4 className="h6 fw-bold mb-1">250M GERD</h4>
-                          <p className="small text-muted mb-0">Allocated to staking rewards</p>
+                          <LocalizedText id="tokenomics.mechanism.item2" tag="p" className="small text-muted mb-0" />
                         </div>
                       </div>
                     </div>
@@ -172,7 +170,7 @@ export default function Home() {
                         </div>
                         <div>
                           <h4 className="h6 fw-bold mb-1">250M GERD</h4>
-                          <p className="small text-muted mb-0">To liquidity or burned if pool is full</p>
+                          <LocalizedText id="tokenomics.mechanism.item3" tag="p" className="small text-muted mb-0" />
                         </div>
                       </div>
                     </div>
@@ -181,15 +179,15 @@ export default function Home() {
                   <ul className="list-unstyled mb-0">
                     <li className="mb-2">
                       <i className="fas fa-check-circle text-success me-2"></i>
-                      <strong>Airdrop Frequency:</strong> Once per year, every year, for 115 years
+                      <strong><LocalizedText id="tokenomics.bullet.frequency_prefix" tag="span" /></strong> <LocalizedText id="tokenomics.bullet.frequency" tag="span" />
                     </li>
                     <li className="mb-2">
                       <i className="fas fa-check-circle text-success me-2"></i>
-                      <strong>Eligibility:</strong> All wallets holding GERD at the time of distribution automatically qualify
+                      <strong><LocalizedText id="tokenomics.bullet.eligibility_prefix" tag="span" /></strong> <LocalizedText id="tokenomics.bullet.eligibility" tag="span" />
                     </li>
                     <li className="mb-0">
                       <i className="fas fa-check-circle text-success me-2"></i>
-                      <strong>Adopter Advantage:</strong> The earlier you join, the more years of airdrops you receive
+                      <strong><LocalizedText id="tokenomics.bullet.adopter_prefix" tag="span" /></strong> <LocalizedText id="tokenomics.bullet.adopter" tag="span" />
                     </li>
                   </ul>
                 </div>
@@ -207,11 +205,9 @@ export default function Home() {
           <div className="row mb-5">
             <div className="col-lg-8 mx-auto text-center">
               <h2 className="display-5 fw-bold mb-3">
-                <i className="fas fa-globe text-primary me-2"></i>Token Distribution
+                <i className="fas fa-globe text-primary me-2"></i><LocalizedText id="site.token_distribution.title" tag="span" />
               </h2>
-              <p className="lead text-muted">
-                100% community-driven with no presales, no early investor advantages, and no centralized ownership
-              </p>
+              <LocalizedText id="site.token_distribution.lead" tag="p" className="lead text-muted" />
             </div>
           </div>
           <div className="row g-4 mb-5">
@@ -226,9 +222,9 @@ export default function Home() {
               >
                 <div className="text-center">
                   <div className="stat-number mb-2" style={{ fontSize: '2rem' }}>10,000</div>
-                  <p className="text-muted mb-3">GERD tokens per wallet</p>
+                  <LocalizedText id="site.tokens_per_wallet" tag="p" className="text-muted mb-3" />
                   <div className="badge bg-primary-subtle text-primary px-3 py-2">
-                    <i className="fas fa-lock me-1"></i>Capped at 50,000 wallets
+                    <i className="fas fa-lock me-1"></i><LocalizedText id="site.capped_50k" tag="span" />
                   </div>
                 </div>
               </FeatureCard>
@@ -244,9 +240,9 @@ export default function Home() {
               >
                 <div className="text-center">
                   <div className="stat-number mb-2" style={{ fontSize: '2rem', color: '#dc3545' }}>75,000</div>
-                  <p className="text-muted mb-3">GERD tokens per wallet</p>
+                  <LocalizedText id="site.tokens_per_wallet" tag="p" className="text-muted mb-3" />
                   <div className="badge bg-danger-subtle text-danger px-3 py-2">
-                    <i className="fas fa-lock me-1"></i>Capped at 25,000 wallets
+                    <i className="fas fa-lock me-1"></i><LocalizedText id="site.capped_25k" tag="span" />
                   </div>
                 </div>
               </FeatureCard>
@@ -255,9 +251,7 @@ export default function Home() {
           <div className="row">
             <div className="col-lg-8 mx-auto">
               <div className="alert alert-info border-0 shadow-sm">
-                <p className="mb-0">
-                  This hybrid model promotes <strong>global inclusion</strong> while giving special priority to users in Ethiopia—especially <strong>unbanked communities</strong> with access to mobile devices and internet. It&apos;s our way of honoring the people behind the GERD project.
-                </p>
+                <LocalizedText id="home.hybrid_model" tag="p" className="mb-0" />
               </div>
             </div>
           </div>
@@ -620,10 +614,7 @@ export default function Home() {
         <div className="container">
           <div className="row align-items-center">
             <div className="col-md-8">
-              <h2 className="h4 mb-3">
-                DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY AND SUPPORTING THE GRAND ETHIOPIAN RENAISSANCE DAM PROJECT.
-                JOIN US IN CREATING A BRIGHTER FUTURE! #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD
-              </h2>
+              <LocalizedText id="site.promo" tag="h2" className="h4 mb-3" />
             </div>
             <div className="col-md-4 text-center">
               <Image

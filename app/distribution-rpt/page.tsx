@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
+import LocalizedText from '@/components/LocalizedText';
 import { db } from '@/lib/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 
@@ -175,10 +176,10 @@ export default function DistributionReport() {
             <div className="row">
               <div className="col-lg-10 mx-auto text-center">
                 <h1 className="display-4 fw-bold mb-4">
-                  <i className="fas fa-chart-bar me-3"></i>Distribution Statistics
+                  <i className="fas fa-chart-bar me-3"></i><LocalizedText id="distribution.title" tag="span" />
                 </h1>
                 <p className="lead fs-5 opacity-90">
-                  Total tokens claimed by Country - Real-time global distribution data
+                  <LocalizedText id="distribution.lead" tag="span" />
                 </p>
               </div>
             </div>
@@ -197,10 +198,10 @@ export default function DistributionReport() {
                 disabled={loading}
               >
                 <i className={`fas ${loading ? 'fa-spinner fa-spin' : 'fa-sync-alt'} me-2`}></i>
-                {loading ? 'Loading...' : 'Refresh Data'}
+                {loading ? <LocalizedText id="distribution.loading" tag="span" /> : <LocalizedText id="distribution.refresh" tag="span" />}
               </button>
               <p className="text-muted small">
-                *Click button to pull updated data from the blockchain.
+                <LocalizedText id="distribution.hint" tag="span" />
               </p>
             </div>
           </div>
@@ -212,7 +213,7 @@ export default function DistributionReport() {
                   <div className="display-6 fw-bold text-primary mb-2">
                     {totalClaims.toLocaleString('en-US')}
                   </div>
-                  <p className="text-muted mb-0">Total Claims</p>
+                  <LocalizedText id="distribution.stats.total_claims" tag="p" className="text-muted mb-0" />
                 </div>
               </div>
               <div className="col-md-6">
@@ -220,7 +221,7 @@ export default function DistributionReport() {
                   <div className="display-6 fw-bold text-success mb-2">
                     {Math.floor(totalTokens).toLocaleString('en-US')}
                   </div>
-                  <p className="text-muted mb-0">Total Tokens Claimed</p>
+                  <LocalizedText id="distribution.stats.total_tokens" tag="p" className="text-muted mb-0" />
                 </div>
               </div>
             </div>
@@ -231,15 +232,15 @@ export default function DistributionReport() {
               <div className="card feature-card">
                 <div className="card-body p-4">
                   <h2 className="h4 fw-bold mb-4 text-center">
-                    <i className="fas fa-table me-2"></i>Distribution by Country
+                    <i className="fas fa-table me-2"></i><LocalizedText id="distribution.by_country" tag="span" />
                   </h2>
                   <div className="table-responsive">
                     <table id="summary-table" className="table table-striped table-hover mb-0">
                       <thead>
                         <tr>
-                          <th>Country Name</th>
-                          <th>Number of Claims</th>
-                          <th>Total Tokens Claimed</th>
+                          <th><LocalizedText id="distribution.table.country" tag="span" /></th>
+                          <th><LocalizedText id="distribution.table.claims" tag="span" /></th>
+                          <th><LocalizedText id="distribution.table.tokens" tag="span" /></th>
                         </tr>
                       </thead>
                       <tbody id="summary-table-body">
@@ -247,14 +248,14 @@ export default function DistributionReport() {
                           <tr>
                             <td colSpan={3} className="text-center py-5">
                               <i className="fas fa-spinner fa-spin fa-2x text-muted mb-3 d-block"></i>
-                              <p className="text-muted mb-0">Loading distribution data...</p>
+                              <LocalizedText id="distribution.loading_text" tag="p" className="text-muted mb-0" />
                             </td>
                           </tr>
                         ) : distributions.length === 0 ? (
                           <tr>
                             <td colSpan={3} className="text-center py-5">
                               <i className="fas fa-info-circle fa-2x text-muted mb-3 d-block"></i>
-                              <p className="text-muted mb-0">Click &quot;Refresh Data&quot; to load distribution statistics</p>
+                              <LocalizedText id="distribution.empty_cta" tag="p" className="text-muted mb-0" />
                             </td>
                           </tr>
                         ) : (
@@ -272,10 +273,12 @@ export default function DistributionReport() {
                   {showStats && distributions.length > 0 && (
                     <div className="mt-4 pt-3 border-top">
                       <p className="fw-bold mb-2">
-                        Total Claims: <span className="text-primary">{totalClaims.toLocaleString('en-US')}</span>
+                        <LocalizedText id="distribution.stats.total_claims" tag="span" className="me-2" />
+                        <span className="text-primary">{totalClaims.toLocaleString('en-US')}</span>
                       </p>
                       <p className="fw-bold mb-0">
-                        Total Tokens Claimed: <span className="text-success">{Math.floor(totalTokens).toLocaleString('en-US')}</span>
+                        <LocalizedText id="distribution.stats.total_tokens" tag="span" className="me-2" />
+                        <span className="text-success">{Math.floor(totalTokens).toLocaleString('en-US')}</span>
                       </p>
                     </div>
                   )}
@@ -294,7 +297,7 @@ export default function DistributionReport() {
               <div className="card feature-card">
                 <div className="card-body p-4">
                   <h2 className="h4 fw-bold mb-4 text-center">
-                    <i className="fas fa-chart-line me-2"></i>Interactive Distribution Dashboard
+                    <i className="fas fa-chart-line me-2"></i><LocalizedText id="distribution.tableau.title" tag="span" />
                   </h2>
                   <div className="tableauPlaceholder" id="viz1686619041159" style={{ position: 'relative', minHeight: '600px' }}>
                     <noscript>
@@ -333,10 +336,7 @@ export default function DistributionReport() {
         <div className="container">
           <div className="row align-items-center">
             <div className="col-md-8">
-              <h2 className="h5 mb-3">
-                DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY AND SUPPORTING THE GRAND ETHIOPIAN RENAISSANCE DAM PROJECT.
-                JOIN US IN CREATING A BRIGHTER FUTURE! #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD
-              </h2>
+              <LocalizedText id="site.promo" tag="h2" className="h5 mb-3" />
             </div>
             <div className="col-md-4 text-center">
               <Image 

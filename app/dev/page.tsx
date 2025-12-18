@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import LocalizedText from '@/components/LocalizedText';
 
 export default function Dev() {
   return (
@@ -10,11 +11,9 @@ export default function Dev() {
             <div className="row">
               <div className="col-lg-10 mx-auto text-center">
                 <h1 className="display-4 fw-bold mb-4">
-                  <i className="fas fa-code me-3"></i>Join the GERD Developer Initiative
+                  <i className="fas fa-code me-3"></i><LocalizedText id="dev.hero.title" tag="span" />
                 </h1>
-                <p className="lead fs-5 opacity-90">
-                  Develop the future with us
-                </p>
+                <LocalizedText id="dev.hero.lead" tag="p" className="lead fs-5 opacity-90" />
               </div>
             </div>
           </div>
@@ -28,11 +27,9 @@ export default function Dev() {
             {/* Left Column */}
             <div className="col-lg-8">
               <h2 className="h1 mb-4">
-                <i className="fas fa-code text-success me-2"></i>Develop the Future with Us
+                <i className="fas fa-code text-success me-2"></i><LocalizedText id="dev.how.title" tag="span" />
               </h2>
-              <p className="lead mb-5">
-                We are calling on developers, testers, and designers to join the <strong>GERD Mobile App Development Initiative</strong>. Together, we&apos;ll empower users with secure, user-friendly tools to interact with the Abay GERD Token ecosystem.
-              </p>
+              <LocalizedText id="dev.how.lead" tag="p" className="lead mb-5" />
 
               {/* GitHub Link */}
               <div className="text-center py-4 mb-4">
@@ -42,7 +39,7 @@ export default function Dev() {
                   rel="noopener noreferrer"
                   className="btn btn-outline-primary btn-lg"
                 >
-                  <i className="fab fa-github me-2"></i>View & Contribute on GitHub
+                  <i className="fab fa-github me-2"></i><LocalizedText id="dev.cta.github" />
                   <i className="fas fa-external-link-alt ms-1"></i>
                 </a>
               </div>
@@ -50,24 +47,24 @@ export default function Dev() {
               <div className="card mb-4 shadow-sm feature-card">
                 <div className="card-body">
                   <h3 className="h5 mb-3">
-                    <i className="fas fa-bullseye text-success me-2"></i>Project Goals
+                    <i className="fas fa-bullseye text-success me-2"></i><LocalizedText id="dev.goals.title" tag="span" />
                   </h3>
                   <ul className="list-unstyled mb-0">
                     <li className="mb-2">
                       <i className="fas fa-check-circle text-success me-2"></i>
-                      Build a mobile app to view balances and interact with GERD tokens
+                      <LocalizedText id="dev.goals.item1" />
                     </li>
                     <li className="mb-2">
                       <i className="fas fa-check-circle text-success me-2"></i>
-                      Enable QR scanning of GERD wallet addresses
+                      <LocalizedText id="dev.goals.item2" />
                     </li>
                     <li className="mb-2">
                       <i className="fas fa-check-circle text-success me-2"></i>
-                      Support token claiming, tracking, and sending
+                      <LocalizedText id="dev.goals.item3" />
                     </li>
                     <li className="mb-2">
                       <i className="fas fa-check-circle text-success me-2"></i>
-                      Keep it simple, secure, and community-owned
+                      <LocalizedText id="dev.goals.item4" />
                     </li>
                   </ul>
                 </div>
@@ -76,24 +73,24 @@ export default function Dev() {
               <div className="card mb-4 shadow-sm feature-card">
                 <div className="card-body">
                   <h3 className="h5 mb-3">
-                    <i className="fas fa-hands-helping text-success me-2"></i>How You Can Help
+                    <i className="fas fa-hands-helping text-success me-2"></i><LocalizedText id="dev.help.title" tag="span" />
                   </h3>
                   <ul className="list-unstyled mb-0">
                     <li className="mb-2">
                       <i className="fas fa-check-circle text-success me-2"></i>
-                      Contribute to frontend or backend mobile development (React Native, Flutter, etc.)
+                      <LocalizedText id="dev.help.item1" />
                     </li>
                     <li className="mb-2">
                       <i className="fas fa-check-circle text-success me-2"></i>
-                      Design user interfaces and improve user experience
+                      <LocalizedText id="dev.help.item2" />
                     </li>
                     <li className="mb-2">
                       <i className="fas fa-check-circle text-success me-2"></i>
-                      Help test the app across devices and environments
+                      <LocalizedText id="dev.help.item3" />
                     </li>
                     <li className="mb-2">
                       <i className="fas fa-check-circle text-success me-2"></i>
-                      Share feedback and ideas on GitHub or Telegram
+                      <LocalizedText id="dev.help.item4" />
                     </li>
                   </ul>
                 </div>
@@ -102,11 +99,9 @@ export default function Dev() {
               <div className="card mb-4 shadow-sm feature-card">
                 <div className="card-body">
                   <h3 className="h5 mb-3">
-                    <i className="fas fa-gift text-success me-2"></i>Incentives
+                    <i className="fas fa-gift text-success me-2"></i><LocalizedText id="dev.incentives.title" tag="span" />
                   </h3>
-                  <p className="mb-0">
-                    We will reward contributors with <strong>GERD tokens</strong> based on their impact and commitment. Active developers will also be recognized on our public contributor page.
-                  </p>
+                  <LocalizedText id="dev.incentives.body" tag="p" className="mb-0" />
                 </div>
               </div>
 
@@ -115,7 +110,7 @@ export default function Dev() {
                   href="mailto:contact@abaygerdtoken.com"
                   className="btn btn-primary btn-lg"
                 >
-                  <i className="fas fa-envelope me-2"></i>Email us Now – Let&apos;s Build Together
+                  <i className="fas fa-envelope me-2"></i><LocalizedText id="dev.cta.email" />
                 </a>
               </div>
             </div>

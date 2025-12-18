@@ -1,10 +1,11 @@
 'use client';
 
+import React from 'react';
 import { useState } from 'react';
 
 interface ContractAddressProps {
   address: string;
-  label: string;
+  label: React.ReactNode;
   borderColor?: string;
   isLegacy?: boolean;
 }

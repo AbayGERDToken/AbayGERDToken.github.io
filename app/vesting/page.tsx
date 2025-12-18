@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import LocalizedText from '@/components/LocalizedText';
 
 export default function Vesting() {
   return (
@@ -10,9 +11,10 @@ export default function Vesting() {
             <div className="row">
               <div className="col-lg-10 mx-auto text-center">
                 <h1 className="display-4 fw-bold mb-4">
-                  <i className="fas fa-lock me-3"></i>Abay GERD Token Vesting Strategy
+                  <i className="fas fa-lock me-3"></i>
+                  <LocalizedText id="vesting.hero.title" tag="span" />
                 </h1>
-                <p className="lead fs-5 opacity-90">Reinforcing Transparency and Sustainable Growth</p>
+                <p className="lead fs-5 opacity-90"><LocalizedText id="vesting.hero.lead" tag="span" /></p>
               </div>
             </div>
           </div>
@@ -29,26 +31,16 @@ export default function Vesting() {
               <div className="card feature-card mb-4">
                 <div className="card-body p-5">
                   <h2 className="h3 fw-bold mb-4">
-                    <i className="fas fa-chart-line text-success me-2"></i>Overview of the Vesting Plan
+                    <i className="fas fa-chart-line text-success me-2"></i>
+                    <LocalizedText id="vesting.overview.title" tag="span" />
                   </h2>
-                  <p className="lead mb-4">
-                    The <strong>Abay GERD Token (GERD)</strong> has a transformative vesting strategy designed to enhance long-term value,
-                    promote stability, and build trust through full transparency. This development marks a major milestone in the token&apos;s evolution.
-                  </p>
-                  <p className="mb-3">
-                    In addition to the milestone airdrop distributed to all existing wallet addresses on May 5, 2025, to commemorate its
-                    <strong>2-year anniversary</strong>, GERD Token has introduced a long-term vesting framework to further demonstrate its
-                    commitment to sustainability and ongoing community rewards.
-                  </p>
-                  <p className="mb-3">
-                    A total of <strong>115 billion tokens</strong> will be locked in a secure, immutable smart contract, with a scheduled release
-                    of <strong>1 billion tokens per year</strong> over the next 115 years. This approach ensures a consistent and predictable
-                    distribution model that incentivizes long-term holding and active participation.
-                  </p>
+                  <LocalizedText id="vesting.overview.lead1" tag="p" className="lead mb-4" />
+                  <LocalizedText id="vesting.overview.lead2" tag="p" className="mb-3" />
+                  <LocalizedText id="vesting.overview.lead3" tag="p" className="mb-3" />
                   <div className="alert alert-info border-info">
                     <p className="mb-0">
                       <i className="fas fa-info-circle me-2"></i>
-                      The smart contract is fully autonomous and irreversible. Once deployed, its rules cannot be modified or bypassed—neither by the original developers nor any external party. The vesting schedule and token release conditions will be permanently embedded in the blockchain and remain verifiable by anyone at any time.
+                      <LocalizedText id="vesting.alert.info" tag="span" />
                     </p>
                   </div>
                 </div>
@@ -58,7 +50,7 @@ export default function Vesting() {
               <div className="card feature-card mb-4">
                 <div className="card-body p-5">
                   <h2 className="h3 fw-bold mb-4">
-                    <i className="fas fa-key text-primary me-2"></i>Key Details
+                    <i className="fas fa-key text-primary me-2"></i><LocalizedText id="vesting.key_details.title" tag="span" />
                   </h2>
                   <div className="row g-3">
                     <div className="col-md-6">
@@ -70,8 +62,8 @@ export default function Vesting() {
                           <i className="fas fa-lock"></i>
                         </div>
                         <div>
-                          <h4 className="h6 fw-bold mb-1">115 Billion Tokens Locked</h4>
-                          <p className="small text-muted mb-0">Secured in an irreversible smart contract on Binance Smart Chain (BSC)</p>
+                          <h4 className="h6 fw-bold mb-1"><LocalizedText id="vesting.key_details.locked.title" tag="span" /></h4>
+                          <p className="small text-muted mb-0"><LocalizedText id="vesting.key_details.locked.lead" tag="span" /></p>
                         </div>
                       </div>
                     </div>
@@ -84,8 +76,8 @@ export default function Vesting() {
                           <i className="fas fa-calendar-alt"></i>
                         </div>
                         <div>
-                          <h4 className="h6 fw-bold mb-1">Annual Release of 1 Billion</h4>
-                          <p className="small text-muted mb-0">Starting April 23, 2026, 1 billion tokens released annually</p>
+                          <h4 className="h6 fw-bold mb-1"><LocalizedText id="vesting.key_details.annual.title" tag="span" /></h4>
+                          <p className="small text-muted mb-0"><LocalizedText id="vesting.key_details.annual.lead" tag="span" /></p>
                         </div>
                       </div>
                     </div>
@@ -98,8 +90,8 @@ export default function Vesting() {
                           <i className="fas fa-parachute-box"></i>
                         </div>
                         <div>
-                          <h4 className="h6 fw-bold mb-1">500 Million Airdropped</h4>
-                          <p className="small text-muted mb-0">Distributed evenly to all active GERD holders—no action needed</p>
+                          <h4 className="h6 fw-bold mb-1"><LocalizedText id="vesting.key_details.airdropped.title" tag="span" /></h4>
+                          <p className="small text-muted mb-0"><LocalizedText id="vesting.key_details.airdropped.lead" tag="span" /></p>
                         </div>
                       </div>
                     </div>
@@ -112,8 +104,8 @@ export default function Vesting() {
                           <i className="fas fa-coins"></i>
                         </div>
                         <div>
-                          <h4 className="h6 fw-bold mb-1">250 Million for Staking</h4>
-                          <p className="small text-muted mb-0">For users who stake GERD tokens, encouraging engagement</p>
+                          <h4 className="h6 fw-bold mb-1"><LocalizedText id="vesting.key_details.staking.title" tag="span" /></h4>
+                          <p className="small text-muted mb-0"><LocalizedText id="vesting.key_details.staking.lead" tag="span" /></p>
                         </div>
                       </div>
                     </div>
@@ -126,8 +118,8 @@ export default function Vesting() {
                           <i className="fas fa-fire"></i>
                         </div>
                         <div>
-                          <h4 className="h6 fw-bold mb-1">250 Million for Liquidity or Burn</h4>
-                          <p className="small text-muted mb-0">Added to liquidity if under 500M; otherwise burned</p>
+                          <h4 className="h6 fw-bold mb-1"><LocalizedText id="vesting.key_details.liquidity.title" tag="span" /></h4>
+                          <p className="small text-muted mb-0"><LocalizedText id="vesting.key_details.liquidity.lead" tag="span" /></p>
                         </div>
                       </div>
                     </div>
@@ -140,8 +132,8 @@ export default function Vesting() {
                           <i className="fas fa-eye"></i>
                         </div>
                         <div>
-                          <h4 className="h6 fw-bold mb-1">Publicly Verifiable</h4>
-                          <p className="small text-muted mb-0">All activity is traceable and transparent on-chain</p>
+                          <h4 className="h6 fw-bold mb-1"><LocalizedText id="vesting.key_details.verifiable.title" tag="span" /></h4>
+                          <p className="small text-muted mb-0"><LocalizedText id="vesting.key_details.verifiable.lead" tag="span" /></p>
                         </div>
                       </div>
                     </div>
@@ -153,7 +145,7 @@ export default function Vesting() {
               <div className="card feature-card mb-4">
                 <div className="card-body p-5">
                   <h2 className="h3 fw-bold mb-4">
-                    <i className="fas fa-star text-warning me-2"></i>Why It Matters
+                    <i className="fas fa-star text-warning me-2"></i><LocalizedText id="vesting.why.title" tag="span" />
                   </h2>
                   <div className="row g-3">
                     <div className="col-md-4">
@@ -164,8 +156,8 @@ export default function Vesting() {
                         >
                           <i className="fas fa-users"></i>
                         </div>
-                        <h4 className="h6 fw-bold mb-2">Long-Term Participation</h4>
-                        <p className="small text-muted mb-0">Encourages long-term participation with annual rewards</p>
+                        <h4 className="h6 fw-bold mb-2"><LocalizedText id="vesting.why.participation.title" tag="span" /></h4>
+                        <p className="small text-muted mb-0"><LocalizedText id="vesting.why.participation.lead" tag="span" /></p>
                       </div>
                     </div>
                     <div className="col-md-4">
@@ -176,8 +168,8 @@ export default function Vesting() {
                         >
                           <i className="fas fa-chart-line"></i>
                         </div>
-                        <h4 className="h6 fw-bold mb-2">Sustainable Growth</h4>
-                        <p className="small text-muted mb-0">Promotes sustainable and predictable growth</p>
+                        <h4 className="h6 fw-bold mb-2"><LocalizedText id="vesting.why.sustainable.title" tag="span" /></h4>
+                        <p className="small text-muted mb-0"><LocalizedText id="vesting.why.sustainable.lead" tag="span" /></p>
                       </div>
                     </div>
                     <div className="col-md-4">
@@ -188,8 +180,8 @@ export default function Vesting() {
                         >
                           <i className="fas fa-network-wired"></i>
                         </div>
-                        <h4 className="h6 fw-bold mb-2">Decentralized Model</h4>
-                        <p className="small text-muted mb-0">Aligns with a decentralized financial model for the GERD community</p>
+                        <h4 className="h6 fw-bold mb-2"><LocalizedText id="vesting.why.decentralized.title" tag="span" /></h4>
+                        <p className="small text-muted mb-0"><LocalizedText id="vesting.why.decentralized.lead" tag="span" /></p>
                       </div>
                     </div>
                   </div>
@@ -200,11 +192,9 @@ export default function Vesting() {
               <div className="card feature-card mb-4">
                 <div className="card-body p-5">
                   <h2 className="h3 fw-bold mb-3">
-                    <i className="fas fa-users text-success me-2"></i>A Community-Driven Digital Asset
+                    <i className="fas fa-users text-success me-2"></i><LocalizedText id="vesting.community.title" tag="span" />
                   </h2>
-                  <p className="mb-0">
-                    GERD Token&apos;s value comes from its community, not institutions. Its adoption and utility define its worth—like Bitcoin, it&apos;s a decentralized people-powered asset.
-                  </p>
+                  <LocalizedText id="vesting.community.lead" tag="p" className="mb-0" />
                 </div>
               </div>
 
@@ -212,11 +202,9 @@ export default function Vesting() {
               <div className="card feature-card mb-4">
                 <div className="card-body p-5">
                   <h2 className="h3 fw-bold mb-3">
-                    <i className="fas fa-infinity text-primary me-2"></i>A Generational Asset
+                    <i className="fas fa-infinity text-primary me-2"></i><LocalizedText id="vesting.generational.title" tag="span" />
                   </h2>
-                  <p className="mb-0">
-                    Designed to last over a century, GERD Token is a long-term digital inheritance. Early holders benefit most from the annual airdrop structure, and as the number of wallets increases, each share becomes smaller—rewarding early adopters significantly.
-                  </p>
+                  <LocalizedText id="vesting.generational.lead" tag="p" className="mb-0" />
                 </div>
               </div>
 
@@ -224,11 +212,9 @@ export default function Vesting() {
               <div className="card feature-card mb-4">
                 <div className="card-body p-5">
                   <h2 className="h3 fw-bold mb-3">
-                    <i className="fas fa-eye text-info me-2"></i>Looking Ahead
+                    <i className="fas fa-eye text-info me-2"></i><LocalizedText id="vesting.ahead.title" tag="span" />
                   </h2>
-                  <p className="mb-0">
-                    GERD Token continues to grow on principles of fairness, transparency, and generational wealth. Its vesting mechanism offers a rare chance to build digital legacy for years to come.
-                  </p>
+                  <LocalizedText id="vesting.ahead.lead" tag="p" className="mb-0" />
                 </div>
               </div>
 
@@ -241,7 +227,7 @@ export default function Vesting() {
                   >
                     <i className="fas fa-rocket"></i>
                   </div>
-                  <h2 className="h3 fw-bold mb-0">The journey has just begun. GERD is built to last.</h2>
+                  <h2 className="h3 fw-bold mb-0"><LocalizedText id="vesting.final_message" tag="span" /></h2>
                 </div>
               </div>
 
@@ -254,10 +240,7 @@ export default function Vesting() {
         <div className="container">
           <div className="row align-items-center">
             <div className="col-md-8">
-              <h2 className="h5 mb-3">
-                DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY AND SUPPORTING THE GRAND ETHIOPIAN RENAISSANCE DAM PROJECT.
-                JOIN US IN CREATING A BRIGHTER FUTURE! #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD
-              </h2>
+              <LocalizedText id="site.promo" tag="h2" className="h5 mb-3" />
             </div>
             <div className="col-md-4 text-center">
               <Image 

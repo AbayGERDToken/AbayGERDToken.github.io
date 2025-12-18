@@ -6,6 +6,7 @@ import Image from 'next/image';
 
 import ClaimUpdateModal from '@/components/ClaimUpdateModal';
 import ContractAddress from '@/components/ContractAddress';
+import LocalizedText from '@/components/LocalizedText';
 
 declare global {
   interface Window {
@@ -404,10 +405,11 @@ export default function ClaimForm() {
             <div className="row align-items-center">
               <div className="col-lg-8 mx-auto text-center">
                 <h1 className="display-4 fw-bold mb-4">
-                  <i className="fas fa-gift me-3"></i>Claim Your GERD Tokens
+                  <i className="fas fa-gift me-3"></i>
+                  <LocalizedText id="claim_form.hero.title" tag="span" />
                 </h1>
                 <p className="lead fs-5 mb-4 opacity-90">
-                  Get your free GERD tokens in seconds. No wallet connection required—just submit your address and receive your tokens.
+                  <LocalizedText id="claim_form.hero.lead" tag="span" />
                 </p>
                 <button
                   type="button"
@@ -415,7 +417,8 @@ export default function ClaimForm() {
                   data-bs-toggle="modal"
                   data-bs-target="#changeModal"
                 >
-                  <i className="fas fa-bullhorn me-2"></i>See Claim Update
+                  <i className="fas fa-bullhorn me-2"></i>
+                  <LocalizedText id="claim_form.see_update" tag="span" />
                 </button>
               </div>
             </div>
@@ -440,8 +443,8 @@ export default function ClaimForm() {
                       <i className="fas fa-check-circle"></i>
                     </div>
                     <div className="ms-3">
-                      <h3 className="h5 fw-bold mb-0">No Wallet Connection</h3>
-                      <p className="text-muted small mb-0">Privacy and safety first</p>
+                      <h3 className="h5 fw-bold mb-0"><LocalizedText id="claim_form.features.no_wallet.title" tag="span" /></h3>
+                      <p className="text-muted small mb-0"><LocalizedText id="claim_form.features.no_wallet.subtitle" tag="span" /></p>
                     </div>
                   </div>
                   <p className="text-muted mb-0">
@@ -461,16 +464,18 @@ export default function ClaimForm() {
                       <i className="fas fa-search"></i>
                     </div>
                     <div className="ms-3">
-                      <h3 className="h5 fw-bold mb-0">Before You Claim</h3>
-                      <p className="text-muted small mb-0">Important preparation steps</p>
+                      <h3 className="h5 fw-bold mb-0"><LocalizedText id="claim_form.features.before.title" tag="span" /></h3>
+                      <p className="text-muted small mb-0"><LocalizedText id="claim_form.features.before.subtitle" tag="span" /></p>
                     </div>
                   </div>
                   <ul className="list-unstyled mb-0">
                     <li className="mb-2">
-                      <i className="fas fa-check text-success me-2"></i>Import the GERD contract into your wallet
+                      <i className="fas fa-check text-success me-2"></i>
+                      <LocalizedText id="claim_form.features.before.item1" tag="span" />
                     </li>
                     <li className="mb-0">
-                      <i className="fas fa-check text-success me-2"></i>Use a supported wallet (Trust Wallet, MetaMask, Base Wallet, etc.)
+                      <i className="fas fa-check text-success me-2"></i>
+                      <LocalizedText id="claim_form.features.before.item2" tag="span" />
                     </li>
                   </ul>
                 </div>
@@ -499,9 +504,9 @@ export default function ClaimForm() {
                   >
                     🇪🇹
                   </div>
-                  <h3 className="h5 fw-bold mb-2">Ethiopia-Based Wallets</h3>
-                  <div className="display-6 fw-bold text-danger mb-2">75,000</div>
-                  <p className="text-muted mb-0">GERD tokens per wallet</p>
+                  <h3 className="h5 fw-bold mb-2"><LocalizedText id="claim_form.eligibility.ethiopia_title" tag="span" /></h3>
+                  <div className="display-6 fw-bold text-danger mb-2"><LocalizedText id="claim_form.eligibility.ethiopia_amount" tag="span" /></div>
+                  <p className="text-muted mb-0"><LocalizedText id="claim_form.eligibility.ethiopia_label" tag="span" /></p>
                 </div>
               </div>
             </div>
@@ -514,9 +519,9 @@ export default function ClaimForm() {
                   >
                     <i className="fas fa-globe"></i>
                   </div>
-                  <h3 className="h5 fw-bold mb-2">Global Wallets</h3>
-                  <div className="display-6 fw-bold text-primary mb-2">10,000</div>
-                  <p className="text-muted mb-0">GERD tokens per wallet</p>
+                  <h3 className="h5 fw-bold mb-2"><LocalizedText id="claim_form.eligibility.global_title" tag="span" /></h3>
+                  <div className="display-6 fw-bold text-primary mb-2"><LocalizedText id="claim_form.eligibility.global_amount" tag="span" /></div>
+                  <p className="text-muted mb-0"><LocalizedText id="claim_form.eligibility.global_label" tag="span" /></p>
                 </div>
               </div>
             </div>
@@ -533,10 +538,11 @@ export default function ClaimForm() {
             <div className="col-lg-8 mx-auto">
               <div className="claim-card">
                 <h2 className="h3 fw-bold mb-4 text-center">
-                  <i className="fas fa-wallet text-success me-2"></i>Claim Your Tokens
+                  <i className="fas fa-wallet text-success me-2"></i>
+                  <LocalizedText id="claim_form.form.title" tag="span" />
                 </h2>
                 <div className="mb-4">
-                  <label htmlFor="recipient" className="form-label fw-semibold">Wallet Address:</label>
+                  <label htmlFor="recipient" className="form-label fw-semibold"><LocalizedText id="claim_form.form.wallet_label" tag="span" /></label>
                   <input
                     className="form-control form-control-lg"
                     type="text"
@@ -560,13 +566,15 @@ export default function ClaimForm() {
                   >
                     {loading ? (
                       <>
-                        <i className="fas fa-spinner fa-spin me-2"></i>Processing...
+                        <i className="fas fa-spinner fa-spin me-2"></i>
+                        <LocalizedText id="claim_form.form.processing" tag="span" />
                       </>
                     ) : (
                       <>
-                        <i className="fas fa-gift me-2"></i>Claim Tokens
+                        <i className="fas fa-gift me-2"></i>
+                        <LocalizedText id="claim_form.form.button" tag="span" />
                       </>
-                    )}
+                    )} 
                   </button>
                 </div>
                 {response && (
@@ -601,10 +609,11 @@ export default function ClaimForm() {
               <div className="card feature-card">
                 <div className="card-body p-5">
                   <h2 className="h3 fw-bold mb-4 text-center">
-                    <i className="fas fa-balance-scale text-info me-2"></i>Check Your Balance
+                    <i className="fas fa-balance-scale text-info me-2"></i>
+                    <LocalizedText id="claim_form.balance.title" tag="span" />
                   </h2>
                   <div className="mb-4">
-                    <label htmlFor="bwallet-address" className="form-label fw-semibold">Wallet Address:</label>
+                    <label htmlFor="bwallet-address" className="form-label fw-semibold"><LocalizedText id="claim_form.balance.wallet_label" tag="span" /></label>
                     <input
                       className="form-control form-control-lg"
                       type="text"
@@ -621,7 +630,8 @@ export default function ClaimForm() {
                       onClick={checkBalance}
                       disabled={!isWeb3Ready}
                     >
-                      <i className="fas fa-search me-2"></i>Check Balance
+                      <i className="fas fa-search me-2"></i>
+                      <LocalizedText id="claim_form.balance.button" tag="span" />
                     </button>
                   </div>
                   {balance && (
@@ -649,10 +659,7 @@ export default function ClaimForm() {
         <div className="container">
           <div className="row align-items-center">
             <div className="col-md-8">
-              <h2 className="h5 mb-3">
-                DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY AND SUPPORTING THE GRAND ETHIOPIAN RENAISSANCE DAM PROJECT.
-                JOIN US IN CREATING A BRIGHTER FUTURE! <i className="fas fa-earth-americas text-primary"></i> <i className="fas fa-coins text-warning"></i> #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD
-              </h2>
+              <LocalizedText id="site.promo" tag="h2" className="h5 mb-3" />
             </div>
             <div className="col-md-4 text-center">
               <Image

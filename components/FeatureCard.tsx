@@ -2,7 +2,7 @@ interface FeatureCardProps {
   icon?: string;
   iconBg?: string;
   iconColor?: string;
-  title?: string;
+  title?: React.ReactNode;
   children: React.ReactNode;
   borderColor?: string;
   center?: boolean;

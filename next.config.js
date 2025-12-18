@@ -8,7 +8,11 @@ const nextConfig = {
   basePath: process.env.NODE_ENV === 'production' ? '' : '',
 };
 
-module.exports = nextConfig;
+// Integrate next-intl plugin so the build can find the i18n request config
+const createNextIntlPlugin = require('next-intl/plugin');
+const withNextIntl = createNextIntlPlugin();
+
+module.exports = withNextIntl(nextConfig);
 
 
 

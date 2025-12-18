@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import ContractAddress from '@/components/ContractAddress';
+import LocalizedText from '@/components/LocalizedText';
 
 export default function MigrationAnnouncement() {
   return (
@@ -12,9 +13,9 @@ export default function MigrationAnnouncement() {
             <div className="row">
               <div className="col-lg-10 mx-auto text-center">
                 <h1 className="display-4 fw-bold mb-4">
-                  <i className="fas fa-exchange-alt me-3"></i>Official GERD Token Migration Announcement
+                  <i className="fas fa-exchange-alt me-3"></i><LocalizedText id="migration.title" tag="span" />
                 </h1>
-                <p className="lead fs-5 opacity-90">Date: May 31, 2025</p>
+                <p className="lead fs-5 opacity-90"><LocalizedText id="migration.date" tag="span" /></p>
               </div>
             </div>
           </div>
@@ -31,24 +32,21 @@ export default function MigrationAnnouncement() {
               <div className="card feature-card mb-5">
                 <div className="card-body p-5">
                   <h2 className="h3 fw-bold text-success mb-4">
-                    <i className="fas fa-question-circle me-2"></i>Why was this migration necessary?
+                    <i className="fas fa-question-circle me-2"></i><LocalizedText id="migration.why.title" tag="span" />
                   </h2>
                   <p className="mb-4">
-                    The original GERD Token contract, deployed on April 23, 2023, was designed to support a long-term,
-                    community-first initiative for digital value creation in underserved regions. During a routine
-                    security audit, we identified a minor vulnerability in the allowance logic. No funds were lost,
-                    but to maintain trust and transparency, we migrated to a new, immutable contract.
+                    <LocalizedText id="migration.why.body" tag="span" />
                   </p>
                   <div className="alert alert-warning border-warning">
                     <p className="mb-0">
-                      <strong>99.99% of the legacy contract&apos;s supply has been burned to a dead address.</strong>{' '}
+                      <strong><LocalizedText id="migration.burn_notice" tag="span" /></strong>{' '}
                       <a
                         href="https://bscscan.com/token/0x660941bb4AA9FcBED00375673D21088A9d0C5019?a=0x000000000000000000000000000000000000dead"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="text-decoration-none fw-bold"
                       >
-                        View Burned Supply <i className="fas fa-external-link-alt ms-1"></i>
+                        <LocalizedText id="migration.burn_view_link" tag="span" /> <i className="fas fa-external-link-alt ms-1"></i>
                       </a>
                     </p>
                   </div>
@@ -59,7 +57,7 @@ export default function MigrationAnnouncement() {
               <div className="card feature-card mb-5">
                 <div className="card-body p-5">
                   <h2 className="h3 fw-bold text-success mb-4">
-                    <i className="fas fa-star me-2"></i>What&apos;s new in the upgraded GERD contract?
+                    <i className="fas fa-star me-2"></i><LocalizedText id="migration.whats_new_title" tag="span" />
                   </h2>
                   <div className="row g-3">
                     <div className="col-md-6">
@@ -71,8 +69,8 @@ export default function MigrationAnnouncement() {
                           <i className="fas fa-lock"></i>
                         </div>
                         <div>
-                          <h4 className="h6 fw-bold mb-1">Immutable</h4>
-                          <p className="small text-muted mb-0">No admin, no upgrade mechanism</p>
+                          <h4 className="h6 fw-bold mb-1"><LocalizedText id="migration.new.immutable.title" tag="span" /></h4>
+                          <p className="small text-muted mb-0"><LocalizedText id="migration.new.immutable.body" tag="span" /></p>
                         </div>
                       </div>
                     </div>
@@ -85,8 +83,8 @@ export default function MigrationAnnouncement() {
                           <i className="fas fa-ban"></i>
                         </div>
                         <div>
-                          <h4 className="h6 fw-bold mb-1">No Minting</h4>
-                          <p className="small text-muted mb-0">Fixed supply, hard-capped forever</p>
+                          <h4 className="h6 fw-bold mb-1"><LocalizedText id="migration.new.no_mint.title" tag="span" /></h4>
+                          <p className="small text-muted mb-0"><LocalizedText id="migration.new.no_mint.body" tag="span" /></p>
                         </div>
                       </div>
                     </div>
@@ -99,8 +97,8 @@ export default function MigrationAnnouncement() {
                           <i className="fas fa-user-slash"></i>
                         </div>
                         <div>
-                          <h4 className="h6 fw-bold mb-1">Ownerless</h4>
-                          <p className="small text-muted mb-0">No centralized privileges</p>
+                          <h4 className="h6 fw-bold mb-1"><LocalizedText id="migration.new.ownerless.title" tag="span" /></h4>
+                          <p className="small text-muted mb-0"><LocalizedText id="migration.new.ownerless.body" tag="span" /></p>
                         </div>
                       </div>
                     </div>
@@ -113,16 +111,14 @@ export default function MigrationAnnouncement() {
                           <i className="fas fa-shield-alt"></i>
                         </div>
                         <div>
-                          <h4 className="h6 fw-bold mb-1">Hardened Security</h4>
-                          <p className="small text-muted mb-0">Improved transferFrom() logic</p>
+                          <h4 className="h6 fw-bold mb-1"><LocalizedText id="migration.new.security.title" tag="span" /></h4>
+                          <p className="small text-muted mb-0"><LocalizedText id="migration.new.security.body" tag="span" /></p>
                         </div>
                       </div>
                     </div>
                   </div>
                   <hr className="my-4" />
-                  <p className="mb-0">
-                    <strong>Total Supply:</strong> 120,000,000,000 GERD (2 decimals) | <strong>ERC-20 Compliant:</strong> Fully standard and compatible
-                  </p>
+                  <p className="mb-0"><LocalizedText id="migration.summary" tag="span" /></p>
                 </div>
               </div>
 
@@ -136,13 +132,13 @@ export default function MigrationAnnouncement() {
                     <div className="col-md-6">
                       <ContractAddress
                         address="0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c"
-                        label="New GERD Token Contract"
+                        label={<LocalizedText id="migration.contracts.new_label" tag="span" />}
                       />
                     </div>
                     <div className="col-md-6">
                       <ContractAddress
                         address="0x660941bb4AA9FcBED00375673D21088A9d0C5019"
-                        label="Legacy Contract (archived)"
+                        label={<LocalizedText id="migration.contracts.legacy_label" tag="span" />}
                         borderColor="#ffc107"
                         isLegacy={true}
                       />
@@ -161,15 +157,14 @@ export default function MigrationAnnouncement() {
                     >
                       <i className="fas fa-check-circle"></i>
                     </div>
-                    <h2 className="h3 fw-bold text-success mb-3">Airdrop Completed — What You Need to Know</h2>
+                    <h2 className="h3 fw-bold text-success mb-3"><LocalizedText id="migration.airdrop.title" tag="span" /></h2>
                   </div>
                   <p className="text-center lead mb-4">
-                    The token migration and airdrop process has successfully completed ahead of schedule.
-                    All balances have been updated under the new contract.
+                    <LocalizedText id="migration.airdrop.lead" tag="span" />
                   </p>
                   <div className="alert alert-success text-center mb-0">
                     <p className="mb-0 fw-bold">
-                      <i className="fas fa-info-circle me-2"></i>No action is required — if you held GERD before the migration, your new token balance is already in your wallet.
+                      <i className="fas fa-info-circle me-2"></i><LocalizedText id="migration.airdrop.alert" tag="span" />
                     </p>
                   </div>
                 </div>
@@ -179,9 +174,9 @@ export default function MigrationAnnouncement() {
               <div className="card feature-card mb-5">
                 <div className="card-body p-5">
                   <h2 className="h3 fw-bold text-success mb-4">
-                    <i className="fas fa-eye me-2"></i>How to View Your GERD Tokens
+                    <i className="fas fa-eye me-2"></i><LocalizedText id="migration.howto.title" tag="span" />
                   </h2>
-                  <p className="mb-4">To view your new GERD token balance:</p>
+                  <p className="mb-4"><LocalizedText id="migration.howto.lead" tag="span" /></p>
                   <div className="row g-3">
                     <div className="col-md-6">
                       <div className="d-flex align-items-start">
@@ -192,7 +187,7 @@ export default function MigrationAnnouncement() {
                           <span className="fw-bold">1</span>
                         </div>
                         <div>
-                          <p className="mb-0">Open your wallet app (e.g., MetaMask, Trust Wallet)</p>
+                          <p className="mb-0"><LocalizedText id="migration.howto.step1" tag="span" /></p>
                         </div>
                       </div>
                     </div>
@@ -205,7 +200,7 @@ export default function MigrationAnnouncement() {
                           <span className="fw-bold">2</span>
                         </div>
                         <div>
-                          <p className="mb-0">Select &quot;Import Token&quot; or &quot;Add Custom Token&quot;</p>
+                          <p className="mb-0"><LocalizedText id="migration.howto.step2" tag="span" /></p>
                         </div>
                       </div>
                     </div>
@@ -218,7 +213,7 @@ export default function MigrationAnnouncement() {
                           <span className="fw-bold">3</span>
                         </div>
                         <div>
-                          <p className="mb-0">Enter the contract details below</p>
+                          <p className="mb-0"><LocalizedText id="migration.howto.step3" tag="span" /></p>
                         </div>
                       </div>
                     </div>
@@ -231,7 +226,7 @@ export default function MigrationAnnouncement() {
                           <span className="fw-bold">4</span>
                         </div>
                         <div>
-                          <p className="mb-0">Save and refresh your wallet</p>
+                          <p className="mb-0"><LocalizedText id="migration.howto.step4" tag="span" /></p>
                         </div>
                       </div>
                     </div>
@@ -249,11 +244,10 @@ export default function MigrationAnnouncement() {
               <div className="card feature-card border-success mb-5">
                 <div className="card-body p-5 text-center">
                   <h2 className="h3 fw-bold text-success mb-4">
-                    <i className="fas fa-heart me-2"></i>Thank You
+                    <i className="fas fa-heart me-2"></i><LocalizedText id="migration.thanks.title" tag="span" />
                   </h2>
                   <p className="lead mb-0">
-                    Thank you for your continued trust in the GERD Token project. This migration strengthens our foundation
-                    for the next phase of growth and guarantees a secure, transparent, and decentralized future.
+                    <LocalizedText id="migration.thanks.lead" tag="span" />
                   </p>
                 </div>
               </div>

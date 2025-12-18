@@ -14,11 +14,294 @@
     "lead": "ለረጅም ጊዜ የእሴት ማስቆጣጠር እና ማሻሻያ",
     "total_supply": "120B",
     "locked_reserve": "115B",
-    "annual_release": "1B"
+    "annual_release": "1B",
+    "mechanism": {
+      "title": "የዓመት የማቅረብ ስርዓት",
+      "item1": "እያንዳንዱን ተደላወጥ",
+      "item2": "ለስታኪንግ ሻለት",
+      "item3": "ወደ ሊኳይዲቲ ወይም እንዲጠፋ ተደርጎ ይሰጣል"
+    },
+    "bullet": {
+      "frequency_prefix": "የአይርድሮፕ ወቅት:",
+      "frequency": "አንድ ጊዜ በዓመት፣ ለ115 ዓመታት",
+      "eligibility_prefix": "ዕድል:",
+      "eligibility": "የGERD የሚያዙ ሁሉ ቦርሳዎች በየዓመቱ ዕድል ይገባቸዋል",
+      "adopter_prefix": "የቀድሞ ተቀባይ ጥቅም:",
+      "adopter": "ቀድሞ ከተቀላጠ ጊዜ ብዙ ጊዜ ይቀባሉ"
+    }
   },
   "claim_section": {
     "title": "የእርስዎን ክፍል ይጠይቁ",
     "lead": "እኛ ሁሉንም ወደ ዊደም ባለመቀላቀሉ እንጋብዝ። ነጻ ቶክኖችን ይጠይቁና የዚህ ታሪካዊ ድርጅት ክፍል ይሁኑ።",
     "cta": "እኩልን ዛሬ ይጠይቁ"
+  },
+  "site": {
+    "promo": "አባይ GERD ቶክንን ያውቁ — እርስዎን የወሰደ ኢትዮጵያ እና የክሪፕቶ ማህበረሰብን የሚያበረታታ ፕሮጀክት። #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD",
+    "token_distribution": { "title": "Token Distribution", "lead": "100% community-driven with no presales, no early investor advantages, and no centralized ownership" },
+    "tokens_per_wallet": "GERD tokens per wallet",
+    "capped_50k": "Capped at 50,000 wallets",
+    "capped_25k": "Capped at 25,000 wallets"
+  },
+  "wallets": {
+    "hero": {
+      "title": "የGERD ቶክን የቦርሳ ሚዛናት",
+      "lead": "በBinance Smart Chain ላይ የፕሮጀክት የቦርሳ ሚዛናትን በስርዓተ-ጊዜ ማከማቻ"
+    },
+    "table": {
+      "title": "የፕሮጀክት የቦርሳ ሚዛናት",
+      "balance": "ሚዛን (GERD)",
+      "description": "ማብራሪያ",
+      "address": "የቦርሳ አድራሻ"
+    },
+    "descriptions": {
+      "vesting_reserve": "የማስቆጣጠር መያዣ",
+      "token_burn_dead_address": "የቶክን እሳት - የሞተ አድራሻ",
+      "development_reserve_fund": "የልማት መያዣ ባናንን",
+      "distribution_for_claims": "ለጥያቄዎች ከፍተኛ የሚያደርጉ ክፍያ",
+      "airdrop_smart_contract": "የአይርድሮፕ ስማርት ኮንትራክት",
+      "liquidity_pool": "የሊኳይዲቲ ፑል",
+      "gerd_dignitary_reserve": "የGERD የአክስተኞች መያዣ",
+      "staking_rewards": "የስታኪንግ ሽልማቶች"
+    },
+    "loading": "በማተኮር…",
+    "promo": "አባይ GERD ቶክንን ያውቁ — እርስዎን የወሰደ ኢትዮጵያ እና የክሪፕቶ ማህበረሰብን የሚያበረታታ ፕሮጀክት። #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD",
+    "image": { "alt": "Abay GERD Token" }
+  },
+  "base_wallet": {
+    "hero": {
+      "title": "Base ዋሌት እንዴት እንደሚሰራ",
+      "lead": "Base Wallet እንዴት እንደሚከናወን፣ Abay GERD ኮንትራክትን እንዴት እንደሚገባ እና በBase ኔትወርክ የGERD ዋሌት አድራሻዎን እንዴት እንደሚያገኙ የሚያሳየው እቅድ ነው"
+    },
+    "steps": {
+      "step1": { "title": "Base Wallet ይጫኑ" },
+      "step2": { "title": "Base Wallet ያስተካክሉ" },
+      "step3": { "title": "Abay GERD ኮንትራክትን ያስገቡ" },
+      "step4": { "title": "የ GERD ዋሌት አድራሻዎን ያግኙ" }
+    },
+    "success": {
+      "title": "እርስዎ አሁን ዝግጁ ነዎት!",
+      "lead": "አሁን በBase Wallet ላይ የGERD ቶክኖችን ማስተዳደር ይችላሉ. ለመላክ ትንሽ የBNB ውስጥ የግዥ ትክክል ይፈልጋሉ፣ ይቀበሉ ነጻ ነው."
+    },
+    "promo": "አባይ GERD ቶክንን ያውቁ — እርስዎን የወሰደ ኢትዮጵያ እና የክሪፕቶ ማህበረሰብን የሚያበረታታ ፕሮጀክት።"
+  },
+  "trust_wallet": {
+    "hero": {
+      "title": "Trust Wallet እንዴት እንደሚሰራ",
+      "lead": "Trust Wallet እንዴት እንደሚከናወን፣ Abay GERD ኮንትራክትን እንዴት እንደሚገባ እና በBinance Smart Chain የGERD ዋሌት አድራሻዎን እንዴት እንደሚያገኙ የሚያሳየው እቅድ ነው"
+    },
+    "steps": {
+      "step1": { "title": "Trust Wallet ይጫኑ" },
+      "step2": { "title": "Trust Wallet ያስተካክሉ" },
+      "step3": { "title": "Abay GERD ኮንትራክትን ያስገቡ" },
+      "step4": { "title": "የ GERD ዋሌት አድራሻዎን ያግኙ" }
+    },
+    "success": {
+      "title": "እርስዎ አሁን ዝግጁ ነዎት!",
+      "lead": "አሁን በTrust Wallet ላይ የGERD ቶክኖችን ማስተዳደር ይችላሉ. ለመላክ ትንሽ የBNB ውስጥ የግዥ ትክክል ይፈልጋሉ፣ ይቀበሉ ነጻ ነው."
+    },
+    "promo": "አባይ GERD ቶክንን ያውቁ — እርስዎን የወሰደ ኢትዮጵያ እና የክሪፕቶ ማህበረሰብን የሚያበረታታ ፕሮጀክት።"
+  },
+  "metamask_wallet": {
+    "hero": {
+      "title": "MetaMask ዋሌት እንዴት እንደሚሰራ",
+      "lead": "MetaMask ዋሌት እንዴት እንደሚከናወን፣ Abay GERD ኮንትራክትን እንዴት እንደሚገባ እና በBinance Smart Chain የGERD ዋሌት አድራሻዎን እንዴት እንደሚያገኙ የሚያሳየው እቅድ ነው"
+    },
+    "steps": {
+      "step1": { "title": "MetaMask ይጫኑ" },
+      "step2": { "title": "MetaMask ያስተካክሉ" },
+      "step3": { "title": "Binance Smart Chain ኔትወርክን ያስገቡ" },
+      "step4": { "title": "Abay GERD ኮንትራክትን ያስገቡ" },
+      "step5": { "title": "የ GERD ዋሌት አድራሻዎን ያግኙ" }
+    },
+    "success": {
+      "title": "እርስዎ አሁን ዝግጁ ነዎት!",
+      "lead": "አሁን በMetaMask ላይ የGERD ቶክኖችን ማስተዳደር ይችላሉ። ለመላክ ትንሽ የBNB ውስጥ የግዥ ትክክል ይፈልጋሉ፣ ተቀበሉ ነጻ ነው."
+    },
+    "promo": "አባይ GERD ቶክንን ያውቁ — እርስዎን የወሰደ ኢትዮጵያ እና የክሪፕቶ ማህበረሰብን የሚያበረታታ ፕሮጀክት።"
+  },
+  "claim_form": {
+    "hero": { "title": "የ GERD ቶክኖችን ይጠይቁ", "lead": "ነጻ የሆኑ  GERD ቶክኖችን በሰከንዶች ይወስዱ። ዋሌት እንዳትገናኝ የሚጠይቀው ነው—አድራሻዎን ብቻ ይላኩ።" },
+    "see_update": "የጥያቄ አሻሽልን ይመልከቱ",
+    "features": { "no_wallet": { "title": "ዋሌት ግንኙነት የለም", "subtitle": "የግል መረጃ እና ደህንነት" }, "before": { "title": "ከመጠየቅ በፊት", "subtitle": "አስፈላጊ ዝግጅቶች", "item1": "GERD ኮንትራክትን ወደ ዋሌትዎ ያስገቡ", "item2": "የደጋፊ ዋሌቶችን ይጠቀሙ (Trust Wallet, MetaMask, Base Wallet እና እንዲሁ ቀሪዎች)" } },
+    "eligibility": { "ethiopia_title": "የኢትዮጵያ የቦርሳ ዋሌቶች", "ethiopia_amount": "75,000", "ethiopia_label": "ቶክኖች በዋሌት", "global_title": "ዓለም አቀፍ ዋሌቶች", "global_amount": "10,000", "global_label": "ቶክኖች በዋሌት" },
+    "form": { "title": "የቶክኖችን ይጠይቁ", "wallet_label": "የዋሌት አድራሻ:", "button": "ቶክኖችን ይጠይቁ", "processing": "በሂደት ላይ..." },
+    "balance": { "title": "ሂሳብዎን ይፈትሹ", "wallet_label": "የዋሌት አድራሻ:", "button": "ሂሳብ ይፈትሹ" }
+  },
+  "airdrop": {
+    "hero": { "title": "አይርድሮፕ — እያንዳንዱ ዓመት በኤፕሪል 23", "lead": "በዋሌቶች ብዛት መሠረት የሚከከሉ አይርድሮፕ ለእየተገኙ ጥቅሞች ያስቁም" },
+    "loading": { "calculating": "በሂደት ላይ…", "generic": "በመጫን ላይ...", "error": "የማስገባት ስህተት" },
+    "next_release": "የቀጣይ ማቅረብ እስከ",
+    "formula": { "title": "የአይርድሮፕ ፊደል", "per_user": "የአይርድሮፕ በተጠቃሚ =", "lead": "ቀድሞ ከሚሳተፉ ሰዎች በየዓመቱ በየአይርድሮፕ ትልቅ ቶክኖች ይወስዳሉ" },
+    "projections": { "title": "የአይርድሮፕ እሴቶች", "table": { "wallets": "የዋሌቶች ብዛት", "per_wallet": "በዋሌት የተመደበ አይርድሮፕ (GERD)" } },
+    "visualization": { "title": "Visualization (Logarithmic Scale)" },
+    "key_observations": { "title": "አስፈላጊ እይታዎች", "early_adopter": "የቀድሞ ተቀባይ ጥቅም", "early_adopter_lead": "ቀድሞ የተቀላጥ ሰዎች በእያንዳንዱ አይርድሮፕ ብዙ ቶክኖች ይቀበላሉ", "commitment": "115-ዓመታዊ ተስማሚነት", "commitment_lead": "ዓመታዊ አይርድሮፕዎች ለ115 ዓመታት ይቀጣሉ" },
+    "available_now": "አይርድሮፕ አሁን ይገኛል!"
+  },
+  "distribution": {
+    "title": "የተከፋይ መረጃ ሪፖርት",
+    "lead": "በአገር የተወሰዱ የቶክን ጠቅላላ — የአለም ደረጃ ትክክል የተሳተፉ ውሂብ",
+    "refresh": "ዳግመኛ ያድርጉ",
+    "loading": "በመጫን ላይ...",
+    "hint": "*የገንቢ ውሂብን ለማንበብ የቁልፍ አዝራርን ይጫኑ።",
+    "stats": { "total_claims": "አጠቃላይ ጥያቄዎች", "total_tokens": "አጠቃላይ የተጠየዉ ቶክኖች" },
+    "by_country": "በአገር የተከፋይ",
+    "table": { "country": "የሀገር ስም", "claims": "የጥያቄዎች ብዛት", "tokens": "አጠቃላይ የተጠየዉ ቶክኖች" },
+    "loading_text": "የተከፋይ ውሂብ በመጫን ላይ...",
+    "empty_cta": "የተከፋይ ውሂብን ለማየት \"ዳግመኛ ያድርጉ\" ይጫኑ",
+    "tableau": { "title": "የተከፋይ በውስጥ ዳሽቦርድ" }
+  },
+  "qna": {
+    "hero": { "title": "QnA: Frequently Asked Questions", "lead": "Get answers to common questions about token rewards, vesting, and the GERD Token ecosystem" },
+    "rewards_title": "Why Are Token Rewards Different by Region?",
+    "rewards": {
+      "q1": {
+        "title": "Why do Ethiopia originated wallets receive 75,000 GERD while others get 10,000 GERD tokens?",
+        "body": "The Abay GERD Token was created as a tribute to the people of Ethiopia who collectively funded and built the Grand Renaissance Dam without external aid. This project represents unity, self-determination, and national pride. As such, Ethiopia is at the heart of this initiative and receive the highest reward."
+      },
+      "q2": {
+        "title": "Why does the rest of the world receive 10,000 GERD?",
+        "body": "Global participants are essential to the success of any decentralized project. We welcome and appreciate your support. The 10,000 GERD reward reflects both inclusivity and our commitment to keeping the token's value sustainable while prioritizing communities most directly connected to the project's origin."
+      },
+      "q3": {
+        "title": "Isn't this unfair or discriminatory?",
+        "body": "Not at all. This is mission-aligned distribution, not exclusion. Every user, regardless of region or background, is eligible to receive tokens and participate freely. The distribution structure ensures that those who contributed to building the foundation are recognized and empowered in proportion to their efforts."
+      },
+      "q4": {
+        "title": "Will I still be able to trade or earn more GERD tokens?",
+        "body": "Yes. GERD tokens will remain tradable for all users worldwide. Once 10,000 wallets have successfully claimed tokens and the token is listed on a centralized exchange (CEX), users will also be eligible to participate in future rewards, airdrops, and community-driven initiatives."
+      }
+    },
+    "vesting_title": "Understanding Vesting in Simple Terms",
+    "vesting": {
+      "q1": {
+        "title": "What is \"vesting\" and why should I care?",
+        "body": "Vesting is a way to release tokens in small, scheduled portions over time instead of giving them all out at once. For the GERD Token, vesting means exactly 1 billion tokens will be released every year for the next 115 years. This creates long-term stability and prevents large dumps on the market."
+      },
+      "q2": {
+        "title": "Who controls the tokens right now?",
+        "body": "As of now, 115 billion GERD tokens are still in a wallet controlled by a single human. They are waiting for the vesting system (smart contract) to go live on the blockchain. Once vesting is live, the tokens will be governed by the contract."
+      },
+      "q3": {
+        "title": "What happens when the vesting contract goes live?",
+        "body": "Once deployed, the tokens will be transferred to a secure, decentralized program called a smart contract — it will automatically release tokens once per year. It's tamper-proof and cannot be changed once deployed."
+      },
+      "q4": {
+        "title": "How are those 1 billion tokens used every year?",
+        "body": "Each year, the 1 billion tokens are split: 500 million distributed to holders, 250 million for staking rewards, and 250 million for liquidity or burning."
+      },
+      "support": "This structure supports long-term health, rewards active holders, and avoids inflation.",
+      "how_used": { "title": "እነዚያ 1 ቢሊዮን ቶክኖች በየዓመቱ እንዴት እንደሚጠቀሙ?", "lead": "በየዓመቱ፣ 1 ቢሊዮን GERD ቶክኖች ሲተወስዱ:" },
+      "allocation1_caption": "Divided and sent to all holders",
+      "allocation1_amount": "500 million GERD",
+      "allocation2_caption": "Used for staking rewards",
+      "allocation2_amount": "250 million GERD",
+      "allocation3_caption": "To liquidity or burned",
+      "allocation3_amount": "250 million GERD",
+      "q5": {
+        "title": "Will everyone get the same amount?",
+        "body": "Yes, the 500 million tokens for holders are shared equally — not based on how much GERD you hold. Every wallet holding any amount of GERD will receive the same fixed amount during each yearly release."
+      },
+      "q6": {
+        "title": "Can anyone stop or change this system later?",
+        "body": "Absolutely not. Once the tokens are inside the vesting smart contract, they are locked and cannot be changed by anyone."
+      },
+      "q7": {
+        "title": "Why is this good for the community?",
+        "body": "This system removes the need to trust any individual. It guarantees fairness, provides predictable rewards, and supports long-term community growth."
+      },
+      "q8": {
+        "title": "So what should I do now?",
+        "body": "Hold GERD tokens in your own wallet (not on an exchange) before each yearly release to automatically receive your share. No action is required — it's handled by the smart contract."
+      }
+    }
+  },
+  "ama": {
+    "hero": { "title": "Abay GERD Token - ማህበረሰብ AMA", "lead": "ስለ GERD Token የሚያስፈልጉ ሁሉ፣ ከቡድኑ የቀረቡ" },
+    "final": { "title": "መጨረሻ ቃል?", "lead": "GERD ከቶክን በላይ ነው። የእርስዎን ክፍል ይጠይቁ። ይአካተቱ። ከእኛ ጋር ይድፉ." }
+  },
+  "migration": {
+    "title": "Official GERD Token Migration Announcement",
+    "date": "Date: May 31, 2025",
+    "why": { "title": "Why was this migration necessary?", "body": "The original GERD Token contract, deployed on April 23, 2023, was designed to support a long-term, community-first initiative for digital value creation in underserved regions. During a routine security audit, we identified a minor vulnerability in the allowance logic. No funds were lost, but to maintain trust and transparency, we migrated to a new, immutable contract." },
+    "burn_notice": "99.99% of the legacy contract's supply has been burned to a dead address.",
+    "burn_view_link": "View Burned Supply",
+    "whats_new_title": "What's new in the upgraded GERD contract?",
+    "new": {
+      "immutable": { "title": "Immutable", "body": "No admin, no upgrade mechanism" },
+      "no_mint": { "title": "No Minting", "body": "Fixed supply, hard-capped forever" },
+      "ownerless": { "title": "Ownerless", "body": "No centralized privileges" },
+      "security": { "title": "Hardened Security", "body": "Improved transferFrom() logic" }
+    },
+    "summary": "Total Supply: 120,000,000,000 GERD (2 decimals) | ERC-20 Compliant: Fully standard and compatible",
+    "contracts": { "new_label": "New GERD Token Contract", "legacy_label": "Legacy Contract (archived)" },
+    "airdrop": { "title": "Airdrop Completed — What You Need to Know", "lead": "The token migration and airdrop process has successfully completed ahead of schedule. All balances have been updated under the new contract.", "alert": "No action is required — if you held GERD before the migration, your new token balance is already in your wallet." },
+    "howto": { "title": "How to View Your GERD Tokens", "lead": "To view your new GERD token balance:", "step1": "Open your wallet app (e.g., MetaMask, Trust Wallet)", "step2": "Select \"Import Token\" or \"Add Custom Token\"", "step3": "Enter the contract details below", "step4": "Save and refresh your wallet" },
+    "thanks": { "title": "Thank You", "lead": "Thank you for your continued trust in the GERD Token project. This migration strengthens our foundation for the next phase of growth and guarantees a secure, transparent, and decentralized future." }
+  },
+  "testnet": {
+    "title": "Vesting Release Dashboard on Testnet",
+    "lead": "Real-time tracking of the GERD Token Vesting contract testing on BSC Testnet",
+    "loading": { "calculating": "በሂደት ላይ…", "generic": "በመጫን ላይ…", "error": "የማስገባት ስህተት" },
+    "info": { "title": "Testnet Testing Information", "body": "This dashboard is for community members to follow the progress of the GERD Token Vesting contract testing on the BSC Testnet. To simulate a long-term token release (1 billion GERD tokens per year for 115 years), the vesting contract on testnet is configured to release 1 billion tokens every Wednesday. This allows for faster testing of what would normally happen over years in production. The data below is read directly from the blockchain and updates in real-time." },
+    "release_control": { "title": "Release Control", "button": "Release Tokens" },
+    "stat": { "countdown_title": "Countdown to Next Release", "can_release_title": "Can Release Now" },
+    "countdown": { "ready": "አሁን ለመለቀቅ ዝግጁ ነው" },
+    "no_release": "ነጻ የለም — እስካሁን የቶክን ማቅረብ አልከናወነም",
+    "contracts": { "testnet_ca": "Testnet CA:", "testnet_vc": "Testnet VC:", "testnet_vc2": "Testnet VC2:", "network": "Network:", "network_value": "BSC Testnet" },
+    "last_release_label": "Last Release Time:",
+    "is_wednesday_label": "Is Today Wednesday:",
+    "next_release_label": "Next Scheduled Release:",
+    "wallets": { "title": "Wallet Balances", "table": { "name": "Name", "balance": "Balance (GERD)", "address": "Wallet Address" }, "loading": "Loading balances..." },
+    "history": { "title": "Release History", "no_releases": "No releases yet", "last_release_label": "Last release:" },
+    "yes": "Yes",
+    "no": "No"
+  },
+  "timeline": {
+    "hero": { "title": "Abay GERD Token - Project Timeline", "lead": "A comprehensive journey through the development and milestones of the GERD Token project" },
+    "final_message": "The journey has just begun. GERD is built to last."
+  },
+  "vesting": {
+    "hero": { "title": "የ GERD ቶክን የማስቆጣጠር ዘዴ", "lead": "በግልጽነት እና በመረጃ ላይ የተመሰረተ የረጅም ጊዜ እድገት" },
+    "overview": { "title": "የማስቆጣጠር እቅድ አጠቃላይ", "lead1": "Abay GERD Token (GERD) የረጅም ጊዜ እርዳታን እና የእሴት ጥራትን ለማሻሻል የተከበረ የማስቆጣጠር ዘዴ አለው።", "lead2": "በ2025-05-05 የተከናወነውን የማዕበል አይርድሮፕ እና የ2-ዓመት አከባቢን ለማከበር፣ GERD ቶክን ረጅም ጊዜ የሚቆይ የማስቆጣጠር እቅድ አስገብቷል።", "lead3": "ጠቅላላ 115 ቢሊዮን ቶክኖች በደህንነት የተያዙ በሆነ ኮንትራክት ይቀርባሉ፣ እና ከዚያ የ1 ቢሊዮን ቶክኖች በዓመት ይለቀቃሉ።" },
+    "alert": { "info": "ኮንትራክቱ ራሱን የሚገናኝ እና አልተቀየረ ነው። ከመነሻ በኋላ ትእዛዞቹ ማንም እንዳይቀየሩ የተዘጋጅቷል።" },
+    "key_details": { "title": "Key Details", "locked": { "title": "115 Billion Tokens Locked", "lead": "Secured in an irreversible smart contract on Binance Smart Chain (BSC)" }, "annual": { "title": "Annual Release of 1 Billion", "lead": "Starting April 23, 2026, 1 billion tokens released annually" }, "airdropped": { "title": "500 Million Airdropped", "lead": "Distributed evenly to all active GERD holders—no action needed" }, "staking": { "title": "250 Million for Staking", "lead": "For users who stake GERD tokens, encouraging engagement" }, "liquidity": { "title": "250 Million for Liquidity or Burn", "lead": "Added to liquidity if under 500M; otherwise burned" }, "verifiable": { "title": "Publicly Verifiable", "lead": "All activity is traceable and transparent on-chain" } },
+    "why": { "title": "Why It Matters", "participation": { "title": "Long-Term Participation", "lead": "Encourages long-term participation with annual rewards" }, "sustainable": { "title": "Sustainable Growth", "lead": "Promotes sustainable and predictable growth" }, "decentralized": { "title": "Decentralized Model", "lead": "Aligns with a decentralized financial model for the GERD community" } },
+    "community": { "title": "A Community-Driven Digital Asset", "lead": "GERD Token's value comes from its community, not institutions. Its adoption and utility define its worth—like Bitcoin, it's a decentralized people-powered asset." },
+    "generational": { "title": "A Generational Asset", "lead": "Designed to last over a century, GERD Token is a long-term digital inheritance. Early holders benefit most from the annual airdrop structure." },
+    "ahead": { "title": "Looking Ahead", "lead": "GERD Token continues to grow on principles of fairness, transparency, and generational wealth. Its vesting mechanism offers a rare chance to build digital legacy for years to come." },
+    "final_message": "ጉዞው አንድ ነው። GERD እንደ ረጅም ጊዜ ይኖራል."
+  },
+  "dashboard_vesting": {
+    "hero": { "title": "GERD ቶክን የማስቆጣጠር ዳሽቦርድ", "lead": "የተያዙ ቶክኖችን እና የሚቀጥለውን የማቅረብ ሰሌዳ ይከታተሉ" },
+    "countdown": { "title": "የቀጣይ መወዳጃ ጊዜ", "scheduled_prefix": "የታቀደ ጊዜ:", "available": "አሁን ይገኛል!" },
+    "stats": { "total_locked": "አጠቃላይ የተደረገ ቆሻሻ", "released": "የተተለቀ", "remaining": "የቀረው", "unit": "GERD ቶክኖች" },
+    "contract": { "label": "የቅኝ አድራሻ" },
+    "breakdown": { "title": "የዓመት ማቅረብ ስርዓት", "year1": "ዓመት 1: 1 ቢሊዮን GERD", "year2": "ዓመት 2: 1 ቢሊዮን GERD", "year3": "ዓመት 3: 1 ቢሊዮን GERD", "info": "በየዓመቱ 1 ቢሊዮን GERD ቶክኖች ከማስቆጣጠር ኮንትራክት ይወጣሉ እስከ 115 ዓመታት ድረስ።" }
+  },
+  "home": {
+    "invite": "We especially invite participation from unbanked communities with internet access. Help us expand awareness and empower more people to claim their share of this national digital legacy.",
+    "hybrid_model": "ይህ ሞዴል ዓለም አቀፍ እኩልነትን ያከብራል፣ እና ለኢትዮጵያ ተጠጋዮች በተለይ የማይሰጥ እድል ይሰጣል።",
+    "feature": { "community": "ማህበረሰብ", "impact": "ለትውልድ ተፅዕኖ" }
+  },
+
+  "dev": {
+    "hero": { "title": "Join the GERD Developer Initiative", "lead": "Develop the future with us" },
+    "how": { "title": "Develop the Future with Us", "lead": "We are calling on developers, testers, and designers to join the GERD Mobile App Development Initiative. Together, we'll empower users with secure, user-friendly tools to interact with the Abay GERD Token ecosystem." },
+    "cta": { "github": "View & Contribute on GitHub", "email": "Email us Now – Let's Build Together" },
+    "goals": { "title": "Project Goals", "item1": "Build a mobile app to view balances and interact with GERD tokens", "item2": "Enable QR scanning of GERD wallet addresses", "item3": "Support token claiming, tracking, and sending", "item4": "Keep it simple, secure, and community-owned" },
+    "help": { "title": "How You Can Help", "item1": "Contribute to frontend or backend mobile development (React Native, Flutter, etc.)", "item2": "Design user interfaces and improve user experience", "item3": "Help test the app across devices and environments", "item4": "Share feedback and ideas on GitHub or Telegram" },
+    "incentives": { "title": "Incentives", "body": "We will reward contributors with GERD tokens based on their impact and commitment. Active developers will also be recognized on our public contributor page." },
+    "image": { "alt": "Join GERD App Project" },
+    "release": {
+      "title": "GERD Vesting Testnet - Release Tokens",
+      "lead": "Release tokens from the vesting contract on BSC Testnet",
+      "back": "Back to Dashboard",
+      "control": { "title": "Release Control" },
+      "countdown": { "checking": "Checking next eligible release...", "available": "⏱ Next release is now eligible.", "waiting": "⏱ Waiting for next release window...", "in_prefix": "⏱ Next eligible release in" },
+      "status": { "submitting": "Submitting release transaction...", "available": "✅ Release is available!", "already_released": "❌ Already released this Wednesday.", "success": "✅ Release successful! TX: {tx}", "error_prefix": "❌ Error:", "could_not_connect": "Could not connect to backend." },
+      "button": { "processing": "Processing...", "release_now": "Release Now" },
+      "check_bscscan": "Check transaction log on BscScan",
+      "how": { "title": "How It Works", "item1": "Tokens can be released every Wednesday on the testnet", "item2": "The button will be enabled when a release is eligible", "item3": "Each release distributes 1 billion GERD tokens to designated wallets" }
+    }
   }
 }

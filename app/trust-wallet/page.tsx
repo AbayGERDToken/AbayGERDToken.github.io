@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import ContractAddress from '@/components/ContractAddress';
+import LocalizedText from '@/components/LocalizedText';
 
 export default function TrustWallet() {
   return (
@@ -11,10 +12,11 @@ export default function TrustWallet() {
             <div className="row">
               <div className="col-lg-10 mx-auto text-center">
                 <h1 className="display-4 fw-bold mb-4">
-                  <i className="fas fa-wallet me-3"></i>Trust Wallet Setup
+                  <i className="fas fa-wallet me-3"></i>
+                  <LocalizedText id="trust_wallet.hero.title" tag="span" />
                 </h1>
                 <p className="lead fs-5 opacity-90">
-                  Step-by-step guide for downloading Trust Wallet, importing the Abay GERD contract, and getting your GERD wallet address on the Binance Smart Chain
+                  <LocalizedText id="trust_wallet.hero.lead" tag="span" />
                 </p>
               </div>
             </div>
@@ -35,7 +37,8 @@ export default function TrustWallet() {
                     <div className="step-number me-4">1</div>
                     <div className="flex-grow-1">
                       <h2 className="h4 fw-bold mb-3">
-                        <i className="fas fa-download text-success me-2"></i>Download Trust Wallet
+                        <i className="fas fa-download text-success me-2"></i>
+                        <LocalizedText id="trust_wallet.steps.step1.title" tag="span" />
                       </h2>
                       <ul className="list-unstyled mb-0">
                         <li className="mb-2">
@@ -67,7 +70,8 @@ export default function TrustWallet() {
                     <div className="step-number me-4">2</div>
                     <div className="flex-grow-1">
                       <h2 className="h4 fw-bold mb-3">
-                        <i className="fas fa-cog text-success me-2"></i>Set up Trust Wallet
+                        <i className="fas fa-cog text-success me-2"></i>
+                        <LocalizedText id="trust_wallet.steps.step2.title" tag="span" />
                       </h2>
                       <ul className="list-unstyled mb-0">
                         <li className="mb-2">
@@ -99,7 +103,8 @@ export default function TrustWallet() {
                     <div className="step-number me-4">3</div>
                     <div className="flex-grow-1">
                       <h2 className="h4 fw-bold mb-3">
-                        <i className="fas fa-file-contract text-success me-2"></i>Import the Abay GERD Contract
+                        <i className="fas fa-file-contract text-success me-2"></i>
+                        <LocalizedText id="trust_wallet.steps.step3.title" tag="span" />
                       </h2>
                       <ul className="list-unstyled mb-3">
                         <li className="mb-2">
@@ -134,7 +139,8 @@ export default function TrustWallet() {
                     <div className="step-number me-4">4</div>
                     <div className="flex-grow-1">
                       <h2 className="h4 fw-bold mb-3">
-                        <i className="fas fa-qrcode text-success me-2"></i>Get Your GERD Wallet Address
+                        <i className="fas fa-qrcode text-success me-2"></i>
+                        <LocalizedText id="trust_wallet.steps.step4.title" tag="span" />
                       </h2>
                       <ul className="list-unstyled mb-0">
                         <li className="mb-2">
@@ -163,10 +169,10 @@ export default function TrustWallet() {
                     <i className="fas fa-check-circle"></i>
                   </div>
                   <div>
-                    <h4 className="h6 fw-bold mb-1">You&apos;re All Set!</h4>
+                    <h4 className="h6 fw-bold mb-1"><LocalizedText id="trust_wallet.success.title" tag="span" /></h4>
                     <p className="mb-0">
-                      You can now manage your GERD tokens using Trust Wallet. Remember: you&apos;ll need a small amount of BNB for gas fees when sending tokens, but receiving is free.
-                    </p>
+                      <LocalizedText id="trust_wallet.success.lead" tag="span" />
+                    </p> 
                   </div>
                 </div>
               </div>
@@ -181,8 +187,7 @@ export default function TrustWallet() {
           <div className="row align-items-center">
             <div className="col-md-8">
               <h2 className="h5 mb-3">
-                DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY AND SUPPORTING THE GRAND ETHIOPIAN RENAISSANCE DAM PROJECT.
-                JOIN US IN CREATING A BRIGHTER FUTURE! #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD
+                <LocalizedText id="trust_wallet.promo" tag="span" />
               </h2>
             </div>
             <div className="col-md-4 text-center">
