@@ -125,7 +125,21 @@
     "features": { "no_wallet": { "title": "No Wallet Connection", "subtitle": "Privacy and safety first" }, "before": { "title": "Before You Claim", "subtitle": "Important preparation steps", "item1": "Import the GERD contract into your wallet", "item2": "Use a supported wallet (Trust Wallet, MetaMask, Base Wallet, etc.)" } },
     "eligibility": { "ethiopia_title": "Ethiopia-Based Wallets", "ethiopia_amount": "75,000", "ethiopia_label": "GERD tokens per wallet", "global_title": "Global Wallets", "global_amount": "10,000", "global_label": "GERD tokens per wallet" },
     "form": { "title": "Claim Your Tokens", "wallet_label": "Wallet Address:", "button": "Claim Tokens", "processing": "Processing..." },
-    "balance": { "title": "Check Your Balance", "wallet_label": "Wallet Address:", "button": "Check Balance" }
+    "balance": { "title": "Check Your Balance", "wallet_label": "Wallet Address:", "button": "Check Balance" },
+    "messages": {
+      "web3_not_initialized": "Web3 not initialized. Please wait for the page to finish loading.",
+      "enter_wallet_address": "Error: Please enter a wallet address to check",
+      "invalid_wallet_address": "Error: Please enter a valid wallet address",
+      "wait_web3": "Please wait for Web3 to finish initializing.",
+      "wait_recaptcha": "Please wait for reCAPTCHA to finish initializing.",
+      "session_not_initialized": "Error: Session not initialized. Please wait a few seconds and try again.",
+      "checking_location": "Checking your location...",
+      "detected_country": "Detected Country: {country}. Preparing to send approximately {amount} GERD Tokens...",
+      "success_tx": "Success! Tokens sent. Tx Hash: {tx}",
+      "complete_recaptcha": "Please complete the reCAPTCHA.",
+      "error_fetch_balance": "Error fetching balance. Please try again.",
+      "balance": "Balance: {amount} GERD"
+    }
   },
   "airdrop": {
     "hero": { "title": "Airdrop – Every Year on April 23rd", "lead": "Calculate your potential airdrop rewards based on the number of wallet holders" },

@@ -2,9 +2,21 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function Navbar() {
+  const [locale, setLocale] = useState<'en' | 'am'>('en');
+
+  const localizePath = (href: string) => {
+    // Only prefix internal app routes for Amharic
+    if (!href.startsWith('/')) return href;
+    if (href.startsWith('/am') || href.startsWith('/en')) return href;
+    // Avoid prefixing asset and dev paths
+    if (href.startsWith('/image') || href.startsWith('/dev')) return href;
+    if (locale === 'am') return href === '/' ? '/am' : `/am${href}`;
+    return href;
+  };
+
   useEffect(() => {
     // Initialize Bootstrap dropdowns
     if (typeof window !== 'undefined') {
@@ -32,13 +44,40 @@ export default function Navbar() {
         const match = document.cookie.match(/(^|; )locale=(\w{2})/);
         if (match && match[2]) {
           const savedLocale = match[2];
+          setLocale(savedLocale === 'am' ? 'am' : 'en');
           // Only redirect from root to avoid interfering with manual navigation
           if (window.location.pathname === '/' && savedLocale === 'am') {
             window.location.replace('/am');
           }
+        } else {
+          // Also detect if the current path is already /am
+          if (window.location.pathname.startsWith('/am')) setLocale('am');
         }
       } catch (e) {
         // ignore cookie/read errors
+      }
+
+      // Prefix internal links on the page when in the Amharic locale so that
+      // clicking navigates to the localized routes (e.g., /am/claim-form).
+      const prefixInternalLinks = () => {
+        try {
+          const anchors = Array.from(document.querySelectorAll('a[href^="/"]'));
+          anchors.forEach((a) => {
+            const href = a.getAttribute('href') || '';
+            if (href && href.startsWith('/') && !href.startsWith('/am') && !href.startsWith('/image') && !href.startsWith('/dev')) {
+              a.setAttribute('href', href === '/' ? '/am' : `/am${href}`);
+            }
+          });
+        } catch (e) {
+          // ignore
+        }
+      };
+
+      // If current path indicates Amharic or cookie says am, prefix links
+      if (window.location.pathname.startsWith('/am') || locale === 'am') {
+        prefixInternalLinks();
+        // run again after a short delay for any dynamically inserted links
+        setTimeout(prefixInternalLinks, 200);
       }
 
       // Close navbar collapse when a navigation link is clicked (for mobile)
@@ -134,7 +173,7 @@ export default function Navbar() {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
-              <Link className="nav-link" href="/">Home</Link>
+              <Link className="nav-link" href={localizePath('/')}>Home</Link>
             </li>
 
             {/* Token Claims Dropdown */}
@@ -151,38 +190,38 @@ export default function Navbar() {
               </a>
               <ul className="dropdown-menu" aria-labelledby="dropdown1">
                 <li>
-                  <Link className="dropdown-item" href="/claim-form">
+                  <Link className="dropdown-item" href={localizePath('/claim-form')}>
                     <div className="fw-bold">Token Claim</div>
                     <small className="text-muted">Claim Free Tokens - Faucet</small>
                   </Link>
                 </li>
                 <li>
-                  <Link className="dropdown-item" href="/distribution-rpt">
+                  <Link className="dropdown-item" href={localizePath('/distribution-rpt')}>
                     <div className="fw-bold">Claim Report</div>
                     <small className="text-muted">Global claims per country graph</small>
                   </Link>
                 </li>
                 <li>
-                  <Link className="dropdown-item" href="/gerd-airdrop">
+                  <Link className="dropdown-item" href={localizePath('/gerd-airdrop')}>
                     <div className="fw-bold">Airdrop</div>
                     <small className="text-muted">Airdrop calculator for the yearly vesting release</small>
                   </Link>
                 </li>
                 <li><hr className="dropdown-divider" /></li>
                 <li>
-                  <Link className="dropdown-item" href="/trust-wallet">
+                  <Link className="dropdown-item" href={localizePath('/trust-wallet')}>
                     <div className="fw-bold">Trust Wallet</div>
                     <small className="text-muted">Setup instruction for Trust wallet</small>
                   </Link>
                 </li>
                 <li>
-                  <Link className="dropdown-item" href="/base-wallet">
+                  <Link className="dropdown-item" href={localizePath('/base-wallet')}>
                     <div className="fw-bold">Base Wallet</div>
                     <small className="text-muted">Setup instruction for Base wallet</small>
                   </Link>
                 </li>
                 <li>
-                  <Link className="dropdown-item" href="/metamask-wallet">
+                  <Link className="dropdown-item" href={localizePath('/metamask-wallet')}>
                     <div className="fw-bold">Metamask Wallet</div>
                     <small className="text-muted">Setup instruction for Metamask wallet</small>
                   </Link>
@@ -204,20 +243,20 @@ export default function Navbar() {
               </a>
               <ul className="dropdown-menu" aria-labelledby="dropdown8">
                 <li>
-                  <Link className="dropdown-item" href="/dashboard-vesting">
+                  <Link className="dropdown-item" href={localizePath('/dashboard-vesting')}>
                     <div className="fw-bold">Vesting Dashboard</div>
                     <small className="text-muted">Main vesting release dashboard</small>
                   </Link>
                 </li>
                 <li>
-                  <Link className="dropdown-item" href="/testnet-vesting-dashboard">
+                  <Link className="dropdown-item" href={localizePath('/testnet-vesting-dashboard')}>
                     <div className="fw-bold">Testnet Dashboard</div>
                     <small className="text-muted">Monitor live GERD&apos;s vesting release on Testnet</small>
                   </Link>
                 </li>
                 <li><hr className="dropdown-divider" /></li>
                 <li>
-                  <Link className="dropdown-item" href="/vesting">
+                  <Link className="dropdown-item" href={localizePath('/vesting')}>
                     <div className="fw-bold">Vesting Strategy</div>
                     <small className="text-muted">Reinforcing Transparency and Sustainable Growth</small>
                   </Link>
@@ -250,7 +289,7 @@ export default function Navbar() {
               </a>
               <ul className="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdown5">
                 <li>
-                  <Link className="dropdown-item" href="/gerd-wallets">
+                  <Link className="dropdown-item" href={localizePath('/gerd-wallets')}>
                     <div className="fw-bold">Project Wallets</div>
                     <small className="text-muted">View official project wallet balances</small>
                   </Link>
@@ -267,26 +306,26 @@ export default function Navbar() {
                   </a>
                 </li>
                 <li>
-                  <Link className="dropdown-item" href="/migration-announcement">
+                  <Link className="dropdown-item" href={localizePath('/migration-announcement')}>
                     <div className="fw-bold">Migration Announcement</div>
                     <small className="text-muted">Details on the token migration</small>
                   </Link>
                 </li>
                 <li><hr className="dropdown-divider" /></li>
                 <li>
-                  <Link className="dropdown-item" href="/timeline">
+                  <Link className="dropdown-item" href={localizePath('/timeline')}>
                     <div className="fw-bold">Project Timeline</div>
                     <small className="text-muted">Roadmap and key milestones</small>
                   </Link>
                 </li>
                 <li>
-                  <Link className="dropdown-item" href="/gerd-ama">
+                  <Link className="dropdown-item" href={localizePath('/gerd-ama')}>
                     <div className="fw-bold">AMA (Ask Me Anything)</div>
                     <small className="text-muted">Community Q&A sessions</small>
                   </Link>
                 </li>
                 <li>
-                  <Link className="dropdown-item" href="/qna">
+                  <Link className="dropdown-item" href={localizePath('/qna')}>
                     <div className="fw-bold">QnA</div>
                     <small className="text-muted">Frequently Asked Questions</small>
                   </Link>
@@ -357,7 +396,7 @@ export default function Navbar() {
               </a>
               <ul className="dropdown-menu" aria-labelledby="dropdown2">
                 <li>
-                  <Link className="dropdown-item" href="/dev">
+                  <Link className="dropdown-item" href={localizePath('/dev')}>
                     <div className="fw-bold">Contributors</div>
                     <small className="text-muted">Meet the team behind the project</small>
                   </Link>

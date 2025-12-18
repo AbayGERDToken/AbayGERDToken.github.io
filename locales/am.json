@@ -125,7 +125,21 @@
     "features": { "no_wallet": { "title": "ዋሌት ግንኙነት የለም", "subtitle": "የግል መረጃ እና ደህንነት" }, "before": { "title": "ከመጠየቅ በፊት", "subtitle": "አስፈላጊ ዝግጅቶች", "item1": "GERD ኮንትራክትን ወደ ዋሌትዎ ያስገቡ", "item2": "የደጋፊ ዋሌቶችን ይጠቀሙ (Trust Wallet, MetaMask, Base Wallet እና እንዲሁ ቀሪዎች)" } },
     "eligibility": { "ethiopia_title": "የኢትዮጵያ የቦርሳ ዋሌቶች", "ethiopia_amount": "75,000", "ethiopia_label": "ቶክኖች በዋሌት", "global_title": "ዓለም አቀፍ ዋሌቶች", "global_amount": "10,000", "global_label": "ቶክኖች በዋሌት" },
     "form": { "title": "የቶክኖችን ይጠይቁ", "wallet_label": "የዋሌት አድራሻ:", "button": "ቶክኖችን ይጠይቁ", "processing": "በሂደት ላይ..." },
-    "balance": { "title": "ሂሳብዎን ይፈትሹ", "wallet_label": "የዋሌት አድራሻ:", "button": "ሂሳብ ይፈትሹ" }
+    "balance": { "title": "ሂሳብዎን ይፈትሹ", "wallet_label": "የዋሌት አድራሻ:", "button": "ሂሳብ ይፈትሹ" },
+    "messages": {
+      "web3_not_initialized": "Web3 አልተጀመረም። እባክዎ ገጹ የሚጨረስ እስከሆነ ይጠብቁ።",
+      "enter_wallet_address": "ስህተት: እባክዎ ለሂሳብ ማረጋገጥ የዋሌት አድራሻ ያስገቡ።",
+      "invalid_wallet_address": "ስህተት: እባክዎ ትክክለኛ የዋሌት አድራሻ ያስገቡ።",
+      "wait_web3": "እባክዎ Web3 እየመረገጠ እንደሆነ ይጠብቁ።",
+      "wait_recaptcha": "እባክዎ reCAPTCHA እየመረገጠ እንደሆነ ይጠብቁ።",
+      "session_not_initialized": "ስህተት: ሴሽን አልተጀመረም። እባክዎ አንዳንድ ሰከንዶች በፊት ይሞክሩ።",
+      "checking_location": "የአካባቢዎን እየተመለከተ ነው...",
+      "detected_country": "የተገኘበት አገር: {country}. ለ {amount} GERD ቶክኖች እየተዘጋጀ ነው...",
+      "success_tx": "ተሳክቷል! ቶክኖች ተልከዋል። TX: {tx}",
+      "complete_recaptcha": "እባክዎ reCAPTCHA ን ይጨርሱ።",
+      "error_fetch_balance": "የሂሳብ መረጃ ማግኘት ላይ ስህተት። እባክዎ እንደገና ይሞክሩ።",
+      "balance": "ሚዛን: {amount} GERD"
+    }
   },
   "airdrop": {
     "hero": { "title": "አይርድሮፕ — እያንዳንዱ ዓመት በኤፕሪል 23", "lead": "በዋሌቶች ብዛት መሠረት የሚከከሉ አይርድሮፕ ለእየተገኙ ጥቅሞች ያስቁም" },

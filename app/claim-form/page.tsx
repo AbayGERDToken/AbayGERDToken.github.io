@@ -7,6 +7,7 @@ import Image from 'next/image';
 import ClaimUpdateModal from '@/components/ClaimUpdateModal';
 import ContractAddress from '@/components/ContractAddress';
 import LocalizedText from '@/components/LocalizedText';
+import { useTranslations } from 'next-intl';
 
 declare global {
   interface Window {
@@ -16,6 +17,7 @@ declare global {
 }
 
 export default function ClaimForm() {
+  const t = useTranslations();
   const [walletAddress, setWalletAddress] = useState('');
   const [balanceAddress, setBalanceAddress] = useState('');
   const [balance, setBalance] = useState<string | null>(null);
@@ -230,39 +232,39 @@ export default function ClaimForm() {
 
   const checkBalance = async () => {
     if (!isWeb3Ready || !web3 || !contract) {
-      setBalance('Error: Web3 not initialized. Please wait for the page to finish loading.');
+      setBalance(t('claim_form.messages.web3_not_initialized'));
       return;
     }
     // If no explicit balance address is provided, fall back to the wallet address input
     const effectiveAddress = (balanceAddress || walletAddress || '').trim();
 
     if (!effectiveAddress) {
-      setBalance('Error: Please enter a wallet address to check');
+      setBalance(t('claim_form.messages.enter_wallet_address'));
       return;
     }
 
     if (!web3.utils.isAddress(effectiveAddress)) {
-      setBalance('Error: Please enter a valid wallet address');
+      setBalance(t('claim_form.messages.invalid_wallet_address'));
       return;
     }
 
     try {
       const balanceResult = await contract.methods.balanceOf(effectiveAddress).call();
       const formattedBalance = (Number(balanceResult) / 10 ** 2).toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ',');
-      setBalance(`Balance: ${formattedBalance} GERD`);
+      setBalance(t('claim_form.messages.balance', { amount: formattedBalance }));
     } catch (error) {
       console.error('Error fetching balance:', error);
-      setBalance('Error fetching balance. Please try again.');
+      setBalance(t('claim_form.messages.error_fetch_balance'));
     }
   };
 
   const claimTokens = async () => {
     if (!isWeb3Ready) {
-      setResponse({ type: 'danger', message: 'Please wait for Web3 to finish initializing.' });
+      setResponse({ type: 'danger', message: t('claim_form.messages.wait_web3') });
       return;
     }
     if (!isRecaptchaReady) {
-      setResponse({ type: 'warning', message: 'Please wait for reCAPTCHA to finish initializing.' });
+      setResponse({ type: 'warning', message: t('claim_form.messages.wait_recaptcha') });
       return;
     }
     const recipient = walletAddress.trim();
@@ -272,12 +274,12 @@ export default function ClaimForm() {
       : window.grecaptcha?.getResponse();
 
     if (!web3?.utils.isAddress(recipient)) {
-      setResponse({ type: 'danger', message: 'Please enter a valid wallet address.' });
+      setResponse({ type: 'danger', message: t('claim_form.messages.invalid_wallet_address') });
       return;
     }
 
     if (!recaptchaToken) {
-      setResponse({ type: 'warning', message: 'Please complete the reCAPTCHA.' });
+      setResponse({ type: 'warning', message: t('claim_form.messages.complete_recaptcha') });
       return;
     }
 
@@ -303,7 +305,7 @@ export default function ClaimForm() {
 
       setResponse({
         type: 'info',
-        message: `Detected Country: ${locData.country_name}. Preparing to send approximately ${estimatedAmount} GERD Tokens...`
+        message: t('claim_form.messages.detected_country', { country: locData.country_name, amount: estimatedAmount })
       });
 
       const res = await fetch('https://abay-gerd-backend.onrender.com/send-token', {
@@ -333,7 +335,7 @@ export default function ClaimForm() {
       if (data.status === 'success') {
         setResponse({
           type: 'success',
-          message: `Success! Tokens sent. Tx Hash: 0x${data.tx_hash}`
+          message: t('claim_form.messages.success_tx', { tx: `0x${data.tx_hash}` })
         });
       } else {
         setResponse({ type: 'danger', message: `Error: ${data.message}` });
