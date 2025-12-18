@@ -65,6 +65,7 @@
     },
     "loading": "በማተኮር…",
     "promo": "አባይ GERD ቶክንን ያውቁ — እርስዎን የወሰደ ኢትዮጵያ እና የክሪፕቶ ማህበረሰብን የሚያበረታታ ፕሮጀክት። #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD",
+    "messages": { "error_fetch_balance": "የሂሳብ መረጃ ማግኘት ላይ ስህተት" },
     "image": { "alt": "Abay GERD Token" }
   },
   "base_wallet": {

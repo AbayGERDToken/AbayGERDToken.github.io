@@ -65,6 +65,7 @@
     },
     "loading": "Loading…",
     "promo": "DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY AND SUPPORTING THE GRAND ETHIOPIAN RENAISSANCE DAM PROJECT. JOIN US! #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD",
+    "messages": { "error_fetch_balance": "Error fetching balance" },
     "image": { "alt": "Abay GERD Token" }
   },
   "base_wallet": {

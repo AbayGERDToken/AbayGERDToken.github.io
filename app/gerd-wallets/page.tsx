@@ -55,7 +55,7 @@ export default function GerdWallets() {
             return { ...wallet, balance: formatted, loading: false, error: false };
           } catch (err) {
             console.error(`Failed to fetch for ${wallet.address}:`, err);
-            return { ...wallet, balance: 'Error', loading: false, error: true };
+            return { ...wallet, balance: t('wallets.messages.error_fetch_balance'), loading: false, error: true };
           }
         });
 
@@ -63,7 +63,7 @@ export default function GerdWallets() {
         setBalances(results);
       } catch (err) {
         console.error('Failed to initialize Web3:', err);
-        setBalances(prev => prev.map(w => ({ ...w, loading: false, error: true, balance: 'Error' })));
+        setBalances(prev => prev.map(w => ({ ...w, loading: false, error: true, balance: t('wallets.messages.error_fetch_balance') })));
       }
     };
 
