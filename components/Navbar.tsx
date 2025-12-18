@@ -27,6 +27,20 @@ export default function Navbar() {
       // Also try after a short delay in case Bootstrap loads later
       setTimeout(initDropdowns, 100);
 
+      // Auto-redirect based on saved locale cookie if we're on the root path
+      try {
+        const match = document.cookie.match(/(^|; )locale=(\w{2})/);
+        if (match && match[2]) {
+          const savedLocale = match[2];
+          // Only redirect from root to avoid interfering with manual navigation
+          if (window.location.pathname === '/' && savedLocale === 'am') {
+            window.location.replace('/am');
+          }
+        }
+      } catch (e) {
+        // ignore cookie/read errors
+      }
+
       // Close navbar collapse when a navigation link is clicked (for mobile)
       // But NOT when clicking dropdown toggles
       const closeNavbar = (event: Event) => {
@@ -391,6 +405,40 @@ export default function Navbar() {
                     <div className="fw-bold">Telegram <i className="fas fa-external-link-alt ms-1 small"></i></div>
                     <small className="text-muted">Join the community chat</small>
                   </a>
+                </li>
+              </ul>
+            </li>
+
+            {/* Language Dropdown */}
+            <li className="nav-item dropdown">
+              <a
+                className="nav-link dropdown-toggle"
+                href="#"
+                id="langDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i className="fas fa-language me-1"></i>Language
+              </a>
+              <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="langDropdown">
+                <li>
+                  <Link
+                    className="dropdown-item"
+                    href="/"
+                    onClick={() => { document.cookie = 'locale=en; path=/; max-age=' + (60 * 60 * 24 * 365) }}
+                  >
+                    English
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="dropdown-item"
+                    href="/am"
+                    onClick={() => { document.cookie = 'locale=am; path=/; max-age=' + (60 * 60 * 24 * 365) }}
+                  >
+                    አማርኛ
+                  </Link>
                 </li>
               </ul>
             </li>

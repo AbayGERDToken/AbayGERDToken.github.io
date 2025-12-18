@@ -36,3 +36,14 @@ This project is licensed under the MIT License.
 
 For questions, suggestions, or feedback, please create an issue on this repository or contact the project maintainers at contact@abaygerdtoken.com
 
+## Internationalization (i18n)
+
+This site uses `next-intl` to provide translations for **English** and **Amharic**.
+
+- Message files: `/locales/en.json` and `/locales/am.json`.
+- Each locale has its own layout that loads the messages via `NextIntlProvider` (`app/layout.tsx` for English, `app/am/layout.tsx` for Amharic).
+- To add translations, update the JSON files and use the same keys in components or pages. For pages rendered on the server, use `LocalizedText` or the `useTranslations` client hook; if you need server rendering helpers follow `next-intl` docs.
+
+Also add `next-intl.config.js` at the project root with a `locales` array and `defaultLocale` (example in repository). The project includes a small `middleware.ts` that will redirect visitors based on a saved `locale` cookie or the browser `Accept-Language` header.
+If you want me to convert more pages to use translation keys, tell me which pages to prioritize (e.g., `claim-form`, `gerd-airdrop`).
+

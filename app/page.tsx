@@ -7,12 +7,14 @@ import FeatureCard from '@/components/FeatureCard';
 import StatCard from '@/components/StatCard';
 import CopyButton from '@/components/CopyButton';
 
+import LocalizedText from '@/components/LocalizedText';
+
 export default function Home() {
   return (
     <>
       <HeroSection />
 
-      {/* Amharic Intro Section (Feature Card Frame) */}
+      {/* Intro Feature Card (kept as-is) */}
       <section className="content-section py-4">
         <div className="container">
           <div className="row">
@@ -65,10 +67,8 @@ export default function Home() {
         <div className="container">
           <div className="row">
             <div className="col-lg-8 mx-auto text-center mb-5">
-              <h2 className="display-5 fw-bold mb-4">A Community-Powered Digital Legacy</h2>
-              <p className="lead text-muted">
-                Abay GERD Token (GERD) is a decentralized cryptocurrency inspired by Ethiopia&apos;s Grand Renaissance Dam and the Abay River. Built for the world but rooted in Ethiopia, GERD Token honors the people who made the dam possible.
-              </p>
+              <LocalizedText id="intro.feature_p1" tag="h2" className="display-5 fw-bold mb-4" />
+              <LocalizedText id="intro.feature_p2" tag="p" className="lead text-muted" />
             </div>
           </div>
           <div className="row g-4">
@@ -98,7 +98,7 @@ export default function Home() {
               We especially invite participation from unbanked communities with internet access. Help us expand awareness and empower more people to claim their share of this national digital legacy.
             </p>
             <Link href="/claim-form" className="btn btn-success btn-lg cta-button">
-              <i className="fas fa-gift me-2"></i>Claim your 10,000 GERD Tokens
+              <i className="fas fa-gift me-2"></i><LocalizedText id="intro.cta" />
             </Link>
           </div>
         </div>
@@ -112,9 +112,9 @@ export default function Home() {
           <div className="row mb-5">
             <div className="col-lg-8 mx-auto text-center">
               <h2 className="display-5 fw-bold mb-3">
-                <i className="fas fa-chart-pie text-success me-2"></i>Tokenomics
+                <i className="fas fa-chart-pie text-success me-2"></i><LocalizedText id="tokenomics.title" />
               </h2>
-              <p className="lead text-muted">A sustainable model designed for long-term value and community growth</p>
+              <LocalizedText id="tokenomics.lead" tag="p" className="lead text-muted" />
             </div>
           </div>
           <div className="row g-4 mb-5">

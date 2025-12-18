@@ -5,7 +5,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import VisitorTracker from '@/components/VisitorTracker';
 import { NextIntlClientProvider } from 'next-intl';
-import en from '../locales/en.json';
+import am from '../../locales/am.json';
 import '@/styles/globals.css';
 
 const outfit = Outfit({
@@ -15,31 +15,25 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: 'Abay GERD Token',
-  description: 'Abay GERD Token - A Community-Powered Digital Legacy',
+  title: 'Abay GERD Token - አማርኛ',
+  description: 'Abay GERD Token - ለሕዝብ የተዘጋ ዲጂታል ክፍል (አማርኛ)',
 };
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function AmLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="am">
       <head>
-        {/* Bootstrap 5.3.3 CSS */}
         <link
           href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
           rel="stylesheet"
         />
-        {/* Font Awesome 6 */}
         <link
           rel="stylesheet"
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         />
       </head>
       <body className={outfit.variable}>
-        <NextIntlClientProvider locale="en" messages={en}>
+        <NextIntlClientProvider locale="am" messages={am}>
           <Navbar />
           <main>
             {children}
@@ -47,8 +41,6 @@ export default function RootLayout({
           <Footer />
           <VisitorTracker />
         </NextIntlClientProvider>
-
-        {/* Bootstrap 5.3.3 JS */}
         <Script
           src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
           strategy="afterInteractive"
@@ -57,5 +49,3 @@ export default function RootLayout({
     </html>
   );
 }
-
-
