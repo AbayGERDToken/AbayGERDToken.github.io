@@ -287,7 +287,7 @@ export default function ClaimForm() {
     if (!currentSessionToken) {
       currentSessionToken = await fetchSessionToken();
       if (!currentSessionToken) {
-        setResponse({ type: 'danger', message: 'Error: Session not initialized. Please wait a few seconds and try again.' });
+        setResponse({ type: 'danger', message: t('claim_form.messages.session_not_initialized') });
         return;
       }
     }

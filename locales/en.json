@@ -157,6 +157,7 @@
     "lead": "Total tokens claimed by country — real-time global distribution data",
     "refresh": "Refresh Data",
     "loading": "Loading...",
+    "error_fetch": "Failed to fetch distribution data. Please try again.",
     "hint": "*Click button to pull updated data from the blockchain.",
     "stats": { "total_claims": "Total Claims", "total_tokens": "Total Tokens Claimed" },
     "by_country": "Distribution by Country",
@@ -267,7 +268,9 @@
     "contracts": { "new_label": "New GERD Token Contract", "legacy_label": "Legacy Contract (archived)" },
     "airdrop": { "title": "Airdrop Completed — What You Need to Know", "lead": "The token migration and airdrop process has successfully completed ahead of schedule. All balances have been updated under the new contract.", "alert": "No action is required — if you held GERD before the migration, your new token balance is already in your wallet." },
     "howto": { "title": "How to View Your GERD Tokens", "lead": "To view your new GERD token balance:", "step1": "Open your wallet app (e.g., MetaMask, Trust Wallet)", "step2": "Select \"Import Token\" or \"Add Custom Token\"", "step3": "Enter the contract details below", "step4": "Save and refresh your wallet" },
-    "thanks": { "title": "Thank You", "lead": "Thank you for your continued trust in the GERD Token project. This migration strengthens our foundation for the next phase of growth and guarantees a secure, transparent, and decentralized future." }
+    "thanks": { "title": "Thank You", "lead": "Thank you for your continued trust in the GERD Token project. This migration strengthens our foundation for the next phase of growth and guarantees a secure, transparent, and decentralized future." },
+    "announcement_link": "Migration Announcement",
+    "update_saved_contracts": "Please update any saved contract references to the new address."
   },
   "timeline": {
     "hero": { "title": "Abay GERD Token - Project Timeline", "lead": "A comprehensive journey through the development and milestones of the GERD Token project" },

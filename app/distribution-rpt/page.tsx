@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import LocalizedText from '@/components/LocalizedText';
+import { useTranslations } from 'next-intl';
 import { db } from '@/lib/firebase';
 import { collection, getDocs } from 'firebase/firestore';
 
@@ -19,6 +20,7 @@ interface CountryDistribution {
 }
 
 export default function DistributionReport() {
+  const t = useTranslations();
   const [loading, setLoading] = useState(false);
   const [distributions, setDistributions] = useState<CountryDistribution[]>([]);
   const [totalClaims, setTotalClaims] = useState(0);
@@ -73,7 +75,7 @@ export default function DistributionReport() {
       setShowStats(true);
     } catch (error) {
       console.error('Error fetching distribution data:', error);
-      alert('Failed to fetch distribution data. Please try again.');
+      alert(t('distribution.error_fetch'));
     } finally {
       setLoading(false);
     }
