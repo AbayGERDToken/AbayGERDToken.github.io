@@ -7,7 +7,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "export": "next build"
+    "export": "next build",
+    "check:i18n": "node dev-scripts/check_i18n_keys.js",
+    "check:i18n:locale": "node dev-scripts/check_i18n_keys_locale.js",
+    "check:i18n:am": "node dev-scripts/check_i18n_keys_locale.js am",
+    "check:i18n:ci": "npm run check:i18n && npm run check:i18n:am"
   },
   "dependencies": {
     "bootstrap": "^5.3.3",
