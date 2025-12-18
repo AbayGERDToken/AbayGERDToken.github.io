@@ -1,3 +1,5 @@
+import LocalizedText from './LocalizedText';
+
 export default function ClaimUpdateModal() {
   return (
     <div 
@@ -20,14 +22,14 @@ export default function ClaimUpdateModal() {
           <div className="modal-body px-4 pb-4">
             <div className="text-center mb-4">
               <h3 className="h3 fw-bold mb-2" id="changeModalLabel">
-                <i className="fas fa-gift"></i> GERD Token Claim Update
+                <i className="fas fa-gift"></i> <LocalizedText id="claim_update.title" tag="span" />
               </h3>
-              <p className="text-muted mb-0">Starting May 5, 2025</p>
+              <LocalizedText id="claim_update.date" tag="p" className="text-muted mb-0" />
             </div>
 
             <div className="alert alert-info border-info mb-4">
               <p className="mb-0">
-                <i className="fas fa-info-circle me-2"></i>Increase in the total amount of GERD Tokens available for claiming:
+                <i className="fas fa-info-circle me-2"></i><LocalizedText id="claim_update.info" tag="span" />
               </p>
             </div>
 
@@ -35,7 +37,7 @@ export default function ClaimUpdateModal() {
               <div className="col-md-6">
                 <div className="card border-primary h-100">
                   <div className="card-body p-4 text-center">
-                    <h4 className="h6 fw-bold mb-2"><i className="fas fa-globe"></i> Global Claim</h4>
+                    <h4 className="h6 fw-bold mb-2"><i className="fas fa-globe"></i> <LocalizedText id="claim_update.global_title" tag="span" /></h4>
                     <div className="mb-2">
                       <div className="h5 text-muted mb-0">1,000 GERD</div>
                     </div>
@@ -49,7 +51,7 @@ export default function ClaimUpdateModal() {
               <div className="col-md-6">
                 <div className="card border-danger h-100">
                   <div className="card-body p-4 text-center">
-                    <h4 className="h6 fw-bold mb-2">🇪🇹 Ethiopia-Specific Claim</h4>
+                    <h4 className="h6 fw-bold mb-2">🇪🇹 <LocalizedText id="claim_update.ethiopia_title" tag="span" /></h4>
                     <div className="mb-2">
                       <div className="h5 text-muted mb-0">7,500 GERD</div>
                     </div>
@@ -71,13 +73,9 @@ export default function ClaimUpdateModal() {
                   <i className="fas fa-gift"></i>
                 </div>
                 <div>
-                  <h5 className="h6 fw-bold mb-2">10x Airdrop Bonus for Early Claimers!</h5>
-                  <p className="mb-2">
-                    <strong>Wallets that have previously claimed before the increase</strong> will receive a <strong>10x airdrop bonus</strong> based on their original claim amount.
-                  </p>
-                  <p className="mb-0">
-                    <em>Example: If you previously claimed 1,000 GERD, you will receive 10,000 GERD via airdrop on 05/05/2025.</em>
-                  </p>
+                  <LocalizedText id="claim_update.airdrop_lead" tag="h5" className="h6 fw-bold mb-2" />
+                  <LocalizedText id="claim_update.airdrop_body" tag="p" className="mb-2" />
+                  <LocalizedText id="claim_update.airdrop_example" tag="p" className="mb-0" />
                 </div>
               </div>
             </div>
@@ -89,7 +87,7 @@ export default function ClaimUpdateModal() {
               >
                 <i className="fas fa-heart"></i>
               </div>
-              <p className="fw-bold mb-0">Thank you for supporting the GERD mission!</p>
+              <LocalizedText id="claim_update.thanks" tag="p" className="fw-bold mb-0" />
             </div>
           </div>
         </div>

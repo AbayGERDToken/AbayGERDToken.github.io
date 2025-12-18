@@ -1,16 +1,21 @@
+'use client';
+
+import { useTranslations } from 'next-intl';
+
 export default function Footer() {
+  const t = useTranslations();
   return (
     <footer className="bg-dark text-light py-4">
       <div className="container text-center">
         <p className="small mb-0">
           <a 
-            href="mailto:contact@abaygerdtoken.com?subject=Inquiry" 
+            href={`mailto:${t('footer.contact_email')}?subject=Inquiry`} 
             className="text-light text-decoration-none"
           >
-            contact@abaygerdtoken.com
+            {t('footer.contact_email')}
           </a>
           <br />
-          Copyright 2023 Abay GERD Token. All rights reserved.
+          {t('footer.copyright', { year: new Date().getFullYear() })}
         </p>
       </div>
     </footer>

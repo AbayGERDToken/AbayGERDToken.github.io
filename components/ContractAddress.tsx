@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 interface ContractAddressProps {
   address: string;
@@ -16,6 +17,7 @@ export default function ContractAddress({
   borderColor = '#198754',
   isLegacy = false
 }: ContractAddressProps) {
+  const t = useTranslations();
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
@@ -55,7 +57,7 @@ export default function ContractAddress({
               type="button"
               className="btn btn-link p-0 text-success text-decoration-none border-0 d-inline-block align-middle"
               onClick={handleCopy}
-              title="Copy to clipboard"
+              title={copied ? t('copy.button.copied') : t('copy.button.copy')}
               style={{ fontSize: '1rem', lineHeight: 1 }}
             >
               <i className={`fas ${copied ? 'fa-check' : 'fa-copy'}`}></i>

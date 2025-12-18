@@ -319,5 +319,96 @@
       "check_bscscan": "Check transaction log on BscScan",
       "how": { "title": "How It Works", "item1": "Tokens can be released every Wednesday on the testnet", "item2": "The button will be enabled when a release is eligible", "item3": "Each release distributes 1 billion GERD tokens to designated wallets" }
     }
+  },
+  "copy": {
+    "button": { "copy": "Copy to clipboard", "copied": "Copied!" }
+  },
+  "claim_update": {
+    "title": "GERD Token Claim Update",
+    "date": "Starting May 5, 2025",
+    "info": "Increase in the total amount of GERD Tokens available for claiming:",
+    "global_title": "Global Claim",
+    "ethiopia_title": "Ethiopia-Specific Claim",
+    "airdrop_lead": "10x Airdrop Bonus for Early Claimers!",
+    "airdrop_body": "<strong>Wallets that have previously claimed before the increase</strong> will receive a <strong>10x airdrop bonus</strong> based on their original claim amount.",
+    "airdrop_example": "<em>Example: If you previously claimed 1,000 GERD, you will receive 10,000 GERD via airdrop on 05/05/2025.</em>",
+    "thanks": "Thank you for supporting the GERD mission!"
+  },
+  "navbar": {
+    "home": "Home",
+    "token_claims": {
+      "label": "Token Claims",
+      "token_claim": "Token Claim",
+      "token_claim_sub": "Claim Free Tokens - Faucet",
+      "claim_report": "Claim Report",
+      "claim_report_sub": "Global claims per country graph",
+      "airdrop": "Airdrop",
+      "airdrop_sub": "Airdrop calculator for the yearly vesting release",
+      "trust_wallet": "Trust Wallet",
+      "trust_wallet_sub": "Setup instruction for Trust wallet",
+      "base_wallet": "Base Wallet",
+      "base_wallet_sub": "Setup instruction for Base wallet",
+      "metamask_wallet": "Metamask Wallet",
+      "metamask_wallet_sub": "Setup instruction for Metamask wallet"
+    },
+    "vesting": {
+      "label": "Vesting",
+      "dashboard": "Vesting Dashboard",
+      "dashboard_sub": "Main vesting release dashboard",
+      "testnet_dashboard": "Testnet Dashboard",
+      "testnet_dashboard_sub": "Monitor live GERD's vesting release on Testnet",
+      "strategy": "Vesting Strategy",
+      "strategy_sub": "Reinforcing Transparency and Sustainable Growth",
+      "roadmap": "Vesting Roadmap",
+      "roadmap_sub": "Smart contract development roadmap for the vesting release"
+    },
+    "project_insights": {
+      "label": "Project Insights",
+      "wallets": "Project Wallets",
+      "wallets_sub": "View official project wallet balances",
+      "top_holders": "Top Holders",
+      "top_holders_sub": "Transparency on token distribution",
+      "migration": "Migration Announcement",
+      "migration_sub": "Details on the token migration",
+      "timeline": "Project Timeline",
+      "timeline_sub": "Roadmap and key milestones",
+      "ama": "AMA (Ask Me Anything)",
+      "ama_sub": "Community Q&A sessions",
+      "qna": "QnA",
+      "qna_sub": "Frequently Asked Questions"
+    },
+    "resources": {
+      "label": "Resources",
+      "whitepaper": "Whitepaper",
+      "whitepaper_sub": "Project overview and economics pdf",
+      "audit": "Audit Report",
+      "audit_sub": "Basic internal audit summary pdf",
+      "video": "GERD Video Clip",
+      "video_sub": "Just for fun"
+    },
+    "community": {
+      "label": "Community",
+      "contributors": "Contributors",
+      "contributors_sub": "Meet the team behind the project",
+      "github": "GitHub",
+      "github_sub": "Source code and repositories",
+      "x": "X (Twitter)",
+      "x_sub": "Official updates and announcements",
+      "tiktok": "TikTok",
+      "tiktok_sub": "Short-form video content",
+      "telegram": "Telegram",
+      "telegram_sub": "Join the community chat"
+    },
+    "language": {
+      "label": "Language",
+      "english": "English",
+      "amharic": "አማርኛ"
+    },
+    "block_explorer": "Block Explorer",
+    "block_explorer_sub": "View on BscScan"
+  },
+  "footer": {
+    "contact_email": "contact@abaygerdtoken.com",
+    "copyright": "Copyright {year} Abay GERD Token. All rights reserved."
   }
 }

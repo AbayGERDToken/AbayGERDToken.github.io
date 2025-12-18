@@ -3,9 +3,11 @@
 import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
+import { useTranslations } from 'next-intl';
 
 export default function Navbar() {
   const [locale, setLocale] = useState<'en' | 'am'>('en');
+  const t = useTranslations();
 
   const localizePath = (href: string) => {
     // Only prefix internal app routes for Amharic
@@ -173,7 +175,7 @@ export default function Navbar() {
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
-              <Link className="nav-link" href={localizePath('/')}>Home</Link>
+              <Link className="nav-link" href={localizePath('/')}>{t('navbar.home')}</Link>
             </li>
 
             {/* Token Claims Dropdown */}
@@ -186,44 +188,44 @@ export default function Navbar() {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                Token Claims
+                {t('navbar.token_claims.label')}
               </a>
               <ul className="dropdown-menu" aria-labelledby="dropdown1">
                 <li>
                   <Link className="dropdown-item" href={localizePath('/claim-form')}>
-                    <div className="fw-bold">Token Claim</div>
-                    <small className="text-muted">Claim Free Tokens - Faucet</small>
+                    <div className="fw-bold">{t('navbar.token_claims.token_claim')}</div>
+                    <small className="text-muted">{t('navbar.token_claims.token_claim_sub')}</small>
                   </Link>
                 </li>
                 <li>
                   <Link className="dropdown-item" href={localizePath('/distribution-rpt')}>
-                    <div className="fw-bold">Claim Report</div>
-                    <small className="text-muted">Global claims per country graph</small>
+                    <div className="fw-bold">{t('navbar.token_claims.claim_report')}</div>
+                    <small className="text-muted">{t('navbar.token_claims.claim_report_sub')}</small>
                   </Link>
                 </li>
                 <li>
                   <Link className="dropdown-item" href={localizePath('/gerd-airdrop')}>
-                    <div className="fw-bold">Airdrop</div>
-                    <small className="text-muted">Airdrop calculator for the yearly vesting release</small>
+                    <div className="fw-bold">{t('navbar.token_claims.airdrop')}</div>
+                    <small className="text-muted">{t('navbar.token_claims.airdrop_sub')}</small>
                   </Link>
                 </li>
                 <li><hr className="dropdown-divider" /></li>
                 <li>
                   <Link className="dropdown-item" href={localizePath('/trust-wallet')}>
-                    <div className="fw-bold">Trust Wallet</div>
-                    <small className="text-muted">Setup instruction for Trust wallet</small>
+                    <div className="fw-bold">{t('navbar.token_claims.trust_wallet')}</div>
+                    <small className="text-muted">{t('navbar.token_claims.trust_wallet_sub')}</small>
                   </Link>
                 </li>
                 <li>
                   <Link className="dropdown-item" href={localizePath('/base-wallet')}>
-                    <div className="fw-bold">Base Wallet</div>
-                    <small className="text-muted">Setup instruction for Base wallet</small>
+                    <div className="fw-bold">{t('navbar.token_claims.base_wallet')}</div>
+                    <small className="text-muted">{t('navbar.token_claims.base_wallet_sub')}</small>
                   </Link>
                 </li>
                 <li>
                   <Link className="dropdown-item" href={localizePath('/metamask-wallet')}>
-                    <div className="fw-bold">Metamask Wallet</div>
-                    <small className="text-muted">Setup instruction for Metamask wallet</small>
+                    <div className="fw-bold">{t('navbar.token_claims.metamask_wallet')}</div>
+                    <small className="text-muted">{t('navbar.token_claims.metamask_wallet_sub')}</small>
                   </Link>
                 </li>
               </ul>
@@ -239,26 +241,26 @@ export default function Navbar() {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                Vesting
+                {t('navbar.vesting.label')}
               </a>
               <ul className="dropdown-menu" aria-labelledby="dropdown8">
                 <li>
                   <Link className="dropdown-item" href={localizePath('/dashboard-vesting')}>
-                    <div className="fw-bold">Vesting Dashboard</div>
-                    <small className="text-muted">Main vesting release dashboard</small>
+                    <div className="fw-bold">{t('navbar.vesting.dashboard')}</div>
+                    <small className="text-muted">{t('navbar.vesting.dashboard_sub')}</small>
                   </Link>
                 </li>
                 <li>
                   <Link className="dropdown-item" href={localizePath('/testnet-vesting-dashboard')}>
-                    <div className="fw-bold">Testnet Dashboard</div>
-                    <small className="text-muted">Monitor live GERD&apos;s vesting release on Testnet</small>
+                    <div className="fw-bold">{t('navbar.vesting.testnet_dashboard')}</div>
+                    <small className="text-muted">{t('navbar.vesting.testnet_dashboard_sub')}</small>
                   </Link>
                 </li>
                 <li><hr className="dropdown-divider" /></li>
                 <li>
                   <Link className="dropdown-item" href={localizePath('/vesting')}>
-                    <div className="fw-bold">Vesting Strategy</div>
-                    <small className="text-muted">Reinforcing Transparency and Sustainable Growth</small>
+                    <div className="fw-bold">{t('navbar.vesting.strategy')}</div>
+                    <small className="text-muted">{t('navbar.vesting.strategy_sub')}</small>
                   </Link>
                 </li>
                 <li>
@@ -268,8 +270,8 @@ export default function Navbar() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <div className="fw-bold">Vesting Roadmap <i className="fas fa-external-link-alt ms-1 small"></i></div>
-                    <small className="text-muted">Smart contract development roadmap for the vesting release</small>
+                    <div className="fw-bold">{t('navbar.vesting.roadmap')} <i className="fas fa-external-link-alt ms-1 small"></i></div>
+                    <small className="text-muted">{t('navbar.vesting.roadmap_sub')}</small>
                   </a>
                 </li>
               </ul>
@@ -285,13 +287,13 @@ export default function Navbar() {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                Project Insights
+                {t('navbar.project_insights.label')}
               </a>
               <ul className="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdown5">
                 <li>
                   <Link className="dropdown-item" href={localizePath('/gerd-wallets')}>
-                    <div className="fw-bold">Project Wallets</div>
-                    <small className="text-muted">View official project wallet balances</small>
+                    <div className="fw-bold">{t('navbar.project_insights.wallets')}</div>
+                    <small className="text-muted">{t('navbar.project_insights.wallets_sub')}</small>
                   </Link>
                 </li>
                 <li>
@@ -301,33 +303,33 @@ export default function Navbar() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <div className="fw-bold">Top Holders <i className="fas fa-external-link-alt ms-1 small"></i></div>
-                    <small className="text-muted">Transparency on token distribution</small>
+                    <div className="fw-bold">{t('navbar.project_insights.top_holders')} <i className="fas fa-external-link-alt ms-1 small"></i></div>
+                    <small className="text-muted">{t('navbar.project_insights.top_holders_sub')}</small>
                   </a>
                 </li>
                 <li>
                   <Link className="dropdown-item" href={localizePath('/migration-announcement')}>
-                    <div className="fw-bold">Migration Announcement</div>
-                    <small className="text-muted">Details on the token migration</small>
+                    <div className="fw-bold">{t('navbar.project_insights.migration')}</div>
+                    <small className="text-muted">{t('navbar.project_insights.migration_sub')}</small>
                   </Link>
                 </li>
                 <li><hr className="dropdown-divider" /></li>
                 <li>
                   <Link className="dropdown-item" href={localizePath('/timeline')}>
-                    <div className="fw-bold">Project Timeline</div>
-                    <small className="text-muted">Roadmap and key milestones</small>
+                    <div className="fw-bold">{t('navbar.project_insights.timeline')}</div>
+                    <small className="text-muted">{t('navbar.project_insights.timeline_sub')}</small>
                   </Link>
                 </li>
                 <li>
                   <Link className="dropdown-item" href={localizePath('/gerd-ama')}>
-                    <div className="fw-bold">AMA (Ask Me Anything)</div>
-                    <small className="text-muted">Community Q&A sessions</small>
+                    <div className="fw-bold">{t('navbar.project_insights.ama')}</div>
+                    <small className="text-muted">{t('navbar.project_insights.ama_sub')}</small>
                   </Link>
                 </li>
                 <li>
                   <Link className="dropdown-item" href={localizePath('/qna')}>
-                    <div className="fw-bold">QnA</div>
-                    <small className="text-muted">Frequently Asked Questions</small>
+                    <div className="fw-bold">{t('navbar.project_insights.qna')}</div>
+                    <small className="text-muted">{t('navbar.project_insights.qna_sub')}</small>
                   </Link>
                 </li>
               </ul>
@@ -343,7 +345,7 @@ export default function Navbar() {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                Resources
+                {t('navbar.resources.label')}
               </a>
               <ul className="dropdown-menu" aria-labelledby="dropdown7">
                 <li>
@@ -353,8 +355,8 @@ export default function Navbar() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <div className="fw-bold">Whitepaper <i className="fas fa-external-link-alt ms-1 small"></i></div>
-                    <small className="text-muted">Project overview and economics pdf</small>
+                    <div className="fw-bold">{t('navbar.resources.whitepaper')} <i className="fas fa-external-link-alt ms-1 small"></i></div>
+                    <small className="text-muted">{t('navbar.resources.whitepaper_sub')}</small>
                   </a>
                 </li>
                 <li>
@@ -364,8 +366,8 @@ export default function Navbar() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <div className="fw-bold">Audit Report <i className="fas fa-external-link-alt ms-1 small"></i></div>
-                    <small className="text-muted">Basic internal audit summary pdf</small>
+                    <div className="fw-bold">{t('navbar.resources.audit')} <i className="fas fa-external-link-alt ms-1 small"></i></div>
+                    <small className="text-muted">{t('navbar.resources.audit_sub')}</small>
                   </a>
                 </li>
                 <li>
@@ -375,8 +377,8 @@ export default function Navbar() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <div className="fw-bold">GERD Video Clip <i className="fas fa-external-link-alt ms-1 small"></i></div>
-                    <small className="text-muted">Just for fun</small>
+                    <div className="fw-bold">{t('navbar.resources.video')} <i className="fas fa-external-link-alt ms-1 small"></i></div>
+                    <small className="text-muted">{t('navbar.resources.video_sub')}</small>
                   </a>
                 </li>
               </ul>
@@ -392,13 +394,13 @@ export default function Navbar() {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                Community
+                {t('navbar.community.label')}
               </a>
               <ul className="dropdown-menu" aria-labelledby="dropdown2">
                 <li>
                   <Link className="dropdown-item" href={localizePath('/dev')}>
-                    <div className="fw-bold">Contributors</div>
-                    <small className="text-muted">Meet the team behind the project</small>
+                    <div className="fw-bold">{t('navbar.community.contributors')}</div>
+                    <small className="text-muted">{t('navbar.community.contributors_sub')}</small>
                   </Link>
                 </li>
                 <li>
@@ -408,8 +410,8 @@ export default function Navbar() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <div className="fw-bold">GitHub <i className="fas fa-external-link-alt ms-1 small"></i></div>
-                    <small className="text-muted">Source code and repositories</small>
+                    <div className="fw-bold">{t('navbar.community.github')} <i className="fas fa-external-link-alt ms-1 small"></i></div>
+                    <small className="text-muted">{t('navbar.community.github_sub')}</small>
                   </a>
                 </li>
                 <li>
@@ -419,8 +421,8 @@ export default function Navbar() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <div className="fw-bold">X (Twitter) <i className="fas fa-external-link-alt ms-1 small"></i></div>
-                    <small className="text-muted">Official updates and announcements</small>
+                    <div className="fw-bold">{t('navbar.community.x')} <i className="fas fa-external-link-alt ms-1 small"></i></div>
+                    <small className="text-muted">{t('navbar.community.x_sub')}</small>
                   </a>
                 </li>
                 <li>
@@ -430,8 +432,8 @@ export default function Navbar() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <div className="fw-bold">TikTok <i className="fas fa-external-link-alt ms-1 small"></i></div>
-                    <small className="text-muted">Short-form video content</small>
+                    <div className="fw-bold">{t('navbar.community.tiktok')} <i className="fas fa-external-link-alt ms-1 small"></i></div>
+                    <small className="text-muted">{t('navbar.community.tiktok_sub')}</small>
                   </a>
                 </li>
                 <li>
@@ -441,8 +443,8 @@ export default function Navbar() {
                     target="_blank"
                     rel="noopener noreferrer"
                   >
-                    <div className="fw-bold">Telegram <i className="fas fa-external-link-alt ms-1 small"></i></div>
-                    <small className="text-muted">Join the community chat</small>
+                    <div className="fw-bold">{t('navbar.community.telegram')} <i className="fas fa-external-link-alt ms-1 small"></i></div>
+                    <small className="text-muted">{t('navbar.community.telegram_sub')}</small>
                   </a>
                 </li>
               </ul>
@@ -458,7 +460,7 @@ export default function Navbar() {
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                <i className="fas fa-language me-1"></i>Language
+                <i className="fas fa-language me-1"></i>{t('navbar.language.label')}
               </a>
               <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="langDropdown">
                 <li>
@@ -467,7 +469,7 @@ export default function Navbar() {
                     href="/"
                     onClick={() => { document.cookie = 'locale=en; path=/; max-age=' + (60 * 60 * 24 * 365) }}
                   >
-                    English
+                    {t('navbar.language.english')}
                   </Link>
                 </li>
                 <li>
@@ -476,7 +478,7 @@ export default function Navbar() {
                     href="/am"
                     onClick={() => { document.cookie = 'locale=am; path=/; max-age=' + (60 * 60 * 24 * 365) }}
                   >
-                    አማርኛ
+                    {t('navbar.language.amharic')}
                   </Link>
                 </li>
               </ul>
