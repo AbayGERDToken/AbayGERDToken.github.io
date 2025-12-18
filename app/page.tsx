@@ -12,6 +12,30 @@ export default function Home() {
     <>
       <HeroSection />
 
+      {/* Amharic Intro Section (Feature Card Frame) */}
+      <section className="content-section py-4">
+        <div className="container">
+          <div className="row">
+            <div className="col-md-6 mx-auto">
+              <FeatureCard
+                iconBg="bg-success-subtle"
+                iconColor="text-success"
+                center={true}
+              >
+                <div>
+                  <p className="mb-2" style={{ fontSize: '1rem', lineHeight: 1.6, marginBottom: '0.5rem' }}>
+                    GERD ቶክን የጋራ ዲጂታል ንብረት ነው፣ ለሕዝብ የተሰራ፣ ፍትሃዊ እና ግልፅ መዝገብ።
+                  </p>
+                  <p className="mb-0 text-muted">
+                    ድርሻዎን በነፃ ይዉሰዱ።  ከኢትዮጵያ ለሚወስዱ 75ሺ GERD ቶክን ፣ ከቀሪዉ ዐለም 10ሺ ቶክን ይደርሳቹሀል።
+                  </p>
+                </div>
+              </FeatureCard>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* Contract Addresses */}
       <section className="py-4 bg-light">
         <div className="container">
