@@ -1,7 +1,9 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { useTranslations } from 'next-intl';
 
 export default function HeroSection() {
+  const t = useTranslations();
   return (
     <section className="hero-section">
       <div className="container">
@@ -10,11 +12,11 @@ export default function HeroSection() {
             <div className="col-lg-6 mb-4 mb-lg-0">
               <h1 className="display-3 fw-bold mb-4">Abay GERD Token</h1>
               <p className="lead fs-4 mb-4 opacity-90">
-                Abay GERD Token distribution is LIVE! Get your hands on 10,000 free GERD tokens and join the financial revolution.
+                {t('hero.lead')}
               </p>
               <div className="d-flex flex-column flex-sm-row gap-3 mb-4">
                 <Link href="/claim-form" className="btn btn-light btn-lg cta-button">
-                  <i className="fas fa-gift me-2"></i>Claim Your Tokens
+                  <i className="fas fa-gift me-2"></i>{t('hero.claim')}
                 </Link>
                 <button 
                   type="button" 
@@ -22,7 +24,7 @@ export default function HeroSection() {
                   data-bs-toggle="modal" 
                   data-bs-target="#changeModal"
                 >
-                  <i className="fas fa-bullhorn me-2"></i>Migration Announcement
+                  <i className="fas fa-bullhorn me-2"></i>{t('claim_update.title')}
                 </button>
               </div>
             </div>
