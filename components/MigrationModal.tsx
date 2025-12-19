@@ -3,9 +3,13 @@
 import ContractAddress from './ContractAddress';
 import LocalizedText from './LocalizedText';
 import { useTranslations } from 'next-intl';
+import { usePathname } from 'next/navigation';
 
 export default function MigrationModal() {
   const t = useTranslations();
+  const pathname = usePathname();
+  const isAmharic = pathname.startsWith('/am');
+  const migrationAnnouncementLink = isAmharic ? '/am/migration-announcement' : '/migration-announcement';
 
   return (
     <div
@@ -64,7 +68,7 @@ export default function MigrationModal() {
                 The migration fixes a minor risk in the old contract&apos;s allowance logic. No exploit occurred, and no tokens were lost.
               </p>
               <p className="mb-0">
-                See <a href="/migration-announcement" className="text-decoration-none fw-bold"><LocalizedText id="migration.announcement_link" tag="span" /></a> for more details.
+                See <a href={migrationAnnouncementLink} className="text-decoration-none fw-bold"><LocalizedText id="migration.announcement_link" tag="span" /></a> for more details.
               </p>
             </div>
 

@@ -1,9 +1,16 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
 import { useTranslations } from 'next-intl';
+import { usePathname } from 'next/navigation';
 
 export default function HeroSection() {
   const t = useTranslations();
+  const pathname = usePathname();
+  const isAmharic = pathname.startsWith('/am');
+  const claimFormLink = isAmharic ? '/am/claim-form' : '/claim-form';
+  
   return (
     <section className="hero-section">
       <div className="container">
@@ -15,7 +22,7 @@ export default function HeroSection() {
                 {t('hero.lead')}
               </p>
               <div className="d-flex flex-column flex-sm-row gap-3 mb-4">
-                <Link href="/claim-form" className="btn btn-light btn-lg cta-button">
+                <Link href={claimFormLink} className="btn btn-light btn-lg cta-button">
                   <i className="fas fa-gift me-2"></i>{t('hero.claim')}
                 </Link>
                 <button 

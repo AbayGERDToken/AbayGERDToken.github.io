@@ -19,7 +19,7 @@ export default function AmharicHome() {
                 <LocalizedText id="hero.title" tag="h1" className="display-4 fw-bold mb-3" />
                 <LocalizedText id="hero.lead" tag="p" className="lead fs-5 mb-4 opacity-90" />
                 <div className="d-flex flex-column flex-sm-row gap-3 mb-4 justify-content-center justify-content-lg-start">
-                  <Link href="/claim-form" className="btn btn-success btn-lg cta-button">
+                  <Link href="/am/claim-form" className="btn btn-success btn-lg cta-button">
                     <i className="fas fa-gift me-2"></i><LocalizedText id="hero.claim" />
                   </Link>
                   <button
@@ -36,9 +36,10 @@ export default function AmharicHome() {
                 <Image
                   alt="AbayGERDToken"
                   src="/image/gerdlogo.png"
-                  className="img-fluid"
-                  width={220}
-                  height={220}
+                  className="hero-logo"
+                  width={200}
+                  height={200}
+                  style={{ borderRadius: '50%', border: '5px solid rgba(255,255,255,0.3)', boxShadow: '0 20px 60px rgba(0,0,0,0.3)' }}
                 />
               </div>
             </div>
@@ -112,7 +113,7 @@ export default function AmharicHome() {
             <p className="text-muted mb-4">
               በልዩ ልዩ ቦታዎች ያሉ ሰዎች በቀላሉ ማስተዋወቅ እንዲችሉ እንደገና እንመክታለን።
             </p>
-            <Link href="/claim-form" className="btn btn-success btn-lg cta-button">
+            <Link href="/am/claim-form" className="btn btn-success btn-lg cta-button">
               <i className="fas fa-gift me-2"></i>10,000 GERD ቶክን ይጠይቁ
             </Link>
           </div>
@@ -169,7 +170,7 @@ export default function AmharicHome() {
               <p className="lead mb-4">
                 እኛ ሁሉንም ወደ ዊደም ባለመቀላቀሉ እንጋብዝ። ነጻ ቶክኖችን ይጠይቁና የዚህ ታሪካዊ ድርጅት ክፍል ይሁኑ።
               </p>
-              <Link href="/claim-form" className="btn btn-success btn-lg cta-button">
+              <Link href="/am/claim-form" className="btn btn-success btn-lg cta-button">
                 <i className="fas fa-gift me-2"></i>እኩልን ዛሬ ይጠይቁ
               </Link>
             </div>

@@ -174,6 +174,40 @@ export default function Navbar() {
         </button>
         <div className="collapse navbar-collapse" id="navbarNav">
           <ul className="navbar-nav ms-auto">
+            {/* Language Dropdown (first item) */}
+            <li className="nav-item dropdown">
+              <a
+                className="nav-link dropdown-toggle"
+                href="#"
+                id="langDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                <i className="fas fa-language me-1"></i>{t('navbar.language.label')}
+              </a>
+              <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="langDropdown">
+                <li>
+                  <Link
+                    className="dropdown-item"
+                    href="/"
+                    onClick={() => { document.cookie = 'locale=en; path=/; max-age=' + (60 * 60 * 24 * 365) }}
+                  >
+                    {t('navbar.language.english')}
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    className="dropdown-item"
+                    href="/am"
+                    onClick={() => { document.cookie = 'locale=am; path=/; max-age=' + (60 * 60 * 24 * 365) }}
+                  >
+                    {t('navbar.language.amharic')}
+                  </Link>
+                </li>
+              </ul>
+            </li>
+
             <li className="nav-item">
               <Link className="nav-link" href={localizePath('/')}>{t('navbar.home')}</Link>
             </li>
@@ -446,40 +480,6 @@ export default function Navbar() {
                     <div className="fw-bold">{t('navbar.community.telegram')} <i className="fas fa-external-link-alt ms-1 small"></i></div>
                     <small className="text-muted">{t('navbar.community.telegram_sub')}</small>
                   </a>
-                </li>
-              </ul>
-            </li>
-
-            {/* Language Dropdown */}
-            <li className="nav-item dropdown">
-              <a
-                className="nav-link dropdown-toggle"
-                href="#"
-                id="langDropdown"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                <i className="fas fa-language me-1"></i>{t('navbar.language.label')}
-              </a>
-              <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="langDropdown">
-                <li>
-                  <Link
-                    className="dropdown-item"
-                    href="/"
-                    onClick={() => { document.cookie = 'locale=en; path=/; max-age=' + (60 * 60 * 24 * 365) }}
-                  >
-                    {t('navbar.language.english')}
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="dropdown-item"
-                    href="/am"
-                    onClick={() => { document.cookie = 'locale=am; path=/; max-age=' + (60 * 60 * 24 * 365) }}
-                  >
-                    {t('navbar.language.amharic')}
-                  </Link>
                 </li>
               </ul>
             </li>
