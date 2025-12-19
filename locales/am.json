@@ -257,26 +257,26 @@
     "update_saved_contracts": "እባክዎ የተቀመጡ የኮንትራክት ማስታወቂያዎችን ወደ አዲስ አድራሻ ያስተካክሉ።"
   },
   "testnet": {
-    "title": "Vesting Release Dashboard on Testnet",
-    "lead": "Real-time tracking of the GERD Token Vesting contract testing on BSC Testnet",
+    "title": "በTestnet ላይ የማስቆጣጠር መወዳጃ ዳሽቦርድ",
+    "lead": "በBSC Testnet ላይ የGERD ቶክን የማስቆጣጠር ኮንትራክት ሙከራ በስርዓተ-ጊዜ ማከታተያ",
     "loading": { "calculating": "በሂደት ላይ…", "generic": "በመጫን ላይ…", "error": "የማስገባት ስህተት" },
-    "info": { "title": "Testnet Testing Information", "body": "This dashboard is for community members to follow the progress of the GERD Token Vesting contract testing on the BSC Testnet. To simulate a long-term token release (1 billion GERD tokens per year for 115 years), the vesting contract on testnet is configured to release 1 billion tokens every Wednesday. This allows for faster testing of what would normally happen over years in production. The data below is read directly from the blockchain and updates in real-time." },
-    "release_control": { "title": "Release Control", "button": "Release Tokens" },
-    "stat": { "countdown_title": "Countdown to Next Release", "can_release_title": "Can Release Now" },
+    "info": { "title": "Testnet ሙከራ መረጃ", "body": "ይህ ዳሽቦርድ የማህበረሰብ ተጠቃሚዎች በBSC Testnet ላይ የGERD ቶክን የማስቆጣጠር ኮንትራክት ሙከራ እድገት ለመከታተል ነው። ረጅም ጊዜ ያለ ቶክን ማቅረብ (በ115 ዓመታት ውስጥ በዓመት 1 ቢሊዮን GERD ቶክንዎች) ለመመስከር የtestnet ላይ የማስቆጣጠር ኮንትራክት በእያንዳንዱ ሮብ 1 ቢሊዮን ቶክንዎችን ለማቅረብ ተዘጋጅቷል። ይህ በምርት ውስጥ ለዓመታት የሚታይውን ሙከራ ፍጥነት ይጠበቃል። ከዚህ በታች ያለው ውሂብ በቀጥታ ከblock chain ተነብብ ወደ ስርዓተ-ጊዜ ይሻሻላል።" },
+    "release_control": { "title": "ማቅረብ ቁጥጥር", "button": "ቶክንዎችን ይልቁ" },
+    "stat": { "countdown_title": "ወደ ቀጣይ ማቅረብ ወደ ኋላ", "can_release_title": "አሁን ልቅ ማድረግ ይችላል" },
     "countdown": { "ready": "አሁን ለመለቀቅ ዝግጁ ነው" },
-    "no_release": "ነጻ የለም — እስካሁን የቶክን ማቅረብ አልከናወነም",
-    "contracts": { "testnet_ca": "Testnet CA:", "testnet_vc": "Testnet VC:", "testnet_vc2": "Testnet VC2:", "network": "Network:", "network_value": "BSC Testnet" },
-    "last_release_label": "Last Release Time:",
-    "is_wednesday_label": "Is Today Wednesday:",
-    "next_release_label": "Next Scheduled Release:",
-    "wallets": { "title": "Wallet Balances", "table": { "name": "Name", "balance": "Balance (GERD)", "address": "Wallet Address" }, "loading": "Loading balances..." },
-    "history": { "title": "Release History", "no_releases": "No releases yet", "last_release_label": "Last release:" },
-    "yes": "Yes",
-    "no": "No"
+    "no_release": "ሪሊዝ ብዙ ምንም — እስካሁን ምንም ቶክን ውጣት አልሆነም",
+    "contracts": { "testnet_ca": "Testnet CA:", "testnet_vc": "Testnet VC:", "testnet_vc2": "Testnet VC2:", "network": "ኔትወርክ:", "network_value": "BSC Testnet" },
+    "last_release_label": " የመጨረሻ ወጣት ሰዓት:",
+    "is_wednesday_label": "ዛሬ ሮብ ነው:",
+    "next_release_label": "ወደ ቀጣይ የታቀደ ወጣት:",
+    "wallets": { "title": "የኦርሳ ሚዛናት", "table": { "name": "ስም", "balance": "ሚዛን (GERD)", "address": "የቦርሳ አድራሻ" }, "loading": "ሚዛናት በመጫን ላይ…" },
+    "history": { "title": "የወጣት ታሪክ", "no_releases": "ምንም ወጣትነት ገና ስለማይገኝ", "last_release_label": "የመጨረሻ ወጣት:" },
+    "yes": "አዎ",
+    "no": "አይ"
   },
   "timeline": {
-    "hero": { "title": "Abay GERD Token - Project Timeline", "lead": "A comprehensive journey through the development and milestones of the GERD Token project" },
-    "final_message": "The journey has just begun. GERD is built to last."
+    "hero": { "title": "Abay GERD Token - ፕሮጀክት ጊዜ-ሥዕል", "lead": "የGERD ቶክን ፕሮጀክት ልማት እና ብአደ ጃቡዋ ሁለ-በሁለ ፍልፍል" },
+    "final_message": "ጉዞው አሁን ጅምር። GERD ረጅም ጊዜ እንዲኖር ተዘጋጅቷል።"
   },
   "vesting": {
     "hero": { "title": "የ GERD ቶክን የማስቆጣጠር ዘዴ", "lead": "በግልጽነት እና በመረጃ ላይ የተመሰረተ የረጅም ጊዜ እድገት" },
