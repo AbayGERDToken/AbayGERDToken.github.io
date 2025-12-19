@@ -1,13 +1,13 @@
-{
+﻿{
   "hero": {
     "title": "አባይ GERD ቶክን",
     "lead": "አባይ GERD ቶክን ለሕዝብ የተሰራ የዲጂታል ንብረት ነው። 10,000 ነጻ ቶክኖችን ይወስዱና የዲጂታል ማህበረሰብን yeqelakelu።",
-    "claim": "dereshawon ይጠይቁ"
+    "claim": "ድርሻዎን ይረከቡ"
   },
   "intro": {
-    "feature_p1": "የሕብረት ተጠቃሚ የዲጂታል ቅድሚያ",
-    "feature_p2": "Abay GERD Token (GERD) የተነደፈ ዲሴንትራላይዝድ ክሪፕቶ ነው፣ ከኢትዮጵያ የሚነሳ ፣ ለአለም ተሰማሪ ነው።",
-    "cta": "10,000 GERD ቶክን ይጠይቁ"
+    "feature_p1": "በሕብረት ተጠቃሚ የዲጂታል ሌጋሲ",
+    "feature_p2": "Abay GERD Token (GERD) ግልፅ ዲሴንትራላይዝድ ክሪፕቶ ቶክን ነው፣ ከኢትዮጵያ የሚነሳ ፣ ለአለም ሁሉ የተገነባ ነው።",
+    "cta": "10,000 GERD ቶክን ይረከቡ"
   },
   "tokenomics": {
     "title": "የቶክኖሚክስ (Tokenomics)",
@@ -31,12 +31,12 @@
     }
   },
   "claim_section": {
-    "title": "የእርስዎን ክፍል ይጠይቁ",
-    "lead": "እኛ ሁሉንም ወደ ዊደም ባለመቀላቀሉ እንጋብዝ። ነጻ ቶክኖችን ይጠይቁና የዚህ ታሪካዊ ድርጅት ክፍል ይሁኑ።",
-    "cta": "እኩልን ዛሬ ይጠይቁ"
+    "title": "ድርሻዎን ዛሬውኑ ይረከቡ",
+    "lead": "ሁሉንም የዐለም ህብረተሰብ ድርሻውን በነፃ ያለ ምንም ክፍያ እንዲረከብ ተጋብዟል። ድርሻዎን በመረከብ የዚህ ታሪካዊ የዲጂታል እሴት ተካፉይ ይሁኑ።",
+    "cta": "ድርሻዎን ዛሬ ይረከቡ"
   },
   "site": {
-    "promo": "አባይ GERD ቶክንን ያውቁ — እርስዎን የወሰደ ኢትዮጵያ እና የክሪፕቶ ማህበረሰብን የሚያበረታታ ፕሮጀክት። #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD",
+    "promo": "አባይ GERD ቶክንን ይተዋወቁ — በህዳሴ ግድብ ተነሳሳችነት ተወልዶ ለኢትዮጵያ እና ለዐለም የክሪፕቶ ማህበረሰብን የሚያበረታታ ፕሮጀክት። #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD",
     "token_distribution": { "title": "Token Distribution", "lead": "100% community-driven with no presales, no early investor advantages, and no centralized ownership" },
     "tokens_per_wallet": "GERD tokens per wallet",
     "capped_50k": "Capped at 50,000 wallets",
@@ -44,27 +44,27 @@
   },
   "wallets": {
     "hero": {
-      "title": "የGERD ቶክን የቦርሳ ሚዛናት",
-      "lead": "በBinance Smart Chain ላይ የፕሮጀክት የቦርሳ ሚዛናትን በስርዓተ-ጊዜ ማከማቻ"
+      "title": "በGERD ቶክን ፕሮጄክት ስር ያሉ ዋሌቶች",
+      "lead": "በBinance Smart Chain ላይ የፕሮጄክቱ ባላንስ በቀጥታ ስርጭት"
     },
     "table": {
-      "title": "የፕሮጀክት የቦርሳ ሚዛናት",
-      "balance": "ሚዛን (GERD)",
+      "title": "የፕሮጀክት ዋሌት ባላንስ",
+      "balance": "ባላንስ (GERD)",
       "description": "ማብራሪያ",
-      "address": "የቦርሳ አድራሻ"
+      "address": "የዋሌት አድራሻ"
     },
     "descriptions": {
-      "vesting_reserve": "የማስቆጣጠር መያዣ",
-      "token_burn_dead_address": "የቶክን እሳት - የሞተ አድራሻ",
-      "development_reserve_fund": "የልማት መያዣ ባናንን",
-      "distribution_for_claims": "ለጥያቄዎች ከፍተኛ የሚያደርጉ ክፍያ",
+      "vesting_reserve": "በቬስቲንግ ኮንትራት የተቆለፈ",
+      "token_burn_dead_address": "የተቃጠለ - ከአገልግሎት የወጣ",
+      "development_reserve_fund": "ለልማት የተመደበ። ለአልሚዎች የሚከፈል",
+      "distribution_for_claims": "ለጥያቄዎች የሚያደርጉ ክፍያ",
       "airdrop_smart_contract": "የአይርድሮፕ ስማርት ኮንትራክት",
-      "liquidity_pool": "የሊኳይዲቲ ፑል",
-      "gerd_dignitary_reserve": "የGERD የአክስተኞች መያዣ",
-      "staking_rewards": "የስታኪንግ ሽልማቶች"
+      "liquidity_pool": "የግብይት ፑል",
+      "gerd_dignitary_reserve": "የGERD የክብር ተሸላሚዎች መያዣ",
+      "staking_rewards": "የወለድ ክፍያ ማጠራቀሚያ"
     },
     "loading": "በማተኮር…",
-    "promo": "አባይ GERD ቶክንን ያውቁ — እርስዎን የወሰደ ኢትዮጵያ እና የክሪፕቶ ማህበረሰብን የሚያበረታታ ፕሮጀክት። #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD",
+    "promo": "አባይ GERD ቶክንን ይተዋወቁ — በህዳሴ ግድብ ተነሳሳችነት ተወልዶ ለኢትዮጵያ እና ለዐለም የክሪፕቶ ማህበረሰብን የሚያበረታታ ፕሮጀክት። #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD",
     "messages": { "error_fetch_balance": "የሂሳብ መረጃ ማግኘት ላይ ስህተት" },
     "image": { "alt": "Abay GERD Token" }
   },
