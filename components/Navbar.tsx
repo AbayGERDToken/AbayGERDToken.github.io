@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl';
 
 export default function Navbar() {
   const [locale, setLocale] = useState<'en' | 'am'>('en');
+  const [currentPath, setCurrentPath] = useState<string>('/');
   const t = useTranslations();
 
   const localizePath = (href: string) => {
@@ -17,6 +18,23 @@ export default function Navbar() {
     if (href.startsWith('/image') || href.startsWith('/dev')) return href;
     if (locale === 'am') return href === '/' ? '/am' : `/am${href}`;
     return href;
+  };
+
+  const switchLanguage = (newLocale: 'en' | 'am') => {
+    // Get the current path and strip locale prefix
+    let path = currentPath;
+    if (path.startsWith('/am')) {
+      path = path.substring(3) || '/';
+    }
+    
+    // Build the new path with appropriate locale
+    const newPath = newLocale === 'am' ? (path === '/' ? '/am' : `/am${path}`) : path;
+    
+    // Set the cookie
+    document.cookie = `locale=${newLocale}; path=/; max-age=${60 * 60 * 24 * 365}`;
+    
+    // Navigate to the new path
+    window.location.href = newPath;
   };
 
   useEffect(() => {
@@ -41,6 +59,10 @@ export default function Navbar() {
       // Also try after a short delay in case Bootstrap loads later
       setTimeout(initDropdowns, 100);
 
+      // Set current path and locale based on URL
+      const pathname = window.location.pathname;
+      setCurrentPath(pathname);
+      
       // Auto-redirect based on saved locale cookie if we're on the root path
       try {
         const match = document.cookie.match(/(^|; )locale=(\w{2})/);
@@ -188,22 +210,20 @@ export default function Navbar() {
               </a>
               <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="langDropdown">
                 <li>
-                  <Link
+                  <button
                     className="dropdown-item"
-                    href="/"
-                    onClick={() => { document.cookie = 'locale=en; path=/; max-age=' + (60 * 60 * 24 * 365) }}
+                    onClick={() => switchLanguage('en')}
                   >
                     {t('navbar.language.english')}
-                  </Link>
+                  </button>
                 </li>
                 <li>
-                  <Link
+                  <button
                     className="dropdown-item"
-                    href="/am"
-                    onClick={() => { document.cookie = 'locale=am; path=/; max-age=' + (60 * 60 * 24 * 365) }}
+                    onClick={() => switchLanguage('am')}
                   >
                     {t('navbar.language.amharic')}
-                  </Link>
+                  </button>
                 </li>
               </ul>
             </li>
