@@ -19,12 +19,12 @@ export default function AmharicHome() {
                 <LocalizedText id="hero.title" tag="h1" className="display-4 fw-bold mb-3" />
                 <LocalizedText id="hero.lead" tag="p" className="lead fs-5 mb-4 opacity-90" />
                 <div className="d-flex flex-column flex-sm-row gap-3 mb-4 justify-content-center justify-content-lg-start">
-                  <Link href="/am/claim-form" className="btn btn-success btn-lg cta-button">
+                  <Link href="/am/claim-form" className="btn btn-outline-success btn-lg cta-button">
                     <i className="fas fa-gift me-2"></i><LocalizedText id="hero.claim" />
                   </Link>
                   <button
                     type="button"
-                    className="btn btn-outline-success btn-lg"
+                    className="btn btn-success btn-lg"
                     data-bs-toggle="modal"
                     data-bs-target="#changeModal"
                   >
