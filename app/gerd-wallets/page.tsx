@@ -7,6 +7,7 @@ interface WalletBalance {
   address: string;
   description: string;
   balance: string | null;
+  numericBalance: number | null;
   loading: boolean;
   error: boolean;
 }
@@ -15,7 +16,7 @@ const GERD_TOKEN_ADDRESS = '0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c';
 const BSC_RPC = 'https://bsc-dataseed.binance.org/';
 
 const wallets = [
-  { address: '0x02a2013C569c3cF7a8bf3DFE70D97c76B44993dc1', description: 'Vesting Reserve' },
+  { address: '0x02a2013C569c3cF7a8bf3DFE70D97c76B44993dc', description: 'Vesting Reserve' },
   { address: '0x000000000000000000000000000000000000dead', description: 'Token Burn - Dead Address' },
   { address: '0x8bF286A0135489832300e33F57ACc7ADA2Ca8133', description: 'Development Reserve Fund' },
   { address: '0xAfDAaDe5b0044993813b1f06cC3F3c6C025a1F1D', description: 'Distribution - for Claims' },
@@ -25,9 +26,21 @@ const wallets = [
   { address: '0x3B84a366a2f25BbB48f34b2b8D587c02237E6a13', description: 'Staking Rewards' },
 ];
 
+const chartColors = [
+  '#1f77b4',
+  '#ff7f0e',
+  '#2ca02c',
+  '#d62728',
+  '#9467bd',
+  '#8c564b',
+  '#e377c2',
+  '#7f7f7f',
+  '#bcbd22',
+];
+
 export default function GerdWallets() {
   const [balances, setBalances] = useState<WalletBalance[]>(
-    wallets.map(w => ({ ...w, balance: null, loading: true, error: false }))
+    wallets.map(w => ({ ...w, balance: null, numericBalance: null, loading: true, error: false }))
   );
 
   useEffect(() => {
@@ -48,11 +61,12 @@ export default function GerdWallets() {
         const balancePromises = wallets.map(async (wallet) => {
           try {
             const raw = await contract.methods.balanceOf(wallet.address).call();
-            const formatted = (Number(raw) / (10 ** Number(decimals))).toLocaleString();
-            return { ...wallet, balance: formatted, loading: false, error: false };
+            const numericBalance = Number(raw) / (10 ** Number(decimals));
+            const formatted = numericBalance.toLocaleString();
+            return { ...wallet, balance: formatted, numericBalance, loading: false, error: false };
           } catch (err) {
             console.error(`Failed to fetch for ${wallet.address}:`, err);
-            return { ...wallet, balance: 'Error', loading: false, error: true };
+            return { ...wallet, balance: 'Error', numericBalance: null, loading: false, error: true };
           }
         });
 
@@ -60,14 +74,33 @@ export default function GerdWallets() {
         setBalances(results);
       } catch (err) {
         console.error('Failed to initialize Web3:', err);
-        setBalances(prev => prev.map(w => ({ ...w, loading: false, error: true, balance: 'Error' })));
+        setBalances(prev => prev.map(w => ({ ...w, loading: false, error: true, balance: 'Error', numericBalance: null })));
       }
     };
 
     fetchBalances();
   }, []);
 
+  const totalBalance = balances.reduce((sum, wallet) => sum + (wallet.numericBalance ?? 0), 0);
 
+  let currentAngle = 0;
+  const gradientStops = balances.map((wallet, index) => {
+    const value = wallet.numericBalance ?? 0;
+    const percentage = totalBalance > 0 ? (value / totalBalance) * 100 : 0;
+    const start = currentAngle;
+    const end = currentAngle + percentage;
+    currentAngle = end;
+    return `${chartColors[index % chartColors.length]} ${start}% ${end}%`;
+  });
+
+  const chartStyle = {
+    background: totalBalance > 0 ? `conic-gradient(${gradientStops.join(', ')})` : '#e9ecef',
+    width: '260px',
+    height: '260px',
+    borderRadius: '50%',
+    position: 'relative' as const,
+    boxShadow: '0 0.25rem 1rem rgba(0,0,0,0.08)',
+  };
 
   return (
     <>
@@ -119,7 +152,7 @@ export default function GerdWallets() {
                                   : 'fw-bold text-success'
                                 }`}
                             >
-                              {wallet.loading ? 'Loading…' : wallet.balance}
+                              {wallet.loading ? 'Loading...' : wallet.balance}
                             </td>
                             <td>{wallet.description}</td>
                             <td>
@@ -137,6 +170,48 @@ export default function GerdWallets() {
                         ))}
                       </tbody>
                     </table>
+                  </div>
+
+                  <div className="mt-5">
+                    <div className="d-flex flex-column flex-lg-row align-items-center gap-4">
+                      <div className="flex-shrink-0" aria-hidden={totalBalance === 0}>
+                        <div style={chartStyle} className="d-flex align-items-center justify-content-center">
+                          <div className="text-center" style={{ position: 'absolute' }}>
+                            <div className="fw-bold">Token Distribution</div>
+                            <small className="text-muted">by wallet</small>
+                          </div>
+                        </div>
+                      </div>
+                      <div className="flex-grow-1 w-100">
+                        <h3 className="h5 fw-semibold mb-3">Distribution Breakdown</h3>
+                        {totalBalance === 0 ? (
+                          <p className="text-muted mb-0">Chart will appear when balances finish loading.</p>
+                        ) : (
+                          <div className="row row-cols-1 row-cols-md-2 g-3">
+                            {balances.map((wallet, index) => {
+                              const value = wallet.numericBalance ?? 0;
+                              const percentage = totalBalance > 0 ? ((value / totalBalance) * 100).toFixed(2) : '0.00';
+                              return (
+                                <div key={wallet.address} className="col">
+                                  <div className="d-flex align-items-start">
+                                    <span
+                                      className="me-2 mt-1"
+                                      style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: chartColors[index % chartColors.length] }}
+                                    ></span>
+                                    <div>
+                                      <div className="fw-semibold">{wallet.description}</div>
+                                      <div className="small text-muted">
+                                        {wallet.loading ? 'Loading...' : `${wallet.balance ?? '0'} GERD (${percentage}%)`}
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              );
+                            })}
+                          </div>
+                        )}
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>

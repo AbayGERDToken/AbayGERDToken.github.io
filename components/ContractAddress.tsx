@@ -7,13 +7,15 @@ interface ContractAddressProps {
   label: string;
   borderColor?: string;
   isLegacy?: boolean;
+  tokenAddress?: string;
 }
 
 export default function ContractAddress({
   address,
   label,
   borderColor = '#198754',
-  isLegacy = false
+  isLegacy = false,
+  tokenAddress
 }: ContractAddressProps) {
   const [copied, setCopied] = useState(false);
 
@@ -40,7 +42,7 @@ export default function ContractAddress({
         {!isLegacy ? (
           <>
             <a
-              href={`https://bscscan.com/token/${address}`}
+              href={tokenAddress ? `https://bscscan.com/token/${tokenAddress}?a=${address}` : `https://bscscan.com/token/${address}`}
               target="_blank"
               rel="noopener noreferrer"
               className="text-decoration-none me-2 align-middle"
@@ -62,7 +64,7 @@ export default function ContractAddress({
           </>
         ) : (
           <a
-            href={`https://bscscan.com/token/${address}`}
+            href={tokenAddress ? `https://bscscan.com/token/${tokenAddress}?a=${address}` : `https://bscscan.com/token/${address}`}
             target="_blank"
             rel="noopener noreferrer"
             className="text-decoration-none align-middle"
