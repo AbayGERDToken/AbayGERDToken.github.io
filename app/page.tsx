@@ -425,6 +425,7 @@ export default function Home() {
                             address="0x75F5f7d68AD14f467c935d6B375D350614F9cF68"
                             label="Reserved Address"
                             isLegacy={true}
+                            tokenAddress="0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c"
                             borderColor="#ffc107"
                           />
                         </div>
@@ -442,6 +443,7 @@ export default function Home() {
                             address="0x75F5f7d68AD14f467c935d6B375D350614F9cF68"
                             label="Reserved Address"
                             isLegacy={true}
+                            tokenAddress="0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c"
                             borderColor="#ffc107"
                           />
                         </div>
