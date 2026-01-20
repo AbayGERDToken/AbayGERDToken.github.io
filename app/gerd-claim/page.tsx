@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
+import { ethers } from "ethers";
 import { useWeb3Auth } from "@/lib/Web3AuthContext";
 import { useRouter } from "next/navigation";
 import { WalletService } from "@/lib/WalletService";
@@ -13,6 +14,8 @@ export default function ClaimPage() {
   const [walletService, setWalletService] = useState<WalletService | null>(null);
   const [claimAmount, setClaimAmount] = useState<string>("0");
   const [bscBalance, setBscBalance] = useState<string>("0");
+  const [tokenBalance, setTokenBalance] = useState<string>("0");
+  const [tokenSymbol, setTokenSymbol] = useState<string>("GERD");
   const [isClaimed, setIsClaimed] = useState<boolean>(false);
   const [loading, setLoading] = useState(true);
   const [claiming, setClaiming] = useState(false);
@@ -27,7 +30,7 @@ export default function ClaimPage() {
     }
   }, [isLogged, authLoading, router]);
 
-  // Initialize wallet service and fetch balance
+  // Initialize wallet service and fetch balances
   useEffect(() => {
     if (!provider || !address) return;
 
@@ -42,6 +45,39 @@ export default function ClaimPage() {
         // Get BNB balance
         const walletInfo = await service.getWalletInfo();
         setBscBalance(walletInfo.displayBalance);
+
+        // Get GERD token balance
+        const tokenAddr = process.env.NEXT_PUBLIC_GERD_TOKEN_ADDRESS;
+        if (!tokenAddr) {
+          throw new Error("GERD token address not configured");
+        }
+        // First, attempt via Web3Auth provider (may fail if on wrong chain)
+        try {
+          const tokenInfo = await service.getTokenInfo(tokenAddr);
+          setTokenBalance(tokenInfo.displayBalance);
+          if (tokenInfo.symbol) setTokenSymbol(tokenInfo.symbol);
+        } catch (err) {
+          console.warn("Primary token fetch failed, will verify via RPC:", err);
+        }
+        // Always verify via BSC RPC (authoritative)
+        try {
+          const rpcUrl = process.env.NEXT_PUBLIC_BSC_RPC_URL || "https://bsc-dataseed1.binance.org:443";
+          const rpcProvider = new ethers.JsonRpcProvider(rpcUrl);
+          const contract = new ethers.Contract(tokenAddr, [
+            "function balanceOf(address owner) view returns (uint256)",
+            "function decimals() view returns (uint256)",
+            "function symbol() view returns (string)"
+          ], rpcProvider);
+          const [rawBalance, decimals] = await Promise.all([
+            contract.balanceOf(address),
+            contract.decimals(),
+          ]);
+          const verifiedDisplay = ethers.formatUnits(rawBalance, Number(decimals));
+          setTokenBalance(parseFloat(verifiedDisplay).toFixed(2));
+        } catch (err) {
+          console.warn("RPC verification failed:", err);
+          // keep existing value if any; otherwise default remains "0"
+        }
 
         // Check if already claimed via backend
         try {
@@ -176,8 +212,8 @@ export default function ClaimPage() {
           </div>
 
           <div className={styles.infoBox}>
-            <label>BNB Balance</label>
-            <div className={styles.valueBox}>{bscBalance} BNB</div>
+            <label>{tokenSymbol} Balance</label>
+            <div className={styles.valueBox}>{tokenBalance} {tokenSymbol}</div>
           </div>
         </div>
 

@@ -108,6 +108,7 @@ export const loginWithWeb3Auth = async (
     console.log(`Calling connect() with provider ${provider}...`);
     const result = await (web3authInstance as any).connect({
       loginProvider: provider,
+      chainId: "0x38",
     });
     
     console.log("Web3Auth connection successful", result);
