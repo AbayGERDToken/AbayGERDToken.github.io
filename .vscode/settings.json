@@ -1,5 +1,6 @@
 {
     "chat.tools.terminal.autoApprove": {
-        "Set-Content": true
+        "Set-Content": true,
+        "npm install": true
     }
 }
