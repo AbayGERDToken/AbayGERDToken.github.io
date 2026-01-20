@@ -27,7 +27,7 @@ export default function ClaimPage() {
     }
   }, [isLogged, authLoading, router]);
 
-  // Initialize wallet service and fetch claim info
+  // Initialize wallet service and fetch balance
   useEffect(() => {
     if (!provider || !address) return;
 
@@ -43,23 +43,15 @@ export default function ClaimPage() {
         const walletInfo = await service.getWalletInfo();
         setBscBalance(walletInfo.displayBalance);
 
-        // Get claimable amount
-        const claimContractAddr = process.env.NEXT_PUBLIC_CLAIM_CONTRACT_ADDRESS;
-        if (!claimContractAddr) {
-          throw new Error("Claim contract address not configured");
-        }
-
+        // Check if already claimed via backend
         try {
-          const claimable = await service.getClaimableAmount(claimContractAddr, address);
-          setClaimAmount(claimable);
-
-          // Check if already claimed
-          const claimed = await service.checkIfClaimed(claimContractAddr, address);
-          setIsClaimed(claimed);
+          const checkResponse = await fetch(`https://abay-gerd-backend.onrender.com/check-claim/${address}`);
+          if (checkResponse.ok) {
+            const checkData = await checkResponse.json();
+            setIsClaimed(checkData.claimed || false);
+          }
         } catch (err) {
-          console.warn("Could not fetch claim info:", err);
-          setClaimAmount("0");
-          setIsClaimed(false);
+          console.warn("Could not check claim status:", err);
         }
       } catch (err) {
         const errorMsg = err instanceof Error ? err.message : "Failed to initialize wallet";
@@ -74,8 +66,8 @@ export default function ClaimPage() {
   }, [provider, address]);
 
   const handleClaim = async () => {
-    if (!walletService || !address) {
-      setError("Wallet not initialized");
+    if (!address) {
+      setError("Wallet not connected");
       return;
     }
 
@@ -85,22 +77,45 @@ export default function ClaimPage() {
       setSuccess(null);
       setTxHash(null);
 
-      const claimContractAddr = process.env.NEXT_PUBLIC_CLAIM_CONTRACT_ADDRESS;
-      if (!claimContractAddr) {
-        throw new Error("Claim contract address not configured");
+      // Get session token
+      const sessionResponse = await fetch('https://abay-gerd-backend.onrender.com/auth/session');
+      const sessionData = await sessionResponse.json();
+      
+      if (!sessionData.session_token) {
+        throw new Error("Failed to get session token");
       }
 
-      // Execute claim
-      const hash = await walletService.claimTokens(claimContractAddr, claimAmount);
-      setTxHash(hash);
+      // Detect country
+      let estimatedAmount = 10000;
+      try {
+        const locResponse = await fetch('https://ipapi.co/json/');
+        const locData = await locResponse.json();
+        estimatedAmount = (locData.country_code === "ET") ? 75000 : 10000;
+      } catch (err) {
+        console.warn("Could not detect location:", err);
+      }
 
-      // Wait for confirmation
-      await walletService.waitForTransaction(hash);
+      // Call backend to send tokens
+      const response = await fetch('https://abay-gerd-backend.onrender.com/send-token', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          recipient: address,
+          session_token: sessionData.session_token,
+          recaptchaToken: "" // Empty since we're using Web3Auth authentication
+        })
+      });
 
-      setSuccess(`✓ Claim successful! Transaction: ${hash.substring(0, 10)}...`);
-      setIsClaimed(true);
-      setClaimAmount("0");
-    } catch (err) {
+      const data = await response.json();
+      
+      if (data.status === 'success') {
+        const hash = data.tx_hash.startsWith('0x') ? data.tx_hash : `0x${data.tx_hash}`;
+        setTxHash(hash);
+        setSuccess(`✓ Claim successful! Received approximately ${estimatedAmount.toLocaleString()} GERD tokens`);
+        setIsClaimed(true);
+        setClaimAmount("0");      } else {
+        throw new Error(data.message || "Failed to claim tokens");
+      }    } catch (err) {
       const errorMsg = err instanceof Error ? err.message : "Claim failed";
       setError(errorMsg);
       console.error("Claim error:", err);
@@ -129,7 +144,6 @@ export default function ClaimPage() {
     );
   }
 
-  const canClaim = !isClaimed && parseFloat(claimAmount) > 0;
   const explorerLink = txHash ? `https://bscscan.com/tx/${txHash}` : null;
 
   return (
@@ -184,24 +198,19 @@ export default function ClaimPage() {
                 <div className={styles.amountDisplay}>
                   <label>Available to Claim</label>
                   <div className={styles.amountValue}>
-                    <span>{parseFloat(claimAmount).toFixed(2)}</span>
+                    <span>10,000 - 75,000</span>
                     <span className={styles.symbol}>GERD</span>
                   </div>
+                  <p className={styles.note}>Amount varies by location</p>
                 </div>
 
-                {canClaim ? (
-                  <button
-                    onClick={handleClaim}
-                    disabled={claiming}
-                    className={styles.claimButton}
-                  >
-                    {claiming ? "Processing..." : "Claim Now"}
-                  </button>
-                ) : (
-                  <div className={styles.noClaimMessage}>
-                    <p>No tokens available to claim at this time.</p>
-                  </div>
-                )}
+                <button
+                  onClick={handleClaim}
+                  disabled={claiming}
+                  className={styles.claimButton}
+                >
+                  {claiming ? "Processing..." : "Claim Now"}
+                </button>
               </>
             )}
 

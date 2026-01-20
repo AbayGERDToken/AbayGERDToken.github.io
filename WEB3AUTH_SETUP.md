@@ -1,5 +1,14 @@
 # Web3Auth Setup Guide
 
+## Configured Projects
+
+### Available Web3Auth Projects
+
+| Project Name | Platform | Client ID | Environment | Status |
+|-------------|----------|-----------|-------------|--------|
+| Web3 GERD Token Claim | Web Application, React Native | `BNcEwCq57jR.....Zu7vhP3nGM` | Sapphire Devnet | Active |
+| GERDInternalWallet | Web Application | `BOzh4dnIQ7M.....c5ZG_32E78` | Sapphire Devnet | Active |
+
 ## Error: "web3auth.initModal is not a function"
 
 This error occurs when the **Web3Auth Client ID is not configured**. The application requires a valid Web3Auth Client ID to initialize properly.
@@ -33,15 +42,25 @@ In your project settings, add the following URLs to "Allowed URLs":
 ### Step 5: Update Environment File
 Create or edit `.env.local` in the project root:
 
+**Option 1: Web3 GERD Token Claim (Recommended for main application)**
 ```
-NEXT_PUBLIC_WEB3AUTH_CLIENT_ID=your_client_id_here
+NEXT_PUBLIC_WEB3AUTH_CLIENT_ID=BNcEwCq57jR5I5e5DPH4MXK0QXUIcMfFDjOC7-z3CH7hdBs3xIszdCbbfXgMdhzAOvJaJgb9zZQRFZu7vhP3nGM
 NEXT_PUBLIC_GERD_TOKEN_ADDRESS=0xYourGERDTokenAddress
 NEXT_PUBLIC_BSC_RPC_URL=https://bsc-dataseed1.binance.org:443
 NEXT_PUBLIC_CLAIM_CONTRACT_ADDRESS=0xYourClaimContractAddress
 NEXT_PUBLIC_APP_URL=http://localhost:3001
 ```
 
-Replace `your_client_id_here` with the Client ID from Step 3.
+**Option 2: GERDInternalWallet (For internal wallet application)**
+```
+NEXT_PUBLIC_WEB3AUTH_CLIENT_ID=BOzh4dnIQ7M.....c5ZG_32E78
+NEXT_PUBLIC_GERD_TOKEN_ADDRESS=0xYourGERDTokenAddress
+NEXT_PUBLIC_BSC_RPC_URL=https://bsc-dataseed1.binance.org:443
+NEXT_PUBLIC_CLAIM_CONTRACT_ADDRESS=0xYourClaimContractAddress
+NEXT_PUBLIC_APP_URL=http://localhost:3001
+```
+
+> **Note**: An `.env.local.example` file has been created in the project root with both configurations. Copy it to `.env.local` and choose the appropriate client ID.
 
 ### Step 6: Restart the Development Server
 ```bash

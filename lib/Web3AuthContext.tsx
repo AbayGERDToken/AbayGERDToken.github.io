@@ -59,24 +59,27 @@ export const Web3AuthProvider: React.FC<{ children: ReactNode }> = ({ children }
           );
         }
         
+        console.log("Initializing Web3Auth...");
         const web3auth = await initWeb3Auth();
         
         if (web3auth) {
+          console.log("Web3Auth instance received, setting state...");
           setWeb3authInstance(web3auth);
           
-          // Add a small delay to ensure modal is fully initialized
-          await new Promise(resolve => setTimeout(resolve, 500));
+          // Wait longer to ensure everything is fully initialized
+          await new Promise(resolve => setTimeout(resolve, 2000));
+          console.log("Web3Auth ready state achieved");
           
           // Check if user is already logged in
-          if (web3auth.provider) {
-            setProvider(web3auth.provider);
+          if ((web3auth as any).provider) {
+            setProvider((web3auth as any).provider);
             setIsLogged(true);
 
             try {
-              const user = await web3auth.getUserInfo();
+              const user = await (web3auth as any).getUserInfo();
               setUserInfo(user);
 
-              const userAddr = await getUserAddress(web3auth.provider);
+              const userAddr = await getUserAddress((web3auth as any).provider);
               setAddress(userAddr);
             } catch (err) {
               console.error("Error getting user info:", err);
@@ -107,10 +110,7 @@ export const Web3AuthProvider: React.FC<{ children: ReactNode }> = ({ children }
       setLoading(true);
       setError(null);
 
-      // Wait to ensure modal is ready
-      await new Promise(resolve => setTimeout(resolve, 500));
-
-      console.log("Attempting login with Web3Auth...");
+      console.log(`Attempting login with ${loginProvider}...`);
       const result = await loginWithWeb3Auth(web3authInstance, loginProvider);
       console.log("Login successful");
       

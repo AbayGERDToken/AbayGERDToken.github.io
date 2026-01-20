@@ -26,43 +26,56 @@ const chainConfig = {
 };
 
 export const initWeb3Auth = async () => {
-  if (typeof window === "undefined") return null;
+  if (typeof window === "undefined") {
+    console.log("Window is undefined, skipping Web3Auth init");
+    return null;
+  }
   
   if (web3auth) {
+    console.log("Web3Auth already initialized, returning existing instance");
     return web3auth;
   }
 
   try {
+    const clientId = process.env.NEXT_PUBLIC_WEB3AUTH_CLIENT_ID;
+    if (!clientId) {
+      throw new Error("Web3Auth Client ID is not configured");
+    }
+
+    console.log("Creating Web3Auth instance with client ID:", clientId.substring(0, 20) + "...");
+    
     web3auth = new Web3Auth({
-      clientId: process.env.NEXT_PUBLIC_WEB3AUTH_CLIENT_ID || "",
+      clientId: clientId,
       chainConfig: chainConfig as any,
       uiConfig: {
         appName: "GERD Token Claim",
-        appUrl: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3001",
+        appUrl: process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
         theme: "light" as any,
         loginGridCol: 2,
         primaryButton: "socialLogin" as any,
       },
-      web3AuthNetwork: "sapphire_mainnet",
+      web3AuthNetwork: "sapphire_devnet",
       enableLogging: true,
     } as any);
 
-    // Initialize the modal - use type assertion to handle API differences
-    try {
-      if (typeof (web3auth as any).initModal === 'function') {
-        await (web3auth as any).initModal();
-        console.log("Web3Auth modal initialized successfully");
-      } else {
-        console.log("Web3Auth instance created (no initModal method available)");
-      }
-    } catch (initError) {
-      console.error("Web3Auth initModal error:", initError);
-      // Continue even if initModal fails
-    }
+    console.log("Web3Auth instance created successfully");
+    
+    // For Web3Auth v10+, we need to call init() to initialize the modal
+    console.log("Calling init()...");
+    await (web3auth as any).init();
+    console.log("Web3Auth initialized via init()");
+    
+    // Log available methods for debugging
+    const methods = Object.getOwnPropertyNames(Object.getPrototypeOf(web3auth))
+      .filter(name => typeof (web3auth as any)[name] === 'function' && name !== 'constructor');
+    console.log("Web3Auth available methods:", methods);
+    
+    console.log("Web3Auth instance ready for use");
     
     return web3auth;
   } catch (error) {
     console.error("Web3Auth initialization error:", error);
+    web3auth = null; // Reset on error
     throw error;
   }
 };
@@ -79,16 +92,25 @@ export const loginWithWeb3Auth = async (
       throw new Error("Web3Auth instance not available - please refresh the page");
     }
 
-    // Check if already connected
-    if ((web3authInstance as any).connected || (web3authInstance as any).provider) {
-      console.log("Web3Auth already connected");
-      return (web3authInstance as any).provider;
+    // Check if actually authenticated (has a connected provider with valid session)
+    const currentProvider = (web3authInstance as any).provider;
+    const isConnected = (web3authInstance as any).connected;
+    
+    if (isConnected && currentProvider) {
+      console.log("Web3Auth already authenticated");
+      return currentProvider;
     }
 
-    // The connect method opens the modal and handles authentication
-    console.log("Web3Auth connecting...");
-    const result = await (web3authInstance as any).connect();
-    console.log("Web3Auth connection successful");
+    console.log(`Web3Auth connecting with ${provider}...`);
+    
+    // For Web3Auth Modal v10, use connect() method for social logins
+    // The modal should open automatically when connect() is called
+    console.log(`Calling connect() with provider ${provider}...`);
+    const result = await (web3authInstance as any).connect({
+      loginProvider: provider,
+    });
+    
+    console.log("Web3Auth connection successful", result);
     return result;
   } catch (error) {
     console.error("Web3Auth connect error:", error);
