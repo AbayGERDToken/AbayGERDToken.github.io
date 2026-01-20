@@ -47,8 +47,18 @@ export const initWeb3Auth = async () => {
       enableLogging: true,
     } as any);
 
-    // Web3Auth modal initializes automatically upon instantiation
-    console.log("Web3Auth instance created successfully");
+    // Initialize the modal - use type assertion to handle API differences
+    try {
+      if (typeof (web3auth as any).initModal === 'function') {
+        await (web3auth as any).initModal();
+        console.log("Web3Auth modal initialized successfully");
+      } else {
+        console.log("Web3Auth instance created (no initModal method available)");
+      }
+    } catch (initError) {
+      console.error("Web3Auth initModal error:", initError);
+      // Continue even if initModal fails
+    }
     
     return web3auth;
   } catch (error) {
@@ -69,13 +79,19 @@ export const loginWithWeb3Auth = async (
       throw new Error("Web3Auth instance not available - please refresh the page");
     }
 
+    // Check if already connected
+    if ((web3authInstance as any).connected || (web3authInstance as any).provider) {
+      console.log("Web3Auth already connected");
+      return (web3authInstance as any).provider;
+    }
+
     // The connect method opens the modal and handles authentication
-    console.log("Initiating Web3Auth connect...");
-    const result = await web3authInstance.connect();
-    console.log("Web3Auth connect successful");
+    console.log("Web3Auth connecting...");
+    const result = await (web3authInstance as any).connect();
+    console.log("Web3Auth connection successful");
     return result;
   } catch (error) {
-    console.error("Login error:", error);
+    console.error("Web3Auth connect error:", error);
     throw error;
   }
 };

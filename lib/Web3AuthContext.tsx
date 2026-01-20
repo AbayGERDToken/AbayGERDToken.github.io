@@ -107,34 +107,46 @@ export const Web3AuthProvider: React.FC<{ children: ReactNode }> = ({ children }
       setLoading(true);
       setError(null);
 
-      // Wait a bit to ensure modal is ready
-      await new Promise(resolve => setTimeout(resolve, 200));
+      // Wait to ensure modal is ready
+      await new Promise(resolve => setTimeout(resolve, 500));
 
+      console.log("Attempting login with Web3Auth...");
       const result = await loginWithWeb3Auth(web3authInstance, loginProvider);
+      console.log("Login successful");
       
       if (web3authInstance.provider) {
         setProvider(web3authInstance.provider);
         setIsLogged(true);
 
-        const user = await web3authInstance.getUserInfo();
-        setUserInfo(user);
+        try {
+          const user = await web3authInstance.getUserInfo();
+          setUserInfo(user);
+        } catch (userErr) {
+          console.warn("Could not get user info:", userErr);
+        }
 
-        const userAddr = await getUserAddress(web3authInstance.provider);
-        setAddress(userAddr);
+        try {
+          const userAddr = await getUserAddress(web3authInstance.provider);
+          setAddress(userAddr);
+        } catch (addrErr) {
+          console.warn("Could not get user address:", addrErr);
+        }
       }
     } catch (err) {
       const errorMessage = err instanceof Error ? err.message : "Login failed";
       
-      // Provide helpful error messages
-      if (errorMessage.includes("modal") || errorMessage.includes("wallet") || errorMessage.includes("not initialized")) {
-        setError("Web3Auth modal is not ready yet. Please refresh the page and try again.");
-      } else if (errorMessage.includes("Network")) {
-        setError("Network error. Please check your internet connection and try again.");
-      } else {
-        setError(errorMessage);
-      }
+      console.error("Login error details:", err);
       
-      console.error("Login error:", err);
+      // Provide helpful error messages
+      if (errorMessage.includes("modal") || errorMessage.includes("wallet") || errorMessage.includes("not initialized") || errorMessage.includes("ready")) {
+        setError("Web3Auth modal is not ready yet. Please refresh the page and try again.");
+      } else if (errorMessage.includes("Network") || errorMessage.includes("network")) {
+        setError("Network error. Please check your internet connection and try again.");
+      } else if (errorMessage.includes("User closed")) {
+        setError("Login cancelled. Please try again if you'd like to proceed.");
+      } else {
+        setError(errorMessage || "Login failed. Please try again.");
+      }
     } finally {
       setLoading(false);
     }
