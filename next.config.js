@@ -1,7 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  // Remove 'export' for development mode - we'll use export only for production builds
-  // output: process.env.NODE_ENV === 'production' ? 'export' : undefined,
+  output: 'export',
   images: {
     unoptimized: true,
   },
