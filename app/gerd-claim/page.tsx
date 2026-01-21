@@ -231,15 +231,6 @@ export default function ClaimPage() {
               </div>
             ) : (
               <>
-                <div className={styles.amountDisplay}>
-                  <label>Available to Claim</label>
-                  <div className={styles.amountValue}>
-                    <span>10,000 - 75,000</span>
-                    <span className={styles.symbol}>GERD</span>
-                  </div>
-                  <p className={styles.note}>Amount varies by location</p>
-                </div>
-
                 <button
                   onClick={handleClaim}
                   disabled={claiming}
