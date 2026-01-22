@@ -37,7 +37,7 @@ export function Web3AuthProvider({ children }: { children: ReactNode }) {
 
         const web3authInstance = new Web3Auth({
           clientId,
-          web3AuthNetwork: 'mainnet',
+          web3AuthNetwork: 'sapphire_devnet',
           chainConfig: {
             chainNamespace: CHAIN_NAMESPACES.EIP155,
             chainId: '0x38',
