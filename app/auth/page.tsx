@@ -173,7 +173,7 @@ export default function AuthPage() {
         {isLogged && !loadingBalance && (
           <button
             className={styles.proceedButton}
-            onClick={() => router.push("/claim-form")}
+            onClick={() => router.push(`/claim-form?address=${address}`)}
           >
             <i className="fas fa-arrow-right me-2"></i>
             Proceed to Claim Form
