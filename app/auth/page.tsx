@@ -11,28 +11,22 @@ export default function AuthPage() {
   const [localError, setLocalError] = React.useState<string | null>(null);
   const [balanceInfo, setBalanceInfo] = React.useState<string | null>(null);
 
-  // Redirect if already logged in
+  // Show balance when logged in
   useEffect(() => {
     if (isLogged && address) {
-      // Check balance and then redirect
-      const checkAndRedirect = async () => {
+      const checkBalance = async () => {
         try {
           const balance = await fetchBalance(address);
           if (balance && balance !== "0.00") {
             setBalanceInfo(`Balance: ${balance} GERD`);
           }
-          // Redirect to claim form after showing balance
-          setTimeout(() => {
-            router.push("/claim-form");
-          }, 1500);
         } catch (err) {
           console.error("Balance check error:", err);
-          router.push("/claim-form");
         }
       };
-      checkAndRedirect();
+      checkBalance();
     }
-  }, [isLogged, address, router]);
+  }, [isLogged, address]);
 
   const fetchBalance = async (walletAddress: string): Promise<string | null> => {
     try {
@@ -104,6 +98,16 @@ export default function AuthPage() {
             <i className="fas fa-check-circle me-2"></i>
             Wallet created! {balanceInfo}
           </div>
+        )}
+
+        {isLogged && balanceInfo && (
+          <button
+            className={styles.proceedButton}
+            onClick={() => router.push("/claim-form")}
+          >
+            <i className="fas fa-arrow-right me-2"></i>
+            Proceed to Claim Form
+          </button>
         )}
 
         <div className={styles.loginOptions}>

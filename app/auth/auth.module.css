@@ -102,6 +102,29 @@
   cursor: not-allowed;
 }
 
+.proceedButton {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(135deg, #198754 0%, #0f5132 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 4px 12px rgba(25, 135, 84, 0.25);
+}
+
+.proceedButton:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(25, 135, 84, 0.35);
+}
+
 .footer {
   text-align: center;
   padding-top: 1.5rem;
