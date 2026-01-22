@@ -10,21 +10,30 @@ export default function AuthPage() {
   const { login, logout, isLoading, error, isLogged, address } = useWeb3Auth();
   const [localError, setLocalError] = React.useState<string | null>(null);
   const [balanceInfo, setBalanceInfo] = React.useState<string | null>(null);
+  const [loadingBalance, setLoadingBalance] = React.useState(false);
 
   // Show balance when logged in
   useEffect(() => {
     if (isLogged && address) {
       const checkBalance = async () => {
+        setLoadingBalance(true);
         try {
           const balance = await fetchBalance(address);
-          if (balance && balance !== "0.00") {
+          if (balance) {
             setBalanceInfo(`Balance: ${balance} GERD`);
+          } else {
+            setBalanceInfo('Balance: 0.00 GERD');
           }
         } catch (err) {
           console.error("Balance check error:", err);
+          setBalanceInfo('Balance: Unable to fetch');
+        } finally {
+          setLoadingBalance(false);
         }
       };
       checkBalance();
+    } else {
+      setBalanceInfo(null);
     }
   }, [isLogged, address]);
 
@@ -104,10 +113,23 @@ export default function AuthPage() {
           </div>
         )}
 
-        {balanceInfo && (
+        {isLogged && address && (
           <div className={styles.successAlert}>
             <i className="fas fa-check-circle me-2"></i>
-            Wallet created! {balanceInfo}
+            {loadingBalance ? (
+              <>
+                Wallet connected! Loading balance...
+                <i className="fas fa-spinner fa-spin ms-2"></i>
+              </>
+            ) : (
+              <>
+                Wallet connected! {balanceInfo || 'Balance: N/A'}
+                <br />
+                <small style={{fontSize: '0.85em', opacity: 0.8}}>
+                  {address.slice(0, 6)}...{address.slice(-4)}
+                </small>
+              </>
+            )}
           </div>
         )}
 
@@ -122,7 +144,7 @@ export default function AuthPage() {
           </button>
         )}
 
-        {isLogged && balanceInfo && (
+        {isLogged && !loadingBalance && (
           <button
             className={styles.proceedButton}
             onClick={() => router.push("/claim-form")}
