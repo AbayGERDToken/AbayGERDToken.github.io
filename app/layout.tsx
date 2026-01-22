@@ -4,6 +4,7 @@ import Script from 'next/script';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import VisitorTracker from '@/components/VisitorTracker';
+import { Web3AuthProvider } from '@/lib/Web3AuthContext';
 import '@/styles/globals.css';
 
 const outfit = Outfit({
@@ -37,12 +38,14 @@ export default function RootLayout({
         />
       </head>
       <body className={outfit.variable}>
-        <Navbar />
-        <main>
-          {children}
-        </main>
-        <Footer />
-        <VisitorTracker />
+        <Web3AuthProvider>
+          <Navbar />
+          <main>
+            {children}
+          </main>
+          <Footer />
+          <VisitorTracker />
+        </Web3AuthProvider>
         {/* Bootstrap 5.3.3 JS */}
         <Script
           src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"

@@ -1,27 +1,85 @@
 "use client";
 
-import React from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
+import { useWeb3Auth } from "@/lib/Web3AuthContext";
 import styles from "./auth.module.css";
 
 export default function AuthPage() {
   const router = useRouter();
-  const [loading, setLoading] = React.useState(false);
-  const [error, setError] = React.useState<string | null>(null);
+  const { login, isLoading, error, isLogged, address } = useWeb3Auth();
+  const [localError, setLocalError] = React.useState<string | null>(null);
+  const [balanceInfo, setBalanceInfo] = React.useState<string | null>(null);
+
+  // Redirect if already logged in
+  useEffect(() => {
+    if (isLogged && address) {
+      // Check balance and then redirect
+      const checkAndRedirect = async () => {
+        try {
+          const balance = await fetchBalance(address);
+          if (balance && balance !== "0.00") {
+            setBalanceInfo(`Balance: ${balance} GERD`);
+          }
+          // Redirect to claim form after showing balance
+          setTimeout(() => {
+            router.push("/claim-form");
+          }, 1500);
+        } catch (err) {
+          console.error("Balance check error:", err);
+          router.push("/claim-form");
+        }
+      };
+      checkAndRedirect();
+    }
+  }, [isLogged, address, router]);
+
+  const fetchBalance = async (walletAddress: string): Promise<string | null> => {
+    try {
+      const Web3 = (await import('web3')).default;
+      const web3 = new Web3(process.env.NEXT_PUBLIC_BSC_RPC_URL || '');
+      
+      const tokenABI = [
+        {
+          constant: true,
+          inputs: [{ name: 'account', type: 'address' }],
+          name: 'balanceOf',
+          outputs: [{ name: '', type: 'uint256' }],
+          type: 'function',
+        },
+        {
+          constant: true,
+          inputs: [],
+          name: 'decimals',
+          outputs: [{ name: '', type: 'uint8' }],
+          type: 'function',
+        },
+      ];
+
+      const tokenAddress = process.env.NEXT_PUBLIC_GERD_TOKEN_ADDRESS || '';
+      const contract = new web3.eth.Contract(tokenABI as any, tokenAddress);
+      const decimals = await contract.methods.decimals().call();
+      const balance = await contract.methods.balanceOf(walletAddress).call();
+      const formatted = (Number(balance) / 10 ** Number(decimals)).toFixed(2);
+      return formatted;
+    } catch (err) {
+      console.error('Error fetching balance:', err);
+      return null;
+    }
+  };
 
   const handleLogin = async (provider: "google" | "facebook") => {
     try {
-      setLoading(true);
-      setError(null);
-      
-      // Redirect to existing claim form until Web3Auth is wired
-      router.push("/claim-form");
+      setLocalError(null);
+      setBalanceInfo(null);
+      await login(provider);
     } catch (err) {
       const message = err instanceof Error ? err.message : "Login failed. Please try again.";
-      setError(message);
-      setLoading(false);
+      setLocalError(message);
     }
   };
+
+  const displayError = error || localError;
 
   return (
     <div className={styles.authContainer}>
@@ -34,10 +92,17 @@ export default function AuthPage() {
           <p className={styles.subtitle}>Sign in to access your wallet and claim tokens</p>
         </div>
 
-        {error && (
+        {displayError && (
           <div className={styles.errorAlert}>
             <i className="fas fa-exclamation-circle me-2"></i>
-            {error}
+            {displayError}
+          </div>
+        )}
+
+        {balanceInfo && (
+          <div className={styles.successAlert}>
+            <i className="fas fa-check-circle me-2"></i>
+            Wallet created! {balanceInfo}
           </div>
         )}
 
@@ -45,19 +110,37 @@ export default function AuthPage() {
           <button
             className={styles.loginButton}
             onClick={() => handleLogin("google")}
-            disabled={loading}
+            disabled={isLoading}
           >
-            <i className="fab fa-google me-2"></i>
-            Continue with Google
+            {isLoading ? (
+              <>
+                <i className="fas fa-spinner fa-spin me-2"></i>
+                Connecting...
+              </>
+            ) : (
+              <>
+                <i className="fab fa-google me-2"></i>
+                Continue with Google
+              </>
+            )}
           </button>
 
           <button
             className={styles.loginButton}
             onClick={() => handleLogin("facebook")}
-            disabled={loading}
+            disabled={isLoading}
           >
-            <i className="fab fa-facebook me-2"></i>
-            Continue with Facebook
+            {isLoading ? (
+              <>
+                <i className="fas fa-spinner fa-spin me-2"></i>
+                Connecting...
+              </>
+            ) : (
+              <>
+                <i className="fab fa-facebook me-2"></i>
+                Continue with Facebook
+              </>
+            )}
           </button>
         </div>
 

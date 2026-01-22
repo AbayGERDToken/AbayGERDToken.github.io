@@ -57,6 +57,16 @@
   align-items: center;
 }
 
+.successAlert {
+  background: #d1e7dd;
+  color: #0f5132;
+  padding: 1rem;
+  border-radius: 8px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
 .loginOptions {
   display: flex;
   flex-direction: column;
