@@ -111,16 +111,6 @@ export default function AuthPage() {
           </div>
         )}
 
-        {isLogged && balanceInfo && (
-          <button
-            className={styles.proceedButton}
-            onClick={() => router.push("/claim-form")}
-          >
-            <i className="fas fa-arrow-right me-2"></i>
-            Proceed to Claim Form
-          </button>
-        )}
-
         {isLogged && (
           <button
             className={styles.disconnectButton}
@@ -129,6 +119,16 @@ export default function AuthPage() {
           >
             <i className="fas fa-sign-out-alt me-2"></i>
             Disconnect Wallet
+          </button>
+        )}
+
+        {isLogged && balanceInfo && (
+          <button
+            className={styles.proceedButton}
+            onClick={() => router.push("/claim-form")}
+          >
+            <i className="fas fa-arrow-right me-2"></i>
+            Proceed to Claim Form
           </button>
         )}
 
