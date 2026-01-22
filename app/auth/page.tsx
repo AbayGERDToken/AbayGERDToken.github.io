@@ -11,6 +11,7 @@ export default function AuthPage() {
   const [localError, setLocalError] = React.useState<string | null>(null);
   const [balanceInfo, setBalanceInfo] = React.useState<string | null>(null);
   const [loadingBalance, setLoadingBalance] = React.useState(false);
+  const [copySuccess, setCopySuccess] = React.useState(false);
 
   // Show balance when logged in
   useEffect(() => {
@@ -93,6 +94,18 @@ export default function AuthPage() {
     }
   };
 
+  const handleCopyAddress = async () => {
+    if (address) {
+      try {
+        await navigator.clipboard.writeText(address);
+        setCopySuccess(true);
+        setTimeout(() => setCopySuccess(false), 2000);
+      } catch (err) {
+        console.error('Failed to copy address:', err);
+      }
+    }
+  };
+
   const displayError = error || localError;
 
   return (
@@ -114,23 +127,36 @@ export default function AuthPage() {
         )}
 
         {isLogged && address && (
-          <div className={styles.successAlert}>
-            <i className="fas fa-check-circle me-2"></i>
-            {loadingBalance ? (
-              <>
-                Wallet connected! Loading balance...
-                <i className="fas fa-spinner fa-spin ms-2"></i>
-              </>
-            ) : (
-              <>
-                Wallet connected! {balanceInfo || 'Balance: N/A'}
-                <br />
-                <small style={{fontSize: '0.85em', opacity: 0.8}}>
-                  {address.slice(0, 6)}...{address.slice(-4)}
-                </small>
-              </>
-            )}
-          </div>
+          <>
+            <div className={styles.successAlert}>
+              <i className="fas fa-check-circle me-2"></i>
+              {loadingBalance ? (
+                <>
+                  Wallet connected! Loading balance...
+                  <i className="fas fa-spinner fa-spin ms-2"></i>
+                </>
+              ) : (
+                <>
+                  Wallet connected! {balanceInfo || 'Balance: N/A'}
+                </>
+              )}
+            </div>
+            
+            <div className={styles.addressContainer}>
+              <div className={styles.addressLabel}>Wallet Address:</div>
+              <div className={styles.addressRow}>
+                <code className={styles.addressText}>{address}</code>
+                <button
+                  className={styles.copyButton}
+                  onClick={handleCopyAddress}
+                  title="Copy address"
+                >
+                  <i className={`fas ${copySuccess ? 'fa-check' : 'fa-copy'}`}></i>
+                  {copySuccess ? 'Copied!' : 'Copy'}
+                </button>
+              </div>
+            </div>
+          </>
         )}
 
         {isLogged && (
