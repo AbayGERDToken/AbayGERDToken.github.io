@@ -14,9 +14,8 @@ export default function AuthPage() {
       setLoading(true);
       setError(null);
       
-      // Redirect to claim page for now
-      // TODO: Implement Web3Auth integration
-      router.push("/gerd-claim");
+      // Redirect to existing claim form until Web3Auth is wired
+      router.push("/claim-form");
     } catch (err) {
       const message = err instanceof Error ? err.message : "Login failed. Please try again.";
       setError(message);
