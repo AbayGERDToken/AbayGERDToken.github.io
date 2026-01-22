@@ -7,7 +7,7 @@ import styles from "./auth.module.css";
 
 export default function AuthPage() {
   const router = useRouter();
-  const { login, isLoading, error, isLogged, address } = useWeb3Auth();
+  const { login, logout, isLoading, error, isLogged, address } = useWeb3Auth();
   const [localError, setLocalError] = React.useState<string | null>(null);
   const [balanceInfo, setBalanceInfo] = React.useState<string | null>(null);
 
@@ -73,6 +73,17 @@ export default function AuthPage() {
     }
   };
 
+  const handleLogout = async () => {
+    try {
+      setLocalError(null);
+      setBalanceInfo(null);
+      await logout();
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Logout failed. Please try again.";
+      setLocalError(message);
+    }
+  };
+
   const displayError = error || localError;
 
   return (
@@ -110,7 +121,19 @@ export default function AuthPage() {
           </button>
         )}
 
-        <div className={styles.loginOptions}>
+        {isLogged && (
+          <button
+            className={styles.disconnectButton}
+            onClick={handleLogout}
+            disabled={isLoading}
+          >
+            <i className="fas fa-sign-out-alt me-2"></i>
+            Disconnect Wallet
+          </button>
+        )}
+
+        {!isLogged && (
+          <div className={styles.loginOptions}>
           <button
             className={styles.loginButton}
             onClick={() => handleLogin("google")}
@@ -147,6 +170,7 @@ export default function AuthPage() {
             )}
           </button>
         </div>
+        )}
 
         <div className={styles.footer}>
           <p className={styles.footerText}>
