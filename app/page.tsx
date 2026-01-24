@@ -6,6 +6,7 @@ import MigrationModal from '@/components/MigrationModal';
 import FeatureCard from '@/components/FeatureCard';
 import StatCard from '@/components/StatCard';
 import CopyButton from '@/components/CopyButton';
+import FooterCTA from '@/components/FooterCTA';
 
 export default function Home() {
   return (
@@ -618,27 +619,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="bg-success-subtle py-5 mb-0">
-        <div className="container">
-          <div className="row align-items-center">
-            <div className="col-md-8">
-              <h2 className="h4 mb-3">
-                DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY.
-                JOIN US IN CREATING A BRIGHTER FUTURE! #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD
-              </h2>
-            </div>
-            <div className="col-md-4 text-center">
-              <Image
-                alt="AbayGERDToken"
-                src="/image/abay_bluesky.png"
-                className="img-fluid img-hero"
-                width={300}
-                height={300}
-              />
-            </div>
-          </div>
-        </div>
-      </section>
+      <FooterCTA headingLevel="h4" />
     </>
   );
 }

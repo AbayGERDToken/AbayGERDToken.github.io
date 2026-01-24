@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import FooterCTA from '@/components/FooterCTA';
 import ContractAddress from '@/components/ContractAddress';
 
 export default function TrustWallet() {
@@ -74,14 +75,13 @@ export default function TrustWallet() {
                           <i className="fas fa-check-circle text-success me-2"></i>Open the Trust Wallet app on your device
                         </li>
                         <li className="mb-2">
-                          <i className="fas fa-check-circle text-success me-2"></i>Select &quot;Create a New Wallet&quot; if you&apos;re new
+                          <i className="fas fa-check-circle text-success me-2"></i>Select "Create a New Wallet" if you&apos;re new
                         </li>
                         <li className="mb-2">
                           <i className="fas fa-check-circle text-success me-2"></i>Accept the terms and conditions
                         </li>
                         <li className="mb-2">
-                          <i className="fas fa-check-circle text-success me-2"></i>
-                          Write down the 12-word recovery phrase in a secure location. <strong className="text-danger">Never share it</strong>
+                          <i className="fas fa-check-circle text-success me-2"></i>Write down the 12-word recovery phrase in a secure location. <strong className="text-danger">Never share it</strong>
                         </li>
                         <li className="mb-0">
                           <i className="fas fa-check-circle text-success me-2"></i>Confirm the recovery phrase by selecting the words in order
@@ -176,27 +176,7 @@ export default function TrustWallet() {
         </div>
       </section>
 
-      <section className="bg-success-subtle py-5 mb-0">
-        <div className="container">
-          <div className="row align-items-center">
-            <div className="col-md-8">
-              <h2 className="h5 mb-3">
-                DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY AND SUPPORTING THE GRAND ETHIOPIAN RENAISSANCE DAM PROJECT.
-                JOIN US IN CREATING A BRIGHTER FUTURE! #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD
-              </h2>
-            </div>
-            <div className="col-md-4 text-center">
-              <Image
-                src="/image/abay_bluesky.png"
-                alt="AbayGERDToken"
-                className="img-fluid img-hero"
-                width={300}
-                height={300}
-              />
-            </div>
-          </div>
-        </div>
-      </section>
+      <FooterCTA />
     </>
   );
 }

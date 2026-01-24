@@ -2,98 +2,10 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useEffect } from 'react';
 
 export default function Navbar() {
-  useEffect(() => {
-    // Initialize Bootstrap dropdowns
-    if (typeof window !== 'undefined') {
-      const initDropdowns = () => {
-        if (typeof (window as any).bootstrap !== 'undefined') {
-          const dropdownElementList = Array.from(document.querySelectorAll('.dropdown-toggle'));
-          dropdownElementList.forEach((dropdownToggleEl) => {
-            try {
-              new (window as any).bootstrap.Dropdown(dropdownToggleEl);
-            } catch (e) {
-              // Dropdown already initialized, ignore
-            }
-          });
-        }
-      };
-
-      // Try to initialize immediately
-      initDropdowns();
-
-      // Also try after a short delay in case Bootstrap loads later
-      setTimeout(initDropdowns, 100);
-
-      // Close navbar collapse when a navigation link is clicked (for mobile)
-      // But NOT when clicking dropdown toggles
-      const closeNavbar = (event: Event) => {
-        const target = event.target as HTMLElement;
-        const link = target.closest('a, [role="button"]');
-
-        // Don't close if clicking on a dropdown toggle
-        if (link && (link.classList.contains('dropdown-toggle') || link.hasAttribute('data-bs-toggle'))) {
-          return;
-        }
-
-        // Only close for actual navigation links (not dropdown toggles)
-        const navbarCollapse = document.getElementById('navbarNav');
-        if (navbarCollapse && navbarCollapse.classList.contains('show')) {
-          // Use Bootstrap's collapse API if available
-          if (typeof (window as any).bootstrap !== 'undefined') {
-            const bsCollapse = (window as any).bootstrap.Collapse.getInstance(navbarCollapse);
-            if (bsCollapse) {
-              bsCollapse.hide();
-            } else {
-              // Fallback: manually remove the show class
-              navbarCollapse.classList.remove('show');
-              // Also update the toggler button aria-expanded
-              const toggler = document.querySelector('[data-bs-target="#navbarNav"]');
-              if (toggler) {
-                toggler.setAttribute('aria-expanded', 'false');
-              }
-            }
-          } else {
-            // Fallback if Bootstrap isn't loaded yet
-            navbarCollapse.classList.remove('show');
-            const toggler = document.querySelector('[data-bs-target="#navbarNav"]');
-            if (toggler) {
-              toggler.setAttribute('aria-expanded', 'false');
-            }
-          }
-        }
-      };
-
-      // Add click listeners only to actual navigation links (not dropdown toggles)
-      // Regular nav links (not dropdown toggles)
-      const navLinks = document.querySelectorAll('#navbarNav .nav-link:not(.dropdown-toggle)');
-      // Dropdown items (actual page links)
-      const dropdownItems = document.querySelectorAll('#navbarNav .dropdown-item');
-
-      navLinks.forEach((link) => {
-        link.addEventListener('click', closeNavbar);
-      });
-
-      dropdownItems.forEach((item) => {
-        item.addEventListener('click', closeNavbar);
-      });
-
-      // Cleanup
-      return () => {
-        navLinks.forEach((link) => {
-          link.removeEventListener('click', closeNavbar);
-        });
-        dropdownItems.forEach((item) => {
-          item.removeEventListener('click', closeNavbar);
-        });
-      };
-    }
-  }, []);
-
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-success fixed-top">
+    <nav className="navbar navbar-expand-lg navbar-dark bg-success fixed-top" suppressHydrationWarning>
       <div className="container-fluid">
         <Link className="navbar-brand d-flex align-items-center" href="/">
           <Image

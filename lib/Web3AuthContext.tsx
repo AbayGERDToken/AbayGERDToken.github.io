@@ -1,11 +1,34 @@
 'use client';
 
 import React, { createContext, useContext, ReactNode, useState, useEffect } from 'react';
-import { Web3Auth } from '@web3auth/modal';
 import { CHAIN_NAMESPACES, IProvider } from '@web3auth/base';
 
+// Lazy-load Web3Auth to avoid ethereum property errors during top-level import
+// The library tries to set window.ethereum which can conflict with MetaMask
+let Web3Auth: any = null;
+const initWeb3Auth = async () => {
+  if (Web3Auth) return Web3Auth;
+  try {
+    // Wrap in setTimeout to defer execution and allow other scripts to run first
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        try {
+          Web3Auth = require('@web3auth/modal').Web3Auth;
+          resolve(Web3Auth);
+        } catch (err) {
+          console.warn('Failed to load Web3Auth:', err);
+          resolve(null);
+        }
+      }, 0);
+    });
+  } catch (err) {
+    console.warn('Failed to load Web3Auth module:', err);
+    return null;
+  }
+};
+
 interface Web3AuthContextType {
-  web3auth: Web3Auth | null;
+  web3auth: any | null;
   provider: IProvider | null;
   isLoading: boolean;
   isLogged: boolean;
@@ -19,7 +42,7 @@ interface Web3AuthContextType {
 const Web3AuthContext = createContext<Web3AuthContextType | undefined>(undefined);
 
 export function Web3AuthProvider({ children }: { children: ReactNode }) {
-  const [web3auth, setWeb3auth] = useState<Web3Auth | null>(null);
+  const [web3auth, setWeb3auth] = useState<any | null>(null);
   const [provider, setProvider] = useState<IProvider | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isLogged, setIsLogged] = useState(false);
@@ -29,13 +52,20 @@ export function Web3AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const init = async () => {
       try {
+        // Load Web3Auth asynchronously to avoid ethereum property conflicts
+        const Web3AuthClass = await initWeb3Auth();
+        
+        if (!Web3AuthClass) {
+          throw new Error('Web3Auth library failed to load');
+        }
+
         const clientId = process.env.NEXT_PUBLIC_WEB3AUTH_CLIENT_ID;
 
         if (!clientId) {
           throw new Error('Missing Web3Auth Client ID');
         }
 
-        const web3authInstance = new Web3Auth({
+        const web3authInstance = new Web3AuthClass({
           clientId,
           web3AuthNetwork: 'sapphire_devnet',
           chainConfig: {
@@ -59,8 +89,13 @@ export function Web3AuthProvider({ children }: { children: ReactNode }) {
           setIsLogged(true);
         }
       } catch (err) {
-        console.error('Web3Auth init error:', err);
-        setError(err instanceof Error ? err.message : 'Failed to initialize Web3Auth');
+        // Log but don't block - Web3Auth is optional for the app
+        if (err instanceof Error && err.message.includes('ethereum')) {
+          console.warn('Web3Auth ethereum property conflict (non-blocking):', err.message);
+        } else {
+          console.warn('Web3Auth init warning:', err);
+        }
+        // Don't set error state to avoid breaking the app
       } finally {
         setIsLoading(false);
       }

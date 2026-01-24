@@ -24,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         {/* Bootstrap 5.3.3 CSS */}
         <link
@@ -37,7 +37,7 @@ export default function RootLayout({
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
         />
       </head>
-      <body className={outfit.variable}>
+      <body className={outfit.variable} suppressHydrationWarning>
         <Web3AuthProvider>
           <Navbar />
           <main>
