@@ -10,18 +10,20 @@ export default function Navbar() {
     const navbarCollapse = document.querySelector('.navbar-collapse');
     const dropdownItems = document.querySelectorAll('.dropdown-item');
     
+    const handleDropdownClick = () => {
+      if (navbarCollapse?.classList.contains('show')) {
+        const navbarToggler = document.querySelector('.navbar-toggler');
+        navbarToggler?.click();
+      }
+    };
+    
     dropdownItems.forEach(item => {
-      item.addEventListener('click', () => {
-        if (navbarCollapse?.classList.contains('show')) {
-          const navbarToggler = document.querySelector('.navbar-toggler');
-          navbarToggler?.click();
-        }
-      });
+      item.addEventListener('click', handleDropdownClick);
     });
     
     return () => {
       dropdownItems.forEach(item => {
-        item.removeEventListener('click', () => {});
+        item.removeEventListener('click', handleDropdownClick);
       });
     };
   }, []);
