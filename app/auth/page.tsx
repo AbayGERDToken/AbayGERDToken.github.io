@@ -122,7 +122,28 @@ export default function AuthPage() {
         {displayError && (
           <div className={styles.errorAlert}>
             <i className="fas fa-exclamation-circle me-2"></i>
-            {displayError}
+            <strong>Error:</strong> {displayError}
+            {displayError.includes('not initialized') && (
+              <div className={styles.errorDetails} style={{ marginTop: '8px', fontSize: '12px' }}>
+                <details>
+                  <summary>Troubleshooting</summary>
+                  <p style={{ marginTop: '8px' }}>
+                    Web3Auth failed to initialize. This may be due to:
+                    <ul style={{ paddingLeft: '20px', marginTop: '4px' }}>
+                      <li>Network connectivity issues</li>
+                      <li>Browser restrictions on loading external scripts</li>
+                      <li>Ad blockers or privacy extensions</li>
+                    </ul>
+                    Please try:
+                    <ul style={{ paddingLeft: '20px', marginTop: '4px' }}>
+                      <li>Refreshing the page</li>
+                      <li>Disabling browser extensions temporarily</li>
+                      <li>Using a different browser</li>
+                    </ul>
+                  </p>
+                </details>
+              </div>
+            )}
           </div>
         )}
 
@@ -180,7 +201,7 @@ export default function AuthPage() {
           </button>
         )}
 
-        {!isLogged && (
+        {!isLogged && !displayError && (
           <div className={styles.loginOptions}>
           <button
             className={styles.loginButton}
@@ -218,6 +239,17 @@ export default function AuthPage() {
             )}
           </button>
         </div>
+        )}
+
+        {!isLogged && displayError && (
+          <button
+            className={styles.loginButton}
+            onClick={() => window.location.reload()}
+            style={{ marginTop: '10px' }}
+          >
+            <i className="fas fa-redo me-2"></i>
+            Retry
+          </button>
         )}
 
         <div className={styles.footer}>
