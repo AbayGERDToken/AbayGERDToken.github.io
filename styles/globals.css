@@ -81,6 +81,15 @@ a:hover code {
   background-color: #f8f9fa;
 }
 
+/* Navbar collapse behavior */
+.navbar-collapse {
+  transition: all 0.3s ease;
+}
+
+.navbar-collapse.show {
+  z-index: 1000;
+}
+
 /* ============================================
    Animation Styles
    ============================================ */
