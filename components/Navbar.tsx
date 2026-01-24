@@ -12,7 +12,7 @@ export default function Navbar() {
     
     const handleDropdownClick = () => {
       if (navbarCollapse?.classList.contains('show')) {
-        const navbarToggler = document.querySelector('.navbar-toggler');
+        const navbarToggler = document.querySelector('.navbar-toggler') as HTMLElement;
         navbarToggler?.click();
       }
     };
