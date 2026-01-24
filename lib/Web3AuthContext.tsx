@@ -63,10 +63,17 @@ export function Web3AuthProvider({ children }: { children: ReactNode }) {
         // Check if Web3Auth is configured before attempting to load
         const clientId = process.env.NEXT_PUBLIC_WEB3AUTH_CLIENT_ID;
         console.log('[Web3Auth] Initializing... clientId present:', !!clientId);
+        if (clientId) {
+          console.log('[Web3Auth] Client ID length:', clientId.length);
+          console.log('[Web3Auth] Client ID first 20 chars:', clientId.substring(0, 20));
+        } else {
+          console.log('[Web3Auth] CLIENT ID IS UNDEFINED OR EMPTY');
+        }
 
         if (!clientId) {
           // Web3Auth not configured - skip initialization silently
           console.log('[Web3Auth] No client ID found, skipping initialization');
+          setError('Web3Auth is not configured. Missing NEXT_PUBLIC_WEB3AUTH_CLIENT_ID environment variable.');
           setIsLoading(false);
           return;
         }
