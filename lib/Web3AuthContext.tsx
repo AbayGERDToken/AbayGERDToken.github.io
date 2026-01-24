@@ -52,17 +52,20 @@ export function Web3AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const init = async () => {
       try {
+        // Check if Web3Auth is configured before attempting to load
+        const clientId = process.env.NEXT_PUBLIC_WEB3AUTH_CLIENT_ID;
+
+        if (!clientId) {
+          // Web3Auth not configured - skip initialization silently
+          setIsLoading(false);
+          return;
+        }
+
         // Load Web3Auth asynchronously to avoid ethereum property conflicts
         const Web3AuthClass = await initWeb3Auth();
         
         if (!Web3AuthClass) {
           throw new Error('Web3Auth library failed to load');
-        }
-
-        const clientId = process.env.NEXT_PUBLIC_WEB3AUTH_CLIENT_ID;
-
-        if (!clientId) {
-          throw new Error('Missing Web3Auth Client ID');
         }
 
         const web3authInstance = new Web3AuthClass({
