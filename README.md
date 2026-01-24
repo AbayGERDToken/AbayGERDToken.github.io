@@ -2,6 +2,8 @@
 
 Welcome to the Abay GERD Token Project! This repository hosts the official website for the Abay GERD Token, a cryptocurrency inspired by the Ethiopian Grand Renaissance Dam (GERD).
 
+This edit is a no-op to re-trigger GitHub Pages publish.
+
 ## Overview
 Inspired by the symbolic unity and ambition of the GERD project, GERD Token embodies the resilience, pride, and potential of the Ethiopian people, while inviting the world to participate in a fair and open digital economy.
 
