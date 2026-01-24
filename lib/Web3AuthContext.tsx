@@ -13,16 +13,24 @@ const initWeb3Auth = async () => {
     return new Promise((resolve) => {
       setTimeout(() => {
         try {
-          Web3Auth = require('@web3auth/modal').Web3Auth;
+          // Try loading the library
+          const mod = require('@web3auth/modal');
+          Web3Auth = mod.Web3Auth;
+          if (!Web3Auth) {
+            console.error('[Web3Auth] Module loaded but Web3Auth is undefined');
+            resolve(null);
+            return;
+          }
+          console.log('[Web3Auth] Library loaded successfully');
           resolve(Web3Auth);
         } catch (err) {
-          console.warn('Failed to load Web3Auth:', err);
+          console.error('[Web3Auth] Failed to load library:', err instanceof Error ? err.message : err);
           resolve(null);
         }
       }, 0);
     });
   } catch (err) {
-    console.warn('Failed to load Web3Auth module:', err);
+    console.error('[Web3Auth] Failed to load Web3Auth module:', err instanceof Error ? err.message : err);
     return null;
   }
 };
@@ -68,44 +76,52 @@ export function Web3AuthProvider({ children }: { children: ReactNode }) {
         const Web3AuthClass = await initWeb3Auth();
         
         if (!Web3AuthClass) {
-          throw new Error('Web3Auth library failed to load');
+          throw new Error('Web3Auth library failed to load. The @web3auth/modal package may not be available.');
         }
         
-        console.log('[Web3Auth] Library loaded, creating instance...');
-        const web3authInstance = new Web3AuthClass({
-          clientId,
-          web3AuthNetwork: 'sapphire_devnet',
-          chainConfig: {
-            chainNamespace: CHAIN_NAMESPACES.EIP155,
-            chainId: '0x38',
-            rpcTarget: process.env.NEXT_PUBLIC_BSC_RPC_URL || 'https://bsc-dataseed1.binance.org:443',
-            displayName: 'Binance Smart Chain',
-            blockExplorer: 'https://bscscan.com',
-            ticker: 'BNB',
-            tickerName: 'Binance Coin',
-          } as any,
-        } as any);
-
-        console.log('[Web3Auth] Calling init()...');
-        await web3authInstance.init();
-        console.log('[Web3Auth] Init complete, checking status...');
+        console.log('[Web3Auth] Library loaded, creating instance with clientId:', clientId.substring(0, 10) + '...');
         
-        setWeb3auth(web3authInstance);
+        try {
+          const web3authInstance = new Web3AuthClass({
+            clientId,
+            web3AuthNetwork: 'sapphire_devnet',
+            chainConfig: {
+              chainNamespace: CHAIN_NAMESPACES.EIP155,
+              chainId: '0x38',
+              rpcTarget: process.env.NEXT_PUBLIC_BSC_RPC_URL || 'https://bsc-dataseed1.binance.org:443',
+              displayName: 'Binance Smart Chain',
+              blockExplorer: 'https://bscscan.com',
+              ticker: 'BNB',
+              tickerName: 'Binance Coin',
+            } as any,
+          } as any);
 
-        if (web3authInstance.status === 'connected') {
-          console.log('[Web3Auth] Already connected, fetching account...');
-          setProvider(web3authInstance.provider);
-          const userAccount = await getUserAccount(web3authInstance.provider);
-          setAddress(userAccount);
-          setIsLogged(true);
-        } else {
-          console.log('[Web3Auth] Ready for login, status:', web3authInstance.status);
+          console.log('[Web3Auth] Instance created, calling init()...');
+          await web3authInstance.init();
+          console.log('[Web3Auth] Init complete, checking status...');
+          
+          setWeb3auth(web3authInstance);
+
+          if (web3authInstance.status === 'connected') {
+            console.log('[Web3Auth] Already connected, fetching account...');
+            setProvider(web3authInstance.provider);
+            const userAccount = await getUserAccount(web3authInstance.provider);
+            setAddress(userAccount);
+            setIsLogged(true);
+          } else {
+            console.log('[Web3Auth] Ready for login, status:', web3authInstance.status);
+          }
+        } catch (instanceErr) {
+          const detail = instanceErr instanceof Error ? instanceErr.message : String(instanceErr);
+          console.error('[Web3Auth] Failed to create/initialize instance:', detail);
+          throw new Error(`Web3Auth initialization failed: ${detail}`);
         }
       } catch (err) {
         // Log but still set error for display purposes
         const errorMsg = err instanceof Error ? err.message : 'Failed to initialize Web3Auth';
         console.error('[Web3Auth] Init error:', err);
         console.error('[Web3Auth] Error message:', errorMsg);
+        console.error('[Web3Auth] Stack:', err instanceof Error ? err.stack : 'No stack trace');
         setError(errorMsg);
       } finally {
         setIsLoading(false);
