@@ -1,8 +1,9 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
 import Script from 'next/script';
 import Image from 'next/image';
+import { useSearchParams } from 'next/navigation';
 
 import ClaimUpdateModal from '@/components/ClaimUpdateModal';
 import ContractAddress from '@/components/ContractAddress';
@@ -14,7 +15,8 @@ declare global {
   }
 }
 
-export default function ClaimForm() {
+function ClaimFormContent() {
+  const searchParams = useSearchParams();
   const [walletAddress, setWalletAddress] = useState('');
   const [balanceAddress, setBalanceAddress] = useState('');
   const [balance, setBalance] = useState<string | null>(null);
@@ -28,6 +30,15 @@ export default function ClaimForm() {
   const isInitializing = useRef(false);
   const recaptchaRef = useRef<HTMLDivElement>(null);
   const recaptchaWidgetId = useRef<number | null>(null);
+
+  // Populate wallet address from URL parameter
+  useEffect(() => {
+    const addressFromUrl = searchParams.get('address');
+    if (addressFromUrl && !walletAddress) {
+      setWalletAddress(addressFromUrl);
+      setBalanceAddress(addressFromUrl);
+    }
+  }, [searchParams, walletAddress]);
 
   // Utility to load script if absent, or attach load handler if present
   const ensureScriptLoaded = (src: string, onload: () => void) => {
@@ -670,3 +681,10 @@ export default function ClaimForm() {
   );
 }
 
+export default function ClaimForm() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ClaimFormContent />
+    </Suspense>
+  );
+}

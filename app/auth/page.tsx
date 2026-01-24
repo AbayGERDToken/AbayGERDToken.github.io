@@ -7,32 +7,36 @@ import styles from "./auth.module.css";
 
 export default function AuthPage() {
   const router = useRouter();
-  const { login, isLoading, error, isLogged, address } = useWeb3Auth();
+  const { login, logout, isLoading, error, isLogged, address } = useWeb3Auth();
   const [localError, setLocalError] = React.useState<string | null>(null);
   const [balanceInfo, setBalanceInfo] = React.useState<string | null>(null);
+  const [loadingBalance, setLoadingBalance] = React.useState(false);
+  const [copySuccess, setCopySuccess] = React.useState(false);
 
-  // Redirect if already logged in
+  // Show balance when logged in
   useEffect(() => {
     if (isLogged && address) {
-      // Check balance and then redirect
-      const checkAndRedirect = async () => {
+      const checkBalance = async () => {
+        setLoadingBalance(true);
         try {
           const balance = await fetchBalance(address);
-          if (balance && balance !== "0.00") {
+          if (balance) {
             setBalanceInfo(`Balance: ${balance} GERD`);
+          } else {
+            setBalanceInfo('Balance: 0.00 GERD');
           }
-          // Redirect to claim form after showing balance
-          setTimeout(() => {
-            router.push("/claim-form");
-          }, 1500);
         } catch (err) {
           console.error("Balance check error:", err);
-          router.push("/claim-form");
+          setBalanceInfo('Balance: Unable to fetch');
+        } finally {
+          setLoadingBalance(false);
         }
       };
-      checkAndRedirect();
+      checkBalance();
+    } else {
+      setBalanceInfo(null);
     }
-  }, [isLogged, address, router]);
+  }, [isLogged, address]);
 
   const fetchBalance = async (walletAddress: string): Promise<string | null> => {
     try {
@@ -79,6 +83,29 @@ export default function AuthPage() {
     }
   };
 
+  const handleLogout = async () => {
+    try {
+      setLocalError(null);
+      setBalanceInfo(null);
+      await logout();
+    } catch (err) {
+      const message = err instanceof Error ? err.message : "Logout failed. Please try again.";
+      setLocalError(message);
+    }
+  };
+
+  const handleCopyAddress = async () => {
+    if (address) {
+      try {
+        await navigator.clipboard.writeText(address);
+        setCopySuccess(true);
+        setTimeout(() => setCopySuccess(false), 2000);
+      } catch (err) {
+        console.error('Failed to copy address:', err);
+      }
+    }
+  };
+
   const displayError = error || localError;
 
   return (
@@ -99,14 +126,62 @@ export default function AuthPage() {
           </div>
         )}
 
-        {balanceInfo && (
-          <div className={styles.successAlert}>
-            <i className="fas fa-check-circle me-2"></i>
-            Wallet created! {balanceInfo}
-          </div>
+        {isLogged && address && (
+          <>
+            <div className={styles.successAlert}>
+              <i className="fas fa-check-circle me-2"></i>
+              {loadingBalance ? (
+                <>
+                  Wallet connected! Loading balance...
+                  <i className="fas fa-spinner fa-spin ms-2"></i>
+                </>
+              ) : (
+                <>
+                  Wallet connected! {balanceInfo || 'Balance: N/A'}
+                </>
+              )}
+            </div>
+            
+            <div className={styles.addressContainer}>
+              <div className={styles.addressLabel}>Wallet Address:</div>
+              <div className={styles.addressRow}>
+                <code className={styles.addressText}>{address}</code>
+                <button
+                  className={styles.copyButton}
+                  onClick={handleCopyAddress}
+                  title="Copy address"
+                >
+                  <i className={`fas ${copySuccess ? 'fa-check' : 'fa-copy'}`}></i>
+                  {copySuccess ? 'Copied!' : 'Copy'}
+                </button>
+              </div>
+            </div>
+          </>
         )}
 
-        <div className={styles.loginOptions}>
+        {isLogged && (
+          <button
+            className={styles.disconnectButton}
+            onClick={handleLogout}
+            disabled={isLoading}
+          >
+            <i className="fas fa-sign-out-alt me-2"></i>
+            Disconnect Wallet
+          </button>
+        )}
+
+        {isLogged && !loadingBalance && (
+          <button
+            className={styles.proceedButton}
+            onClick={() => router.push(`/claim-form?address=${address}`)}
+          >
+            <i className="fas fa-arrow-right me-2"></i>
+            Proceed to Claim Form
+          </button>
+        )}
+
+        {!isLogged && (
+          <div className={styles.loginOptions}>
           <button
             className={styles.loginButton}
             onClick={() => handleLogin("google")}
@@ -143,6 +218,7 @@ export default function AuthPage() {
             )}
           </button>
         </div>
+        )}
 
         <div className={styles.footer}>
           <p className={styles.footerText}>

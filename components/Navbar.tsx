@@ -173,6 +173,12 @@ export default function Navbar() {
                     <small className="text-muted">Setup instruction for Metamask wallet</small>
                   </Link>
                 </li>
+                <li>
+                  <Link className="dropdown-item" href="/auth">
+                    <div className="fw-bold">Built-in Wallet</div>
+                    <small className="text-muted">Login with Google/Facebook to create wallet</small>
+                  </Link>
+                </li>
               </ul>
             </li>
 
