@@ -41,7 +41,19 @@ export default function AuthPage() {
   const fetchBalance = async (walletAddress: string): Promise<string | null> => {
     try {
       const Web3 = (await import('web3')).default;
-      const web3 = new Web3(process.env.NEXT_PUBLIC_BSC_RPC_URL || '');
+      const rpcUrl = process.env.NEXT_PUBLIC_BSC_RPC_URL || 'https://bsc-dataseed1.binance.org:443';
+      const tokenAddress = process.env.NEXT_PUBLIC_GERD_TOKEN_ADDRESS || '0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c';
+
+      if (!rpcUrl) {
+        console.warn('[Auth] Missing BSC RPC URL; returning null balance');
+        return null;
+      }
+      if (!tokenAddress) {
+        console.warn('[Auth] Missing GERD token address; returning null balance');
+        return null;
+      }
+
+      const web3 = new Web3(rpcUrl);
       
       const tokenABI = [
         {
@@ -60,7 +72,6 @@ export default function AuthPage() {
         },
       ];
 
-      const tokenAddress = process.env.NEXT_PUBLIC_GERD_TOKEN_ADDRESS || '';
       const contract = new web3.eth.Contract(tokenABI as any, tokenAddress);
       const decimals = await contract.methods.decimals().call();
       const balance = await contract.methods.balanceOf(walletAddress).call();
