@@ -3,7 +3,6 @@
 import { useState, useEffect, useRef, Suspense } from 'react';
 import Script from 'next/script';
 import Image from 'next/image';
-import FooterCTA from '@/components/FooterCTA';
 import { useSearchParams } from 'next/navigation';
 
 import ClaimUpdateModal from '@/components/ClaimUpdateModal';
@@ -657,7 +656,27 @@ function ClaimFormContent() {
         </div>
       </section>
 
-      <FooterCTA showIcons={true} />
+      <section className="bg-success-subtle py-5 mb-0">
+        <div className="container">
+          <div className="row align-items-center">
+            <div className="col-md-8">
+              <h2 className="h5 mb-3">
+                DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY AND SUPPORTING THE GRAND ETHIOPIAN RENAISSANCE DAM PROJECT.
+                JOIN US IN CREATING A BRIGHTER FUTURE! <i className="fas fa-earth-americas text-primary"></i> <i className="fas fa-coins text-warning"></i> #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD
+              </h2>
+            </div>
+            <div className="col-md-4 text-center">
+              <Image
+                src="/image/abay_bluesky.png"
+                alt="AbayGERDToken"
+                className="img-fluid img-hero"
+                width={300}
+                height={300}
+              />
+            </div>
+          </div>
+        </div>
+      </section>
     </>
   );
 }
