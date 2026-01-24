@@ -9,13 +9,32 @@ let Web3Auth: any = null;
 const initWeb3Auth = async () => {
   if (Web3Auth) return Web3Auth;
   try {
-    // Wrap in setTimeout to defer execution and allow other scripts to run first
-    return new Promise((resolve) => {
-      setTimeout(() => {
+    // Use dynamic import to avoid immediate execution and ethereum property conflicts
+    return new Promise(async (resolve) => {
+      setTimeout(async () => {
         try {
-          // Try loading the library
-          const mod = require('@web3auth/modal');
+          // Store existing window.ethereum to restore later if needed
+          const existingEthereum = (window as any).ethereum;
+          const hasExistingProvider = !!existingEthereum;
+          
+          if (hasExistingProvider) {
+            console.log('[Web3Auth] Detected existing ethereum provider, working around property conflict...');
+          }
+          
+          // Try loading the library with error suppression for ethereum property
+          const mod = await import('@web3auth/modal');
           Web3Auth = mod.Web3Auth;
+          
+          // Restore original ethereum provider if it was overwritten
+          if (hasExistingProvider && (window as any).ethereum !== existingEthereum) {
+            console.log('[Web3Auth] Restoring original ethereum provider');
+            Object.defineProperty(window, 'ethereum', {
+              value: existingEthereum,
+              writable: false,
+              configurable: true
+            });
+          }
+          
           if (!Web3Auth) {
             console.error('[Web3Auth] Module loaded but Web3Auth is undefined');
             resolve(null);
@@ -25,9 +44,25 @@ const initWeb3Auth = async () => {
           resolve(Web3Auth);
         } catch (err) {
           console.error('[Web3Auth] Failed to load library:', err instanceof Error ? err.message : err);
+          // Check if it's the ethereum property error
+          if (err instanceof Error && err.message.includes('ethereum')) {
+            console.log('[Web3Auth] Ethereum property conflict detected, continuing anyway...');
+            // Try to get Web3Auth from the module despite the error
+            try {
+              const mod = await import('@web3auth/modal');
+              Web3Auth = mod.Web3Auth;
+              if (Web3Auth) {
+                console.log('[Web3Auth] Successfully recovered from ethereum property error');
+                resolve(Web3Auth);
+                return;
+              }
+            } catch (retryErr) {
+              console.error('[Web3Auth] Retry failed:', retryErr);
+            }
+          }
           resolve(null);
         }
-      }, 0);
+      }, 100); // Small delay to let other scripts settle
     });
   } catch (err) {
     console.error('[Web3Auth] Failed to load Web3Auth module:', err instanceof Error ? err.message : err);
@@ -159,7 +194,8 @@ export function Web3AuthProvider({ children }: { children: ReactNode }) {
       if (!web3auth) throw new Error('Web3Auth not initialized');
 
       console.log('[Web3Auth] Logging in with provider:', provider);
-      const result = await web3auth.connectTo(provider as any);
+      // Web3Auth Modal handles the provider selection through its UI
+      const result = await web3auth.connect();
       
       if (result) {
         console.log('[Web3Auth] Login successful, fetching account...');
