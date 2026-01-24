@@ -10,7 +10,7 @@ export default function FooterCTA({ headingLevel = 'h5', showIcons = false, titl
   const HeadingTag = headingLevel as 'h4' | 'h5';
   const headingClass = headingLevel === 'h4' ? 'h4 mb-3' : 'h5 mb-3';
 
-  const defaultStart = 'DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY.';
+  const defaultStart = 'DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY AND SUPPORTING THE GRAND ETHIOPIAN RENAISSANCE DAM PROJECT.';
   const defaultEnd = 'JOIN US IN CREATING A BRIGHTER FUTURE!';
   const hashtags = '#ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD';
 
