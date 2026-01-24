@@ -68,11 +68,6 @@ export function Web3AuthProvider({ children }: { children: ReactNode }) {
           console.log('[Web3Auth] Client ID first 20 chars:', clientId.substring(0, 20));
         } else {
           console.log('[Web3Auth] CLIENT ID IS UNDEFINED OR EMPTY');
-        }
-
-        if (!clientId) {
-          // Web3Auth not configured - skip initialization silently
-          console.log('[Web3Auth] No client ID found, skipping initialization');
           setError('Web3Auth is not configured. Missing NEXT_PUBLIC_WEB3AUTH_CLIENT_ID environment variable.');
           setIsLoading(false);
           return;
@@ -83,7 +78,11 @@ export function Web3AuthProvider({ children }: { children: ReactNode }) {
         const Web3AuthClass = await initWeb3Auth();
         
         if (!Web3AuthClass) {
-          throw new Error('Web3Auth library failed to load. The @web3auth/modal package may not be available.');
+          const msg = 'Web3Auth library failed to load. The @web3auth/modal package may not be available.';
+          console.error('[Web3Auth] Library load failed');
+          setError(msg);
+          setIsLoading(false);
+          return;
         }
         
         console.log('[Web3Auth] Library loaded, creating instance with clientId:', clientId.substring(0, 10) + '...');
@@ -121,7 +120,10 @@ export function Web3AuthProvider({ children }: { children: ReactNode }) {
         } catch (instanceErr) {
           const detail = instanceErr instanceof Error ? instanceErr.message : String(instanceErr);
           console.error('[Web3Auth] Failed to create/initialize instance:', detail);
-          throw new Error(`Web3Auth initialization failed: ${detail}`);
+          const msg = `Web3Auth initialization failed: ${detail}`;
+          setError(msg);
+          setIsLoading(false);
+          return;
         }
       } catch (err) {
         // Log but still set error for display purposes
