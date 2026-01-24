@@ -54,20 +54,24 @@ export function Web3AuthProvider({ children }: { children: ReactNode }) {
       try {
         // Check if Web3Auth is configured before attempting to load
         const clientId = process.env.NEXT_PUBLIC_WEB3AUTH_CLIENT_ID;
+        console.log('[Web3Auth] Initializing... clientId present:', !!clientId);
 
         if (!clientId) {
           // Web3Auth not configured - skip initialization silently
+          console.log('[Web3Auth] No client ID found, skipping initialization');
           setIsLoading(false);
           return;
         }
 
         // Load Web3Auth asynchronously to avoid ethereum property conflicts
+        console.log('[Web3Auth] Loading Web3Auth library...');
         const Web3AuthClass = await initWeb3Auth();
         
         if (!Web3AuthClass) {
           throw new Error('Web3Auth library failed to load');
         }
-
+        
+        console.log('[Web3Auth] Library loaded, creating instance...');
         const web3authInstance = new Web3AuthClass({
           clientId,
           web3AuthNetwork: 'sapphire_devnet',
@@ -82,23 +86,27 @@ export function Web3AuthProvider({ children }: { children: ReactNode }) {
           } as any,
         } as any);
 
+        console.log('[Web3Auth] Calling init()...');
         await web3authInstance.init();
+        console.log('[Web3Auth] Init complete, checking status...');
+        
         setWeb3auth(web3authInstance);
 
         if (web3authInstance.status === 'connected') {
+          console.log('[Web3Auth] Already connected, fetching account...');
           setProvider(web3authInstance.provider);
           const userAccount = await getUserAccount(web3authInstance.provider);
           setAddress(userAccount);
           setIsLogged(true);
+        } else {
+          console.log('[Web3Auth] Ready for login, status:', web3authInstance.status);
         }
       } catch (err) {
-        // Log but don't block - Web3Auth is optional for the app
-        if (err instanceof Error && err.message.includes('ethereum')) {
-          console.warn('Web3Auth ethereum property conflict (non-blocking):', err.message);
-        } else {
-          console.warn('Web3Auth init warning:', err);
-        }
-        // Don't set error state to avoid breaking the app
+        // Log but still set error for display purposes
+        const errorMsg = err instanceof Error ? err.message : 'Failed to initialize Web3Auth';
+        console.error('[Web3Auth] Init error:', err);
+        console.error('[Web3Auth] Error message:', errorMsg);
+        setError(errorMsg);
       } finally {
         setIsLoading(false);
       }
@@ -125,9 +133,11 @@ export function Web3AuthProvider({ children }: { children: ReactNode }) {
       setError(null);
       if (!web3auth) throw new Error('Web3Auth not initialized');
 
-      const result = await web3auth.connect();
+      console.log('[Web3Auth] Logging in with provider:', provider);
+      const result = await web3auth.connectTo(provider as any);
       
       if (result) {
+        console.log('[Web3Auth] Login successful, fetching account...');
         setProvider(result);
         const userAccount = await getUserAccount(result);
         setAddress(userAccount);
@@ -135,6 +145,7 @@ export function Web3AuthProvider({ children }: { children: ReactNode }) {
       }
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Login failed';
+      console.error('[Web3Auth] Login error:', err);
       setError(message);
       throw err;
     }
