@@ -2,8 +2,30 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { useEffect } from 'react';
 
 export default function Navbar() {
+  useEffect(() => {
+    // Close navbar when a dropdown item is clicked
+    const navbarCollapse = document.querySelector('.navbar-collapse');
+    const dropdownItems = document.querySelectorAll('.dropdown-item');
+    
+    dropdownItems.forEach(item => {
+      item.addEventListener('click', () => {
+        if (navbarCollapse?.classList.contains('show')) {
+          const navbarToggler = document.querySelector('.navbar-toggler');
+          navbarToggler?.click();
+        }
+      });
+    });
+    
+    return () => {
+      dropdownItems.forEach(item => {
+        item.removeEventListener('click', () => {});
+      });
+    };
+  }, []);
+
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-success fixed-top" suppressHydrationWarning>
       <div className="container-fluid">
