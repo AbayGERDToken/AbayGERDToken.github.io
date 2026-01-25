@@ -661,7 +661,7 @@ function ClaimFormContent() {
           <div className="row align-items-center">
             <div className="col-md-8">
               <h2 className="h5 mb-3">
-                DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY AND SUPPORTING THE GRAND ETHIOPIAN RENAISSANCE DAM PROJECT.
+                DISCOVER ABAY GERD TOKEN, THE ETHIOPIAN-BORN CRYPTOCURRENCY EMPOWERING OUR COMMUNITY.
                 JOIN US IN CREATING A BRIGHTER FUTURE! <i className="fas fa-earth-americas text-primary"></i> <i className="fas fa-coins text-warning"></i> #ABAYGERDTOKEN #ETHIOPIA #CRYPTO #GERD
               </h2>
             </div>
