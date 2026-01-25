@@ -18,7 +18,7 @@ concurrency:
 jobs:
   build:
     env:
-      NEXT_PUBLIC_WEB3AUTH_CLIENT_ID: BNcEwCq57jR5I5e5DPH4MXK0QXUIcMfFDjOC7-z3CH7hdBs3xIszdCbbfXgMdhzAOvJaJgb9zZQRFZu7vhP3nGM
+      NEXT_PUBLIC_WEB3AUTH_CLIENT_ID: BEqn4P9T-g1HNqKOR_1DLt5Bb2_NwYu9wo0ImlH1HIm6DSN53vEk_z8XE01Zw9jNSvfTNyeZD2f8hfZSJl4uwlk
     runs-on: ubuntu-latest
     steps:
       - name: Checkout

@@ -125,7 +125,7 @@ export function Web3AuthProvider({ children }: { children: ReactNode }) {
         try {
           const web3authInstance = new Web3AuthClass({
             clientId,
-            web3AuthNetwork: 'sapphire_devnet',
+            web3AuthNetwork: 'sapphire_mainnet',
             chainConfig: {
               chainNamespace: CHAIN_NAMESPACES.EIP155,
               chainId: '0x38',
