@@ -30,13 +30,17 @@ function ClaimFormContent() {
   const isInitializing = useRef(false);
   const recaptchaRef = useRef<HTMLDivElement>(null);
   const recaptchaWidgetId = useRef<number | null>(null);
+  const [isFromAuth, setIsFromAuth] = useState(false);
+  const [captchaResetTrigger, setCaptchaResetTrigger] = useState(0);
 
-  // Populate wallet address from URL parameter
+  // Populate wallet address from URL parameter and detect auth navigation
   useEffect(() => {
     const addressFromUrl = searchParams.get('address');
     if (addressFromUrl && !walletAddress) {
       setWalletAddress(addressFromUrl);
       setBalanceAddress(addressFromUrl);
+      // Mark that this is a navigation from auth page
+      setIsFromAuth(true);
     }
   }, [searchParams, walletAddress]);
 
@@ -215,6 +219,28 @@ function ClaimFormContent() {
     fetchSessionToken();
   }, []);
 
+  // Force captcha re-initialization after Web3Auth navigation
+  useEffect(() => {
+    if (isFromAuth && isRecaptchaReady) {
+      // Add delay to let Web3Auth scripts settle
+      const timer = setTimeout(() => {
+        // Reset the captcha to force re-render
+        if (recaptchaWidgetId.current !== null && window.grecaptcha) {
+          try {
+            window.grecaptcha.reset(recaptchaWidgetId.current);
+          } catch (e) {
+            console.warn('Captcha reset failed, will force re-render:', e);
+          }
+        }
+        // Trigger a re-render by incrementing the reset trigger
+        setCaptchaResetTrigger(prev => prev + 1);
+        setIsFromAuth(false); // Reset flag after handling
+      }, 500); // 500ms delay to let Web3Auth settle
+
+      return () => clearTimeout(timer);
+    }
+  }, [isFromAuth, isRecaptchaReady]);
+
   // Prefill balance input when the claim wallet address is provided
   useEffect(() => {
     if (!balanceAddress && walletAddress) {
@@ -367,9 +393,28 @@ function ClaimFormContent() {
   // Render reCAPTCHA explicitly when ready
   useEffect(() => {
     if (isRecaptchaReady && recaptchaRef.current && window.grecaptcha) {
-      // Clean up any existing instance if we can (though difficult with just innerHTML check)
+      // Clean up existing widget if present
+      if (recaptchaWidgetId.current !== null) {
+        try {
+          // Reset existing widget instead of creating new one
+          window.grecaptcha.reset(recaptchaWidgetId.current);
+          return;
+        } catch (e) {
+          // If reset fails, widget might not exist, proceed to create new one
+          console.warn('Captcha reset failed, creating new widget:', e);
+          recaptchaWidgetId.current = null;
+        }
+      }
+
+      // Check if container already has content (widget might be rendered)
       if (recaptchaRef.current.innerHTML.trim() !== '') {
-        return; // Already rendered
+        // Try to find and use existing widget
+        try {
+          // Clear container and re-render
+          recaptchaRef.current.innerHTML = '';
+        } catch (e) {
+          console.warn('Failed to clear captcha container:', e);
+        }
       }
 
       try {
@@ -377,11 +422,23 @@ function ClaimFormContent() {
           'sitekey': '6LdQyRkrAAAAANv5siZlVghMFzQ2AEPIg8501G9P',
         });
         recaptchaWidgetId.current = id;
+        console.log('reCAPTCHA widget rendered successfully, ID:', id);
       } catch (e) {
         console.warn('reCAPTCHA render failed:', e);
       }
     }
-  }, [isRecaptchaReady]);
+
+    // Cleanup on unmount
+    return () => {
+      if (recaptchaWidgetId.current !== null && window.grecaptcha) {
+        try {
+          window.grecaptcha.reset(recaptchaWidgetId.current);
+        } catch (e) {
+          // Ignore cleanup errors
+        }
+      }
+    };
+  }, [isRecaptchaReady, captchaResetTrigger]);
 
   return (
     <>
