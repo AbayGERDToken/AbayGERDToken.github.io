@@ -420,14 +420,6 @@ function ClaimFormContent() {
                 <p className="lead fs-5 mb-4 opacity-90">
                   Get your free GERD tokens in seconds. No wallet connection required—just submit your address and receive your tokens.
                 </p>
-                <button
-                  type="button"
-                  className="btn btn-outline-light btn-lg"
-                  data-bs-toggle="modal"
-                  data-bs-target="#changeModal"
-                >
-                  <i className="fas fa-bullhorn me-2"></i>See Claim Update
-                </button>
               </div>
             </div>
           </div>
