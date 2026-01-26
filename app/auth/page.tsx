@@ -312,7 +312,7 @@ export default function AuthPage() {
             className={styles.loginButton}
             onClick={etnSignIn}
             disabled={etnIsLoading}
-            style={{ backgroundColor: '#3668FF' }}
+            style={{ backgroundColor: '#ffffff', color: '#000000' }}
           >
             {etnIsLoading ? (
               <>
