@@ -573,7 +573,7 @@ function ClaimFormContent() {
                     <i className="fas fa-sign-in-alt me-2"></i>Built-in Login
                   </a>
                   <p className="text-muted mt-4 mb-0">
-                    Otherwise, paste your wallet address below
+                    Otherwise, paste your wallet address below and click on "Claim Tokens" to receive your GERD tokens.
                   </p>
                 </div>
               </div>
