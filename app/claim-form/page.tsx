@@ -550,6 +550,40 @@ function ClaimFormContent() {
         </div>
       </section>
 
+    {/* <div className="section-divider"></div> */}
+
+      {/* Built-in Login Section */}
+      <section className="content-section">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-8 mx-auto">
+              <div className="card border-info h-100">
+                <div className="card-body p-5 text-center">
+                  <div
+                    className="bg-info-subtle text-info rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3"
+                    style={{ width: '80px', height: '80px', fontSize: '36px' }}
+                  >
+                    <i className="fas fa-user-plus"></i>
+                  </div>
+                  <h3 className="h5 fw-bold mb-3">Don't Have a Wallet?</h3>
+                  <p className="text-muted mb-4">
+                    If you don't have an existing wallet and would like to create one automatically using Google or email, click on Built-in Login to get started.
+                  </p>
+                  <a href="/auth/" className="btn btn-info btn-lg">
+                    <i className="fas fa-sign-in-alt me-2"></i>Built-in Login
+                  </a>
+                  <p className="text-muted mt-4 mb-0">
+                    Otherwise, paste your wallet address below
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="section-divider"></div>
+
       {/* Claim Form Section */}
       <section className="content-section bg-light">
         <div className="container">
