@@ -539,7 +539,7 @@ function ClaimFormContent() {
           </div>
 
           {/* Contract Address */}
-          <div className="row mb-5">
+          <div className="row mb-3">
             <div className="col-lg-8 mx-auto">
               <ContractAddress
                 address="0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c"
@@ -547,44 +547,8 @@ function ClaimFormContent() {
               />
             </div>
           </div>
-
-          {/* Eligibility Cards */}
-          <div className="row g-4 mb-5">
-            <div className="col-md-6">
-              <div className="card border-danger h-100">
-                <div className="card-body p-4 text-center">
-                  <div
-                    className="bg-danger-subtle text-danger rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3"
-                    style={{ width: '80px', height: '80px', fontSize: '36px' }}
-                  >
-                    🇪🇹
-                  </div>
-                  <h3 className="h5 fw-bold mb-2">Ethiopia-Based Wallets</h3>
-                  <div className="display-6 fw-bold text-danger mb-2">75,000</div>
-                  <p className="text-muted mb-0">GERD tokens per wallet</p>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-6">
-              <div className="card border-primary h-100">
-                <div className="card-body p-4 text-center">
-                  <div
-                    className="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3"
-                    style={{ width: '80px', height: '80px', fontSize: '36px' }}
-                  >
-                    <i className="fas fa-globe"></i>
-                  </div>
-                  <h3 className="h5 fw-bold mb-2">Global Wallets</h3>
-                  <div className="display-6 fw-bold text-primary mb-2">10,000</div>
-                  <p className="text-muted mb-0">GERD tokens per wallet</p>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </section>
-
-      <div className="section-divider"></div>
 
       {/* Claim Form Section */}
       <section className="content-section bg-light">
@@ -698,6 +662,46 @@ function ClaimFormContent() {
                       )}
                     </div>
                   )}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="section-divider"></div>
+
+      {/* Eligibility Cards */}
+      <section className="content-section">
+        <div className="container">
+          <div className="row g-4 mb-5">
+            <div className="col-md-6">
+              <div className="card border-danger h-100">
+                <div className="card-body p-4 text-center">
+                  <div
+                    className="bg-danger-subtle text-danger rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3"
+                    style={{ width: '80px', height: '80px', fontSize: '36px' }}
+                  >
+                    🇪🇹
+                  </div>
+                  <h3 className="h5 fw-bold mb-2">Ethiopia-Based Wallets</h3>
+                  <div className="display-6 fw-bold text-danger mb-2">75,000</div>
+                  <p className="text-muted mb-0">GERD tokens per wallet</p>
+                </div>
+              </div>
+            </div>
+            <div className="col-md-6">
+              <div className="card border-primary h-100">
+                <div className="card-body p-4 text-center">
+                  <div
+                    className="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3"
+                    style={{ width: '80px', height: '80px', fontSize: '36px' }}
+                  >
+                    <i className="fas fa-globe"></i>
+                  </div>
+                  <h3 className="h5 fw-bold mb-2">Global Wallets</h3>
+                  <div className="display-6 fw-bold text-primary mb-2">10,000</div>
+                  <p className="text-muted mb-0">GERD tokens per wallet</p>
                 </div>
               </div>
             </div>
