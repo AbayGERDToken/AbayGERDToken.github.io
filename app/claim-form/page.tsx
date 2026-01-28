@@ -726,7 +726,7 @@ function ClaimFormContent() {
                         </div>
                         <div className="ms-3">
                           <p className="mb-0"><strong>Claim GERD Tokens</strong></p>
-                          <p className="text-muted small mb-0">Your app uses that address in the GERD claim flow (often auto-filled or passed in the URL).</p>
+                          <p className="text-muted small mb-0">Our app uses that address in the GERD claim flow.</p>
                         </div>
                       </div>
                     </div>
