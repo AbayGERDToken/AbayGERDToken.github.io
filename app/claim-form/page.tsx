@@ -32,6 +32,8 @@ function ClaimFormContent() {
   const recaptchaWidgetId = useRef<number | null>(null);
   const [isFromAuth, setIsFromAuth] = useState(false);
   const [captchaResetTrigger, setCaptchaResetTrigger] = useState(0);
+  const [showWeb3AuthModal, setShowWeb3AuthModal] = useState(false);
+  const claimFormRef = useRef<HTMLDivElement>(null);
 
   // Populate wallet address from URL parameter and detect auth navigation
   useEffect(() => {
@@ -240,6 +242,18 @@ function ClaimFormContent() {
       return () => clearTimeout(timer);
     }
   }, [isFromAuth, isRecaptchaReady]);
+
+  // Scroll to claim form when redirected from auth page
+  useEffect(() => {
+    if (isFromAuth && claimFormRef.current) {
+      // Add a small delay to ensure DOM is fully rendered
+      const timer = setTimeout(() => {
+        claimFormRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 100);
+
+      return () => clearTimeout(timer);
+    }
+  }, [isFromAuth]);
 
   // Prefill balance input when the claim wallet address is provided
   useEffect(() => {
@@ -567,11 +581,20 @@ function ClaimFormContent() {
                   </div>
                   <h3 className="h5 fw-bold mb-3">Don't Have a Wallet?</h3>
                   <p className="text-muted mb-4">
-                    If you don't have an existing wallet and would like to create one automatically using Google or email, click on Built-in Login to get started.
+                    If you don't have an existing wallet and would like to create one automatically using Google or email, click on Built-in Login.
                   </p>
-                  <a href="/auth/" className="btn btn-info btn-lg">
-                    <i className="fas fa-sign-in-alt me-2"></i>Built-in Login
-                  </a>
+                  <div className="d-flex gap-2 justify-content-center mb-3 flex-wrap">
+                    <a href="/auth/" className="btn btn-info btn-lg">
+                      <i className="fas fa-sign-in-alt me-2"></i>Built-in Login
+                    </a>
+                    <button
+                      className="btn btn-outline-info btn-lg"
+                      onClick={() => setShowWeb3AuthModal(true)}
+                      title="Learn how Web3Auth works"
+                    >
+                      <i className="fas fa-circle-question me-2"></i>How it works?
+                    </button>
+                  </div>
                   <p className="text-muted mt-4 mb-0">
                     Otherwise, paste your wallet address below and click on "Claim Tokens" to receive your GERD tokens.
                   </p>
@@ -582,34 +605,224 @@ function ClaimFormContent() {
         </div>
       </section>
 
+      {/* Web3Auth Explanation Modal */}
+      {showWeb3AuthModal && (
+        <div
+          className="modal fade show"
+          style={{ display: 'block' }}
+          tabIndex={-1}
+          aria-labelledby="web3AuthModalLabel"
+          aria-hidden="false"
+          onClick={(e) => {
+            if (e.target === e.currentTarget) {
+              setShowWeb3AuthModal(false);
+            }
+          }}
+        >
+          <div className="modal-dialog modal-dialog-centered modal-lg">
+            <div className="modal-content">
+              <div className="modal-header border-bottom-0 pb-0">
+                <h5 className="modal-title" id="web3AuthModalLabel">
+                  <i className="fas fa-key text-primary me-2"></i>How Web3Auth Works
+                </h5>
+                <button
+                  type="button"
+                  className="btn-close"
+                  onClick={() => setShowWeb3AuthModal(false)}
+                  aria-label="Close"
+                ></button>
+              </div>
+              <div className="modal-body pt-0">
+                <div className="mb-4">
+                  <h6 className="fw-bold text-primary mb-2">What's the Tech?</h6>
+                  <p className="text-muted">
+                    Web3Auth uses social login (Google, X, Email, Phone OTP, Discord, etc.) to prove your identity, then securely reconstructs a crypto private key using Web3Auth's key infrastructure (often described as MPC/threshold key reconstruction). Your wallet address is derived from that private key.
+                  </p>
+                  <p className="text-muted mb-0">
+                    <i className="fas fa-check-circle text-success me-2"></i><strong>This makes it easy for everyone, even first-time users, to safely claim GERD tokens.</strong>
+                  </p>
+                </div>
+
+                <div className="mb-4">
+                  <h6 className="fw-bold text-primary mb-3">Step-by-Step Process</h6>
+                  <div className="timeline">
+                    <div className="timeline-item mb-3">
+                      <div className="d-flex align-items-start">
+                        <div
+                          className="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center flex-shrink-0"
+                          style={{ width: '36px', height: '36px', fontSize: '16px' }}
+                        >
+                          1
+                        </div>
+                        <div className="ms-3">
+                          <p className="mb-0"><strong>Choose Login Method</strong></p>
+                          <p className="text-muted small mb-0">Pick from Google, Email, Phone OTP, X, Discord, etc.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="timeline-item mb-3">
+                      <div className="d-flex align-items-start">
+                        <div
+                          className="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center flex-shrink-0"
+                          style={{ width: '36px', height: '36px', fontSize: '16px' }}
+                        >
+                          2
+                        </div>
+                        <div className="ms-3">
+                          <p className="mb-0"><strong>Complete Login</strong></p>
+                          <p className="text-muted small mb-0">Follow the normal login popup or OTP process.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="timeline-item mb-3">
+                      <div className="d-flex align-items-start">
+                        <div
+                          className="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center flex-shrink-0"
+                          style={{ width: '36px', height: '36px', fontSize: '16px' }}
+                        >
+                          3
+                        </div>
+                        <div className="ms-3">
+                          <p className="mb-0"><strong>Get Auth Token</strong></p>
+                          <p className="text-muted small mb-0">Web3Auth returns a token proving you logged in successfully.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="timeline-item mb-3">
+                      <div className="d-flex align-items-start">
+                        <div
+                          className="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center flex-shrink-0"
+                          style={{ width: '36px', height: '36px', fontSize: '16px' }}
+                        >
+                          4
+                        </div>
+                        <div className="ms-3">
+                          <p className="mb-0"><strong>Wallet Key Created</strong></p>
+                          <p className="text-muted small mb-0">Web3Auth securely creates or restores your wallet key using the auth proof (happens behind the scenes).</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="timeline-item mb-3">
+                      <div className="d-flex align-items-start">
+                        <div
+                          className="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center flex-shrink-0"
+                          style={{ width: '36px', height: '36px', fontSize: '16px' }}
+                        >
+                          5
+                        </div>
+                        <div className="ms-3">
+                          <p className="mb-0"><strong>Get Wallet Address</strong></p>
+                          <p className="text-muted small mb-0">Our app requests your public wallet address (example: 0x...) from Web3Auth.</p>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="timeline-item">
+                      <div className="d-flex align-items-start">
+                        <div
+                          className="bg-primary text-white rounded-circle d-flex align-items-center justify-content-center flex-shrink-0"
+                          style={{ width: '36px', height: '36px', fontSize: '16px' }}
+                        >
+                          6
+                        </div>
+                        <div className="ms-3">
+                          <p className="mb-0"><strong>Claim GERD Tokens</strong></p>
+                          <p className="text-muted small mb-0">Your app uses that address in the GERD claim flow (often auto-filled or passed in the URL).</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="alert alert-info mb-3">
+                  <i className="fas fa-lightbulb me-2"></i>
+                  <strong>Why the same login works every time:</strong> The same Google/email/phone login can bring you back to the same wallet address because the same identity always → same wallet key restored.
+                </div>
+
+                <div className="alert alert-success mb-0">
+                  <i className="fas fa-arrow-right text-success me-2"></i>
+                  <strong>Future Options:</strong> In the future, you can export your key or transfer your GERD tokens to other wallets when ready. Your Web3Auth wallet gives you full control and flexibility.
+                </div>
+              </div>
+              <div className="modal-footer border-top-0">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  onClick={() => setShowWeb3AuthModal(false)}
+                >
+                  Got it!
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+      {showWeb3AuthModal && <div className="modal-backdrop fade show"></div>}
+
       <div className="section-divider"></div>
 
-      {/* Claim Form Section */}
-      <section className="content-section bg-light">
+      {/* Unified Claim & Check Balance Section */}
+      <section className="content-section bg-light" ref={claimFormRef}>
         <div className="container">
           <div className="row">
             <div className="col-lg-8 mx-auto">
               <div className="claim-card">
-                <h2 className="h3 fw-bold mb-4 text-center">
-                  <i className="fas fa-wallet text-success me-2"></i>Claim Your Tokens
+                <h2 className="h3 fw-bold mb-1 text-center">
+                  <i className="fas fa-wallet text-success me-2"></i>Claim & Check Your Tokens
                 </h2>
+                <p className="text-center text-muted mb-4">Enter your wallet address to claim tokens and check your balance</p>
+
+                {/* Wallet Address Input */}
                 <div className="mb-4">
-                  <label htmlFor="recipient" className="form-label fw-semibold">Wallet Address:</label>
+                  <label htmlFor="wallet-address" className="form-label fw-semibold">Wallet Address:</label>
                   <input
                     className="form-control form-control-lg"
                     type="text"
-                    id="recipient"
+                    id="wallet-address"
                     placeholder="Enter your GERD wallet address"
                     value={walletAddress}
-                    onChange={(e) => setWalletAddress(e.target.value)}
+                    onChange={(e) => {
+                      const addr = e.target.value;
+                      setWalletAddress(addr);
+                      setBalanceAddress(addr); // Keep both in sync
+                    }}
                   />
                 </div>
+
+                {/* Quick Balance Check Button */}
+                <div className="mb-4">
+                  <button
+                    className="btn btn-outline-info btn-lg w-100"
+                    type="button"
+                    onClick={checkBalance}
+                    disabled={!isWeb3Ready}
+                  >
+                    <i className="fas fa-search me-2"></i>Check Balance
+                  </button>
+                  {balance && (
+                    <div className={`mt-3 text-center fw-bold fs-6 p-3 rounded ${balance.includes('Error') ? 'bg-danger-subtle text-danger' : 'bg-success-subtle text-success'
+                      }`}>
+                      {balance.includes('Error') ? (
+                        <>
+                          <i className="fas fa-exclamation-circle me-2"></i>{balance}
+                        </>
+                      ) : (
+                        <>
+                          <i className="fas fa-check-circle me-2"></i>{balance}
+                        </>
+                      )}
+                    </div>
+                  )}
+                </div>
+
+                {/* reCAPTCHA */}
                 <div className="mb-4">
                   <div
                     ref={recaptchaRef}
                     className="d-flex justify-content-center"
                   ></div>
                 </div>
+
+                {/* Claim Button */}
                 <div className="d-grid">
                   <button
                     className="btn btn-success btn-lg btn-claim"
@@ -627,6 +840,8 @@ function ClaimFormContent() {
                     )}
                   </button>
                 </div>
+
+                {/* Response Messages */}
                 {response && (
                   <div className={`mt-4 alert alert-${response.type}`}>
                     <i className={`fas ${response.type === 'success' ? 'fa-check-circle' :
@@ -637,66 +852,14 @@ function ClaimFormContent() {
                     {response.message}
                   </div>
                 )}
+
+                {/* Loading Status */}
                 {!response && (!isWeb3Ready || !isRecaptchaReady) && (
                   <div className="mt-3 text-center text-muted small">
                     {!isWeb3Ready && <span className="me-2">Initializing Web3...</span>}
                     {!isRecaptchaReady && <span>Initializing reCAPTCHA...</span>}
                   </div>
                 )}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <div className="section-divider"></div>
-
-      {/* Balance Check Section */}
-      <section className="content-section">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-8 mx-auto">
-              <div className="card feature-card">
-                <div className="card-body p-5">
-                  <h2 className="h3 fw-bold mb-4 text-center">
-                    <i className="fas fa-balance-scale text-info me-2"></i>Check Your Balance
-                  </h2>
-                  <div className="mb-4">
-                    <label htmlFor="bwallet-address" className="form-label fw-semibold">Wallet Address:</label>
-                    <input
-                      className="form-control form-control-lg"
-                      type="text"
-                      placeholder="Enter wallet address to check balance"
-                      id="bwallet-address"
-                      value={balanceAddress}
-                      onChange={(e) => setBalanceAddress(e.target.value)}
-                    />
-                  </div>
-                  <div className="d-grid">
-                    <button
-                      className="btn btn-success btn-lg"
-                      type="button"
-                      onClick={checkBalance}
-                      disabled={!isWeb3Ready}
-                    >
-                      <i className="fas fa-search me-2"></i>Check Balance
-                    </button>
-                  </div>
-                  {balance && (
-                    <div className={`mt-4 text-center fw-bold fs-5 ${balance.includes('Error') ? 'text-danger' : 'text-success'
-                      }`}>
-                      {balance.includes('Error') ? (
-                        <>
-                          <i className="fas fa-exclamation-circle me-2"></i>{balance}
-                        </>
-                      ) : (
-                        <>
-                          <i className="fas fa-check-circle me-2"></i>{balance}
-                        </>
-                      )}
-                    </div>
-                  )}
-                </div>
               </div>
             </div>
           </div>
