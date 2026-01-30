@@ -3,15 +3,28 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useWeb3Auth } from "@/lib/Web3AuthContext";
+import { useETNAuth } from "@/lib/ETNAuthContext";
+import { Logo } from "@/components/Logo";
 import styles from "./auth.module.css";
 
 export default function AuthPage() {
   const router = useRouter();
   const { login, logout, isLoading, error, isLogged, address } = useWeb3Auth();
+  const { signIn: etnSignIn, logout: etnLogout, isLoading: etnIsLoading, error: etnError, isLogged: etnIsLogged, address: etnAddress } = useETNAuth();
   const [localError, setLocalError] = React.useState<string | null>(null);
   const [balanceInfo, setBalanceInfo] = React.useState<string | null>(null);
   const [loadingBalance, setLoadingBalance] = React.useState(false);
   const [copySuccess, setCopySuccess] = React.useState(false);
+  const [activeAuthMethod, setActiveAuthMethod] = React.useState<'web3auth' | 'etn' | null>(null);
+
+  // Determine which auth method is active
+  useEffect(() => {
+    if (isLogged) {
+      setActiveAuthMethod('web3auth');
+    } else if (etnIsLogged) {
+      setActiveAuthMethod('etn');
+    }
+  }, [isLogged, etnIsLogged]);
 
   // Show balance when logged in
   useEffect(() => {
@@ -98,7 +111,12 @@ export default function AuthPage() {
     try {
       setLocalError(null);
       setBalanceInfo(null);
-      await logout();
+      if (activeAuthMethod === 'web3auth') {
+        await logout();
+      } else if (activeAuthMethod === 'etn') {
+        await etnLogout();
+      }
+      setActiveAuthMethod(null);
     } catch (err) {
       const message = err instanceof Error ? err.message : "Logout failed. Please try again.";
       setLocalError(message);
@@ -117,7 +135,8 @@ export default function AuthPage() {
     }
   };
 
-  const displayError = error || localError;
+  const displayError = error || etnError || localError;
+  const currentAddress = activeAuthMethod === 'etn' ? etnAddress : address;
 
   return (
     <div className={styles.authContainer}>
@@ -191,6 +210,40 @@ export default function AuthPage() {
           </>
         )}
 
+        {etnIsLogged && etnAddress && (
+          <>
+            <div className={styles.successAlert}>
+              <i className="fas fa-check-circle me-2"></i>
+              ETN Identity Connected - BSC Wallet Generated!
+            </div>
+            
+            <div className={styles.addressContainer}>
+              <div className={styles.addressLabel}>BSC Wallet Address:</div>
+              <div className={styles.addressRow}>
+                <code className={styles.addressText}>{etnAddress}</code>
+                <button
+                  className={styles.copyButton}
+                  onClick={() => {
+                    if (etnAddress) {
+                      navigator.clipboard.writeText(etnAddress);
+                      setCopySuccess(true);
+                      setTimeout(() => setCopySuccess(false), 2000);
+                    }
+                  }}
+                  title="Copy wallet address"
+                >
+                  <i className={`fas ${copySuccess ? 'fa-check' : 'fa-copy'}`}></i>
+                  {copySuccess ? 'Copied!' : 'Copy'}
+                </button>
+              </div>
+            </div>
+            <div className={styles.infoAlert} style={{ background: '#d1ecf1', color: '#0c5460', marginTop: '1rem' }}>
+              <i className="fas fa-info-circle me-2"></i>
+              This BSC wallet was automatically generated for your ETN account. You can use it to claim GERD tokens.
+            </div>
+          </>
+        )}
+
         {isLogged && !loadingBalance && (
           <button
             className={styles.proceedButton}
@@ -201,18 +254,28 @@ export default function AuthPage() {
           </button>
         )}
 
-        {isLogged && (
+        {etnIsLogged && etnAddress && (
           <button
-            className={styles.disconnectButton}
-            onClick={handleLogout}
-            disabled={isLoading}
+            className={styles.proceedButton}
+            onClick={() => router.push(`/claim-form?address=${etnAddress}`)}
           >
-            <i className="fas fa-sign-out-alt me-2"></i>
-            Disconnect Wallet
+            <i className="fas fa-arrow-right me-2"></i>
+            Proceed to Claim Form
           </button>
         )}
 
-        {!isLogged && !displayError && (
+        {(isLogged || etnIsLogged) && (
+          <button
+            className={styles.disconnectButton}
+            onClick={handleLogout}
+            disabled={isLoading || etnIsLoading}
+          >
+            <i className="fas fa-sign-out-alt me-2"></i>
+            Disconnect
+          </button>
+        )}
+
+        {!isLogged && !etnIsLogged && !displayError && (
           <div className={styles.loginOptions}>
           <button
             className={styles.loginButton}
@@ -249,6 +312,24 @@ export default function AuthPage() {
               </>
             )}
           </button>
+
+          <button
+            className={styles.etnStandardButton}
+            onClick={etnSignIn}
+            disabled={etnIsLoading}
+          >
+            {etnIsLoading ? (
+              <>
+                <i className="fas fa-spinner fa-spin me-2"></i>
+                Connecting...
+              </>
+            ) : (
+              <>
+                <Logo size={20} />
+                <span>Sign in with ETN-ID</span>
+              </>
+            )}
+          </button>
         </div>
         )}
 
@@ -266,7 +347,7 @@ export default function AuthPage() {
         <div className={styles.footer}>
           <p className={styles.footerText}>
             <i className="fas fa-shield-alt me-2"></i>
-            Your credentials are secured with Web3Auth
+            Your credentials are secured with industry-standard authentication
           </p>
         </div>
       </div>

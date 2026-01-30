@@ -161,6 +161,36 @@
   cursor: not-allowed;
 }
 
+/* Standard Brand ETN Button - Matching Google/Facebook style */
+.etnStandardButton {
+  width: 100%;
+  padding: 1rem;
+  background: white;
+  border: 2px solid #e0e0e0;
+  color: #333;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+}
+
+.etnStandardButton:hover:not(:disabled) {
+  border-color: #133A2A;
+  background: #f8f9fa;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(19, 58, 42, 0.15);
+}
+
+.etnStandardButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 .proceedButton {
   width: 100%;
   padding: 1rem;

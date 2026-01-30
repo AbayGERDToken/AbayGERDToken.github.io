@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import VisitorTracker from '@/components/VisitorTracker';
 import { Web3AuthProvider } from '@/lib/Web3AuthContext';
+import { ETNAuthProvider } from '@/lib/ETNAuthContext';
 import '@/styles/globals.css';
 
 const outfit = Outfit({
@@ -39,12 +40,14 @@ export default function RootLayout({
       </head>
       <body className={outfit.variable} suppressHydrationWarning>
         <Web3AuthProvider>
-          <Navbar />
-          <main>
-            {children}
-          </main>
-          <Footer />
-          <VisitorTracker />
+          <ETNAuthProvider>
+            <Navbar />
+            <main>
+              {children}
+            </main>
+            <Footer />
+            <VisitorTracker />
+          </ETNAuthProvider>
         </Web3AuthProvider>
         {/* Bootstrap 5.3.3 JS */}
         <Script
