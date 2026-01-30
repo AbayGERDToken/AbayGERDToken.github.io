@@ -312,18 +312,6 @@ export default function AuthPage() {
               </>
             )}
           </button>
-
-          <button
-            className={styles.etnStandardButton}
-            onClick={() => setLocalError('ETN Identity login requires a backend server and is not available on static GitHub Pages. Please use Google or Facebook login.')}
-            disabled={true}
-            title="ETN Identity requires backend server"
-            style={{ opacity: 0.6, cursor: 'not-allowed' }}
-          >
-            <Logo size={20} />
-            <span>Sign in with ETN-ID</span>
-            <i className="fas fa-info-circle" style={{ marginLeft: '8px', fontSize: '14px' }}></i>
-          </button>
         </div>
         )}
 
