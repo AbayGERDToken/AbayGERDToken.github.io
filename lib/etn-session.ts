@@ -6,8 +6,13 @@
 export interface ETNSession {
   isLoggedIn: boolean;
   token: string | null;
+  idToken?: string | null;
   refreshToken: string | null;
   expiresAt: number | null;
+  walletAddress?: string | null; // BSC wallet address (generated)
+  etnWalletAddress?: string | null; // Original TON wallet from ETN
+  isOG?: boolean;
+  userId?: string | null;
   userInfo: {
     sub?: string;
     email?: string;

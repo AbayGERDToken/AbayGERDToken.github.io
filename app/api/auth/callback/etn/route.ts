@@ -4,6 +4,28 @@
  */
 
 import { NextRequest, NextResponse } from 'next/server';
+import { generateBSCWalletFromETNId } from '@/lib/wallet-generator';
+
+/**
+ * Decode JWT without verification (for display purposes)
+ * In production, you should verify the signature
+ */
+function decodeJWT(token: string): any {
+  try {
+    const parts = token.split('.');
+    if (parts.length !== 3) {
+      throw new Error('Invalid JWT format');
+    }
+
+    // Decode the payload (second part)
+    const payload = parts[1];
+    const decoded = Buffer.from(payload, 'base64').toString('utf-8');
+    return JSON.parse(decoded);
+  } catch (err) {
+    console.error('[ETN Callback] Failed to decode JWT:', err);
+    return null;
+  }
+}
 
 export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
@@ -38,35 +60,70 @@ export async function GET(req: NextRequest) {
   try {
     // Exchange authorization code for tokens
     const tokenEndpoint = 'https://auth.etnecosystem.org/api/v1/oauth/token';
+    
+    const clientId = process.env.NEXT_PUBLIC_ETN_CLIENT_ID || '';
+    const clientSecret = process.env.ETN_CLIENT_SECRET || '';
+    const redirectUri = process.env.NEXT_PUBLIC_ETN_REDIRECT_URI || '';
+    
+    // Per official ETN SDK docs: Use application/json, NOT form-urlencoded
+    const tokenBody = {
+      grant_type: 'authorization_code',
+      code,
+      client_id: clientId,
+      client_secret: clientSecret,
+      redirect_uri: redirectUri,
+    };
+
     const tokenResponse = await fetch(tokenEndpoint, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({
-        grant_type: 'authorization_code',
-        code,
-        client_id: process.env.NEXT_PUBLIC_ETN_CLIENT_ID,
-        client_secret: process.env.ETN_CLIENT_SECRET,
-        redirect_uri: process.env.NEXT_PUBLIC_ETN_REDIRECT_URI,
-      }),
+      body: JSON.stringify(tokenBody),
     });
 
+    const responseText = await tokenResponse.text();
+
     if (!tokenResponse.ok) {
-      const errorData = await tokenResponse.json();
-      console.error('[ETN Callback] Token exchange failed:', errorData);
+      console.error('[ETN Callback] Token exchange failed:', tokenResponse.status);
       return NextResponse.redirect(
         new URL(
-          `/auth?error=${encodeURIComponent(errorData.error_description || 'Token exchange failed')}`,
+          `/auth?error=${encodeURIComponent('Token exchange failed: ' + responseText)}`,
           req.url
         )
       );
     }
 
-    const tokens = await tokenResponse.json();
+    const tokens = JSON.parse(responseText);
 
-    // Decode the access token to get user info (optional, depends on your needs)
-    // You can also fetch user info from the userinfo endpoint
+    // Decode the id_token to extract user data
+    let idTokenData = null;
+    let etnWalletAddress = null; // TON wallet from ETN
+    let bscWalletAddress = null; // Generated BSC wallet
+    let isOG = false;
+    let etnUserId = null;
+
+    if (tokens.id_token) {
+      idTokenData = decodeJWT(tokens.id_token);
+      
+      if (idTokenData) {
+        etnWalletAddress = idTokenData.wallet_address; // TON format
+        etnUserId = idTokenData.sub || idTokenData.id;
+        isOG = idTokenData.is_og || false;
+        
+        // Generate BSC wallet address from ETN user ID
+        if (etnUserId) {
+          try {
+            const bscWallet = generateBSCWalletFromETNId(etnUserId);
+            bscWalletAddress = bscWallet.address;
+          } catch (walletErr) {
+            console.error('[ETN Callback] Failed to generate BSC wallet:', walletErr);
+          }
+        }
+      }
+    }
+
+    // Fetch user info from the userinfo endpoint
     let userInfo = null;
     try {
       const userInfoResponse = await fetch('https://auth.etnecosystem.org/api/v1/oauth/userinfo', {
@@ -79,7 +136,7 @@ export async function GET(req: NextRequest) {
         userInfo = await userInfoResponse.json();
       }
     } catch (err) {
-      console.warn('[ETN Callback] Failed to fetch user info:', err);
+      console.warn('[ETN Callback] UserInfo fetch failed:', err);
     }
 
     // Create response that includes session data
@@ -91,9 +148,14 @@ export async function GET(req: NextRequest) {
     const sessionData = {
       isLoggedIn: true,
       token: tokens.access_token,
+      idToken: tokens.id_token,
       refreshToken: tokens.refresh_token,
       expiresAt: Date.now() + (tokens.expires_in * 1000) - 60000, // 1-minute buffer
       userInfo: userInfo || {},
+      walletAddress: bscWalletAddress, // BSC wallet for claiming GERD tokens
+      etnWalletAddress: etnWalletAddress, // Original TON wallet from ETN (for reference)
+      isOG: isOG,
+      userId: etnUserId,
     };
 
     // Set secure HTTP-only cookie

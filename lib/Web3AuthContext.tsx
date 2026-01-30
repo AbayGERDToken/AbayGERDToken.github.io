@@ -9,6 +9,17 @@ let Web3Auth: any = null;
 const initWeb3Auth = async () => {
   if (Web3Auth) return Web3Auth;
   try {
+    // Suppress the specific ethereum assignment error thrown by some wallet extensions.
+    const suppressEthereumError = (event: ErrorEvent) => {
+      if (event?.message?.includes('Cannot set property ethereum')) {
+        console.warn('[Web3Auth] Suppressed ethereum property assignment error from extension.');
+        event.preventDefault();
+        return true;
+      }
+      return false;
+    };
+    window.addEventListener('error', suppressEthereumError);
+
     // Use dynamic import to avoid immediate execution and ethereum property conflicts
     return new Promise(async (resolve) => {
       setTimeout(async () => {
@@ -62,6 +73,8 @@ const initWeb3Auth = async () => {
           }
           resolve(null);
         }
+        // Remove the temporary error suppression once the library load attempt finishes.
+        window.removeEventListener('error', suppressEthereumError);
       }, 100); // Small delay to let other scripts settle
     });
   } catch (err) {
@@ -113,7 +126,7 @@ export function Web3AuthProvider({ children }: { children: ReactNode }) {
         const Web3AuthClass = await initWeb3Auth();
         
         if (!Web3AuthClass) {
-          const msg = 'Web3Auth library failed to load. The @web3auth/modal package may not be available.';
+          const msg = 'Web3Auth library failed to load. The @web3auth/modal package may not be available or was blocked by a browser extension.';
           console.error('[Web3Auth] Library load failed');
           setError(msg);
           setIsLoading(false);

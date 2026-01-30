@@ -25,6 +25,22 @@ export function ETNAuthProvider({ children }: { children: ReactNode }) {
   const [error, setError] = useState<string | null>(null);
   const [session, setSession] = useState<ETNSession | null>(null);
 
+  const fetchServerSession = async (): Promise<ETNSession | null> => {
+    try {
+      const res = await fetch('/api/auth/session/etn', { cache: 'no-store' });
+      if (!res.ok) return null;
+      const data = await res.json();
+      if (data?.isLoggedIn) {
+        saveETNSession(data);
+        return data as ETNSession;
+      }
+      return null;
+    } catch (err) {
+      console.warn('[ETN Auth] Failed to fetch server session:', err);
+      return null;
+    }
+  };
+
   // Initialize auth client and check existing session
   useEffect(() => {
     const init = async () => {
@@ -40,7 +56,7 @@ export function ETNAuthProvider({ children }: { children: ReactNode }) {
         }
 
         // Check for existing session
-        const existingSession = getETNSession();
+        let existingSession = getETNSession();
         
         if (existingSession.isLoggedIn && !isETNSessionExpired(existingSession)) {
           // Session is valid
@@ -48,7 +64,7 @@ export function ETNAuthProvider({ children }: { children: ReactNode }) {
           setIsLogged(true);
           
           // Extract wallet address from user info
-          const walletAddress = getETNWalletAddress(existingSession.userInfo);
+          const walletAddress = existingSession.walletAddress || getETNWalletAddress(existingSession.userInfo);
           if (walletAddress) {
             setAddress(walletAddress);
           } else if (existingSession.userInfo?.sub) {
@@ -61,19 +77,33 @@ export function ETNAuthProvider({ children }: { children: ReactNode }) {
           // TODO: Implement token refresh using refresh token
           clearETNSession();
           setIsLogged(false);
+        } else {
+          // Try to hydrate session from HTTP-only cookie
+          const serverSession = await fetchServerSession();
+          if (serverSession?.isLoggedIn) {
+            existingSession = serverSession;
+            setSession(existingSession);
+            setIsLogged(true);
+            const walletAddress = existingSession.walletAddress || getETNWalletAddress(existingSession.userInfo);
+            if (walletAddress) {
+              setAddress(walletAddress);
+            } else if (existingSession.userInfo?.sub) {
+              setAddress(existingSession.userInfo.sub);
+            }
+          }
         }
 
         // Check for auth callback in URL
         const params = new URLSearchParams(window.location.search);
         if (params.get('method') === 'etn') {
           if (params.get('success') === 'true') {
-            // Callback was successful, session should be set by the route handler
-            console.log('[ETN Auth] Callback successful, reading session...');
-            const newSession = getETNSession();
-            if (newSession.isLoggedIn) {
+            // Callback was successful, hydrate from server cookie
+            console.log('[ETN Auth] Callback successful, fetching server session...');
+            const newSession = await fetchServerSession();
+            if (newSession?.isLoggedIn) {
               setSession(newSession);
               setIsLogged(true);
-              const walletAddress = getETNWalletAddress(newSession.userInfo);
+              const walletAddress = newSession.walletAddress || getETNWalletAddress(newSession.userInfo);
               if (walletAddress) {
                 setAddress(walletAddress);
               }

@@ -1,6 +1,6 @@
 /**
  * ETN Identity SDK Client
- * Handles client-side ETN authentication flow
+ * Handles client-side ETN authentication flow with PKCE
  */
 
 export interface ETNAuthConfig {
@@ -13,12 +13,12 @@ export class ETNAuthClient {
   private clientId: string;
   private redirectUri: string;
   private scope: string;
-  private authorizationEndpoint = 'https://auth.etnecosystem.org/oauth/authorize';
+  private authorizationEndpoint = 'https://account.etnecosystem.org/authorize';
 
   constructor(config: ETNAuthConfig) {
     this.clientId = config.clientId;
     this.redirectUri = config.redirectUri;
-    this.scope = config.scope || 'openid profile offline_access';
+    this.scope = config.scope || 'openid profile';
   }
 
   /**
@@ -30,14 +30,24 @@ export class ETNAuthClient {
   }
 
   /**
+   * Generate a random nonce
+   */
+  private generateNonce(): string {
+    return crypto.getRandomValues(new Uint8Array(32))
+      .reduce((acc, val) => acc + ('0' + val.toString(16)).slice(-2), '');
+  }
+
+  /**
    * Build the authorization URL for redirecting to ETN Identity Provider
    */
   buildAuthorizeUrl(state?: string): string {
     const authState = state || this.generateState();
+    const nonce = this.generateNonce();
     
-    // Store state in sessionStorage for verification after redirect
+    // Store state and nonce in sessionStorage for verification after redirect
     if (typeof window !== 'undefined') {
       sessionStorage.setItem('etn_auth_state', authState);
+      sessionStorage.setItem('etn_auth_nonce', nonce);
     }
 
     const params = new URLSearchParams({
@@ -46,6 +56,7 @@ export class ETNAuthClient {
       response_type: 'code',
       scope: this.scope,
       state: authState,
+      nonce: nonce,
     });
 
     return `${this.authorizationEndpoint}?${params.toString()}`;

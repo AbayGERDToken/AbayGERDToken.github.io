@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { useWeb3Auth } from "@/lib/Web3AuthContext";
 import { useETNAuth } from "@/lib/ETNAuthContext";
+import { Logo } from "@/components/Logo";
 import styles from "./auth.module.css";
 
 export default function AuthPage() {
@@ -213,11 +214,11 @@ export default function AuthPage() {
           <>
             <div className={styles.successAlert}>
               <i className="fas fa-check-circle me-2"></i>
-              ETN Identity Connected!
+              ETN Identity Connected - BSC Wallet Generated!
             </div>
             
             <div className={styles.addressContainer}>
-              <div className={styles.addressLabel}>Account ID:</div>
+              <div className={styles.addressLabel}>BSC Wallet Address:</div>
               <div className={styles.addressRow}>
                 <code className={styles.addressText}>{etnAddress}</code>
                 <button
@@ -229,12 +230,16 @@ export default function AuthPage() {
                       setTimeout(() => setCopySuccess(false), 2000);
                     }
                   }}
-                  title="Copy account ID"
+                  title="Copy wallet address"
                 >
                   <i className={`fas ${copySuccess ? 'fa-check' : 'fa-copy'}`}></i>
                   {copySuccess ? 'Copied!' : 'Copy'}
                 </button>
               </div>
+            </div>
+            <div className={styles.infoAlert} style={{ background: '#d1ecf1', color: '#0c5460', marginTop: '1rem' }}>
+              <i className="fas fa-info-circle me-2"></i>
+              This BSC wallet was automatically generated for your ETN account. You can use it to claim GERD tokens.
             </div>
           </>
         )}
@@ -249,7 +254,7 @@ export default function AuthPage() {
           </button>
         )}
 
-        {etnIsLogged && (
+        {etnIsLogged && etnAddress && (
           <button
             className={styles.proceedButton}
             onClick={() => router.push(`/claim-form?address=${etnAddress}`)}
@@ -309,10 +314,9 @@ export default function AuthPage() {
           </button>
 
           <button
-            className={styles.loginButton}
+            className={styles.etnStandardButton}
             onClick={etnSignIn}
             disabled={etnIsLoading}
-            style={{ backgroundColor: '#ffffff', color: '#000000' }}
           >
             {etnIsLoading ? (
               <>
@@ -321,8 +325,8 @@ export default function AuthPage() {
               </>
             ) : (
               <>
-                <i className="fas fa-fingerprint me-2"></i>
-                Continue with ETN Identity
+                <Logo size={20} />
+                <span>Sign in with ETN-ID</span>
               </>
             )}
           </button>
