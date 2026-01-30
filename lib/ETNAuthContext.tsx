@@ -25,22 +25,6 @@ export function ETNAuthProvider({ children }: { children: ReactNode }) {
   const [error, setError] = useState<string | null>(null);
   const [session, setSession] = useState<ETNSession | null>(null);
 
-  const fetchServerSession = async (): Promise<ETNSession | null> => {
-    try {
-      const res = await fetch('/api/auth/session/etn', { cache: 'no-store' });
-      if (!res.ok) return null;
-      const data = await res.json();
-      if (data?.isLoggedIn) {
-        saveETNSession(data);
-        return data as ETNSession;
-      }
-      return null;
-    } catch (err) {
-      console.warn('[ETN Auth] Failed to fetch server session:', err);
-      return null;
-    }
-  };
-
   // Initialize auth client and check existing session
   useEffect(() => {
     const init = async () => {
@@ -77,43 +61,36 @@ export function ETNAuthProvider({ children }: { children: ReactNode }) {
           // TODO: Implement token refresh using refresh token
           clearETNSession();
           setIsLogged(false);
-        } else {
-          // Try to hydrate session from HTTP-only cookie
-          const serverSession = await fetchServerSession();
-          if (serverSession?.isLoggedIn) {
-            existingSession = serverSession;
-            setSession(existingSession);
-            setIsLogged(true);
-            const walletAddress = existingSession.walletAddress || getETNWalletAddress(existingSession.userInfo);
-            if (walletAddress) {
-              setAddress(walletAddress);
-            } else if (existingSession.userInfo?.sub) {
-              setAddress(existingSession.userInfo.sub);
-            }
-          }
         }
 
-        // Check for auth callback in URL
+        // Check for auth callback in URL (handle callback client-side)
         const params = new URLSearchParams(window.location.search);
-        if (params.get('method') === 'etn') {
-          if (params.get('success') === 'true') {
-            // Callback was successful, hydrate from server cookie
-            console.log('[ETN Auth] Callback successful, fetching server session...');
-            const newSession = await fetchServerSession();
-            if (newSession?.isLoggedIn) {
-              setSession(newSession);
-              setIsLogged(true);
-              const walletAddress = newSession.walletAddress || getETNWalletAddress(newSession.userInfo);
-              if (walletAddress) {
-                setAddress(walletAddress);
-              }
-            }
+        const code = params.get('code');
+        const state = params.get('state');
+        
+        if (code && state) {
+          // This is an OAuth callback - handle it client-side
+          console.log('[ETN Auth] Processing OAuth callback...');
+          
+          // Verify state
+          const savedState = typeof window !== 'undefined' ? sessionStorage.getItem('etn_auth_state') : null;
+          if (state !== savedState) {
+            setError('Invalid state parameter');
           } else {
-            const errorMsg = params.get('error');
-            setError(errorMsg || 'Authentication failed');
+            // For static sites, we can't exchange the code for tokens server-side
+            // Instead, we'll use implicit flow or handle this with a separate backend
+            console.warn('[ETN Auth] Code exchange requires backend - use implicit flow instead');
+            setError('Authentication requires backend server. Contact administrator.');
           }
+          
           // Clean up URL
           window.history.replaceState({}, document.title, window.location.pathname);
+        } else {
+          // Check for existing valid session
+          if (!existingSession.isLoggedIn && typeof window !== 'undefined') {
+            // No session found
+            setIsLogged(false);
+          }
         }
       } catch (err) {
         const errorMsg = err instanceof Error ? err.message : 'Failed to initialize ETN Auth';
@@ -137,9 +114,6 @@ export function ETNAuthProvider({ children }: { children: ReactNode }) {
 
   const logout = async () => {
     try {
-      // Call logout endpoint to clear session
-      await fetch('/api/auth/logout/etn', { method: 'POST' });
-      
       // Clear local state
       clearETNSession();
       setSession(null);
