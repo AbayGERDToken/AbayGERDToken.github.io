@@ -343,15 +343,42 @@ export default function Navbar() {
               </ul>
             </li>
 
-            <li className="nav-item">
+            {/* Block Explorer Dropdown */}
+            <li className="nav-item dropdown">
               <a
-                className="nav-link"
-                href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c"
-                target="_blank"
-                rel="noopener noreferrer"
+                className="nav-link dropdown-toggle"
+                href="#"
+                id="dropdown9"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
               >
-                <i className="fas fa-network-wired"></i> Block Explorer <i className="fas fa-external-link-alt ms-1 small"></i>
+                <i className="fas fa-network-wired"></i> Block Explorer
               </a>
+              <ul className="dropdown-menu" aria-labelledby="dropdown9">
+                <li>
+                  <a
+                    className="dropdown-item"
+                    href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <div className="fw-bold">Full <i className="fas fa-external-link-alt ms-1 small"></i></div>
+                    <small className="text-muted">Detailed records and complete token information</small>
+                  </a>
+                </li>
+                <li>
+                  <a
+                    className="dropdown-item"
+                    href="https://bsctrace.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                  >
+                    <div className="fw-bold">Fast Block Explorer <i className="fas fa-external-link-alt ms-1 small"></i></div>
+                    <small className="text-muted">Less detail but faster response times</small>
+                  </a>
+                </li>
+              </ul>
             </li>
           </ul>
         </div>
