@@ -334,8 +334,12 @@ function AuthPageContent() {
           <button
             onClick={() => handleLogin("etn")}
             disabled={etnIsLoading}
-            className="flex items-center justify-center gap-3 bg-white text-gray-900 hover:bg-gray-100 px-6 py-3 rounded-full font-bold w-full transition-colors shadow-lg"
-            style={{ border: 'none', cursor: etnIsLoading ? 'not-allowed' : 'pointer', opacity: etnIsLoading ? 0.7 : 1 }}
+            className="flex items-center justify-center gap-3 bg-white text-gray-900 hover:bg-gray-100 px-6 py-3 rounded-lg font-bold w-full transition-all shadow-lg"
+            style={{ 
+              border: '2px solid #e0e0e0', 
+              cursor: etnIsLoading ? 'not-allowed' : 'pointer', 
+              opacity: etnIsLoading ? 0.7 : 1 
+            }}
           >
             {etnIsLoading ? (
               <>
