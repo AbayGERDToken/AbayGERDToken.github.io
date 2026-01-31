@@ -46,21 +46,10 @@ export function ETNAuthProvider({ children }: { children: ReactNode }) {
           return;
         }
 
-        // TrywalletAddr = await getETNUser();
-        if (walletAddr) {
-          console.log('[ETN Auth] Session is valid, wallet:', walletAddr);
-          // Store wallet address as the user identifier (same as Web3Auth flow)
-          setSub(walletAddr);
-          setWalletAddress(walletAddr);
-          setIsLogged(true);
-          saveETNUser(walletAddr);
-        } else {
-          console.log('[ETN Auth] No active session');
-          setIsLogged(false);
-          setSub(null);
-          setWalletAddressogged(false);
-          setSub(null);
-        }
+        console.log('[ETN Auth] No active session');
+        setIsLogged(false);
+        setSub(null);
+        setWalletAddress(null);
       } catch (err) {
         // Silently handle init errors - backend might be unreachable
         console.debug('[ETN Auth] Init encountered an issue, continuing without session');
@@ -107,7 +96,8 @@ export function ETNAuthProvider({ children }: { children: ReactNode }) {
   const checkSession = async () => {
     try {
       setError(null);
-      setIsLwalletAddr = await getETNUser();
+      setIsLoading(true);
+      const walletAddr = await getETNUser();
       if (walletAddr) {
         console.log('[ETN Auth] Session confirmed, wallet:', walletAddr);
         setSub(walletAddr);
@@ -119,10 +109,7 @@ export function ETNAuthProvider({ children }: { children: ReactNode }) {
         setError('Failed to verify session');
         setIsLogged(false);
         setSub(null);
-        setWalletAddresse.log('[ETN Auth] Session check failed');
-        setError('Failed to verify session');
-        setIsLogged(false);
-        setSub(null);
+        setWalletAddress(null);
       }
     } catch (err) {
       const message = err instanceof Error ? err.message : 'Failed to check session';
@@ -130,6 +117,7 @@ export function ETNAuthProvider({ children }: { children: ReactNode }) {
       setError(message);
       setIsLogged(false);
       setSub(null);
+      setWalletAddress(null);
     } finally {
       setIsLoading(false);
     }
