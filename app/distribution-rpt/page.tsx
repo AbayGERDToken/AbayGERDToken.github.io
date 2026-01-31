@@ -179,7 +179,7 @@ export default function DistributionReport() {
                   <i className="fas fa-chart-bar me-3"></i>Distribution Statistics
                 </h1>
                 <p className="lead fs-5 opacity-90">
-                  Total tokens claimed by Country - Real-time global distribution data
+                  Total tokens claimed by Territory - Real-time global distribution data
                 </p>
               </div>
             </div>
@@ -201,7 +201,7 @@ export default function DistributionReport() {
                 {loading ? 'Loading...' : 'Refresh Data'}
               </button>
               <p className="text-muted small">
-                *Click button to pull updated data from the blockchain.
+                *Territory refers to geographic or community-based regions.
               </p>
             </div>
           </div>
@@ -232,13 +232,13 @@ export default function DistributionReport() {
               <div className="card feature-card">
                 <div className="card-body p-4">
                   <h2 className="h4 fw-bold mb-4 text-center">
-                    <i className="fas fa-table me-2"></i>Distribution by Country
+                    <i className="fas fa-table me-2"></i>Distribution by Territory
                   </h2>
                   <div className="table-responsive">
                     <table id="summary-table" className="table table-striped table-hover mb-0">
                       <thead>
                         <tr>
-                          <th>Country Name</th>
+                          <th>Territory Name</th>
                           <th>Number of Claims</th>
                           <th>Total Tokens Claimed</th>
                         </tr>
