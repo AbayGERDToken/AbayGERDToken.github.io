@@ -332,20 +332,20 @@ function AuthPageContent() {
           </button>
 
           <button
-            className={styles.loginButton}
             onClick={() => handleLogin("etn")}
             disabled={etnIsLoading}
-            style={{ background: '#1a4d2e' }} // ETN Identity brand color
+            className="flex items-center justify-center gap-3 bg-white text-gray-900 hover:bg-gray-100 px-6 py-3 rounded-full font-bold w-full transition-colors shadow-lg"
+            style={{ border: 'none', cursor: etnIsLoading ? 'not-allowed' : 'pointer', opacity: etnIsLoading ? 0.7 : 1 }}
           >
             {etnIsLoading ? (
               <>
-                <i className="fas fa-spinner fa-spin me-2"></i>
-                Connecting...
+                <i className="fas fa-spinner fa-spin"></i>
+                <span>Connecting...</span>
               </>
             ) : (
               <>
-                <i className="fas fa-id-card me-2"></i>
-                Continue with ETN Identity
+                <Logo size={20} />
+                <span>Continue with ETN-ID</span>
               </>
             )}
           </button>
