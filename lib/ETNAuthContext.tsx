@@ -76,7 +76,7 @@ export function ETNAuthProvider({ children }: { children: ReactNode }) {
       // Get authorization URL from backend
       const authorizeUrl = await startETNLogin();
       if (!authorizeUrl) {
-        throw new Error('Failed to get authorization URL');
+        throw new Error('Failed to get authorization URL from backend');
       }
 
       // Redirect to ETN provider
@@ -85,7 +85,14 @@ export function ETNAuthProvider({ children }: { children: ReactNode }) {
       console.log('[ETN Auth] Redirecting to ETN provider...');
       window.location.href = authorizeUrl;
     } catch (err) {
-      const message = err instanceof Error ? err.message : 'Failed to start login';
+      let message = 'Failed to start login';
+      if (err instanceof Error) {
+        if (err.message.includes('Failed to fetch')) {
+          message = 'Cannot connect to authentication backend. The backend server may be unreachable or has CORS configuration issues. Contact support.';
+        } else {
+          message = err.message;
+        }
+      }
       console.error('[ETN Auth] Sign in error:', message);
       setError(message);
       setIsLoading(false);
