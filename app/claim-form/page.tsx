@@ -788,32 +788,6 @@ function ClaimFormContent() {
                   />
                 </div>
 
-                {/* Quick Balance Check Button */}
-                <div className="mb-4">
-                  <button
-                    className="btn btn-outline-info btn-lg w-100"
-                    type="button"
-                    onClick={checkBalance}
-                    disabled={!isWeb3Ready}
-                  >
-                    <i className="fas fa-search me-2"></i>Check Balance
-                  </button>
-                  {balance && (
-                    <div className={`mt-3 text-center fw-bold fs-6 p-3 rounded ${balance.includes('Error') ? 'bg-danger-subtle text-danger' : 'bg-success-subtle text-success'
-                      }`}>
-                      {balance.includes('Error') ? (
-                        <>
-                          <i className="fas fa-exclamation-circle me-2"></i>{balance}
-                        </>
-                      ) : (
-                        <>
-                          <i className="fas fa-check-circle me-2"></i>{balance}
-                        </>
-                      )}
-                    </div>
-                  )}
-                </div>
-
                 {/* reCAPTCHA */}
                 <div className="mb-4">
                   <div
@@ -839,6 +813,32 @@ function ClaimFormContent() {
                       </>
                     )}
                   </button>
+                </div>
+
+                {/* Quick Balance Check Button */}
+                <div className="mt-4">
+                  <button
+                    className="btn btn-outline-info btn-lg w-100"
+                    type="button"
+                    onClick={checkBalance}
+                    disabled={!isWeb3Ready}
+                  >
+                    <i className="fas fa-search me-2"></i>Check Balance
+                  </button>
+                  {balance && (
+                    <div className={`mt-3 text-center fw-bold fs-6 p-3 rounded ${balance.includes('Error') ? 'bg-danger-subtle text-danger' : 'bg-success-subtle text-success'
+                      }`}>
+                      {balance.includes('Error') ? (
+                        <>
+                          <i className="fas fa-exclamation-circle me-2"></i>{balance}
+                        </>
+                      ) : (
+                        <>
+                          <i className="fas fa-check-circle me-2"></i>{balance}
+                        </>
+                      )}
+                    </div>
+                  )}
                 </div>
 
                 {/* Response Messages */}
