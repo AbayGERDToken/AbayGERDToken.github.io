@@ -189,7 +189,7 @@ export default function Home() {
                     </li>
                     <li className="mb-0">
                       <i className="fas fa-check-circle text-success me-2"></i>
-                      <strong>Adopter Advantage:</strong>The sooner you join, the bigger your airdrop share. Early adopters split the yearly airdrop with fewer wallets 
+                      <strong>Adopter Advantage:</strong> The sooner you join, the bigger your airdrop share. Early adopters split the yearly airdrop with fewer wallets 
                     </li>
                   </ul>
                 </div>
@@ -313,7 +313,7 @@ export default function Home() {
             <div className="col-lg-8 mx-auto text-center">
               <p className="text-muted">
                 The Abay GERD Token is deployed on the <strong>Binance Smart Chain (BSC)</strong> using <strong>Solidity</strong>. All contracts will be <strong>open-source</strong>, publicly auditable via{' '}
-                <a href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c" target="_blank" rel="noopener noreferrer" className="text-decoration-none">
+                <a href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c#code" target="_blank" rel="noopener noreferrer" className="text-decoration-none">
                   BSCScan<i className="fas fa-external-link-alt ms-1 small"></i>
                 </a>
                 {' '}and{' '}
