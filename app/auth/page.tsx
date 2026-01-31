@@ -1,13 +1,13 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useWeb3Auth } from "@/lib/Web3AuthContext";
 import { useETNAuth } from "@/lib/ETNAuthContext";
 import { Logo } from "@/components/Logo";
 import styles from "./auth.module.css";
 
-export default function AuthPage() {
+function AuthPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { login, logout, isLoading, error, isLogged, address } = useWeb3Auth();
@@ -371,5 +371,13 @@ export default function AuthPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function AuthPage() {
+  return (
+    <Suspense fallback={<div style={{ padding: '2rem', textAlign: 'center' }}>Loading...</div>}>
+      <AuthPageContent />
+    </Suspense>
   );
 }
