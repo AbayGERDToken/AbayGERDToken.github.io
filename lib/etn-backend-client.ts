@@ -80,7 +80,13 @@ export async function getETNUser(): Promise<string | null> {
     }
     return null;
   } catch (error) {
-    console.error('[ETN] Error getting user:', error);
+    // Silently handle errors on session check
+    // 401 and CORS errors are expected when not logged in
+    if (error instanceof Error && error.message.includes('Failed to fetch')) {
+      console.log('[ETN] Session check skipped (backend unreachable or CORS issue)');
+    } else {
+      console.error('[ETN] Error getting user:', error);
+    }
     return null;
   }
 }

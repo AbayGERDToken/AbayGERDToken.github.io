@@ -44,7 +44,7 @@ export function ETNAuthProvider({ children }: { children: ReactNode }) {
           return;
         }
 
-        // Try to get fresh session from backend
+        // Try to get fresh session from backend (no error if backend unavailable)
         const userSub = await getETNUser();
         if (userSub) {
           console.log('[ETN Auth] Session is valid:', userSub);
@@ -57,8 +57,8 @@ export function ETNAuthProvider({ children }: { children: ReactNode }) {
           setSub(null);
         }
       } catch (err) {
-        console.error('[ETN Auth] Init error:', err);
-        // Don't set error on init, it's normal if not logged in
+        // Silently handle init errors - backend might be unreachable
+        console.debug('[ETN Auth] Init encountered an issue, continuing without session');
       } finally {
         setIsLoading(false);
       }
