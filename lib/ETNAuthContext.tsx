@@ -14,6 +14,7 @@ interface ETNAuthContextType {
   isLoading: boolean;
   isLogged: boolean;
   sub: string | null; // ETN user identity (UUID)
+  walletAddress: string | null; // Derived BSC wallet address
   error: string | null;
   signIn: () => Promise<void>;
   logout: () => Promise<void>;
@@ -26,6 +27,7 @@ export function ETNAuthProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isLogged, setIsLogged] = useState(false);
   const [sub, setSub] = useState<string | null>(null);
+  const [walletAddress, setWalletAddress] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   // Check for existing session on mount
@@ -44,16 +46,19 @@ export function ETNAuthProvider({ children }: { children: ReactNode }) {
           return;
         }
 
-        // Try to get fresh session from backend (no error if backend unavailable)
-        const userSub = await getETNUser();
-        if (userSub) {
-          console.log('[ETN Auth] Session is valid:', userSub);
-          setSub(userSub);
+        // TrywalletAddr = await getETNUser();
+        if (walletAddr) {
+          console.log('[ETN Auth] Session is valid, wallet:', walletAddr);
+          // Store wallet address as the user identifier (same as Web3Auth flow)
+          setSub(walletAddr);
+          setWalletAddress(walletAddr);
           setIsLogged(true);
-          saveETNUser(userSub);
+          saveETNUser(walletAddr);
         } else {
           console.log('[ETN Auth] No active session');
           setIsLogged(false);
+          setSub(null);
+          setWalletAddressogged(false);
           setSub(null);
         }
       } catch (err) {
@@ -102,17 +107,19 @@ export function ETNAuthProvider({ children }: { children: ReactNode }) {
   const checkSession = async () => {
     try {
       setError(null);
-      setIsLoading(true);
-      console.log('[ETN Auth] Checking session after callback...');
-
-      const userSub = await getETNUser();
-      if (userSub) {
-        console.log('[ETN Auth] Session confirmed:', userSub);
-        setSub(userSub);
+      setIsLwalletAddr = await getETNUser();
+      if (walletAddr) {
+        console.log('[ETN Auth] Session confirmed, wallet:', walletAddr);
+        setSub(walletAddr);
+        setWalletAddress(walletAddr);
         setIsLogged(true);
-        saveETNUser(userSub);
+        saveETNUser(walletAddr);
       } else {
         console.log('[ETN Auth] Session check failed');
+        setError('Failed to verify session');
+        setIsLogged(false);
+        setSub(null);
+        setWalletAddresse.log('[ETN Auth] Session check failed');
         setError('Failed to verify session');
         setIsLogged(false);
         setSub(null);
@@ -134,7 +141,8 @@ export function ETNAuthProvider({ children }: { children: ReactNode }) {
       setIsLoading(true);
       console.log('[ETN Auth] Logging out...');
 
-      // Call backend to clear session
+      // WalletAddress(null);
+      setCall backend to clear session
       await logoutETN();
 
       // Clear local state
@@ -154,6 +162,7 @@ export function ETNAuthProvider({ children }: { children: ReactNode }) {
   return (
     <ETNAuthContext.Provider
       value={{
+        walletAddress,
         isLoading,
         isLogged,
         sub,

@@ -8,7 +8,7 @@
  * 3. Redirect to ETN provider
  * 4. ETN redirects to backend callback
  * 5. Backend exchanges code → creates session in Firestore
- * 6. Frontend calls getMe() to confirm and get user identity (sub)
+ * 6. Frontend calls getETNUser() to confirm and get wallet address (sub)
  */
 
 const BACKEND_URL = process.env.NEXT_PUBLIC_ETN_BACKEND_URL || 'https://abay-gerd-backend.onrender.com';
@@ -20,6 +20,7 @@ export interface ETNLoginResponse {
 export interface ETNMeResponse {
   status: 'success' | 'error';
   sub?: string;
+  wallet_address?: string;
   message?: string;
 }
 
@@ -54,8 +55,8 @@ export async function startETNLogin(): Promise<string | null> {
 }
 
 /**
- * Get current user session
- * Called after OAuth callback to confirm login and get user identity
+ * Get current user session with wallet address
+ * Called after OAuth callback to confirm login and get wallet address
  */
 export async function getETNUser(): Promise<string | null> {
   try {
@@ -75,8 +76,9 @@ export async function getETNUser(): Promise<string | null> {
 
     const data: ETNMeResponse = await response.json();
     if (data.status === 'success' && data.sub) {
-      console.log('[ETN] User authenticated:', data.sub);
-      return data.sub;
+      console.log('[ETN] User authenticated:', data.sub, 'Wallet:', data.wallet_address);
+      // Return wallet_address if available, otherwise fall back to sub
+      return data.wallet_address || data.sub;
     }
     return null;
   } catch (error) {
@@ -119,29 +121,29 @@ export async function logoutETN(): Promise<boolean> {
 }
 
 /**
- * Store ETN user identity in localStorage
+ * Store ETN user wallet address in localStorage
  */
-export function saveETNUser(sub: string): void {
+export function saveETNUser(walletAddress: string): void {
   if (typeof window !== 'undefined') {
-    localStorage.setItem('etn_user_sub', sub);
+    localStorage.setItem('etn_wallet_address', walletAddress);
   }
 }
 
 /**
- * Get stored ETN user identity from localStorage
+ * Get stored ETN user wallet address from localStorage
  */
 export function getStoredETNUser(): string | null {
   if (typeof window !== 'undefined') {
-    return localStorage.getItem('etn_user_sub');
+    return localStorage.getItem('etn_wallet_address');
   }
   return null;
 }
 
 /**
- * Clear stored ETN user identity
+ * Clear stored ETN user data
  */
 export function clearStoredETNUser(): void {
   if (typeof window !== 'undefined') {
-    localStorage.removeItem('etn_user_sub');
+    localStorage.removeItem('etn_wallet_address');
   }
 }

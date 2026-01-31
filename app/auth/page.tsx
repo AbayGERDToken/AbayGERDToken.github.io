@@ -11,7 +11,7 @@ function AuthPageContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { login, logout, isLoading, error, isLogged, address } = useWeb3Auth();
-  const { signIn: etnSignIn, logout: etnLogout, isLoading: etnIsLoading, error: etnError, isLogged: etnIsLogged, sub: etnSub, checkSession } = useETNAuth();
+  const { signIn: etnSignIn, logout: etnLogout, isLoading: etnIsLoading, error: etnError, isLogged: etnIsLogged, sub: etnSub, walletAddress: etnWalletAddress, checkSession } = useETNAuth();
   const [localError, setLocalError] = React.useState<string | null>(null);
   const [balanceInfo, setBalanceInfo] = React.useState<string | null>(null);
   const [loadingBalance, setLoadingBalance] = React.useState(false);
@@ -272,10 +272,10 @@ function AuthPageContent() {
           </button>
         )}
 
-        {etnIsLogged && etnSub && (
+        {etnIsLogged && etnWalletAddress && (
           <button
             className={styles.proceedButton}
-            onClick={() => router.push(`/claim-form?address=${etnSub}`)}
+            onClick={() => router.push(`/claim-form?address=${etnWalletAddress}`)}
           >
             <i className="fas fa-arrow-right me-2"></i>
             Proceed to Claim Form
