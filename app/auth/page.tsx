@@ -221,7 +221,7 @@ function AuthPageContent() {
         {isLogged && address && (
           <>
             <div style={{
-              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              background: 'linear-gradient(135deg, #84d5a6 0%, #5bc29e 100%)',
               border: '1px solid #e0e0e0',
               borderRadius: '8px',
               overflow: 'hidden',
@@ -267,28 +267,13 @@ function AuthPageContent() {
                 </tbody>
               </table>
             </div>
-            
-            <div className={styles.addressContainer}>
-              <div className={styles.addressLabel}>Wallet Address:</div>
-              <div className={styles.addressRow}>
-                <code className={styles.addressText}>{address}</code>
-                <button
-                  className={styles.copyButton}
-                  onClick={handleCopyAddress}
-                  title="Copy address"
-                >
-                  <i className={`fas ${copySuccess ? 'fa-check' : 'fa-copy'}`}></i>
-                  {copySuccess ? 'Copied!' : 'Copy'}
-                </button>
-              </div>
-            </div>
           </>
         )}
 
         {etnIsLogged && etnSub && (
           <>
             <div style={{
-              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              background: 'linear-gradient(135deg, #84d5a6 0%, #5bc29e 100%)',
               border: '1px solid #e0e0e0',
               borderRadius: '8px',
               overflow: 'hidden',
@@ -333,31 +318,6 @@ function AuthPageContent() {
                   </tr>
                 </tbody>
               </table>
-            </div>
-            
-            <div className={styles.addressContainer}>
-              <div className={styles.addressLabel}>ETN User ID:</div>
-              <div className={styles.addressRow}>
-                <code className={styles.addressText}>{etnSub}</code>
-                <button
-                  className={styles.copyButton}
-                  onClick={() => {
-                    if (etnSub) {
-                      navigator.clipboard.writeText(etnSub);
-                      setCopySuccess(true);
-                      setTimeout(() => setCopySuccess(false), 2000);
-                    }
-                  }}
-                  title="Copy user ID"
-                >
-                  <i className={`fas ${copySuccess ? 'fa-check' : 'fa-copy'}`}></i>
-                  {copySuccess ? 'Copied!' : 'Copy'}
-                </button>
-              </div>
-            </div>
-            <div className={styles.infoAlert} style={{ background: '#d1ecf1', color: '#0c5460', marginTop: '1rem' }}>
-              <i className="fas fa-info-circle me-2"></i>
-              Your ETN account is securely connected. You can now proceed to claim your GERD tokens.
             </div>
           </>
         )}
