@@ -40,7 +40,7 @@ function AuthPageContent() {
     }
   }, [isLogged, etnIsLogged]);
 
-  // Show balance when logged in
+  // Show balance when logged in (Web3Auth)
   useEffect(() => {
     if (isLogged && address) {
       const checkBalance = async () => {
@@ -48,13 +48,13 @@ function AuthPageContent() {
         try {
           const balance = await fetchBalance(address);
           if (balance) {
-            setBalanceInfo(`Balance: ${balance} GERD`);
+            setBalanceInfo(`${balance} GERD`);
           } else {
-            setBalanceInfo('Balance: 0.00 GERD');
+            setBalanceInfo('0.00 GERD');
           }
         } catch (err) {
           console.error("Balance check error:", err);
-          setBalanceInfo('Balance: Unable to fetch');
+          setBalanceInfo('Unable to fetch');
         } finally {
           setLoadingBalance(false);
         }
@@ -64,6 +64,29 @@ function AuthPageContent() {
       setBalanceInfo(null);
     }
   }, [isLogged, address]);
+
+  // Show balance when logged in (ETN)
+  useEffect(() => {
+    if (etnIsLogged && etnWalletAddress) {
+      const checkBalance = async () => {
+        setLoadingBalance(true);
+        try {
+          const balance = await fetchBalance(etnWalletAddress);
+          if (balance) {
+            setBalanceInfo(`${balance} GERD`);
+          } else {
+            setBalanceInfo('0.00 GERD');
+          }
+        } catch (err) {
+          console.error("Balance check error:", err);
+          setBalanceInfo('Unable to fetch');
+        } finally {
+          setLoadingBalance(false);
+        }
+      };
+      checkBalance();
+    }
+  }, [etnIsLogged, etnWalletAddress]);
 
   const fetchBalance = async (walletAddress: string): Promise<string | null> => {
     try {
@@ -197,18 +220,52 @@ function AuthPageContent() {
 
         {isLogged && address && (
           <>
-            <div className={styles.successAlert}>
-              <i className="fas fa-check-circle me-2"></i>
-              {loadingBalance ? (
-                <>
-                  Wallet connected! Loading balance...
-                  <i className="fas fa-spinner fa-spin ms-2"></i>
-                </>
-              ) : (
-                <>
-                  Wallet connected! {balanceInfo || 'Balance: N/A'}
-                </>
-              )}
+            <div style={{
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              border: '1px solid #e0e0e0',
+              borderRadius: '8px',
+              overflow: 'hidden',
+              marginBottom: '1.5rem',
+              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+            }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                <tbody>
+                  <tr>
+                    <td style={{
+                      padding: '1rem',
+                      borderRight: '1px solid rgba(255,255,255,0.2)',
+                      width: '50%',
+                      color: 'white'
+                    }}>
+                      <div style={{ fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem', opacity: 0.9 }}>
+                        <i className="fas fa-wallet me-2"></i>Wallet Connected
+                      </div>
+                      <div style={{ fontSize: '0.85rem', wordBreak: 'break-all', fontFamily: 'monospace' }}>
+                        {address}
+                      </div>
+                    </td>
+                    <td style={{
+                      padding: '1rem',
+                      textAlign: 'center',
+                      width: '50%',
+                      color: 'white'
+                    }}>
+                      <div style={{ fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem', opacity: 0.9 }}>
+                        <i className="fas fa-coins me-2"></i>Balance
+                      </div>
+                      <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
+                        {loadingBalance ? (
+                          <>
+                            <i className="fas fa-spinner fa-spin"></i>
+                          </>
+                        ) : (
+                          balanceInfo || '0.00 GERD'
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
             
             <div className={styles.addressContainer}>
@@ -230,9 +287,52 @@ function AuthPageContent() {
 
         {etnIsLogged && etnSub && (
           <>
-            <div className={styles.successAlert}>
-              <i className="fas fa-check-circle me-2"></i>
-              ETN Identity Connected!
+            <div style={{
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              border: '1px solid #e0e0e0',
+              borderRadius: '8px',
+              overflow: 'hidden',
+              marginBottom: '1.5rem',
+              boxShadow: '0 4px 6px rgba(0, 0, 0, 0.1)'
+            }}>
+              <table style={{ width: '100%', borderCollapse: 'collapse' }}>
+                <tbody>
+                  <tr>
+                    <td style={{
+                      padding: '1rem',
+                      borderRight: '1px solid rgba(255,255,255,0.2)',
+                      width: '50%',
+                      color: 'white'
+                    }}>
+                      <div style={{ fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem', opacity: 0.9 }}>
+                        <i className="fas fa-wallet me-2"></i>Wallet Connected
+                      </div>
+                      <div style={{ fontSize: '0.85rem', wordBreak: 'break-all', fontFamily: 'monospace' }}>
+                        {etnWalletAddress || etnSub}
+                      </div>
+                    </td>
+                    <td style={{
+                      padding: '1rem',
+                      textAlign: 'center',
+                      width: '50%',
+                      color: 'white'
+                    }}>
+                      <div style={{ fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem', opacity: 0.9 }}>
+                        <i className="fas fa-coins me-2"></i>Balance
+                      </div>
+                      <div style={{ fontSize: '1.5rem', fontWeight: 'bold' }}>
+                        {loadingBalance ? (
+                          <>
+                            <i className="fas fa-spinner fa-spin"></i>
+                          </>
+                        ) : (
+                          balanceInfo || '0.00 GERD'
+                        )}
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
             
             <div className={styles.addressContainer}>
