@@ -141,12 +141,12 @@ export function ETNAuthProvider({ children }: { children: ReactNode }) {
       setIsLoading(true);
       console.log('[ETN Auth] Logging out...');
 
-      // WalletAddress(null);
-      setCall backend to clear session
+      // Call backend to clear session
       await logoutETN();
 
       // Clear local state
       setSub(null);
+      setWalletAddress(null);
       setIsLogged(false);
       clearStoredETNUser();
       console.log('[ETN Auth] Logged out successfully');
