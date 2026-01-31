@@ -213,11 +213,13 @@ App
 
 | File | Purpose |
 |------|---------|
+| .github/copilot-instructions.md | AI agent guide: architecture, workflows, conventions, integration points |
 | ETN_INTEGRATION.md | Complete setup and configuration guide |
 | ETN_INTEGRATION_SUMMARY.md | High-level implementation overview |
 | QUICK_SETUP_ETN.md | Step-by-step quick setup guide |
 | ETN_ARCHITECTURE.md | Architecture, data flows, and diagrams |
 | ETN_CODE_EXAMPLES.md | Code examples and patterns |
+| DOCUMENTATION_INDEX.md | Navigation guide for all documentation |
 
 ---
 

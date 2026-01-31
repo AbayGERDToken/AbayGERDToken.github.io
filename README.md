@@ -18,6 +18,12 @@ The website offers essential information about the token, its purpose, and instr
 
 To get started with the GERD Token, please visit the official website at www.AbayGERDToken.com
 
+## Developer Documentation
+
+For AI coding agents and developers working on this project, see **[.github/copilot-instructions.md](.github/copilot-instructions.md)** for essential architecture, workflows, conventions, and integration patterns.
+
+For detailed ETN Identity integration documentation, start with [DOCUMENTATION_INDEX.md](DOCUMENTATION_INDEX.md).
+
 ## Contributing
 
 We welcome community contributions to the Abay GERD Token project. If you would like to contribute, please follow these steps:
@@ -27,8 +33,9 @@ We welcome community contributions to the Abay GERD Token project. If you would 
 3. Make your changes and commit them to your branch.
 4. Create a pull request against the main branch of this repository.
 5. Wait for your pull request to be reviewed and merged.
+6. Update relevant `.md` documentation files as part of your PR.
 
-Please ensure your changes are relevant and adhere to this project.
+Please ensure your changes are relevant and adhere to this project. Always keep documentation in sync with code changes.
 
 ## License
 

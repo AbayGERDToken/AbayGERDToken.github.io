@@ -1,8 +1,10 @@
-# ETN Identity SDK Integration - Complete Documentation Index
+# Abay GERD Token - Complete Documentation Index
 
 ## 📑 Documentation Overview
 
-Welcome! This guide will help you navigate all the ETN Integration documentation. Start with the guide that matches your needs.
+**🤖 For AI Coding Agents & Developers**: Start with **[.github/copilot-instructions.md](.github/copilot-instructions.md)** - This is the foundational guide covering project architecture, workflows, conventions, and integration patterns.
+
+For detailed **ETN Identity Integration** documentation, continue below. This guide will help you navigate all the ETN Integration documentation. Start with the guide that matches your needs.
 
 ---
 
