@@ -15,6 +15,11 @@ interface WalletBalance {
 
 const GERD_TOKEN_ADDRESS = '0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c';
 const BSC_RPC = 'https://bsc-dataseed.binance.org/';
+const TOTAL_SUPPLY = 120_000_000_000;
+const NOT_IN_CIRCULATION_ADDRESSES = [
+  '0x932fa749A04750284794eF55B4436Bf9Cb4AfF15',
+  '0x000000000000000000000000000000000000dead',
+];
 
 const wallets = [
   { address: '0x02a2013C569c3cF7a8bf3DFE70D97c76B44993dc', description: 'Vesting Reserve' },
@@ -44,6 +49,12 @@ export default function GerdWallets() {
   const [balances, setBalances] = useState<WalletBalance[]>(
     wallets.map(w => ({ ...w, balance: null, numericBalance: null, loading: true, error: false }))
   );
+  const [notInCirculation, setNotInCirculation] = useState<{
+    balance: string | null;
+    numericBalance: number | null;
+    loading: boolean;
+    error: boolean;
+  }>({ balance: null, numericBalance: null, loading: true, error: false });
 
   useEffect(() => {
     const fetchBalances = async () => {
@@ -72,11 +83,24 @@ export default function GerdWallets() {
           }
         });
 
-        const results = await Promise.all(balancePromises);
+        const [results, notInCirculationRaw] = await Promise.all([
+          Promise.all(balancePromises),
+          Promise.all(NOT_IN_CIRCULATION_ADDRESSES.map((address) => contract.methods.balanceOf(address).call())),
+        ]);
         setBalances(results);
+
+        const notInCirculationNumeric = notInCirculationRaw
+          .reduce((sum, raw) => sum + (Number(raw) / (10 ** Number(decimals))), 0);
+        setNotInCirculation({
+          balance: notInCirculationNumeric.toLocaleString(),
+          numericBalance: notInCirculationNumeric,
+          loading: false,
+          error: false,
+        });
       } catch (err) {
         console.error('Failed to initialize Web3:', err);
         setBalances(prev => prev.map(w => ({ ...w, loading: false, error: true, balance: 'Error', numericBalance: null })));
+        setNotInCirculation({ balance: 'Error', numericBalance: null, loading: false, error: true });
       }
     };
 
@@ -84,11 +108,20 @@ export default function GerdWallets() {
   }, []);
 
   const totalBalance = balances.reduce((sum, wallet) => sum + (wallet.numericBalance ?? 0), 0);
+  const notInCirculationBalance = notInCirculation.numericBalance ?? 0;
+  const publicCirculation = Math.max(0, TOTAL_SUPPLY - notInCirculationBalance - totalBalance);
+
+  const distributionData = [
+    { label: 'Public Circulation', value: publicCirculation },
+    { label: 'Project-Controlled Holdings', value: totalBalance },
+    { label: 'Not in Circulation (Burn + Reserve)', value: notInCirculationBalance },
+  ];
+
+  const distributionTotal = distributionData.reduce((sum, item) => sum + item.value, 0);
 
   let currentAngle = 0;
-  const gradientStops = balances.map((wallet, index) => {
-    const value = wallet.numericBalance ?? 0;
-    const percentage = totalBalance > 0 ? (value / totalBalance) * 100 : 0;
+  const gradientStops = distributionData.map((item, index) => {
+    const percentage = distributionTotal > 0 ? (item.value / distributionTotal) * 100 : 0;
     const start = currentAngle;
     const end = currentAngle + percentage;
     currentAngle = end;
@@ -96,7 +129,7 @@ export default function GerdWallets() {
   });
 
   const chartStyle = {
-    background: totalBalance > 0 ? `conic-gradient(${gradientStops.join(', ')})` : '#e9ecef',
+    background: distributionTotal > 0 ? `conic-gradient(${gradientStops.join(', ')})` : '#e9ecef',
     width: '260px',
     height: '260px',
     borderRadius: '50%',
@@ -176,34 +209,38 @@ export default function GerdWallets() {
 
                   <div className="mt-5">
                     <div className="d-flex flex-column flex-lg-row align-items-center gap-4">
-                      <div className="flex-shrink-0" aria-hidden={totalBalance === 0}>
+                      <div className="flex-shrink-0" aria-hidden={distributionTotal === 0}>
                         <div style={chartStyle} className="d-flex align-items-center justify-content-center">
                           <div className="text-center" style={{ position: 'absolute' }}>
-                            <div className="fw-bold">Token Distribution</div>
-                            <small className="text-muted">by wallet</small>
+                            <div className="fw-bold">Token Supply Status</div>
+                            <small className="text-muted">circulation view</small>
                           </div>
                         </div>
                       </div>
                       <div className="flex-grow-1 w-100">
                         <h3 className="h5 fw-semibold mb-3">Distribution Breakdown</h3>
-                        {totalBalance === 0 ? (
+                        {distributionTotal === 0 ? (
                           <p className="text-muted mb-0">Chart will appear when balances finish loading.</p>
                         ) : (
                           <div className="row row-cols-1 row-cols-md-2 g-3">
-                            {balances.map((wallet, index) => {
-                              const value = wallet.numericBalance ?? 0;
-                              const percentage = totalBalance > 0 ? ((value / totalBalance) * 100).toFixed(2) : '0.00';
+                            {distributionData.map((item, index) => {
+                              const percentage = distributionTotal > 0 ? ((item.value / distributionTotal) * 100).toFixed(2) : '0.00';
+                              const isLoading =
+                                (item.label === 'Project-Controlled Holdings' && balances.some(w => w.loading)) ||
+                                (item.label === 'Not in Circulation (Burn + Reserve)' && notInCirculation.loading);
                               return (
-                                <div key={wallet.address} className="col">
+                                <div key={item.label} className="col">
                                   <div className="d-flex align-items-start">
                                     <span
                                       className="me-2 mt-1"
                                       style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: chartColors[index % chartColors.length] }}
                                     ></span>
                                     <div>
-                                      <div className="fw-semibold">{wallet.description}</div>
+                                      <div className="fw-semibold">{item.label}</div>
                                       <div className="small text-muted">
-                                        {wallet.loading ? 'Loading...' : `${wallet.balance ?? '0'} GERD (${percentage}%)`}
+                                        {isLoading
+                                          ? 'Loading...'
+                                          : `${item.value.toLocaleString()} GERD (${percentage}%)`}
                                       </div>
                                     </div>
                                   </div>
