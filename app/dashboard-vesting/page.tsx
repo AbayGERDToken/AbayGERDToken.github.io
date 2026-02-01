@@ -20,11 +20,11 @@ export default function DashboardVesting() {
   const [walletBalances, setWalletBalances] = useState<Array<{ name: string; address: string; balance: string }>>([]);
 
   const walletData = [
-    { name: 'GERD Locked Vesting Smart Contract', address: '0x932fa749A04750284794eF55B4436Bf9Cb4AfF15' },
-    { name: 'Airdrop Distributor', address: '0x990eC8272ECfDE6B00c37E56E50cC2BeE1734236' },
+    { name: 'GERD Vesting Smart Contract-Locked', address: '0x932fa749A04750284794eF55B4436Bf9Cb4AfF15' },
+    { name: 'GERD Airdrop Treasury (3-of-5 Gnosis Safe multisig)', address: '0x990eC8272ECfDE6B00c37E56E50cC2BeE1734236' },
     { name: 'Liquidity Reserve', address: '0xdEA3dc7F2ea7A185aa8A6323f04164a9C9c67700' },
     { name: 'Staking Reserve', address: '0x559C7a315067F39ad4a19887135C6aDd779B2c8E' },
-    { name: 'Token Burn - Dead Address', address: '0x000000000000000000000000000000000000dead' },
+    { name: 'Token Burn-Dead Address', address: '0x000000000000000000000000000000000000dead' },
   ];
 
   useEffect(() => {

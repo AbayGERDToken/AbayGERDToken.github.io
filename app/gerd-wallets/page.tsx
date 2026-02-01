@@ -21,6 +21,7 @@ const wallets = [
   { address: '0x8bF286A0135489832300e33F57ACc7ADA2Ca8133', description: 'Development Reserve Fund' },
   { address: '0xAfDAaDe5b0044993813b1f06cC3F3c6C025a1F1D', description: 'Distribution Reserve - for Claims' },
   { address: '0xB2d784C9DDFE33359D1Af13E9121D7bd94C28578', description: 'Backend Claim Dispenser' },
+  { address: '0x990eC8272ECfDE6B00c37E56E50cC2BeE1734236', description: 'Airdrop Treasury (3-of-5 Gnosis Safe multisig)' },
   { address: '0x2C8FbB5E9b56050401C283a7bd22a8594b64c6d1', description: 'Airdrop Distributor Smart Contract' },
   { address: '0xdEA3dc7F2ea7A185aa8A6323f04164a9C9c67700', description: 'Liquidity Reserve' },
   { address: '0x75F5f7d68AD14f467c935d6B375D350614F9cF68', description: 'GERD Dignitary Reserve' },
