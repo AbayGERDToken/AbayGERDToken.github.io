@@ -55,6 +55,11 @@ export default function GerdWallets() {
     loading: boolean;
     error: boolean;
   }>({ balance: null, numericBalance: null, loading: true, error: false });
+  const [lockedBreakdown, setLockedBreakdown] = useState<{
+    vesting: number | null;
+    burn: number | null;
+    loading: boolean;
+  }>({ vesting: null, burn: null, loading: true });
 
   useEffect(() => {
     const fetchBalances = async () => {
@@ -89,6 +94,16 @@ export default function GerdWallets() {
         ]);
         setBalances(results);
 
+        // Calculate vesting and burn breakdown
+        const vestingAddress = '0x02a2013C569c3cF7a8bf3DFE70D97c76B44993dc';
+        const burnAddress = '0x000000000000000000000000000000000000dead';
+        
+        const vestingRaw = await contract.methods.balanceOf(vestingAddress).call();
+        const burnRaw = await contract.methods.balanceOf(burnAddress).call();
+        
+        const vestingNumeric = Number(vestingRaw) / (10 ** Number(decimals));
+        const burnNumeric = Number(burnRaw) / (10 ** Number(decimals));
+
         const notInCirculationNumeric = notInCirculationRaw
           .reduce((sum, raw) => sum + (Number(raw) / (10 ** Number(decimals))), 0);
         setNotInCirculation({
@@ -97,10 +112,17 @@ export default function GerdWallets() {
           loading: false,
           error: false,
         });
+
+        setLockedBreakdown({
+          vesting: vestingNumeric,
+          burn: burnNumeric,
+          loading: false,
+        });
       } catch (err) {
         console.error('Failed to initialize Web3:', err);
         setBalances(prev => prev.map(w => ({ ...w, loading: false, error: true, balance: 'Error', numericBalance: null })));
         setNotInCirculation({ balance: 'Error', numericBalance: null, loading: false, error: true });
+        setLockedBreakdown({ vesting: null, burn: null, loading: false });
       }
     };
 
@@ -112,9 +134,9 @@ export default function GerdWallets() {
   const publicCirculation = Math.max(0, TOTAL_SUPPLY - notInCirculationBalance - totalBalance);
 
   const distributionData = [
-    { label: 'Public Circulation', value: publicCirculation },
-    { label: 'Project-Controlled Holdings', value: totalBalance },
-    { label: 'Not in Circulation (Burn + Reserve)', value: notInCirculationBalance },
+    { label: 'Unrestricted Circulating Supply', value: publicCirculation },
+    { label: 'Governance-Controlled Wallets', value: totalBalance },
+    { label: 'Irrevocably Locked Supply (Vesting + Burn)', value: notInCirculationBalance },
   ];
 
   const distributionTotal = distributionData.reduce((sum, item) => sum + item.value, 0);
@@ -226,8 +248,8 @@ export default function GerdWallets() {
                             {distributionData.map((item, index) => {
                               const percentage = distributionTotal > 0 ? ((item.value / distributionTotal) * 100).toFixed(2) : '0.00';
                               const isLoading =
-                                (item.label === 'Project-Controlled Holdings' && balances.some(w => w.loading)) ||
-                                (item.label === 'Not in Circulation (Burn + Reserve)' && notInCirculation.loading);
+                                (item.label === 'Governance-Controlled Wallets' && balances.some(w => w.loading)) ||
+                                (item.label === 'Irrevocably Locked Supply (Vesting + Burn)' && notInCirculation.loading);
                               return (
                                 <div key={item.label} className="col">
                                   <div className="d-flex align-items-start">
@@ -235,13 +257,31 @@ export default function GerdWallets() {
                                       className="me-2 mt-1"
                                       style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: chartColors[index % chartColors.length] }}
                                     ></span>
-                                    <div>
+                                    <div className="w-100">
                                       <div className="fw-semibold">{item.label}</div>
                                       <div className="small text-muted">
                                         {isLoading
                                           ? 'Loading...'
                                           : `${item.value.toLocaleString()} GERD (${percentage}%)`}
                                       </div>
+                                      {/* Show breakdown for Irrevocably Locked Supply */}
+                                      {item.label === 'Irrevocably Locked Supply (Vesting + Burn)' && !lockedBreakdown.loading && (
+                                        <div className="mt-2 ps-3 border-start border-2" style={{ borderColor: chartColors[index % chartColors.length] }}>
+                                          <div className="small">
+                                            <div className="text-muted">
+                                              <span className="me-2">📊</span>
+                                              <strong>Vesting Reserve:</strong> {(lockedBreakdown.vesting ?? 0).toLocaleString()} GERD
+                                            </div>
+                                            <div className="text-muted mt-1">
+                                              <span className="me-2">🔥</span>
+                                              <strong>Burn Address:</strong> {(lockedBreakdown.burn ?? 0).toLocaleString()} GERD
+                                            </div>
+                                          </div>
+                                        </div>
+                                      )}
+                                      {item.label === 'Irrevocably Locked Supply (Vesting + Burn)' && lockedBreakdown.loading && (
+                                        <div className="mt-2 ps-3 small text-muted">Loading breakdown...</div>
+                                      )}
                                     </div>
                                   </div>
                                 </div>
