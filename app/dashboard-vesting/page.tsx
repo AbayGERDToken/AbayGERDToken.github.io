@@ -4,10 +4,12 @@ import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import ContractAddress from '@/components/ContractAddress';
 
-const CONTRACT_ADDRESS = '0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c';
+const CONTRACT_ADDRESS = '0x932fa749A04750284794eF55B4436Bf9Cb4AfF15';
 const LOCKED_TOTAL = 115_000_000_000;
 const RELEASE_PER_YEAR = 1_000_000_000;
 const START_DATE = new Date('2025-04-24T00:00:00Z');
+const GERD_TOKEN_ADDRESS = '0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c';
+const BSC_RPC = 'https://bsc-dataseed.binance.org/';
 
 export default function DashboardVesting() {
   const [countdown, setCountdown] = useState<string>('...');
@@ -15,6 +17,7 @@ export default function DashboardVesting() {
   const [released, setReleased] = useState<string>('...');
   const [remaining, setRemaining] = useState<string>('...');
   const [releaseDate, setReleaseDate] = useState<string>('...');
+  const [vestingBalance, setVestingBalance] = useState<string>('Loading...');
 
   useEffect(() => {
     const updateStats = () => {
@@ -53,6 +56,38 @@ export default function DashboardVesting() {
     updateCountdown();
     const interval = setInterval(updateCountdown, 1000);
     return () => clearInterval(interval);
+  }, []);
+
+  useEffect(() => {
+    const fetchVestingBalance = async () => {
+      try {
+        const Web3 = (await import('web3')).default;
+        const web3 = new Web3(BSC_RPC);
+
+        const tokenABI = [
+          { constant: true, inputs: [], name: 'decimals', outputs: [{ name: '', type: 'uint8' }], type: 'function' },
+          { constant: true, inputs: [{ name: 'account', type: 'address' }], name: 'balanceOf', outputs: [{ name: '', type: 'uint256' }], type: 'function' },
+        ];
+
+        const contract = new web3.eth.Contract(tokenABI as any, GERD_TOKEN_ADDRESS);
+        const decimals = await contract.methods.decimals().call();
+        const raw = await contract.methods.balanceOf(CONTRACT_ADDRESS).call();
+        const numericBalance = Number(raw) / (10 ** Number(decimals));
+        
+        // Format with custom locale to ensure proper formatting
+        const formatted = numericBalance.toLocaleString('en-US', {
+          minimumFractionDigits: 2,
+          maximumFractionDigits: 2
+        });
+        
+        setVestingBalance(formatted);
+      } catch (err) {
+        console.error('Failed to fetch vesting balance:', err);
+        setVestingBalance('Error loading balance');
+      }
+    };
+
+    fetchVestingBalance();
   }, []);
 
   return (
@@ -108,13 +143,22 @@ export default function DashboardVesting() {
             </div>
           </div>
 
-          {/* Contract Address */}
+          {/* Contract Address and Balance */}
           <div className="row mb-5">
-            <div className="col-12">
+            <div className="col-lg-6 mb-3 mb-lg-0">
               <ContractAddress
                 address={CONTRACT_ADDRESS}
-                label="Contract Address"
+                label="GERD Vesting Smart Contract Address"
               />
+            </div>
+            <div className="col-lg-6">
+              <div className="card h-100">
+                <div className="card-body d-flex flex-column justify-content-center">
+                  <h5 className="card-title mb-2">Vesting Wallet Balance</h5>
+                  <p className="h4 fw-bold text-success mb-0">{vestingBalance}</p>
+                  <p className="text-muted small mb-0">GERD Tokens</p>
+                </div>
+              </div>
             </div>
           </div>
 
