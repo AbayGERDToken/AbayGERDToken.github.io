@@ -17,10 +17,10 @@ export default function DashboardVesting() {
   const [released, setReleased] = useState<string>('...');
   const [remaining, setRemaining] = useState<string>('...');
   const [releaseDate, setReleaseDate] = useState<string>('...');
-  const [walletBalances, setWalletBalances] = useState<Array<{ name: string; address: string; balance: string }>>([]);
+  const [walletBalances, setWalletBalances] = useState<Array<{ name: string; address: string; balance: string; sourceCodeUrl?: string }>>([]);
 
   const walletData = [
-    { name: 'GERD Vesting Smart Contract-Locked', address: '0x932fa749A04750284794eF55B4436Bf9Cb4AfF15' },
+    { name: 'GERD Vesting Smart Contract-Locked', address: '0x932fa749A04750284794eF55B4436Bf9Cb4AfF15', sourceCodeUrl: 'https://bscscan.com/address/0x932fa749A04750284794eF55B4436Bf9Cb4AfF15#code' },
     { name: 'GERD Airdrop Treasury (3-of-5 Gnosis Safe multisig)', address: '0x990eC8272ECfDE6B00c37E56E50cC2BeE1734236' },
     { name: 'Liquidity Reserve', address: '0xdEA3dc7F2ea7A185aa8A6323f04164a9C9c67700' },
     { name: 'Staking Reserve', address: '0x559C7a315067F39ad4a19887135C6aDd779B2c8E' },
@@ -177,7 +177,12 @@ export default function DashboardVesting() {
                       walletBalances.map((wallet) => (
                         <tr key={wallet.address}>
                           <td>
-                            <div className="mb-2 fw-semibold">{wallet.name}</div>
+                            <div className="mb-2 fw-semibold">
+                              {wallet.name}
+                              {wallet.sourceCodeUrl && (
+                                <> <a href={wallet.sourceCodeUrl} target="_blank" rel="noopener noreferrer" className="text-success text-decoration-none"><small>(source code)</small></a></>
+                              )}
+                            </div>
                             <a
                               href={`https://bscscan.com/token/${GERD_TOKEN_ADDRESS}?a=${wallet.address}`}
                               target="_blank"
