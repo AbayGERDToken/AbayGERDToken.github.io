@@ -18,6 +18,7 @@ const BSC_RPC = 'https://bsc-dataseed.binance.org/';
 
 const wallets = [
   { address: '0x02a2013C569c3cF7a8bf3DFE70D97c76B44993dc', description: 'Vesting Reserve' },
+  { address: '0x932fa749A04750284794eF55B4436Bf9Cb4AfF15', description: 'GERD Annual Vesting Smart Contract' },
   { address: '0x000000000000000000000000000000000000dead', description: 'Token Burn - Dead Address' },
   { address: '0x8bF286A0135489832300e33F57ACc7ADA2Ca8133', description: 'Development Reserve Fund' },
   { address: '0xAfDAaDe5b0044993813b1f06cC3F3c6C025a1F1D', description: 'Distribution - for Claims' },
