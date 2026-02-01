@@ -22,7 +22,7 @@ const NOT_IN_CIRCULATION_ADDRESSES = [
 ];
 
 const wallets = [
-  { address: '0x02a2013C569c3cF7a8bf3DFE70D97c76B44993dc', description: 'Vesting Reserve' },
+  { address: '0x02a2013C569c3cF7a8bf3DFE70D97c76B44993dc', description: 'Treasury Reserve' },
   { address: '0x8bF286A0135489832300e33F57ACc7ADA2Ca8133', description: 'Development Reserve Fund' },
   { address: '0xAfDAaDe5b0044993813b1f06cC3F3c6C025a1F1D', description: 'Distribution Reserve - for Claims' },
   { address: '0xB2d784C9DDFE33359D1Af13E9121D7bd94C28578', description: 'Backend Claim Dispenser' },
@@ -270,7 +270,7 @@ export default function GerdWallets() {
                                           <div className="small">
                                             <div className="text-muted">
                                               <span className="me-2">📊</span>
-                                              <strong>Vesting Reserve:</strong> {(lockedBreakdown.vesting ?? 0).toLocaleString()} GERD
+                                              <strong>Vesting Locked:</strong> {(lockedBreakdown.vesting ?? 0).toLocaleString()} GERD
                                             </div>
                                             <div className="text-muted mt-1">
                                               <span className="me-2">🔥</span>
