@@ -31,8 +31,6 @@ const wallets = [
   { address: '0xdEA3dc7F2ea7A185aa8A6323f04164a9C9c67700', description: 'Liquidity Reserve' },
   { address: '0x75F5f7d68AD14f467c935d6B375D350614F9cF68', description: 'GERD Dignitary Reserve' },
   { address: '0x559C7a315067F39ad4a19887135C6aDd779B2c8E', description: 'Staking Rewards Reserve' },
-  { address: '0x932fa749A04750284794eF55B4436Bf9Cb4AfF15', description: 'Irrevocably Locked - Vesting Locked', isLocked: true },
-  { address: '0x000000000000000000000000000000000000dead', description: 'Irrevocably Locked - Burn Address', isLocked: true },
 ];
 
 const chartColors = [
