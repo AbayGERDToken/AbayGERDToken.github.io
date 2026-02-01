@@ -146,18 +146,31 @@ export default function DashboardVesting() {
           {/* Contract Address and Balance */}
           <div className="row mb-5">
             <div className="col-lg-6 mb-3 mb-lg-0">
+              <div className="d-flex align-items-center justify-content-between mb-3">
+                <h5 className="h6 text-muted fw-semibold mb-0">
+                  <i className="fas fa-link me-2"></i>GERD Vesting Smart Contract Address:
+                </h5>
+                <a
+                  href="https://bscscan.com/token/0x932fa749A04750284794eF55B4436Bf9Cb4AfF15#code"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-sm btn-outline-success text-decoration-none"
+                >
+                  <i className="fas fa-code me-1"></i>Source Code
+                </a>
+              </div>
               <ContractAddress
                 address={CONTRACT_ADDRESS}
                 label="GERD Vesting Smart Contract Address"
               />
             </div>
             <div className="col-lg-6">
-              <div className="card h-100">
-                <div className="card-body d-flex flex-column justify-content-center">
-                  <h5 className="card-title mb-2">Vesting Wallet Balance</h5>
-                  <p className="h4 fw-bold text-success mb-0">{vestingBalance}</p>
-                  <p className="text-muted small mb-0">GERD Tokens</p>
-                </div>
+              <div className="contract-address">
+                <p className="mb-2 small text-muted">
+                  <i className="fas fa-coins me-2"></i>Vesting Wallet Balance:
+                </p>
+                <p className="h4 fw-bold text-success mb-0">{vestingBalance}</p>
+                <p className="text-muted small mb-0">GERD Tokens</p>
               </div>
             </div>
           </div>

@@ -87,7 +87,7 @@ export default function GerdAirdrop() {
                     </div>
                   </div>
                   <p className="text-muted mb-0">
-                    The earlier you join, the more tokens you&apos;ll receive in each annual airdrop!
+                    Because the annual airdrop amount is fixed, earlier participants receive a higher per-wallet allocation, as the distribution is shared among a smaller number of wallets.
                   </p>
                 </div>
               </div>
