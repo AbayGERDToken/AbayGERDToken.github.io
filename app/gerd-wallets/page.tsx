@@ -11,6 +11,7 @@ interface WalletBalance {
   numericBalance: number | null;
   loading: boolean;
   error: boolean;
+  isLocked?: boolean;
 }
 
 const GERD_TOKEN_ADDRESS = '0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c';
@@ -31,6 +32,8 @@ const wallets = [
   { address: '0xdEA3dc7F2ea7A185aa8A6323f04164a9C9c67700', description: 'Liquidity Reserve' },
   { address: '0x75F5f7d68AD14f467c935d6B375D350614F9cF68', description: 'GERD Dignitary Reserve' },
   { address: '0x559C7a315067F39ad4a19887135C6aDd779B2c8E', description: 'Staking Rewards Reserve' },
+  { address: '0x932fa749A04750284794eF55B4436Bf9Cb4AfF15', description: 'Irrevocably Locked - Vesting Locked', isLocked: true },
+  { address: '0x000000000000000000000000000000000000dead', description: 'Irrevocably Locked - Burn Address', isLocked: true },
 ];
 
 const chartColors = [
@@ -136,7 +139,7 @@ export default function GerdWallets() {
   const distributionData = [
     { label: 'Unrestricted Circulating Supply', value: publicCirculation },
     { label: 'Governance-Controlled Wallets', value: totalBalance },
-    { label: 'Irrevocably Locked Supply (Vesting + Burn)', value: notInCirculationBalance },
+    { label: 'Irrevocably Locked Supply', value: notInCirculationBalance },
   ];
 
   const distributionTotal = distributionData.reduce((sum, item) => sum + item.value, 0);
@@ -187,7 +190,7 @@ export default function GerdWallets() {
               <div className="card feature-card">
                 <div className="card-body p-4">
                   <h2 className="h4 fw-bold mb-4 text-center">
-                    <i className="fas fa-table me-2"></i>These wallets are controlled by the project and are not locked by a smart contract.
+                    <i className="fas fa-table me-2"></i>Token Allocation Tracking
                   </h2>
                   <div className="table-responsive">
                     <table id="wallet-table" className="table table-striped table-hover mb-0">
@@ -200,7 +203,7 @@ export default function GerdWallets() {
                       </thead>
                       <tbody>
                         {balances.map((wallet) => (
-                          <tr key={wallet.address}>
+                          <tr key={wallet.address} className={wallet.isLocked ? 'table-warning' : ''}>
                             <td
                               className={`balance ${wallet.loading
                                 ? 'balance-loading'
@@ -211,7 +214,14 @@ export default function GerdWallets() {
                             >
                               {wallet.loading ? 'Loading...' : wallet.balance}
                             </td>
-                            <td>{wallet.description}</td>
+                            <td>
+                              {wallet.description}
+                              {wallet.isLocked && (
+                                <span className="badge bg-warning text-dark ms-2">
+                                  <i className="fas fa-lock me-1"></i>Irrevocably Locked
+                                </span>
+                              )}
+                            </td>
                             <td>
                               <a
                                 href={`https://bscscan.com/token/${GERD_TOKEN_ADDRESS}?a=${wallet.address}`}
@@ -254,8 +264,8 @@ export default function GerdWallets() {
                                 <div key={item.label} className="col">
                                   <div className="d-flex align-items-start">
                                     <span
-                                      className="me-2 mt-1"
-                                      style={{ width: '12px', height: '12px', borderRadius: '50%', backgroundColor: chartColors[index % chartColors.length] }}
+                                      className="me-3 flex-shrink-0"
+                                      style={{ width: '24px', height: '24px', borderRadius: '4px', backgroundColor: chartColors[index % chartColors.length] }}
                                     ></span>
                                     <div className="w-100">
                                       <div className="fw-semibold">{item.label}</div>
