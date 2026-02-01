@@ -95,7 +95,7 @@ export default function GerdWallets() {
         setBalances(results);
 
         // Calculate vesting and burn breakdown
-        const vestingAddress = '0x02a2013C569c3cF7a8bf3DFE70D97c76B44993dc';
+        const vestingAddress = '0x932fa749A04750284794eF55B4436Bf9Cb4AfF15';
         const burnAddress = '0x000000000000000000000000000000000000dead';
         
         const vestingRaw = await contract.methods.balanceOf(vestingAddress).call();
