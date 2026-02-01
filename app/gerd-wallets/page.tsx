@@ -18,14 +18,13 @@ const BSC_RPC = 'https://bsc-dataseed.binance.org/';
 
 const wallets = [
   { address: '0x02a2013C569c3cF7a8bf3DFE70D97c76B44993dc', description: 'Vesting Reserve' },
-  { address: '0x932fa749A04750284794eF55B4436Bf9Cb4AfF15', description: 'GERD Annual Vesting Smart Contract' },
-  { address: '0x000000000000000000000000000000000000dead', description: 'Token Burn - Dead Address' },
   { address: '0x8bF286A0135489832300e33F57ACc7ADA2Ca8133', description: 'Development Reserve Fund' },
-  { address: '0xAfDAaDe5b0044993813b1f06cC3F3c6C025a1F1D', description: 'Distribution - for Claims' },
-  { address: '0x2C8FbB5E9b56050401C283a7bd22a8594b64c6d1', description: 'Airdrop Smart Contract' },
-  { address: '0xdA96DBeDD6eF3f4f2b503565A7c6a5a65fbabf17', description: 'Liquidity Pool' },
+  { address: '0xAfDAaDe5b0044993813b1f06cC3F3c6C025a1F1D', description: 'Distribution Reserve - for Claims' },
+  { address: '0xB2d784C9DDFE33359D1Af13E9121D7bd94C28578', description: 'Backend Claim Dispenser' },
+  { address: '0x2C8FbB5E9b56050401C283a7bd22a8594b64c6d1', description: 'Airdrop Distributor Smart Contract' },
+  { address: '0xdEA3dc7F2ea7A185aa8A6323f04164a9C9c67700', description: 'Liquidity Reserve' },
   { address: '0x75F5f7d68AD14f467c935d6B375D350614F9cF68', description: 'GERD Dignitary Reserve' },
-  { address: '0x3B84a366a2f25BbB48f34b2b8D587c02237E6a13', description: 'Staking Rewards' },
+  { address: '0x559C7a315067F39ad4a19887135C6aDd779B2c8E', description: 'Staking Rewards Reserve' },
 ];
 
 const chartColors = [
@@ -116,7 +115,7 @@ export default function GerdWallets() {
                   <i className="fas fa-wallet me-3"></i>GERD Token Wallet Balances
                 </h1>
                 <p className="lead fs-5 opacity-90">
-                  Real-time tracking of all project wallet balances on the Binance Smart Chain
+                  Real-time tracking of all wallets managed by the project on the Binance Smart Chain
                 </p>
               </div>
             </div>
@@ -132,7 +131,7 @@ export default function GerdWallets() {
               <div className="card feature-card">
                 <div className="card-body p-4">
                   <h2 className="h4 fw-bold mb-4 text-center">
-                    <i className="fas fa-table me-2"></i>Project Wallet Balances
+                    <i className="fas fa-table me-2"></i>These wallets are controlled by the project and are not locked by a smart contract.
                   </h2>
                   <div className="table-responsive">
                     <table id="wallet-table" className="table table-striped table-hover mb-0">
