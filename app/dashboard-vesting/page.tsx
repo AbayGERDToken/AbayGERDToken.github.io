@@ -17,7 +17,14 @@ export default function DashboardVesting() {
   const [released, setReleased] = useState<string>('...');
   const [remaining, setRemaining] = useState<string>('...');
   const [releaseDate, setReleaseDate] = useState<string>('...');
-  const [vestingBalance, setVestingBalance] = useState<string>('Loading...');
+  const [walletBalances, setWalletBalances] = useState<Array<{ name: string; address: string; balance: string }>>([]);
+
+  const walletData = [
+    { name: 'GERD Vesting Smart Contract', address: '0x932fa749A04750284794eF55B4436Bf9Cb4AfF15' },
+    { name: 'Airdrop Reserve', address: '0x990eC8272ECfDE6B00c37E56E50cC2BeE1734236' },
+    { name: 'Liquidity Reserve', address: '0xdEA3dc7F2ea7A185aa8A6323f04164a9C9c67700' },
+    { name: 'Staking Reserve', address: '0x559C7a315067F39ad4a19887135C6aDd779B2c8E' },
+  ];
 
   useEffect(() => {
     const updateStats = () => {
@@ -59,7 +66,7 @@ export default function DashboardVesting() {
   }, []);
 
   useEffect(() => {
-    const fetchVestingBalance = async () => {
+    const fetchAllBalances = async () => {
       try {
         const Web3 = (await import('web3')).default;
         const web3 = new Web3(BSC_RPC);
@@ -71,23 +78,32 @@ export default function DashboardVesting() {
 
         const contract = new web3.eth.Contract(tokenABI as any, GERD_TOKEN_ADDRESS);
         const decimals = await contract.methods.decimals().call();
-        const raw = await contract.methods.balanceOf(CONTRACT_ADDRESS).call();
-        const numericBalance = Number(raw) / (10 ** Number(decimals));
-        
-        // Format with custom locale to ensure proper formatting
-        const formatted = numericBalance.toLocaleString('en-US', {
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2
-        });
-        
-        setVestingBalance(formatted);
+
+        const balances = await Promise.all(
+          walletData.map(async (wallet) => {
+            try {
+              const raw = await contract.methods.balanceOf(wallet.address).call();
+              const numericBalance = Number(raw) / (10 ** Number(decimals));
+              const formatted = numericBalance.toLocaleString('en-US', {
+                minimumFractionDigits: 2,
+                maximumFractionDigits: 2
+              });
+              return { ...wallet, balance: formatted };
+            } catch (err) {
+              console.error(`Failed to fetch balance for ${wallet.name}:`, err);
+              return { ...wallet, balance: 'Error' };
+            }
+          })
+        );
+
+        setWalletBalances(balances);
       } catch (err) {
-        console.error('Failed to fetch vesting balance:', err);
-        setVestingBalance('Error loading balance');
+        console.error('Failed to fetch wallet balances:', err);
+        setWalletBalances(walletData.map(w => ({ ...w, balance: 'Error' })));
       }
     };
 
-    fetchVestingBalance();
+    fetchAllBalances();
   }, []);
 
   return (
@@ -143,34 +159,50 @@ export default function DashboardVesting() {
             </div>
           </div>
 
-          {/* Contract Address and Balance */}
+          {/* Wallet Balances Table */}
           <div className="row mb-5">
-            <div className="col-lg-6 mb-3 mb-lg-0">
-              <div className="d-flex align-items-center justify-content-between mb-3">
-                <h5 className="h6 text-muted fw-semibold mb-0">
-                  <i className="fas fa-link me-2"></i>GERD Vesting Smart Contract Address:
-                </h5>
-                <a
-                  href="https://bscscan.com/token/0x932fa749A04750284794eF55B4436Bf9Cb4AfF15#code"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-sm btn-outline-success text-decoration-none"
-                >
-                  <i className="fas fa-code me-1"></i>Source Code
-                </a>
-              </div>
-              <ContractAddress
-                address={CONTRACT_ADDRESS}
-                label="GERD Vesting Smart Contract Address"
-              />
-            </div>
-            <div className="col-lg-6">
-              <div className="contract-address">
-                <p className="mb-2 small text-muted">
-                  <i className="fas fa-coins me-2"></i>Vesting Wallet Balance:
-                </p>
-                <p className="h4 fw-bold text-success mb-0">{vestingBalance}</p>
-                <p className="text-muted small mb-0">GERD Tokens</p>
+            <div className="col-12">
+              <h3 className="h4 fw-bold mb-4">Project Wallet Balances</h3>
+              <div className="table-responsive">
+                <table className="table table-striped table-hover">
+                  <thead>
+                    <tr>
+                      <th>Wallet Address</th>
+                      <th className="text-end">Balance</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {walletBalances.length > 0 ? (
+                      walletBalances.map((wallet) => (
+                        <tr key={wallet.address}>
+                          <td>
+                            <div className="mb-2 fw-semibold">{wallet.name}</div>
+                            <a
+                              href={`https://bscscan.com/token/${GERD_TOKEN_ADDRESS}?a=${wallet.address}`}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-decoration-none text-success"
+                            >
+                              <code className="text-success" style={{ wordBreak: 'break-all' }}>
+                                {wallet.address}
+                              </code>
+                              <i className="fas fa-external-link-alt ms-2 small"></i>
+                            </a>
+                          </td>
+                          <td className="text-end fw-bold text-success align-middle">
+                            {wallet.balance}
+                          </td>
+                        </tr>
+                      ))
+                    ) : (
+                      <tr>
+                        <td colSpan={2} className="text-center text-muted">
+                          Loading balances...
+                        </td>
+                      </tr>
+                    )}
+                  </tbody>
+                </table>
               </div>
             </div>
           </div>
