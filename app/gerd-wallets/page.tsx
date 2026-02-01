@@ -11,7 +11,6 @@ interface WalletBalance {
   numericBalance: number | null;
   loading: boolean;
   error: boolean;
-  isLocked?: boolean;
 }
 
 const GERD_TOKEN_ADDRESS = '0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c';
@@ -190,7 +189,7 @@ export default function GerdWallets() {
               <div className="card feature-card">
                 <div className="card-body p-4">
                   <h2 className="h4 fw-bold mb-4 text-center">
-                    <i className="fas fa-table me-2"></i>Token Allocation Tracking
+                    <i className="fas fa-table me-2"></i>These wallets are controlled by the project and are not locked by a smart contract.
                   </h2>
                   <div className="table-responsive">
                     <table id="wallet-table" className="table table-striped table-hover mb-0">
@@ -203,7 +202,7 @@ export default function GerdWallets() {
                       </thead>
                       <tbody>
                         {balances.map((wallet) => (
-                          <tr key={wallet.address} className={wallet.isLocked ? 'table-warning' : ''}>
+                          <tr key={wallet.address}>
                             <td
                               className={`balance ${wallet.loading
                                 ? 'balance-loading'
@@ -214,14 +213,7 @@ export default function GerdWallets() {
                             >
                               {wallet.loading ? 'Loading...' : wallet.balance}
                             </td>
-                            <td>
-                              {wallet.description}
-                              {wallet.isLocked && (
-                                <span className="badge bg-warning text-dark ms-2">
-                                  <i className="fas fa-lock me-1"></i>Irrevocably Locked
-                                </span>
-                              )}
-                            </td>
+                            <td>{wallet.description}</td>
                             <td>
                               <a
                                 href={`https://bscscan.com/token/${GERD_TOKEN_ADDRESS}?a=${wallet.address}`}
@@ -259,7 +251,7 @@ export default function GerdWallets() {
                               const percentage = distributionTotal > 0 ? ((item.value / distributionTotal) * 100).toFixed(2) : '0.00';
                               const isLoading =
                                 (item.label === 'Governance-Controlled Wallets' && balances.some(w => w.loading)) ||
-                                (item.label === 'Irrevocably Locked Supply (Vesting + Burn)' && notInCirculation.loading);
+                                (item.label === 'Irrevocably Locked Supply' && notInCirculation.loading);
                               return (
                                 <div key={item.label} className="col">
                                   <div className="d-flex align-items-start">
@@ -275,7 +267,7 @@ export default function GerdWallets() {
                                           : `${item.value.toLocaleString()} GERD (${percentage}%)`}
                                       </div>
                                       {/* Show breakdown for Irrevocably Locked Supply */}
-                                      {item.label === 'Irrevocably Locked Supply (Vesting + Burn)' && !lockedBreakdown.loading && (
+                                      {item.label === 'Irrevocably Locked Supply' && !lockedBreakdown.loading && (
                                         <div className="mt-2 ps-3 border-start border-2" style={{ borderColor: chartColors[index % chartColors.length] }}>
                                           <div className="small">
                                             <div className="text-muted">
@@ -289,7 +281,7 @@ export default function GerdWallets() {
                                           </div>
                                         </div>
                                       )}
-                                      {item.label === 'Irrevocably Locked Supply (Vesting + Burn)' && lockedBreakdown.loading && (
+                                      {item.label === 'Irrevocably Locked Supply' && lockedBreakdown.loading && (
                                         <div className="mt-2 ps-3 small text-muted">Loading breakdown...</div>
                                       )}
                                     </div>
