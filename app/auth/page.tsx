@@ -357,6 +357,25 @@ function AuthPageContent() {
           <div className={styles.loginOptions}>
           <button
             className={styles.loginButton}
+            onClick={() => handleLogin("etn")}
+            disabled={etnIsLoading}
+            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.75rem' }}
+          >
+            {etnIsLoading ? (
+              <>
+                <i className="fas fa-spinner fa-spin"></i>
+                <span>Connecting...</span>
+              </>
+            ) : (
+              <>
+                <Logo size={20} />
+                <span>Continue with ETN-ID</span>
+              </>
+            )}
+          </button>
+
+          <button
+            className={styles.loginButton}
             onClick={() => handleLogin("google")}
             disabled={isLoading}
           >
@@ -387,25 +406,6 @@ function AuthPageContent() {
               <>
                 <i className="fab fa-facebook me-2"></i>
                 Continue with Facebook
-              </>
-            )}
-          </button>
-
-          <button
-            className={styles.loginButton}
-            onClick={() => handleLogin("etn")}
-            disabled={etnIsLoading}
-            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '0.75rem' }}
-          >
-            {etnIsLoading ? (
-              <>
-                <i className="fas fa-spinner fa-spin"></i>
-                <span>Connecting...</span>
-              </>
-            ) : (
-              <>
-                <Logo size={20} />
-                <span>Continue with ETN-ID</span>
               </>
             )}
           </button>

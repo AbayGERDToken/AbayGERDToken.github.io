@@ -581,7 +581,7 @@ function ClaimFormContent() {
                   </div>
                   <h3 className="h5 fw-bold mb-3">Don't Have a Wallet?</h3>
                   <p className="text-muted mb-4">
-                    If you don't have an existing wallet and would like to create one automatically using Google or email, click on Built-in Login.
+                    If you don't have an existing wallet and would like to create one automatically using <a href="https://account.etnecosystem.org/" target="_blank" rel="noopener noreferrer">ETN Identity</a>, Google, or email, click on Built-in Login.
                   </p>
                   <div className="d-flex gap-2 justify-content-center mb-3 flex-wrap">
                     <a href="/auth/" className="btn btn-info btn-lg">
