@@ -184,12 +184,6 @@ export default function Navbar() {
                   </Link>
                 </li>
                 <li>
-                  <Link className="dropdown-item" href="/developer-transparency">
-                    <div className="fw-bold">Developer Transparency</div>
-                    <small className="text-muted">Open-source repos, audits, and live changes</small>
-                  </Link>
-                </li>
-                <li>
                   <a
                     className="dropdown-item"
                     href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c#balances"
@@ -223,6 +217,12 @@ export default function Navbar() {
                   <Link className="dropdown-item" href="/qna">
                     <div className="fw-bold">QnA</div>
                     <small className="text-muted">Frequently Asked Questions</small>
+                  </Link>
+                </li>
+                <li>
+                  <Link className="dropdown-item" href="/developer-transparency">
+                    <div className="fw-bold">Developer Transparency</div>
+                    <small className="text-muted">Open-source repos, audits, and live changes</small>
                   </Link>
                 </li>
               </ul>
