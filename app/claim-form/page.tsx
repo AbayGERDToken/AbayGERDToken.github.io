@@ -849,7 +849,21 @@ function ClaimFormContent() {
                         response.type === 'warning' ? 'fa-exclamation-triangle' :
                           'fa-info-circle'
                       } me-2`}></i>
-                    {response.message}
+                    {response.type === 'success' && response.message.includes('Tx Hash: 0x') ? (
+                      <>
+                        {`Success! Tokens sent. Tx Hash: `}
+                        <a
+                          href={`https://bscscan.com/tx/${response.message.split('Tx Hash: ')[1]}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="fw-bold text-decoration-none"
+                        >
+                          {response.message.split('Tx Hash: ')[1]}
+                        </a>
+                      </>
+                    ) : (
+                      response.message
+                    )}
                   </div>
                 )}
 
