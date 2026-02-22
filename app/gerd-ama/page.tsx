@@ -41,7 +41,7 @@ export default function GerdAma() {
                     <h2 className="h5 fw-bold mb-0">What exactly is the Abay GERD Token?</h2>
                   </div>
                   <p className="mb-0">
-                    GERD Token is a <strong>community-powered cryptocurrency</strong> created to honor the spirit of the Grand Ethiopian Renaissance Dam. It symbolizes unity, resilience, and forward-thinking. There are no insiders, no presales — just fair access for everyone.
+                    GERD Token is a <strong>community-powered digital asset</strong> created to honor the spirit of the Grand Ethiopian Renaissance Dam. It symbolizes unity, resilience, and forward-thinking. There are no insiders, no presales — just fair access for everyone.
                   </p>
                 </div>
               </div>

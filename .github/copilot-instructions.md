@@ -1,7 +1,7 @@
 # Copilot Instructions for Abay GERD Token Project
 
 ## Overview
-This is a Next.js-based website for the Abay GERD Token project—a decentralized, community-powered cryptocurrency inspired by Ethiopia's Grand Renaissance Dam. The project features token distribution, vesting management, multiple authentication methods, and educational content about the token ecosystem.
+This is a Next.js-based website for the Abay GERD Token project—a decentralized, community-powered digital asset inspired by Ethiopia's Grand Renaissance Dam. The project features token distribution, vesting management, multiple authentication methods, and educational content about the token ecosystem.
 
 ## Project Architecture
 
