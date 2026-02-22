@@ -16,6 +16,7 @@ declare global {
 }
 
 function ClaimFormContent() {
+  const BACKEND_URL = 'https://abay-gerd-backend.onrender.com';
   const searchParams = useSearchParams();
   const [walletAddress, setWalletAddress] = useState('');
   const [balanceAddress, setBalanceAddress] = useState('');
@@ -264,12 +265,19 @@ function ClaimFormContent() {
 
   const fetchSessionToken = async (): Promise<string | null> => {
     try {
-      const res = await fetch('https://abay-gerd-backend.onrender.com/auth/session');
+      const res = await fetch(`${BACKEND_URL}/auth/session`, {
+        method: 'GET',
+        credentials: 'include',
+        cache: 'no-store'
+      });
       if (!res.ok) {
         throw new Error(`Failed to fetch session token: ${res.status} ${res.statusText}`);
       }
       const data = await res.json();
-      const token = data.session_token;
+      const token = typeof data?.session_token === 'string' ? data.session_token.trim() : '';
+      if (!token) {
+        throw new Error('Session token response was empty.');
+      }
       setSessionToken(token);
       return token;
     } catch (err) {
@@ -356,30 +364,51 @@ function ClaimFormContent() {
         message: `Detected Country: ${locData.country_name}. Preparing to send approximately ${estimatedAmount} GERD Tokens...`
       });
 
-      const res = await fetch('https://abay-gerd-backend.onrender.com/send-token', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          recipient,
-          recaptchaToken,
-          session_token: currentSessionToken! // Non-null assertion: we've already checked it's not null above
-        })
-      });
+      const sendClaim = async (token: string) => {
+        const response = await fetch(`${BACKEND_URL}/send-token`, {
+          method: 'POST',
+          credentials: 'include',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            recipient,
+            recaptchaToken,
+            session_token: token
+          })
+        });
 
-      if (!res.ok) {
-        const errorText = await res.text();
-        let errorMessage = `Server error: ${res.status} ${res.statusText}`;
+        const bodyText = await response.text();
+        let parsedBody: any = null;
         try {
-          const errorData = JSON.parse(errorText);
-          errorMessage = errorData.message || errorMessage;
+          parsedBody = bodyText ? JSON.parse(bodyText) : null;
         } catch {
-          // If error response isn't JSON, use the text or default message
-          errorMessage = errorText || errorMessage;
+          parsedBody = null;
         }
+
+        return { response, bodyText, parsedBody };
+      };
+
+      let claimResult = await sendClaim(currentSessionToken);
+      const firstErrorMessage = claimResult.parsedBody?.message || claimResult.bodyText || '';
+
+      if (!claimResult.response.ok && /missing or invalid session token/i.test(firstErrorMessage)) {
+        const refreshedToken = await fetchSessionToken();
+        if (!refreshedToken) {
+          throw new Error('Session expired. Please wait a few seconds and try again.');
+        }
+        currentSessionToken = refreshedToken;
+        claimResult = await sendClaim(refreshedToken);
+      }
+
+      if (!claimResult.response.ok) {
+        const fallbackError = `Server error: ${claimResult.response.status} ${claimResult.response.statusText}`;
+        const errorMessage = claimResult.parsedBody?.message || claimResult.bodyText || fallbackError;
         throw new Error(errorMessage);
       }
 
-      const data = await res.json();
+      const data = claimResult.parsedBody;
+      if (!data) {
+        throw new Error('Server returned an empty response. Please try again.');
+      }
       if (data.status === 'success') {
         setResponse({
           type: 'success',
