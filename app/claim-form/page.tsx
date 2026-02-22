@@ -29,12 +29,22 @@ function ClaimFormContent() {
   const [isWeb3Ready, setIsWeb3Ready] = useState(false);
   const [isRecaptchaReady, setIsRecaptchaReady] = useState(false);
   const isInitializing = useRef(false);
+  const web3Ref = useRef<any>(null);
+  const recaptchaReadyRef = useRef(false);
   const recaptchaRef = useRef<HTMLDivElement>(null);
   const recaptchaWidgetId = useRef<number | null>(null);
   const [isFromAuth, setIsFromAuth] = useState(false);
   const [captchaResetTrigger, setCaptchaResetTrigger] = useState(0);
   const [showWeb3AuthModal, setShowWeb3AuthModal] = useState(false);
   const claimFormRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    web3Ref.current = web3;
+  }, [web3]);
+
+  useEffect(() => {
+    recaptchaReadyRef.current = isRecaptchaReady;
+  }, [isRecaptchaReady]);
 
   // Populate wallet address from URL parameter and detect auth navigation
   useEffect(() => {
@@ -73,9 +83,10 @@ function ClaimFormContent() {
   // Initialize Web3 and contract when Web3 library is loaded
   const initializeWeb3 = useCallback(() => {
     // Use ref to prevent multiple initializations
-    if (typeof window !== 'undefined' && window.Web3 && !isInitializing.current && !web3) {
+    if (typeof window !== 'undefined' && window.Web3 && !isInitializing.current && !web3Ref.current) {
       isInitializing.current = true;
       const web3Instance = new window.Web3('https://bsc-dataseed.binance.org/');
+      web3Ref.current = web3Instance;
       setWeb3(web3Instance);
 
       const contractABI = [
@@ -100,7 +111,7 @@ function ClaimFormContent() {
       setIsWeb3Ready(true);
       isInitializing.current = false; // Reset after successful initialization
     }
-  }, [web3]);
+  }, []);
 
   // Watch for Web3 library to become available and initialize
   useEffect(() => {
@@ -138,7 +149,7 @@ function ClaimFormContent() {
     // Web3 script ensure
     const web3Src = 'https://cdn.jsdelivr.net/npm/web3@1.8.2/dist/web3.min.js';
     const web3Cleanup = ensureScriptLoaded(web3Src, () => {
-      if (!web3 && window.Web3) {
+      if (!web3Ref.current && window.Web3) {
         initializeWeb3();
       }
     });
@@ -162,10 +173,10 @@ function ClaimFormContent() {
       clearInterval(pollInterval);
     }, 10000);
     const pollInterval = setInterval(() => {
-      if (window.Web3 && !web3) {
+      if (window.Web3 && !web3Ref.current) {
         initializeWeb3();
       }
-      if (window.grecaptcha && !isRecaptchaReady) {
+      if (window.grecaptcha && !recaptchaReadyRef.current) {
         try {
           window.grecaptcha.ready(() => setIsRecaptchaReady(true));
         } catch { setIsRecaptchaReady(true); }
@@ -178,7 +189,7 @@ function ClaimFormContent() {
       clearInterval(pollInterval);
       clearTimeout(pollTimeout);
     };
-  }, [ensureScriptLoaded, initializeWeb3, isRecaptchaReady, web3]);
+  }, [ensureScriptLoaded, initializeWeb3]);
 
   // Initialize reCAPTCHA readiness check
   useEffect(() => {
