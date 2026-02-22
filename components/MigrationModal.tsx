@@ -91,7 +91,7 @@ export default function MigrationModal() {
                 className="bg-success-subtle text-success rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3"
                 style={{ width: '48px', height: '48px', fontSize: '24px' }}
               >
-                <i className="fas fa-heart"></i>
+                
               </div>
               <p className="fw-bold mb-0">Thank you for your continued trust and support.</p>
             </div>
