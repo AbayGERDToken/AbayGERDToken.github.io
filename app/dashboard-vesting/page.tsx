@@ -10,6 +10,13 @@ const RELEASE_PER_YEAR = 1_000_000_000;
 const START_DATE = new Date('2025-04-24T00:00:00Z');
 const GERD_TOKEN_ADDRESS = '0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c';
 const BSC_RPC = 'https://bsc-dataseed.binance.org/';
+const WALLET_DATA = [
+  { name: 'GERD Vesting Smart Contract-Locked', address: '0x932fa749A04750284794eF55B4436Bf9Cb4AfF15', sourceCodeUrl: 'https://bscscan.com/address/0x932fa749A04750284794eF55B4436Bf9Cb4AfF15#code' },
+  { name: 'GERD Airdrop Treasury (3-of-5 Gnosis Safe multisig)', address: '0x990eC8272ECfDE6B00c37E56E50cC2BeE1734236' },
+  { name: 'Liquidity Reserve', address: '0xdEA3dc7F2ea7A185aa8A6323f04164a9C9c67700' },
+  { name: 'Staking Reserve', address: '0x559C7a315067F39ad4a19887135C6aDd779B2c8E' },
+  { name: 'Token Burn-Dead Address', address: '0x000000000000000000000000000000000000dead' },
+];
 
 export default function DashboardVesting() {
   const [countdown, setCountdown] = useState<string>('...');
@@ -18,14 +25,6 @@ export default function DashboardVesting() {
   const [remaining, setRemaining] = useState<string>('...');
   const [releaseDate, setReleaseDate] = useState<string>('...');
   const [walletBalances, setWalletBalances] = useState<Array<{ name: string; address: string; balance: string; sourceCodeUrl?: string }>>([]);
-
-  const walletData = [
-    { name: 'GERD Vesting Smart Contract-Locked', address: '0x932fa749A04750284794eF55B4436Bf9Cb4AfF15', sourceCodeUrl: 'https://bscscan.com/address/0x932fa749A04750284794eF55B4436Bf9Cb4AfF15#code' },
-    { name: 'GERD Airdrop Treasury (3-of-5 Gnosis Safe multisig)', address: '0x990eC8272ECfDE6B00c37E56E50cC2BeE1734236' },
-    { name: 'Liquidity Reserve', address: '0xdEA3dc7F2ea7A185aa8A6323f04164a9C9c67700' },
-    { name: 'Staking Reserve', address: '0x559C7a315067F39ad4a19887135C6aDd779B2c8E' },
-    { name: 'Token Burn-Dead Address', address: '0x000000000000000000000000000000000000dead' },
-  ];
 
   useEffect(() => {
     const updateStats = () => {
@@ -81,7 +80,7 @@ export default function DashboardVesting() {
         const decimals = await contract.methods.decimals().call();
 
         const balances = await Promise.all(
-          walletData.map(async (wallet) => {
+          WALLET_DATA.map(async (wallet) => {
             try {
               const raw = await contract.methods.balanceOf(wallet.address).call();
               const numericBalance = Number(raw) / (10 ** Number(decimals));
@@ -100,7 +99,7 @@ export default function DashboardVesting() {
         setWalletBalances(balances);
       } catch (err) {
         console.error('Failed to fetch wallet balances:', err);
-        setWalletBalances(walletData.map(w => ({ ...w, balance: 'Error' })));
+        setWalletBalances(WALLET_DATA.map(w => ({ ...w, balance: 'Error' })));
       }
     };
 

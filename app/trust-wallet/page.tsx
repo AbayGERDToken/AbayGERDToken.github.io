@@ -75,7 +75,7 @@ export default function TrustWallet() {
                           <i className="fas fa-check-circle text-success me-2"></i>Open the Trust Wallet app on your device
                         </li>
                         <li className="mb-2">
-                          <i className="fas fa-check-circle text-success me-2"></i>Select "Create a New Wallet" if you&apos;re new
+                          <i className="fas fa-check-circle text-success me-2"></i>Select &quot;Create a New Wallet&quot; if you&apos;re new
                         </li>
                         <li className="mb-2">
                           <i className="fas fa-check-circle text-success me-2"></i>Accept the terms and conditions

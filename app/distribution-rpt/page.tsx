@@ -300,6 +300,7 @@ export default function DistributionReport() {
                   <div className="tableauPlaceholder" id="viz1686619041159" style={{ position: 'relative', minHeight: '600px' }}>
                     <noscript>
                       <a href="#">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
                         <img
                           alt="Dashboard 1"
                           src="https://public.tableau.com/static/images/Di/Distribution_Tableau/Dashboard1/1_rss.png"

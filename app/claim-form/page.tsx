@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect, useRef, Suspense } from 'react';
+import { useState, useEffect, useRef, Suspense, useCallback } from 'react';
 import Script from 'next/script';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
@@ -48,7 +48,7 @@ function ClaimFormContent() {
   }, [searchParams, walletAddress]);
 
   // Utility to load script if absent, or attach load handler if present
-  const ensureScriptLoaded = (src: string, onload: () => void) => {
+  const ensureScriptLoaded = useCallback((src: string, onload: () => void) => {
     if (typeof document === 'undefined') return () => { };
     const existing = document.querySelector(`script[src="${src}"]`) as HTMLScriptElement | null;
     if (existing) {
@@ -68,10 +68,10 @@ function ClaimFormContent() {
     s.onload = () => onload();
     document.head.appendChild(s);
     return () => { /* cannot reliably remove created script without more bookkeeping */ };
-  };
+  }, []);
 
   // Initialize Web3 and contract when Web3 library is loaded
-  const initializeWeb3 = () => {
+  const initializeWeb3 = useCallback(() => {
     // Use ref to prevent multiple initializations
     if (typeof window !== 'undefined' && window.Web3 && !isInitializing.current && !web3) {
       isInitializing.current = true;
@@ -100,7 +100,7 @@ function ClaimFormContent() {
       setIsWeb3Ready(true);
       isInitializing.current = false; // Reset after successful initialization
     }
-  };
+  }, [web3]);
 
   // Watch for Web3 library to become available and initialize
   useEffect(() => {
@@ -129,7 +129,7 @@ function ClaimFormContent() {
         clearTimeout(timeout);
       };
     }
-  }, [web3]);
+  }, [web3, initializeWeb3]);
 
   // Ensure Web3 and reCAPTCHA scripts are present and initialized on client-side navigation
   useEffect(() => {
@@ -178,7 +178,7 @@ function ClaimFormContent() {
       clearInterval(pollInterval);
       clearTimeout(pollTimeout);
     };
-  }, []);
+  }, [ensureScriptLoaded, initializeWeb3, isRecaptchaReady, web3]);
 
   // Initialize reCAPTCHA readiness check
   useEffect(() => {
@@ -261,7 +261,7 @@ function ClaimFormContent() {
     if (!balanceAddress && walletAddress) {
       setBalanceAddress(walletAddress);
     }
-  }, [walletAddress]);
+  }, [balanceAddress, walletAddress]);
 
   const fetchSessionToken = async (): Promise<string | null> => {
     try {
@@ -608,9 +608,9 @@ function ClaimFormContent() {
                   >
                     <i className="fas fa-user-plus"></i>
                   </div>
-                  <h3 className="h5 fw-bold mb-3">Don't Have a Wallet?</h3>
+                  <h3 className="h5 fw-bold mb-3">Don&apos;t Have a Wallet?</h3>
                   <p className="text-muted mb-4">
-                    If you don't have an existing wallet and would like to create one automatically using <a href="https://account.etnecosystem.org/" target="_blank" rel="noopener noreferrer">ETN Identity</a>, Google, or email, click on Built-in Login.
+                    If you don&apos;t have an existing wallet and would like to create one automatically using <a href="https://account.etnecosystem.org/" target="_blank" rel="noopener noreferrer">ETN Identity</a>, Google, or email, click on Built-in Login.
                   </p>
                   <div className="d-flex gap-2 justify-content-center mb-3 flex-wrap">
                     <a href="/auth/" className="btn btn-info btn-lg">
@@ -625,7 +625,7 @@ function ClaimFormContent() {
                     </button>
                   </div>
                   <p className="text-muted mt-4 mb-0">
-                    Otherwise, paste your wallet address below and click on "Claim Tokens" to receive your GERD tokens.
+                    Otherwise, paste your wallet address below and click on &quot;Claim Tokens&quot; to receive your GERD tokens.
                   </p>
                 </div>
               </div>
@@ -663,9 +663,9 @@ function ClaimFormContent() {
               </div>
               <div className="modal-body pt-0">
                 <div className="mb-4">
-                  <h6 className="fw-bold text-primary mb-2">What's the Tech?</h6>
+                  <h6 className="fw-bold text-primary mb-2">What&apos;s the Tech?</h6>
                   <p className="text-muted">
-                    Web3Auth uses social login (Google, X, Email, Phone OTP, Discord, etc.) to prove your identity, then securely reconstructs a crypto private key using Web3Auth's key infrastructure (often described as MPC/threshold key reconstruction). Your wallet address is derived from that private key.
+                    Web3Auth uses social login (Google, X, Email, Phone OTP, Discord, etc.) to prove your identity, then securely reconstructs a crypto private key using Web3Auth&apos;s key infrastructure (often described as MPC/threshold key reconstruction). Your wallet address is derived from that private key.
                   </p>
                   <p className="text-muted mb-0">
                     <i className="fas fa-check-circle text-success me-2"></i><strong>This makes it easy for everyone, even first-time users, to safely claim GERD tokens.</strong>
