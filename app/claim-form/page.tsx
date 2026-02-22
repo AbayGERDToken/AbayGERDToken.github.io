@@ -5,7 +5,6 @@ import Script from 'next/script';
 import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 
-import ClaimUpdateModal from '@/components/ClaimUpdateModal';
 import ContractAddress from '@/components/ContractAddress';
 
 declare global {
@@ -536,8 +535,6 @@ function ClaimFormContent() {
           </div>
         </div>
       </section>
-
-      <ClaimUpdateModal />
 
       {/* Info Section */}
       <section className="content-section">
