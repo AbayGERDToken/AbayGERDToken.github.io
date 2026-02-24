@@ -34,8 +34,10 @@ function ClaimFormContent() {
   const recaptchaWidgetId = useRef<number | null>(null);
   const [isFromAuth, setIsFromAuth] = useState(false);
   const [captchaResetTrigger, setCaptchaResetTrigger] = useState(0);
+  const [captchaToken, setCaptchaToken] = useState('');
   const [showWeb3AuthModal, setShowWeb3AuthModal] = useState(false);
   const claimFormRef = useRef<HTMLDivElement>(null);
+  const captchaTokenRef = useRef('');
 
   useEffect(() => {
     web3Ref.current = web3;
@@ -44,6 +46,27 @@ function ClaimFormContent() {
   useEffect(() => {
     recaptchaReadyRef.current = isRecaptchaReady;
   }, [isRecaptchaReady]);
+
+  useEffect(() => {
+    captchaTokenRef.current = captchaToken;
+  }, [captchaToken]);
+
+  const invalidateCaptcha = useCallback(() => {
+    setCaptchaToken('');
+    if (typeof window === 'undefined' || !window.grecaptcha) return;
+
+    try {
+      if (typeof recaptchaWidgetId.current === 'number') {
+        window.grecaptcha.reset(recaptchaWidgetId.current);
+      } else {
+        window.grecaptcha.reset();
+      }
+    } catch (e) {
+      console.warn('Captcha reset failed during invalidation:', e);
+      recaptchaWidgetId.current = null;
+      setCaptchaResetTrigger(prev => prev + 1);
+    }
+  }, []);
 
   // Populate wallet address from URL parameter and detect auth navigation
   useEffect(() => {
@@ -237,22 +260,13 @@ function ClaimFormContent() {
     if (isFromAuth && isRecaptchaReady) {
       // Add delay to let Web3Auth scripts settle
       const timer = setTimeout(() => {
-        // Reset the captcha to force re-render
-        if (recaptchaWidgetId.current !== null && window.grecaptcha) {
-          try {
-            window.grecaptcha.reset(recaptchaWidgetId.current);
-          } catch (e) {
-            console.warn('Captcha reset failed, will force re-render:', e);
-          }
-        }
-        // Trigger a re-render by incrementing the reset trigger
-        setCaptchaResetTrigger(prev => prev + 1);
+        invalidateCaptcha();
         setIsFromAuth(false); // Reset flag after handling
       }, 500); // 500ms delay to let Web3Auth settle
 
       return () => clearTimeout(timer);
     }
-  }, [isFromAuth, isRecaptchaReady]);
+  }, [isFromAuth, isRecaptchaReady, invalidateCaptcha]);
 
   // Scroll to claim form when redirected from auth page
   useEffect(() => {
@@ -334,10 +348,7 @@ function ClaimFormContent() {
       return;
     }
     const recipient = walletAddress.trim();
-    // Use widget ID if available, otherwise fallback to default (though explicit generic is better)
-    const recaptchaToken = typeof recaptchaWidgetId.current === 'number'
-      ? window.grecaptcha?.getResponse(recaptchaWidgetId.current)
-      : window.grecaptcha?.getResponse();
+    const recaptchaToken = captchaTokenRef.current.trim();
 
     if (!web3?.utils.isAddress(recipient)) {
       setResponse({ type: 'danger', message: 'Please enter a valid wallet address.' });
@@ -348,6 +359,8 @@ function ClaimFormContent() {
       setResponse({ type: 'warning', message: 'Please complete the reCAPTCHA.' });
       return;
     }
+
+    invalidateCaptcha();
 
     let currentSessionToken: string | null = sessionToken;
     if (!currentSessionToken) {
@@ -433,13 +446,7 @@ function ClaimFormContent() {
       setResponse({ type: 'danger', message });
     } finally {
       setLoading(false);
-      if (window.grecaptcha) {
-        if (typeof recaptchaWidgetId.current === 'number') {
-          window.grecaptcha.reset(recaptchaWidgetId.current);
-        } else {
-          window.grecaptcha.reset();
-        }
-      }
+      invalidateCaptcha();
     }
   };
 
@@ -473,6 +480,15 @@ function ClaimFormContent() {
       try {
         const id = window.grecaptcha.render(recaptchaRef.current, {
           'sitekey': '6LdQyRkrAAAAANv5siZlVghMFzQ2AEPIg8501G9P',
+          'callback': (token: string) => {
+            setCaptchaToken(token || '');
+          },
+          'expired-callback': () => {
+            setCaptchaToken('');
+          },
+          'error-callback': () => {
+            setCaptchaToken('');
+          },
         });
         recaptchaWidgetId.current = id;
         console.log('reCAPTCHA widget rendered successfully, ID:', id);
@@ -821,6 +837,7 @@ function ClaimFormContent() {
                       const addr = e.target.value;
                       setWalletAddress(addr);
                       setBalanceAddress(addr); // Keep both in sync
+                      invalidateCaptcha();
                     }}
                   />
                 </div>
@@ -838,7 +855,7 @@ function ClaimFormContent() {
                   <button
                     className="btn btn-success btn-lg btn-claim"
                     onClick={claimTokens}
-                    disabled={!isWeb3Ready || !isRecaptchaReady || loading}
+                    disabled={!isWeb3Ready || !isRecaptchaReady || !captchaToken || loading}
                   >
                     {loading ? (
                       <>
