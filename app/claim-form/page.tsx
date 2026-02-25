@@ -868,9 +868,6 @@ function ClaimFormContent() {
                   <div className="alert alert-warning mb-4">
                     <div className="fw-bold mb-2">⚠️ Fair Claim Policy Notice</div>
                     <p className="mb-2">Any use of bots or automation scripts will result in permanent disqualification.</p>
-                    <p className="mb-2">
-                      Disqualified addresses: <a href="/image/disqualified_wallets.csv" target="_blank" rel="noopener noreferrer">250 bot claims in 20 min</a>
-                    </p>
                     <details>
                       <summary className="fw-semibold">View full policy</summary>
                       <div className="mt-2 small">
