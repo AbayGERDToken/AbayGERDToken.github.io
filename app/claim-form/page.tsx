@@ -10,18 +10,33 @@ import { useWeb3Auth } from '@/lib/Web3AuthContext';
 import { useETNAuth } from '@/lib/ETNAuthContext';
 
 declare global {
+  interface InjectedEthereumProvider {
+    isMetaMask?: boolean;
+    isCoinbaseWallet?: boolean;
+    isBraveWallet?: boolean;
+    isTrust?: boolean;
+    isRabby?: boolean;
+    isOkxWallet?: boolean;
+    providers?: InjectedEthereumProvider[];
+    request: (args: { method: string; params?: any[] }) => Promise<any>;
+  }
+
   interface Window {
     Web3: any;
     grecaptcha: any;
-    ethereum?: {
-      request: (args: { method: string; params?: any[] }) => Promise<any>;
-    };
+    ethereum?: InjectedEthereumProvider;
   }
 }
 
+type WalletOption = {
+  id: string;
+  label: string;
+  provider: InjectedEthereumProvider;
+};
+
 function ClaimFormContent() {
   const BACKEND_URL = 'https://abay-gerd-backend.onrender.com';
-  const { isLogged: isWeb3AuthLogged, address: web3AuthAddress, logout: logoutWeb3Auth, getIdToken: getWeb3AuthIdToken } = useWeb3Auth();
+  const { isLogged: isWeb3AuthLogged, address: web3AuthAddress, logout: logoutWeb3Auth, getIdToken: getWeb3AuthIdToken, provider: web3AuthProvider } = useWeb3Auth();
   const { isLogged: isETNLogged, walletAddress: etnWalletAddress, logout: logoutETN } = useETNAuth();
   const searchParams = useSearchParams();
   const [walletAddress, setWalletAddress] = useState('');
@@ -45,6 +60,9 @@ function ClaimFormContent() {
   const [showWeb3AuthModal, setShowWeb3AuthModal] = useState(false);
   const claimFormRef = useRef<HTMLDivElement>(null);
   const captchaTokenRef = useRef('');
+  const [walletOptions, setWalletOptions] = useState<WalletOption[]>([]);
+  const [selectedWalletId, setSelectedWalletId] = useState('');
+  const selectedWalletLabel = walletOptions.find(option => option.id === selectedWalletId)?.label || '';
   const authenticatedWalletAddress = (isETNLogged && etnWalletAddress)
     ? etnWalletAddress
     : (isWeb3AuthLogged && web3AuthAddress)
@@ -56,6 +74,45 @@ function ClaimFormContent() {
       ? 'web3auth'
       : '';
   const isAuthenticatedClaimMode = Boolean(authenticatedWalletAddress);
+
+  const getProviderLabel = (provider: InjectedEthereumProvider): string => {
+    if (provider.isCoinbaseWallet) return 'Base / Coinbase Wallet';
+    if (provider.isMetaMask) return 'MetaMask';
+    if (provider.isTrust) return 'Trust Wallet';
+    if (provider.isRabby) return 'Rabby Wallet';
+    if (provider.isOkxWallet) return 'OKX Wallet';
+    if (provider.isBraveWallet) return 'Brave Wallet';
+    return 'Injected Wallet';
+  };
+
+  const detectWalletProviders = useCallback((): WalletOption[] => {
+    if (typeof window === 'undefined' || !window.ethereum) return [];
+
+    const rootProvider = window.ethereum;
+    const providerList = Array.isArray(rootProvider.providers) && rootProvider.providers.length > 0
+      ? rootProvider.providers
+      : [rootProvider];
+
+    const options: WalletOption[] = [];
+    const seen = new Set<string>();
+
+    providerList.forEach((provider, index) => {
+      if (!provider || typeof provider.request !== 'function') return;
+      const label = getProviderLabel(provider);
+      const id = `${label.toLowerCase().replace(/[^a-z0-9]+/g, '-')}-${index}`;
+      if (seen.has(id)) return;
+      seen.add(id);
+      options.push({ id, label, provider });
+    });
+
+    return options;
+  }, []);
+
+  const getSelectedWalletProvider = (): InjectedEthereumProvider | null => {
+    if (walletOptions.length === 0) return null;
+    const selected = walletOptions.find(option => option.id === selectedWalletId);
+    return selected?.provider || walletOptions[0].provider || null;
+  };
 
   const handleDisconnectForDirectClaim = async () => {
     try {
@@ -118,6 +175,31 @@ function ClaimFormContent() {
       setBalanceAddress(authenticatedWalletAddress);
     }
   }, [isAuthenticatedClaimMode, authenticatedWalletAddress]);
+
+  useEffect(() => {
+    if (isAuthenticatedClaimMode) {
+      setWalletOptions([]);
+      setSelectedWalletId('');
+      return;
+    }
+
+    const refreshProviders = () => {
+      const options = detectWalletProviders();
+      setWalletOptions(options);
+      if (options.length === 0) {
+        setSelectedWalletId('');
+        return;
+      }
+      setSelectedWalletId((current) => {
+        const exists = options.some(option => option.id === current);
+        return exists ? current : options[0].id;
+      });
+    };
+
+    refreshProviders();
+    const interval = setInterval(refreshProviders, 1500);
+    return () => clearInterval(interval);
+  }, [isAuthenticatedClaimMode, detectWalletProviders]);
 
   // Utility to load script if absent, or attach load handler if present
   const ensureScriptLoaded = useCallback((src: string, onload: () => void) => {
@@ -414,11 +496,38 @@ function ClaimFormContent() {
     let claimExtras: Record<string, any> = {};
     if (isAuthenticatedClaimMode) {
       let web3AuthIdToken = '';
+      let web3AuthNonceId = '';
+      let web3AuthSignature = '';
       if (authenticatedProvider === 'web3auth') {
         web3AuthIdToken = (await getWeb3AuthIdToken()) || '';
+
         if (!web3AuthIdToken) {
-          setResponse({ type: 'danger', message: 'Web3Auth session verification failed. Please log out and log in again.' });
-          return;
+          if (!web3AuthProvider || typeof (web3AuthProvider as any).request !== 'function') {
+            setResponse({ type: 'danger', message: 'Web3Auth session verification failed. Please log out and log in again.' });
+            return;
+          }
+
+          setResponse({ type: 'info', message: 'Preparing secure Web3Auth ownership challenge...' });
+          const challengeResponse = await fetch(`${BACKEND_URL}/claim/challenge`, {
+            method: 'POST',
+            credentials: 'include',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ recipient })
+          });
+
+          const challengeBody = await challengeResponse.json().catch(() => null);
+          if (!challengeResponse.ok || challengeBody?.status !== 'success') {
+            const message = challengeBody?.message || 'Failed to create Web3Auth challenge.';
+            setResponse({ type: 'danger', message });
+            return;
+          }
+
+          setResponse({ type: 'info', message: 'Confirming wallet ownership with your Web3Auth account...' });
+          web3AuthSignature = await (web3AuthProvider as any).request({
+            method: 'personal_sign',
+            params: [challengeBody.message, recipient],
+          });
+          web3AuthNonceId = challengeBody.nonce_id;
         }
       }
 
@@ -426,12 +535,15 @@ function ClaimFormContent() {
         auth_provider: authenticatedProvider,
         authenticated_wallet: recipient,
         web3auth_id_token: web3AuthIdToken,
+        nonce_id: web3AuthNonceId,
+        signature: web3AuthSignature,
       };
     } else {
-      if (!window.ethereum || typeof window.ethereum.request !== 'function') {
+      const directProvider = getSelectedWalletProvider();
+      if (!directProvider || typeof directProvider.request !== 'function') {
         setResponse({
           type: 'danger',
-          message: 'Direct wallet claim requires an injected wallet (such as MetaMask). Please install/open your wallet and try again.'
+          message: 'Direct wallet claim requires a browser wallet extension. Please install/open Base Wallet, MetaMask, or another compatible wallet and try again.'
         });
         return;
       }
@@ -451,7 +563,7 @@ function ClaimFormContent() {
         return;
       }
 
-      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      const accounts = await directProvider.request({ method: 'eth_requestAccounts' });
       const signer = Array.isArray(accounts) && accounts.length > 0 ? String(accounts[0]) : '';
       if (!signer || !web3?.utils.isAddress(signer)) {
         setResponse({ type: 'danger', message: 'No wallet account available for signature. Please unlock your wallet and retry.' });
@@ -469,7 +581,7 @@ function ClaimFormContent() {
       }
 
       setResponse({ type: 'info', message: 'Please approve the wallet signature request to verify ownership...' });
-      const signature = await window.ethereum.request({
+      const signature = await directProvider.request({
         method: 'personal_sign',
         params: [challengeBody.message, signerChecksum],
       });
@@ -970,6 +1082,31 @@ function ClaimFormContent() {
                   />
                 </div>
 
+                {!isAuthenticatedClaimMode && (
+                  <div className="mb-4">
+                    <label htmlFor="wallet-provider" className="form-label fw-semibold">Signing Wallet:</label>
+                    {walletOptions.length > 0 ? (
+                      <select
+                        id="wallet-provider"
+                        className="form-select"
+                        value={selectedWalletId}
+                        onChange={(e) => setSelectedWalletId(e.target.value)}
+                      >
+                        {walletOptions.map((option) => (
+                          <option key={option.id} value={option.id}>{option.label}</option>
+                        ))}
+                      </select>
+                    ) : (
+                      <div className="alert alert-warning mb-0 py-2">
+                        No wallet extension detected. Install/open Base Wallet, MetaMask, or another compatible wallet.
+                      </div>
+                    )}
+                    <div className="form-text">
+                      Select the wallet extension you want to use for signature verification.
+                    </div>
+                  </div>
+                )}
+
                 {/* reCAPTCHA */}
                 <div className="mb-4">
                   <div
@@ -977,6 +1114,14 @@ function ClaimFormContent() {
                     className="d-flex justify-content-center"
                   ></div>
                 </div>
+
+                {!isAuthenticatedClaimMode && selectedWalletLabel && (
+                  <div className="mb-3 text-center">
+                    <span className="badge bg-primary-subtle text-primary border border-primary-subtle px-3 py-2">
+                      Selected signer: {selectedWalletLabel}
+                    </span>
+                  </div>
+                )}
 
                 {/* Claim Button */}
                 <div className="d-grid">
