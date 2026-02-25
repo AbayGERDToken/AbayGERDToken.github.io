@@ -39,6 +39,8 @@ function ClaimFormContent() {
   const [captchaResetTrigger, setCaptchaResetTrigger] = useState(0);
   const [captchaToken, setCaptchaToken] = useState('');
   const [showWeb3AuthModal, setShowWeb3AuthModal] = useState(false);
+  const [hasAcceptedFairPolicy, setHasAcceptedFairPolicy] = useState(false);
+  const [showFairPolicyNotice, setShowFairPolicyNotice] = useState(true);
   const claimFormRef = useRef<HTMLDivElement>(null);
   const captchaTokenRef = useRef('');
 
@@ -342,6 +344,8 @@ function ClaimFormContent() {
   };
 
   const claimTokens = async () => {
+    setShowFairPolicyNotice(false);
+
     if (!isWeb3Ready) {
       setResponse({ type: 'danger', message: 'Please wait for Web3 to finish initializing.' });
       return;
@@ -854,29 +858,44 @@ function ClaimFormContent() {
                 </div>
 
                 {/* Fair Claim Policy Notice */}
-                <div className="alert alert-warning mb-4">
-                  <div className="fw-bold mb-2">⚠️ Fair Claim Policy Notice</div>
-                  <p className="mb-2">GERD is built on fairness and equal participation.</p>
-                  <details>
-                    <summary className="fw-semibold">View full policy</summary>
-                    <div className="mt-2 small">
-                      <p className="mb-2">
-                        Any use of bots or automation scripts will result in permanent disqualification from all future yearly airdrops,
-                        including the 115-year annual distribution.
-                      </p>
-                      <p className="mb-2">The yearly airdrop is reserved for genuine community members only.</p>
-                      <p className="mb-2">Fair play is expected from everyone.</p>
-                      <p className="mb-0">Let’s protect the integrity of the movement. Disqualified addresses will be posted here soon.</p>
+                {showFairPolicyNotice && (
+                  <div className="alert alert-warning mb-4">
+                    <div className="fw-bold mb-2">⚠️ Fair Claim Policy Notice</div>
+                    <p className="mb-2">GERD is built on fairness and equal participation.</p>
+                    <details>
+                      <summary className="fw-semibold">View full policy</summary>
+                      <div className="mt-2 small">
+                        <p className="mb-2">
+                          Any use of bots or automation scripts will result in permanent disqualification from all future yearly airdrops,
+                          including the 115-year annual distribution.
+                        </p>
+                        <p className="mb-2">The yearly airdrop is reserved for genuine community members only.</p>
+                        <p className="mb-2">Fair play is expected from everyone.</p>
+                        <p className="mb-3">Let’s protect the integrity of the movement. Disqualified addresses will be posted here soon.</p>
+                      </div>
+                    </details>
+
+                    <div className="form-check mt-2">
+                      <input
+                        className="form-check-input"
+                        type="checkbox"
+                        id="fair-policy-confirm"
+                        checked={hasAcceptedFairPolicy}
+                        onChange={(e) => setHasAcceptedFairPolicy(e.target.checked)}
+                      />
+                      <label className="form-check-label fw-semibold" htmlFor="fair-policy-confirm">
+                        I have read and agree to this Fair Claim Policy.
+                      </label>
                     </div>
-                  </details>
-                </div>
+                  </div>
+                )}
 
                 {/* Claim Button */}
                 <div className="d-grid">
                   <button
                     className="btn btn-success btn-lg btn-claim"
                     onClick={claimTokens}
-                    disabled={!isWeb3Ready || !isRecaptchaReady || !captchaToken || loading}
+                    disabled={!isWeb3Ready || !isRecaptchaReady || !captchaToken || loading || (showFairPolicyNotice && !hasAcceptedFairPolicy)}
                   >
                     {loading ? (
                       <>
