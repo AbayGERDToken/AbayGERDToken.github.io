@@ -89,9 +89,11 @@ interface Web3AuthContextType {
   isLoading: boolean;
   isLogged: boolean;
   address: string | null;
+  idToken: string | null;
   error: string | null;
   login: (provider: 'google' | 'facebook') => Promise<void>;
   logout: () => Promise<void>;
+  getIdToken: () => Promise<string | null>;
   getUserBalance: (tokenAddress: string) => Promise<string | null>;
 }
 
@@ -103,7 +105,25 @@ export function Web3AuthProvider({ children }: { children: ReactNode }) {
   const [isLoading, setIsLoading] = useState(true);
   const [isLogged, setIsLogged] = useState(false);
   const [address, setAddress] = useState<string | null>(null);
+  const [idToken, setIdToken] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+
+  const fetchIdToken = async (instance: any): Promise<string | null> => {
+    try {
+      if (!instance || typeof instance.authenticateUser !== 'function') return null;
+      const authResult = await instance.authenticateUser();
+      if (typeof authResult === 'string' && authResult.trim()) {
+        return authResult.trim();
+      }
+      if (authResult && typeof authResult.idToken === 'string' && authResult.idToken.trim()) {
+        return authResult.idToken.trim();
+      }
+      return null;
+    } catch (err) {
+      console.warn('[Web3Auth] Could not fetch id token:', err instanceof Error ? err.message : err);
+      return null;
+    }
+  };
 
   useEffect(() => {
     const init = async () => {
@@ -161,6 +181,8 @@ export function Web3AuthProvider({ children }: { children: ReactNode }) {
             setProvider(web3authInstance.provider);
             const userAccount = await getUserAccount(web3authInstance.provider);
             setAddress(userAccount);
+            const token = await fetchIdToken(web3authInstance);
+            setIdToken(token);
             setIsLogged(true);
           } else {
             console.log('[Web3Auth] Ready for login, status:', web3authInstance.status);
@@ -215,6 +237,8 @@ export function Web3AuthProvider({ children }: { children: ReactNode }) {
         setProvider(result);
         const userAccount = await getUserAccount(result);
         setAddress(userAccount);
+        const token = await fetchIdToken(web3auth);
+        setIdToken(token);
         setIsLogged(true);
       }
     } catch (err) {
@@ -231,6 +255,7 @@ export function Web3AuthProvider({ children }: { children: ReactNode }) {
       await web3auth.logout();
       setProvider(null);
       setAddress(null);
+      setIdToken(null);
       setIsLogged(false);
     } catch (err) {
       console.error('Logout error:', err);
@@ -273,6 +298,14 @@ export function Web3AuthProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  const getIdToken = async (): Promise<string | null> => {
+    if (idToken) return idToken;
+    if (!web3auth) return null;
+    const token = await fetchIdToken(web3auth);
+    if (token) setIdToken(token);
+    return token;
+  };
+
   return (
     <Web3AuthContext.Provider
       value={{
@@ -281,9 +314,11 @@ export function Web3AuthProvider({ children }: { children: ReactNode }) {
         isLoading,
         isLogged,
         address,
+        idToken,
         error,
         login,
         logout,
+        getIdToken,
         getUserBalance,
       }}
     >

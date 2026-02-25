@@ -6,16 +6,23 @@ import Image from 'next/image';
 import { useSearchParams } from 'next/navigation';
 
 import ContractAddress from '@/components/ContractAddress';
+import { useWeb3Auth } from '@/lib/Web3AuthContext';
+import { useETNAuth } from '@/lib/ETNAuthContext';
 
 declare global {
   interface Window {
     Web3: any;
     grecaptcha: any;
+    ethereum?: {
+      request: (args: { method: string; params?: any[] }) => Promise<any>;
+    };
   }
 }
 
 function ClaimFormContent() {
   const BACKEND_URL = 'https://abay-gerd-backend.onrender.com';
+  const { isLogged: isWeb3AuthLogged, address: web3AuthAddress, logout: logoutWeb3Auth, getIdToken: getWeb3AuthIdToken } = useWeb3Auth();
+  const { isLogged: isETNLogged, walletAddress: etnWalletAddress, logout: logoutETN } = useETNAuth();
   const searchParams = useSearchParams();
   const [walletAddress, setWalletAddress] = useState('');
   const [balanceAddress, setBalanceAddress] = useState('');
@@ -38,6 +45,32 @@ function ClaimFormContent() {
   const [showWeb3AuthModal, setShowWeb3AuthModal] = useState(false);
   const claimFormRef = useRef<HTMLDivElement>(null);
   const captchaTokenRef = useRef('');
+  const authenticatedWalletAddress = (isETNLogged && etnWalletAddress)
+    ? etnWalletAddress
+    : (isWeb3AuthLogged && web3AuthAddress)
+      ? web3AuthAddress
+      : '';
+  const authenticatedProvider = (isETNLogged && etnWalletAddress)
+    ? 'etn'
+    : (isWeb3AuthLogged && web3AuthAddress)
+      ? 'web3auth'
+      : '';
+  const isAuthenticatedClaimMode = Boolean(authenticatedWalletAddress);
+
+  const handleDisconnectForDirectClaim = async () => {
+    try {
+      if (isETNLogged) {
+        await logoutETN();
+      }
+      if (isWeb3AuthLogged) {
+        await logoutWeb3Auth();
+      }
+      setResponse({ type: 'info', message: 'Disconnected. You can now use direct wallet claim with signature verification.' });
+    } catch (err) {
+      const message = err instanceof Error ? err.message : 'Failed to disconnect authentication session.';
+      setResponse({ type: 'danger', message });
+    }
+  };
 
   useEffect(() => {
     web3Ref.current = web3;
@@ -78,6 +111,13 @@ function ClaimFormContent() {
       setIsFromAuth(true);
     }
   }, [searchParams, walletAddress]);
+
+  useEffect(() => {
+    if (isAuthenticatedClaimMode && authenticatedWalletAddress) {
+      setWalletAddress(authenticatedWalletAddress);
+      setBalanceAddress(authenticatedWalletAddress);
+    }
+  }, [isAuthenticatedClaimMode, authenticatedWalletAddress]);
 
   // Utility to load script if absent, or attach load handler if present
   const ensureScriptLoaded = useCallback((src: string, onload: () => void) => {
@@ -347,7 +387,7 @@ function ClaimFormContent() {
       setResponse({ type: 'warning', message: 'Please wait for reCAPTCHA to finish initializing.' });
       return;
     }
-    const recipient = walletAddress.trim();
+    const recipient = (isAuthenticatedClaimMode ? authenticatedWalletAddress : walletAddress).trim();
     const recaptchaToken = captchaTokenRef.current.trim();
 
     if (!web3?.utils.isAddress(recipient)) {
@@ -369,6 +409,75 @@ function ClaimFormContent() {
         setResponse({ type: 'danger', message: 'Error: Session not initialized. Please wait a few seconds and try again.' });
         return;
       }
+    }
+
+    let claimExtras: Record<string, any> = {};
+    if (isAuthenticatedClaimMode) {
+      let web3AuthIdToken = '';
+      if (authenticatedProvider === 'web3auth') {
+        web3AuthIdToken = (await getWeb3AuthIdToken()) || '';
+        if (!web3AuthIdToken) {
+          setResponse({ type: 'danger', message: 'Web3Auth session verification failed. Please log out and log in again.' });
+          return;
+        }
+      }
+
+      claimExtras = {
+        auth_provider: authenticatedProvider,
+        authenticated_wallet: recipient,
+        web3auth_id_token: web3AuthIdToken,
+      };
+    } else {
+      if (!window.ethereum || typeof window.ethereum.request !== 'function') {
+        setResponse({
+          type: 'danger',
+          message: 'Direct wallet claim requires an injected wallet (such as MetaMask). Please install/open your wallet and try again.'
+        });
+        return;
+      }
+
+      setResponse({ type: 'info', message: 'Preparing wallet ownership challenge...' });
+      const challengeResponse = await fetch(`${BACKEND_URL}/claim/challenge`, {
+        method: 'POST',
+        credentials: 'include',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ recipient })
+      });
+
+      const challengeBody = await challengeResponse.json().catch(() => null);
+      if (!challengeResponse.ok || challengeBody?.status !== 'success') {
+        const message = challengeBody?.message || 'Failed to create wallet signature challenge.';
+        setResponse({ type: 'danger', message });
+        return;
+      }
+
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      const signer = Array.isArray(accounts) && accounts.length > 0 ? String(accounts[0]) : '';
+      if (!signer || !web3?.utils.isAddress(signer)) {
+        setResponse({ type: 'danger', message: 'No wallet account available for signature. Please unlock your wallet and retry.' });
+        return;
+      }
+
+      const signerChecksum = web3.utils.toChecksumAddress(signer);
+      const recipientChecksum = web3.utils.toChecksumAddress(recipient);
+      if (signerChecksum !== recipientChecksum) {
+        setResponse({
+          type: 'warning',
+          message: 'Wallet mismatch: switch your wallet account to match the entered recipient address, then try again.'
+        });
+        return;
+      }
+
+      setResponse({ type: 'info', message: 'Please approve the wallet signature request to verify ownership...' });
+      const signature = await window.ethereum.request({
+        method: 'personal_sign',
+        params: [challengeBody.message, signerChecksum],
+      });
+
+      claimExtras = {
+        nonce_id: challengeBody.nonce_id,
+        signature,
+      };
     }
 
     setLoading(true);
@@ -395,7 +504,8 @@ function ClaimFormContent() {
           body: JSON.stringify({
             recipient,
             recaptchaToken,
-            session_token: token
+            session_token: token,
+            ...claimExtras,
           })
         });
 
@@ -572,7 +682,7 @@ function ClaimFormContent() {
                     </div>
                   </div>
                   <p className="text-muted mb-0">
-                    We never ask users to connect or sign transactions. Simply submit your wallet address and receive your tokens securely.
+                    For direct wallet claims, we request a one-time wallet signature to prove ownership. If you use Built-in Login, signature is not required.
                   </p>
                 </div>
               </div>
@@ -824,6 +934,23 @@ function ClaimFormContent() {
                 </h2>
                 <p className="text-center text-muted mb-4">Enter your wallet address to claim tokens and check your balance</p>
 
+                {isAuthenticatedClaimMode && (
+                  <div className="alert alert-info mb-4">
+                    <div className="d-flex justify-content-between align-items-start flex-wrap gap-2">
+                      <div>
+                        <strong>Authenticated claim mode active</strong>
+                        <div className="small mt-1">
+                          Your claim wallet is locked to your logged-in {authenticatedProvider === 'etn' ? 'ETN' : 'Web3Auth'} account address.
+                          Disconnect your auth session to use direct wallet claim.
+                        </div>
+                      </div>
+                      <button className="btn btn-outline-secondary btn-sm" onClick={handleDisconnectForDirectClaim}>
+                        Disconnect to use direct claim
+                      </button>
+                    </div>
+                  </div>
+                )}
+
                 {/* Wallet Address Input */}
                 <div className="mb-4">
                   <label htmlFor="wallet-address" className="form-label fw-semibold">Wallet Address:</label>
@@ -839,6 +966,7 @@ function ClaimFormContent() {
                       setBalanceAddress(addr); // Keep both in sync
                       invalidateCaptcha();
                     }}
+                    disabled={isAuthenticatedClaimMode}
                   />
                 </div>
 
