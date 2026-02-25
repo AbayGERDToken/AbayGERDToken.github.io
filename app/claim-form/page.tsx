@@ -868,6 +868,9 @@ function ClaimFormContent() {
                   <div className="alert alert-warning mb-4">
                     <div className="fw-bold mb-2">⚠️ Fair Claim Policy Notice</div>
                     <p className="mb-2">Any use of bots or automation scripts will result in permanent disqualification.</p>
+                    <p className="mb-2">
+                      Disqualified addresses: <a href="/image/disqualified_wallets.csv" target="_blank" rel="noopener noreferrer">250 bot claims in 20 min</a>
+                    </p>
                     <details>
                       <summary className="fw-semibold">View full policy</summary>
                       <div className="mt-2 small">
@@ -877,7 +880,9 @@ function ClaimFormContent() {
                         </p>
                         <p className="mb-2">The yearly airdrop is reserved for genuine community members only.</p>
                         <p className="mb-2">Fair play is expected from everyone.</p>
-                        <p className="mb-3">Let’s protect the integrity of the movement. Disqualified addresses will be posted here soon.</p>
+                        <p className="mb-3">
+                          Let’s protect the integrity of the movement. Disqualified addresses: <a href="/image/disqualified_wallets.csv" target="_blank" rel="noopener noreferrer">250 bot claims in 20 min</a>
+                        </p>
                       </div>
                     </details>
 
