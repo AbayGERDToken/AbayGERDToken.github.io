@@ -344,8 +344,6 @@ function ClaimFormContent() {
   };
 
   const claimTokens = async () => {
-    setShowFairPolicyNotice(false);
-
     if (!isWeb3Ready) {
       setResponse({ type: 'danger', message: 'Please wait for Web3 to finish initializing.' });
       return;
@@ -378,6 +376,7 @@ function ClaimFormContent() {
       }
     }
 
+    setShowFairPolicyNotice(false);
     setLoading(true);
     setResponse({ type: 'info', message: 'Checking your location...' });
 
@@ -454,6 +453,8 @@ function ClaimFormContent() {
     } finally {
       setLoading(false);
       invalidateCaptcha();
+      setHasAcceptedFairPolicy(false);
+      setShowFairPolicyNotice(true);
     }
   };
 
@@ -861,12 +862,12 @@ function ClaimFormContent() {
                 {showFairPolicyNotice && (
                   <div className="alert alert-warning mb-4">
                     <div className="fw-bold mb-2">⚠️ Fair Claim Policy Notice</div>
-                    <p className="mb-2">GERD is built on fairness and equal participation.</p>
+                    <p className="mb-2">Any use of bots or automation scripts will result in permanent disqualification.</p>
                     <details>
                       <summary className="fw-semibold">View full policy</summary>
                       <div className="mt-2 small">
                         <p className="mb-2">
-                          Any use of bots or automation scripts will result in permanent disqualification from all future yearly airdrops,
+                          GERD is built on fairness and equal participation. Any use of bots or automation scripts will result in permanent disqualification from all future yearly airdrops,
                           including the 115-year annual distribution.
                         </p>
                         <p className="mb-2">The yearly airdrop is reserved for genuine community members only.</p>
