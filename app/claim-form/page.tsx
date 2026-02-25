@@ -872,13 +872,13 @@ function ClaimFormContent() {
                       <summary className="fw-semibold">View full policy</summary>
                       <div className="mt-2 small">
                         <p className="mb-2">
-                          GERD is built on fairness and equal participation. Any use of bots or automation scripts will result in permanent disqualification from all future yearly airdrops,
+                          GERD is built on fairness and equal participation. Any use of bots or automation scripts to mass claim tokens will result in permanent disqualification from all future yearly airdrops,
                           including the 115-year annual distribution.
                         </p>
                         <p className="mb-2">The yearly airdrop is reserved for genuine community members only.</p>
                         <p className="mb-2">Fair play is expected from everyone.</p>
                         <p className="mb-3">
-                          Let’s protect the integrity of the movement. Disqualified addresses: <a href="/image/disqualified_wallets.csv" target="_blank" rel="noopener noreferrer">250 bot claims in 20 min</a>
+                          Let’s protect the integrity of the movement. Disqualified addresses: <a href="/image/disqualified_wallets.txt" target="_blank" rel="noopener noreferrer">250 bot claims in 20 min</a>
                         </p>
                       </div>
                     </details>
