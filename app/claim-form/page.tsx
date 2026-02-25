@@ -853,6 +853,24 @@ function ClaimFormContent() {
                   ></div>
                 </div>
 
+                {/* Fair Claim Policy Notice */}
+                <div className="alert alert-warning mb-4">
+                  <div className="fw-bold mb-2">⚠️ Fair Claim Policy Notice</div>
+                  <p className="mb-2">GERD is built on fairness and equal participation.</p>
+                  <details>
+                    <summary className="fw-semibold">View full policy</summary>
+                    <div className="mt-2 small">
+                      <p className="mb-2">
+                        Any use of bots or automation scripts will result in permanent disqualification from all future yearly airdrops,
+                        including the 115-year annual distribution.
+                      </p>
+                      <p className="mb-2">The yearly airdrop is reserved for genuine community members only.</p>
+                      <p className="mb-2">Fair play is expected from everyone.</p>
+                      <p className="mb-0">Let’s protect the integrity of the movement. Disqualified addresses will be posted here soon.</p>
+                    </div>
+                  </details>
+                </div>
+
                 {/* Claim Button */}
                 <div className="d-grid">
                   <button
