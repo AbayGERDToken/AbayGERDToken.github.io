@@ -344,6 +344,8 @@ function ClaimFormContent() {
   };
 
   const claimTokens = async () => {
+    setShowFairPolicyNotice(false);
+
     if (!isWeb3Ready) {
       setResponse({ type: 'danger', message: 'Please wait for Web3 to finish initializing.' });
       return;
@@ -376,7 +378,6 @@ function ClaimFormContent() {
       }
     }
 
-    setShowFairPolicyNotice(false);
     setLoading(true);
     setResponse({ type: 'info', message: 'Checking your location...' });
 
@@ -453,8 +454,6 @@ function ClaimFormContent() {
     } finally {
       setLoading(false);
       invalidateCaptcha();
-      setHasAcceptedFairPolicy(false);
-      setShowFairPolicyNotice(true);
     }
   };
 
@@ -845,7 +844,13 @@ function ClaimFormContent() {
                       const addr = e.target.value;
                       setWalletAddress(addr);
                       setBalanceAddress(addr); // Keep both in sync
+                      setHasAcceptedFairPolicy(false);
+                      setShowFairPolicyNotice(true);
                       invalidateCaptcha();
+                    }}
+                    onFocus={() => {
+                      setHasAcceptedFairPolicy(false);
+                      setShowFairPolicyNotice(true);
                     }}
                   />
                 </div>
