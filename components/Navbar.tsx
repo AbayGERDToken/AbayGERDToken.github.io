@@ -92,6 +92,12 @@ export default function Navbar() {
                 </li>
                 <li><hr className="dropdown-divider" /></li>
                 <li>
+                  <Link className="dropdown-item" href="/auth">
+                    <div className="fw-bold">Built-in Wallet</div>
+                    <small className="text-muted">Login with Google/Facebook to create wallet</small>
+                  </Link>
+                </li>
+                <li>
                   <Link className="dropdown-item" href="/trust-wallet">
                     <div className="fw-bold">Trust Wallet</div>
                     <small className="text-muted">Setup instruction for Trust wallet</small>
@@ -107,12 +113,6 @@ export default function Navbar() {
                   <Link className="dropdown-item" href="/metamask-wallet">
                     <div className="fw-bold">Metamask Wallet</div>
                     <small className="text-muted">Setup instruction for Metamask wallet</small>
-                  </Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item" href="/auth">
-                    <div className="fw-bold">Built-in Wallet</div>
-                    <small className="text-muted">Login with Google/Facebook to create wallet</small>
                   </Link>
                 </li>
               </ul>
