@@ -108,7 +108,7 @@ export default function QnA() {
                     <i className="fas fa-user-shield text-info me-2"></i>Who controls the tokens right now?
                   </h3>
                   <p className="mb-0">
-                    As of now, <strong>115 billion GERD tokens</strong> are still in a wallet controlled by a single human. They are waiting for the vesting system (smart contract) to go live on the blockchain. While there is trust in that person, it&apos;s important to remove human control entirely — which is what vesting will achieve once deployed. After that point, not even the original creator can move or spend those tokens outside the vesting schedule.
+                    <strong>No single person controls the 115 billion GERD tokens anymore.</strong> They have been transferred to the vesting smart contract on the blockchain. Human control has been removed entirely — not even the original creator can move or spend those tokens outside the vesting schedule. The smart contract is now the sole custodian, and it will only release tokens automatically, once per year, as programmed.
                   </p>
                 </div>
               </div>
@@ -116,10 +116,10 @@ export default function QnA() {
               <div className="card qa-card">
                 <div className="card-body p-5">
                   <h3 className="h5 fw-bold mb-3">
-                    <i className="fas fa-robot text-success me-2"></i>What happens when the vesting contract goes live?
+                    <i className="fas fa-robot text-success me-2"></i>What happens now that the vesting contract is live?
                   </h3>
                   <p className="mb-0">
-                    Once deployed, the 115 billion tokens will be transferred to a secure, decentralized program called a <strong>smart contract</strong> — which acts like a <strong>virtual ATM machine</strong>. This ATM will only release tokens once per year, no earlier, no later. It&apos;s fully automatic, tamper-proof, and can&apos;t be changed or stopped. It&apos;s like programming a robot with one simple job and then throwing away the remote.
+                    The 115 billion tokens are now safely locked away and no longer in anyone&apos;s hands. A self-running program — called a smart contract — is in charge. Every year it automatically releases 1 billion tokens, like clockwork. There are no passwords, no keys, and no one who can speed it up or slow it down. Once it was set in motion, it became unstoppable.
                   </p>
                 </div>
               </div>

@@ -293,7 +293,7 @@ export default function Navbar() {
                 <li>
                   <Link className="dropdown-item" href="/dev">
                     <div className="fw-bold">Contributors</div>
-                    <small className="text-muted">Meet the team behind the project</small>
+                    <small className="text-muted">Be a contributor to the project</small>
                   </Link>
                 </li>
                 <li>
