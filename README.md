@@ -24,6 +24,13 @@ For AI coding agents and developers working on this project, see **[.github/copi
 
 For detailed ETN Identity integration documentation, start with [DOCUMENTATION_INDEX.md](DOCUMENTATION_INDEX.md).
 
+## Backend Source of Truth
+
+- Authoritative Render backend entrypoint: `C:\Users\Admin\OneDrive\Desktop\Bulma\render\Backend\main.py`
+- This website repository does not contain that backend Python source file.
+- Backend claim/rate-limit behavior (including `/send-token` pause logic) must be edited in that backend file.
+- If the backend path changes, update this README and relevant backend documentation in this repo.
+
 ## Contributing
 
 We welcome community contributions to the Abay GERD Token project. If you would like to contribute, please follow these steps:
