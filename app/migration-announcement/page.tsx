@@ -254,7 +254,7 @@ export default function MigrationAnnouncement() {
                   </h2>
                   <p className="lead mb-0">
                     Thank you for your continued trust in the GERD Token project. This migration strengthens our foundation
-                    for the next phase of growth and guarantees a secure, transparent, and decentralized future.
+                    for the next phase of growth and reinforces a secure, transparent, and decentralized direction.
                   </p>
                 </div>
               </div>

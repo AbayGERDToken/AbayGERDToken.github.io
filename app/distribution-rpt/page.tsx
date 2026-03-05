@@ -19,11 +19,15 @@ interface CountryDistribution {
 }
 
 export default function DistributionReport() {
+  const CLAIM_ALLOCATION = 2_000_000_000;
   const [loading, setLoading] = useState(false);
   const [distributions, setDistributions] = useState<CountryDistribution[]>([]);
   const [totalClaims, setTotalClaims] = useState(0);
   const [totalTokens, setTotalTokens] = useState(0);
   const [showStats, setShowStats] = useState(false);
+
+  const depletionPercent = Math.min((totalTokens / CLAIM_ALLOCATION) * 100, 100);
+  const depletionPercentDisplay = depletionPercent.toFixed(4);
 
   const fetchDistributionData = async () => {
     setLoading(true);
@@ -191,15 +195,46 @@ export default function DistributionReport() {
       <section className="content-section">
         <div className="container">
           <div className="row mb-5">
-            <div className="col-lg-8 mx-auto text-center">
-              <button
-                className="btn btn-success btn-lg mb-3"
-                onClick={fetchDistributionData}
-                disabled={loading}
-              >
-                <i className={`fas ${loading ? 'fa-spinner fa-spin' : 'fa-sync-alt'} me-2`}></i>
-                {loading ? 'Loading...' : 'Refresh Data'}
-              </button>
+            <div className="col-lg-10 mx-auto text-center">
+              <div className="d-flex flex-wrap justify-content-center align-items-center gap-3 mb-3">
+                <button
+                  className="btn btn-success btn-lg"
+                  onClick={fetchDistributionData}
+                  disabled={loading}
+                >
+                  <i className={`fas ${loading ? 'fa-spinner fa-spin' : 'fa-sync-alt'} me-2`}></i>
+                  {loading ? 'Loading...' : 'Refresh Data'}
+                </button>
+
+                <div className="border rounded-3 bg-white px-3 py-2 text-start" style={{ minWidth: '300px' }}>
+                  <div className="d-flex justify-content-between align-items-center mb-1">
+                    <span className="small fw-semibold text-muted">2B Claim Allocation Depletion</span>
+                    <span className="fw-bold text-primary">{depletionPercentDisplay}%</span>
+                  </div>
+                  <div
+                    className="progress"
+                    role="progressbar"
+                    aria-label="Claim allocation depletion"
+                    aria-valuenow={depletionPercent}
+                    aria-valuemin={0}
+                    aria-valuemax={100}
+                    style={{
+                      height: '10px',
+                      backgroundColor: '#e9ecef',
+                      border: '1px solid #adb5bd'
+                    }}
+                  >
+                    <div
+                      className="progress-bar bg-primary"
+                      style={{ width: `${depletionPercent}%` }}
+                    ></div>
+                  </div>
+                  <div className="small text-muted mt-1">
+                    {Math.floor(totalTokens).toLocaleString('en-US')} / {CLAIM_ALLOCATION.toLocaleString('en-US')} claimed
+                  </div>
+                </div>
+              </div>
+
               <p className="text-muted small">
                 *Territory refers to geographic or community-based regions.
               </p>

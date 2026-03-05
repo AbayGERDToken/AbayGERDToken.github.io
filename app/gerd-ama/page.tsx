@@ -15,7 +15,7 @@ export default function GerdAma() {
                   <i className="fas fa-comments me-3"></i>Abay GERD Token - Community AMA
                 </h1>
                 <p className="lead fs-5 opacity-90">
-                  Everything you need to know about GERD Token — straight from the team. Learn more about the mission, technology, and vision behind this unique community project.
+                  Everything you need to know about GERD Token: distribution logic, vesting model, transparency, and long-term vision.
                 </p>
               </div>
             </div>
@@ -41,7 +41,7 @@ export default function GerdAma() {
                     <h2 className="h5 fw-bold mb-0">What exactly is the Abay GERD Token?</h2>
                   </div>
                   <p className="mb-0">
-                    GERD Token is a <strong>community-powered digital asset</strong> created to honor the spirit of the Grand Ethiopian Renaissance Dam. It symbolizes unity, resilience, and forward-thinking. There are no insiders, no presales — just fair access for everyone.
+                    GERD Token is a <strong>community-powered digital asset</strong> inspired by the Abay River and the Grand Ethiopian Renaissance Dam. It follows a no-presale, no-private-allocation distribution model focused on open participation.
                   </p>
                 </div>
               </div>
@@ -58,7 +58,7 @@ export default function GerdAma() {
                     <h2 className="h5 fw-bold mb-0">Who can claim GERD tokens?</h2>
                   </div>
                   <p className="mb-0">
-                    Anyone, anywhere! Special priority is given to users in Ethiopia. Originally, users could claim 1,000 GERD globally or 7,500 in Ethiopia — later increased to 10,000 and 75,000 respectively.
+                    Anyone can participate where legally permitted. The current claim structure uses a tribute-based allocation: <strong>75,000 GERD</strong> for Ethiopia and <strong>10,000 GERD</strong> globally.
                   </p>
                 </div>
               </div>
@@ -75,7 +75,7 @@ export default function GerdAma() {
                     <h2 className="h5 fw-bold mb-0">How many tokens exist, and how are they distributed?</h2>
                   </div>
                   <p className="mb-0">
-                    Total supply is <strong>120 billion GERD</strong> tokens. 115B are locked in a smart contract with 1B released annually over 115 years. The remaining 5B are used for <strong>distribution, liquidity, rewards, and development</strong>.
+                    Total supply is <strong>120 billion GERD</strong>. <strong>115 billion</strong> are assigned to a 115-year vesting model with <strong>1 billion released annually</strong>. The remaining 5 billion support distribution, liquidity, ecosystem operations, and growth.
                   </p>
                 </div>
               </div>
@@ -92,7 +92,7 @@ export default function GerdAma() {
                     <h2 className="h5 fw-bold mb-0">What ensures fairness and transparency?</h2>
                   </div>
                   <p className="mb-0">
-                    All token flows are verifiable on the blockchain. Governance is via a <strong>3-of-5 Gnosis Safe multisig</strong>. Smart contracts are <strong>immutable</strong> and open-source - public, verifiable on GitHub and Binance Smart Chain.
+                    Public blockchain records provide transparent visibility of token activity. Contract addresses, distribution rules, and release checkpoints are published for independent verification.
                   </p>
                 </div>
               </div>
@@ -129,7 +129,7 @@ export default function GerdAma() {
                       </div>
                     </div>
                   </div>
-                  <p className="mb-0">Trackable via our public <strong>vesting dashboard</strong>.</p>
+                  <p className="mb-0">All annual checkpoints are trackable through public on-chain records and project dashboards.</p>
                 </div>
               </div>
 
@@ -145,17 +145,13 @@ export default function GerdAma() {
                     <h2 className="h5 fw-bold mb-0">What platforms support GERD Token?</h2>
                   </div>
                   <p className="mb-3">
-                    <strong>GERD Token is currently deployed on the Binance Smart Chain (BSC)</strong>, chosen for its low transaction fees and widespread wallet compatibility.
-                  </p>
-                  <p className="mb-3">
-                    <strong>Ethereum Network Readiness (if ever needed)</strong><br />
-                    While there are <strong>no current plans to migrate to Ethereum</strong>, GERD Token is technically prepared in case the community ever decides a migration is necessary in the future. Wallet addresses on BSC and Ethereum are identical due to shared key derivation, so holders would automatically receive their migrated tokens on Ethereum — simply by importing the new ETH contract address into their existing wallet.
+                    <strong>GERD Token is deployed on Binance Smart Chain (BSC)</strong>, selected for broad wallet support and relatively low transaction costs.
                   </p>
                   <p className="mb-2">This provides:</p>
                   <ul className="mb-0">
-                    <li>A seamless option for future cross-chain support if ever required</li>
-                    <li>Zero friction for token holders in case of migration</li>
-                    <li>Community flexibility and future-proof design</li>
+                    <li>Accessible wallet compatibility for first-time users</li>
+                    <li>Lower transaction friction for participation and transfers</li>
+                    <li>Scalable infrastructure for long-term community growth</li>
                   </ul>
                 </div>
               </div>
@@ -223,10 +219,10 @@ export default function GerdAma() {
                     <h2 className="h5 fw-bold mb-0">What&apos;s the long-term vision?</h2>
                   </div>
                   <p className="mb-3">
-                    We aim to <strong>digitize the unbanked community finance</strong> and build a <strong>sustainable, community-powered economy</strong>. GERD Token is designed to last 115 years — with every step fully decentralized, auditable, and fair.
+                    We aim to support digital value creation for communities with limited access to traditional finance. GERD is designed with a long-term schedule and transparent release model.
                   </p>
                   <p className="mb-0">
-                    Our broader goal is <strong>digital value creation within the GERD community</strong>, especially for the unbanked population who already have the most important tools: <strong>internet access and a mobile device</strong>. By lowering the barriers to entry, we are creating a system where anyone can participate, own, and benefit from a decentralized digital future.
+                    This project is participation-oriented, not return-guaranteed. Users should evaluate risk, verify on-chain data, and follow applicable regulations in their jurisdiction.
                   </p>
                 </div>
               </div>
@@ -236,7 +232,7 @@ export default function GerdAma() {
                   <h2 className="h4 fw-bold mb-3">
                     <i className="fas fa-rocket text-success me-2"></i>Final Words?
                   </h2>
-                  <p className="lead mb-4">GERD is more than a token. It&apos;s a movement. Claim your share. Contribute. Grow with us.</p>
+                  <p className="lead mb-4">GERD is a long-term community asset model. Claim where eligible, verify on-chain, and participate responsibly.</p>
                   <div className="d-flex flex-column flex-md-row gap-3 justify-content-center">
                     <Link href="/" className="text-decoration-none">
                       <i className="fas fa-link me-2"></i>www.abaygerdtoken.com

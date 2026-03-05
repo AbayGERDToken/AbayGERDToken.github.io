@@ -13,7 +13,7 @@ export default function Vesting() {
                 <h1 className="display-4 fw-bold mb-4">
                   <i className="fas fa-lock me-3"></i>Abay GERD Token Vesting Strategy
                 </h1>
-                <p className="lead fs-5 opacity-90">Reinforcing Transparency and Sustainable Growth</p>
+                <p className="lead fs-5 opacity-90">Transparent Release Model for Long-Term Participation</p>
               </div>
             </div>
           </div>
@@ -33,23 +33,18 @@ export default function Vesting() {
                     <i className="fas fa-chart-line text-success me-2"></i>Overview of the Vesting Plan
                   </h2>
                   <p className="lead mb-4">
-                    The <strong>Abay GERD Token (GERD)</strong> has a transformative vesting strategy designed to enhance long-term value,
-                    promote stability, and build trust through full transparency. This development marks a major milestone in the token&apos;s evolution.
+                    The <strong>Abay GERD Token (GERD)</strong> uses a fixed, transparent vesting model designed to support predictable supply growth and long-term ecosystem participation.
                   </p>
                   <p className="mb-3">
-                    In addition to the milestone airdrop distributed to all existing wallet addresses on May 5, 2025, to commemorate its
-                    <strong>2-year anniversary</strong>, GERD Token has introduced a long-term vesting framework to further demonstrate its
-                    commitment to sustainability and ongoing community rewards.
+                    Out of 120 billion total supply, <strong>115 billion tokens</strong> are allocated to a long-horizon release schedule. Exactly <strong>1 billion tokens per year</strong> are released across 115 years under predefined public rules.
                   </p>
                   <p className="mb-3">
-                    A total of <strong>115 billion tokens</strong> will be locked in a secure, immutable smart contract, with a scheduled release
-                    of <strong>1 billion tokens per year</strong> over the next 115 years. This approach ensures a consistent and predictable
-                    distribution model that incentivizes long-term holding and active participation.
+                    This schedule-first approach reduces discretionary control, improves visibility for participants, and aligns with a gradual adoption model rather than sudden supply shocks.
                   </p>
                   <div className="alert alert-info border-info">
                     <p className="mb-0">
                       <i className="fas fa-info-circle me-2"></i>
-                      The smart contract is fully autonomous and irreversible. Once deployed, its rules cannot be modified or bypassed—neither by the original developers nor any external party. The vesting schedule and token release conditions will be permanently embedded in the blockchain and remain verifiable by anyone at any time.
+                      The vesting framework is designed to be transparent and publicly verifiable. Participants should always confirm current contract details and on-chain activity directly before making decisions.
                     </p>
                   </div>
                 </div>
@@ -86,7 +81,7 @@ export default function Vesting() {
                         </div>
                         <div>
                           <h4 className="h6 fw-bold mb-1">Annual Release of 1 Billion</h4>
-                          <p className="small text-muted mb-0">Starting April 23, 2026, 1 billion tokens released annually</p>
+                          <p className="small text-muted mb-0">1 billion tokens released annually under a fixed vesting model</p>
                         </div>
                       </div>
                     </div>
@@ -100,7 +95,7 @@ export default function Vesting() {
                         </div>
                         <div>
                           <h4 className="h6 fw-bold mb-1">500 Million Airdropped</h4>
-                          <p className="small text-muted mb-0">Distributed evenly to all active GERD holders—no action needed</p>
+                          <p className="small text-muted mb-0">Annual holder allocation distributed by snapshot rules</p>
                         </div>
                       </div>
                     </div>
@@ -114,7 +109,7 @@ export default function Vesting() {
                         </div>
                         <div>
                           <h4 className="h6 fw-bold mb-1">250 Million for Staking</h4>
-                          <p className="small text-muted mb-0">For users who stake GERD tokens, encouraging engagement</p>
+                          <p className="small text-muted mb-0">Allocated to staking and engagement mechanisms</p>
                         </div>
                       </div>
                     </div>
@@ -128,7 +123,7 @@ export default function Vesting() {
                         </div>
                         <div>
                           <h4 className="h6 fw-bold mb-1">250 Million for Liquidity or Burn</h4>
-                          <p className="small text-muted mb-0">Added to liquidity if under 500M; otherwise burned</p>
+                          <p className="small text-muted mb-0">Allocated for liquidity operations or burn policy execution</p>
                         </div>
                       </div>
                     </div>
@@ -142,7 +137,7 @@ export default function Vesting() {
                         </div>
                         <div>
                           <h4 className="h6 fw-bold mb-1">Publicly Verifiable</h4>
-                          <p className="small text-muted mb-0">All activity is traceable and transparent on-chain</p>
+                          <p className="small text-muted mb-0">All releases are auditable through on-chain records</p>
                         </div>
                       </div>
                     </div>
@@ -204,7 +199,7 @@ export default function Vesting() {
                     <i className="fas fa-users text-success me-2"></i>A Community-Driven Digital Asset
                   </h2>
                   <p className="mb-0">
-                    GERD Token&apos;s value comes from its community, not institutions. Its adoption and utility define its worth—like Bitcoin, it&apos;s a decentralized people-powered asset.
+                    GERD is community-driven and participation-based. Its relevance grows through adoption, utility, and transparent supply behavior over time.
                   </p>
                 </div>
               </div>
@@ -216,7 +211,7 @@ export default function Vesting() {
                     <i className="fas fa-infinity text-primary me-2"></i>A Generational Asset
                   </h2>
                   <p className="mb-0">
-                    Designed to last over a century, GERD Token is a long-term digital inheritance. Early holders benefit most from the annual airdrop structure, and as the number of wallets increases, each share becomes smaller—rewarding early adopters significantly.
+                    Designed for multi-generational continuity, GERD uses a century-scale schedule intended to keep participation open while preserving predictable annual issuance.
                   </p>
                 </div>
               </div>
@@ -228,7 +223,7 @@ export default function Vesting() {
                     <i className="fas fa-eye text-info me-2"></i>Looking Ahead
                   </h2>
                   <p className="mb-0">
-                    GERD Token continues to grow on principles of fairness, transparency, and generational wealth. Its vesting mechanism offers a rare chance to build digital legacy for years to come.
+                    GERD continues on principles of fairness, transparency, and long-term community alignment. Vesting is part of that framework, not a guarantee of future market performance.
                   </p>
                 </div>
               </div>
@@ -242,7 +237,7 @@ export default function Vesting() {
                   >
                     <i className="fas fa-rocket"></i>
                   </div>
-                  <h2 className="h3 fw-bold mb-0">The journey has just begun. GERD is built to last.</h2>
+                  <h2 className="h3 fw-bold mb-0">Long-term design, transparent schedule, community participation.</h2>
                 </div>
               </div>
 

@@ -14,7 +14,7 @@ export default function QnA() {
                   <i className="fas fa-question-circle me-3"></i>QnA: Frequently Asked Questions
                 </h1>
                 <p className="lead fs-5 opacity-90">
-                  Get answers to common questions about token rewards, vesting, and the GERD Token ecosystem
+                  Get answers about distribution, long-term vesting, transparency, and risk disclosure
                 </p>
               </div>
             </div>
@@ -37,7 +37,7 @@ export default function QnA() {
                     <i className="fas fa-flag text-danger me-2"></i>Why do Ethiopia originated wallets receive 75,000 GERD while others get 10,000 GERD tokens?
                   </h3>
                   <p className="mb-0">
-                    The Abay GERD Token was created as a tribute to the people of Ethiopia who collectively funded and built the Grand Renaissance Dam without external aid. This project represents unity, self-determination, and national pride. As such, Ethiopia is at the heart of this initiative and receive the highest reward.
+                    GERD is inspired by the Abay River and Ethiopia&apos;s Grand Ethiopian Renaissance Dam. Ethiopia receives a higher claim allocation as a tribute to the origin community of the project, while global participation remains open to everyone.
                   </p>
                 </div>
               </div>
@@ -48,7 +48,7 @@ export default function QnA() {
                     <i className="fas fa-globe text-primary me-2"></i>Why does the rest of the world receive 10,000 GERD?
                   </h3>
                   <p className="mb-0">
-                    Global participants are essential to the success of any decentralized project. We welcome and appreciate your support. The 10,000 GERD reward reflects both inclusivity and our commitment to keeping the token&apos;s value sustainable while prioritizing communities most directly connected to the project&apos;s origin.
+                    GERD is designed for broad participation across regions. The global 10,000 GERD claim keeps distribution open while maintaining a long-term supply framework.
                   </p>
                 </div>
               </div>
@@ -59,7 +59,7 @@ export default function QnA() {
                     <i className="fas fa-balance-scale text-warning me-2"></i>Isn&apos;t this unfair or discriminatory?
                   </h3>
                   <p className="mb-0">
-                    Not at all. This is mission-aligned distribution, not exclusion. Every user, regardless of region or background, is eligible to receive tokens and participate freely. The distribution structure ensures that those who contributed to building the foundation—including the unbanked and less privileged individuals who played a vital role in constructing the dam—are recognized and empowered in proportion to their efforts. The goal is not only fairness, but also long-term value creation for the communities that made this project possible.
+                    The model is distribution-focused, not exclusion-focused. GERD has no presale, no private allocation, and no insider advantage. Every eligible user can participate; the regional distinction reflects tribute design, not restricted access.
                   </p>
                 </div>
               </div>
@@ -70,7 +70,7 @@ export default function QnA() {
                     <i className="fas fa-exchange-alt text-success me-2"></i>Will I still be able to trade or earn more GERD tokens?
                   </h3>
                   <p className="mb-0">
-                    Yes. GERD tokens will remain tradable for all users worldwide. Once 10,000 wallets have successfully claimed tokens and the token is listed on a centralized exchange (CEX), users will also be eligible to participate in future rewards, airdrops, and community-driven initiatives.
+                    GERD is a digital asset that can participate in open-market activity where permitted. This is not a promise of returns. Participation outcomes depend on adoption, market conditions, and legal compliance.
                   </p>
                 </div>
               </div>
@@ -97,7 +97,7 @@ export default function QnA() {
                     <i className="fas fa-lock text-primary me-2"></i>What is &quot;vesting&quot; and why should I care?
                   </h3>
                   <p className="mb-0">
-                    Vesting is a way to release tokens in small, scheduled portions over time instead of giving them all out at once. For the GERD Token, vesting means exactly <strong>1 billion tokens</strong> will be released every year for the next <strong>115 years</strong>. This creates long-term stability and prevents anyone from dumping a huge amount of tokens on the market, which could hurt the value. It also rewards committed community members who stick around.
+                    Vesting means token release follows a fixed public schedule instead of one-time distribution. For GERD, <strong>1 billion tokens</strong> are released each year for <strong>115 years</strong>, which supports predictable supply expansion and long-term participation.
                   </p>
                 </div>
               </div>
@@ -166,7 +166,7 @@ export default function QnA() {
                     <i className="fas fa-equals text-primary me-2"></i>Will everyone get the same amount?
                   </h3>
                   <p className="mb-0">
-                    Yes, the 500 million tokens for holders are shared <strong>equally</strong> — not based on how much GERD you hold. Every wallet that holds any amount of GERD will receive the same fixed amount during each yearly release. For example, if 1 million wallets are holding GERD at the time of the release, each one will receive 500 GERD. If only 100 wallets are holding GERD, each one gets 5 million GERD. So, the earlier you become a holder, the more you&apos;ll receive — because there are fewer wallets to split the 500 million.
+                    The annual holder allocation is designed to be shared across eligible wallets captured at the yearly snapshot. Earlier participation can result in more years of eligibility over time.
                   </p>
                 </div>
               </div>
@@ -177,7 +177,7 @@ export default function QnA() {
                     <i className="fas fa-ban text-danger me-2"></i>Can anyone stop or change this system later?
                   </h3>
                   <p className="mb-0">
-                    Absolutely not. Once the tokens are inside the vesting smart contract, they are <strong>locked forever</strong>. No person, organization, or developer can access them outside of the yearly schedule. This is the power of decentralized blockchain technology — it removes human risk and guarantees that the rules are enforced automatically, forever.
+                    The vesting model is schedule-based and designed to limit discretionary intervention. Participants should still verify the current contract state and release conditions directly on-chain.
                   </p>
                 </div>
               </div>
@@ -188,7 +188,7 @@ export default function QnA() {
                     <i className="fas fa-users text-success me-2"></i>Why is this good for the community?
                   </h3>
                   <p className="mb-0">
-                    This system removes the need to trust any individual. It guarantees fairness, ensures that no one can cheat or take more than their share, and makes sure that token rewards are distributed every year for over a century. It&apos;s a long-term, transparent way to support the growth of the community, provide predictable rewards, and prevent surprises. This is about creating digital wealth that lasts across generations.
+                    This system is intended to improve transparency and reduce concentration risk by using predefined release rules. It supports a long-term framework for community participation across generations.
                   </p>
                 </div>
               </div>
@@ -199,7 +199,7 @@ export default function QnA() {
                     <i className="fas fa-lightbulb text-warning me-2"></i>So what should I do now?
                   </h3>
                   <p className="mb-0">
-                    Just make sure you hold GERD tokens in your own wallet (not on an exchange) before each yearly release. If you&apos;re holding at the right time, you&apos;ll automatically receive your share of the 500 million tokens for that year. No need to claim anything or pay extra — it&apos;s all handled by the smart contract. Easy, secure, and fair.
+                    Hold GERD in your own wallet and follow official project updates about yearly snapshot timing and distribution rules. Always verify on-chain information and comply with local laws.
                   </p>
                 </div>
               </div>

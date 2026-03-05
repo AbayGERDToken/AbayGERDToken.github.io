@@ -2,34 +2,184 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { useEffect } from 'react';
 
+type MenuLink = {
+  href: string;
+  title: string;
+  subtitle: string;
+  external?: boolean;
+};
+
+type MenuSection = {
+  heading?: string;
+  items: MenuLink[];
+};
+
+const startMenu: MenuSection[] = [
+  {
+    heading: 'Get Started',
+    items: [
+      { href: '/claim-form', title: 'Claim Tokens', subtitle: 'Free claim flow in seconds' },
+      { href: '/auth', title: 'Built-in Wallet', subtitle: 'Create wallet via social login' },
+    ],
+  },
+  {
+    heading: 'Wallet Setup Guides',
+    items: [
+      { href: '/trust-wallet', title: 'Trust Wallet', subtitle: 'Setup instructions' },
+      { href: '/base-wallet', title: 'Base Wallet', subtitle: 'Setup instructions' },
+      { href: '/metamask-wallet', title: 'MetaMask Wallet', subtitle: 'Setup instructions' },
+    ],
+  },
+];
+
+const ecosystemMenu: MenuSection[] = [
+  {
+    heading: 'Vesting & Distribution',
+    items: [
+      { href: '/dashboard-vesting', title: 'Vesting Dashboard', subtitle: 'Main release dashboard' },
+      { href: '/testnet-vesting-dashboard', title: 'Testnet Dashboard', subtitle: 'Live testnet release tracking' },
+      { href: '/gerd-airdrop', title: 'Airdrop Calculator', subtitle: 'Yearly airdrop projection' },
+      { href: '/distribution-rpt', title: 'Claim Report', subtitle: 'Global claim statistics' },
+    ],
+  },
+  {
+    heading: 'Project Intelligence',
+    items: [
+      { href: '/vesting', title: 'Vesting Strategy', subtitle: 'Long-term release design' },
+      { href: '/timeline', title: 'Project Timeline', subtitle: 'Roadmap and milestones' },
+      { href: '/gerd-wallets', title: 'Project Wallets', subtitle: 'Official wallet balances' },
+      { href: '/developer-transparency', title: 'Developer Transparency', subtitle: 'Code, updates, and audit visibility' },
+    ],
+  },
+];
+
+const learnMenu: MenuSection[] = [
+  {
+    heading: 'Knowledge Base',
+    items: [
+      { href: '/qna', title: 'Q&A', subtitle: 'Frequently asked questions' },
+      { href: '/gerd-ama', title: 'AMA Sessions', subtitle: 'Community Q&A highlights' },
+      { href: '/migration-announcement', title: 'Migration Announcement', subtitle: 'Contract migration details' },
+      { href: '/dev', title: 'Contributors', subtitle: 'Support and contribute to the project' },
+    ],
+  },
+  {
+    heading: 'Documents',
+    items: [
+      { href: '/image/AbayGERDToken.pdf', title: 'Whitepaper', subtitle: 'Project overview and economics', external: true },
+      { href: '/dev/GERD_Token_Audit_Summary.pdf', title: 'Audit Report', subtitle: 'Internal audit summary PDF', external: true },
+    ],
+  },
+];
+
+const communityLinks: MenuLink[] = [
+  { href: 'https://github.com/AbayGERDToken', title: 'GitHub', subtitle: 'Source code and repositories', external: true },
+  { href: 'https://x.com/abaygerdtoken', title: 'X (Twitter)', subtitle: 'Official updates', external: true },
+  { href: 'https://t.me/GERDToken', title: 'Telegram', subtitle: 'Community chat', external: true },
+  { href: 'https://www.tiktok.com/@abaygerdtoken', title: 'TikTok', subtitle: 'Short-form content', external: true },
+];
+
+const explorerLinks: MenuLink[] = [
+  {
+    href: 'https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c',
+    title: 'BscScan',
+    subtitle: 'Full token explorer',
+    external: true,
+  },
+  {
+    href: 'https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c#balances',
+    title: 'Top Holders',
+    subtitle: 'Distribution transparency',
+    external: true,
+  },
+  {
+    href: 'https://bsctrace.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c',
+    title: 'Fast Explorer',
+    subtitle: 'Lightweight lookup',
+    external: true,
+  },
+];
+
+function MenuItem({ item }: { item: MenuLink }) {
+  if (item.external) {
+    return (
+      <a className="dropdown-item" href={item.href} target="_blank" rel="noopener noreferrer">
+        <div className="fw-semibold d-flex align-items-center justify-content-between gap-2">
+          <span>{item.title}</span>
+          <i className="fas fa-arrow-up-right-from-square small text-muted"></i>
+        </div>
+        <small className="text-muted">{item.subtitle}</small>
+      </a>
+    );
+  }
+
+  return (
+    <Link className="dropdown-item" href={item.href}>
+      <div className="fw-semibold">{item.title}</div>
+      <small className="text-muted">{item.subtitle}</small>
+    </Link>
+  );
+}
+
+function MenuGroup({ sections }: { sections: MenuSection[] }) {
+  return (
+    <>
+      {sections.map((section, sectionIndex) => (
+        <li key={section.heading || sectionIndex}>
+          <div className="dropdown-section-label">{section.heading}</div>
+          {section.items.map((item) => (
+            <MenuItem key={item.href + item.title} item={item} />
+          ))}
+          {sectionIndex < sections.length - 1 && <hr className="dropdown-divider" />}
+        </li>
+      ))}
+    </>
+  );
+}
+
 export default function Navbar() {
+  const pathname = usePathname();
+
   useEffect(() => {
-    // Close navbar when a dropdown item is clicked
+    // Close mobile menu after selecting a navigation item.
     const navbarCollapse = document.querySelector('.navbar-collapse');
-    const dropdownItems = document.querySelectorAll('.dropdown-item');
+    const clickableItems = document.querySelectorAll('.dropdown-item, .nav-link[href]');
     
-    const handleDropdownClick = () => {
+    const handleDropdownClick = (event: Event) => {
+      const target = event.currentTarget as HTMLElement;
+      if (target.getAttribute('href') === '#') {
+        return;
+      }
+
       if (navbarCollapse?.classList.contains('show')) {
         const navbarToggler = document.querySelector('.navbar-toggler') as HTMLElement;
         navbarToggler?.click();
       }
     };
     
-    dropdownItems.forEach(item => {
+    clickableItems.forEach(item => {
       item.addEventListener('click', handleDropdownClick);
     });
     
     return () => {
-      dropdownItems.forEach(item => {
+      clickableItems.forEach(item => {
         item.removeEventListener('click', handleDropdownClick);
       });
     };
   }, []);
 
+  const topLinks = [
+    { href: '/', label: 'Home' },
+    { href: '/claim-form', label: 'Claim' },
+    { href: '/dashboard-vesting', label: 'Vesting' },
+    { href: '/qna', label: 'Q&A' },
+  ];
+
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-success fixed-top" suppressHydrationWarning>
+    <nav className="navbar navbar-expand-xl navbar-dark modern-navbar fixed-top" suppressHydrationWarning>
       <div className="container-fluid">
         <Link className="navbar-brand d-flex align-items-center" href="/">
           <Image
@@ -42,6 +192,7 @@ export default function Navbar() {
           />
           <span className="fw-bold">AbayGERDToken</span>
         </Link>
+
         <button
           className="navbar-toggler"
           type="button"
@@ -53,332 +204,121 @@ export default function Navbar() {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarNav">
+
+        <div className="collapse navbar-collapse modern-navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav nav-pill-links mx-auto d-none d-xl-flex">
+            {topLinks.map((link) => (
+              <li className="nav-item" key={link.href}>
+                <Link className={`nav-link ${pathname === link.href ? 'active' : ''}`} href={link.href}>
+                  {link.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+
           <ul className="navbar-nav ms-auto">
             <li className="nav-item">
-              <Link className="nav-link" href="/">Home</Link>
+              <Link className={`nav-link ${pathname === '/' ? 'active' : ''}`} href="/">
+                <i className="fas fa-house me-1"></i>Home
+              </Link>
             </li>
 
-            {/* Token Claims Dropdown */}
             <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"
                 href="#"
-                id="dropdown1"
+                id="dropdownStart"
                 role="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                Token Claims
+                Start Here
               </a>
-              <ul className="dropdown-menu" aria-labelledby="dropdown1">
-                <li>
-                  <Link className="dropdown-item" href="/claim-form">
-                    <div className="fw-bold">Token Claim</div>
-                    <small className="text-muted">Claim Free Tokens - Faucet</small>
-                  </Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item" href="/distribution-rpt">
-                    <div className="fw-bold">Claim Report</div>
-                    <small className="text-muted">Global claims per country graph</small>
-                  </Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item" href="/gerd-airdrop">
-                    <div className="fw-bold">Airdrop</div>
-                    <small className="text-muted">Airdrop calculator for the yearly vesting release</small>
-                  </Link>
-                </li>
-                <li><hr className="dropdown-divider" /></li>
-                <li>
-                  <Link className="dropdown-item" href="/auth">
-                    <div className="fw-bold">Built-in Wallet</div>
-                    <small className="text-muted">Login with Google/Facebook to create wallet</small>
-                  </Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item" href="/trust-wallet">
-                    <div className="fw-bold">Trust Wallet</div>
-                    <small className="text-muted">Setup instruction for Trust wallet</small>
-                  </Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item" href="/base-wallet">
-                    <div className="fw-bold">Base Wallet</div>
-                    <small className="text-muted">Setup instruction for Base wallet</small>
-                  </Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item" href="/metamask-wallet">
-                    <div className="fw-bold">Metamask Wallet</div>
-                    <small className="text-muted">Setup instruction for Metamask wallet</small>
-                  </Link>
-                </li>
+              <ul className="dropdown-menu dropdown-menu-modern" aria-labelledby="dropdownStart">
+                <MenuGroup sections={startMenu} />
               </ul>
             </li>
 
-            {/* Vesting Dropdown */}
             <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"
                 href="#"
-                id="dropdown8"
+                id="dropdownEcosystem"
                 role="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                Vesting
+                Ecosystem
               </a>
-              <ul className="dropdown-menu" aria-labelledby="dropdown8">
-                <li>
-                  <Link className="dropdown-item" href="/dashboard-vesting">
-                    <div className="fw-bold">Vesting Dashboard</div>
-                    <small className="text-muted">Main vesting release dashboard</small>
-                  </Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item" href="/testnet-vesting-dashboard">
-                    <div className="fw-bold">Testnet Dashboard</div>
-                    <small className="text-muted">Monitor live GERD&apos;s vesting release on Testnet</small>
-                  </Link>
-                </li>
-                <li><hr className="dropdown-divider" /></li>
-                <li>
-                  <Link className="dropdown-item" href="/vesting">
-                    <div className="fw-bold">Vesting Strategy</div>
-                    <small className="text-muted">Reinforcing Transparency and Sustainable Growth</small>
-                  </Link>
-                </li>
-                <li>
-                  <a
-                    className="dropdown-item"
-                    href="/image/GERDVesting_Roadmap.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <div className="fw-bold">Vesting Roadmap <i className="fas fa-external-link-alt ms-1 small"></i></div>
-                    <small className="text-muted">Smart contract development roadmap for the vesting release</small>
-                  </a>
-                </li>
+              <ul className="dropdown-menu dropdown-menu-modern" aria-labelledby="dropdownEcosystem">
+                <MenuGroup sections={ecosystemMenu} />
               </ul>
             </li>
 
-            {/* Project Insights Dropdown */}
             <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"
                 href="#"
-                id="dropdown5"
+                id="dropdownLearn"
                 role="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                Project Insights
+                Learn
               </a>
-              <ul className="dropdown-menu dropdown-menu-lg-end" aria-labelledby="dropdown5">
-                <li>
-                  <Link className="dropdown-item" href="/gerd-wallets">
-                    <div className="fw-bold">Project Wallets</div>
-                    <small className="text-muted">View official project wallet balances</small>
-                  </Link>
-                </li>
-                <li>
-                  <a
-                    className="dropdown-item"
-                    href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c#balances"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <div className="fw-bold">Top Holders <i className="fas fa-external-link-alt ms-1 small"></i></div>
-                    <small className="text-muted">Transparency on token distribution</small>
-                  </a>
-                </li>
-                <li>
-                  <Link className="dropdown-item" href="/migration-announcement">
-                    <div className="fw-bold">Migration Announcement</div>
-                    <small className="text-muted">Details on the token migration</small>
-                  </Link>
-                </li>
-                <li><hr className="dropdown-divider" /></li>
-                <li>
-                  <Link className="dropdown-item" href="/timeline">
-                    <div className="fw-bold">Project Timeline</div>
-                    <small className="text-muted">Roadmap and key milestones</small>
-                  </Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item" href="/gerd-ama">
-                    <div className="fw-bold">AMA (Ask Me Anything)</div>
-                    <small className="text-muted">Community Q&A sessions</small>
-                  </Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item" href="/qna">
-                    <div className="fw-bold">QnA</div>
-                    <small className="text-muted">Frequently Asked Questions</small>
-                  </Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item" href="/developer-transparency">
-                    <div className="fw-bold">Developer Transparency</div>
-                    <small className="text-muted">Open-source repos, audits, and live changes</small>
-                  </Link>
-                </li>
+              <ul className="dropdown-menu dropdown-menu-modern" aria-labelledby="dropdownLearn">
+                <MenuGroup sections={learnMenu} />
               </ul>
             </li>
 
-            {/* Resources Dropdown */}
             <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"
                 href="#"
-                id="dropdown7"
-                role="button"
-                data-bs-toggle="dropdown"
-                aria-expanded="false"
-              >
-                Resources
-              </a>
-              <ul className="dropdown-menu" aria-labelledby="dropdown7">
-                <li>
-                  <a
-                    className="dropdown-item"
-                    href="/image/AbayGERDToken.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <div className="fw-bold">Whitepaper <i className="fas fa-external-link-alt ms-1 small"></i></div>
-                    <small className="text-muted">Project overview and economics pdf</small>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="dropdown-item"
-                    href="/dev/GERD_Token_Audit_Summary.pdf"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <div className="fw-bold">Audit Report <i className="fas fa-external-link-alt ms-1 small"></i></div>
-                    <small className="text-muted">Basic internal audit summary pdf</small>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="dropdown-item"
-                    href="/dev/gerd.gif"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <div className="fw-bold">GERD Video Clip <i className="fas fa-external-link-alt ms-1 small"></i></div>
-                    <small className="text-muted">Just for fun</small>
-                  </a>
-                </li>
-              </ul>
-            </li>
-
-            {/* Community Dropdown */}
-            <li className="nav-item dropdown">
-              <a
-                className="nav-link dropdown-toggle"
-                href="#"
-                id="dropdown2"
+                id="dropdownCommunity"
                 role="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
                 Community
               </a>
-              <ul className="dropdown-menu" aria-labelledby="dropdown2">
+              <ul className="dropdown-menu dropdown-menu-modern" aria-labelledby="dropdownCommunity">
                 <li>
-                  <Link className="dropdown-item" href="/dev">
-                    <div className="fw-bold">Contributors</div>
-                    <small className="text-muted">Be a contributor to the project</small>
-                  </Link>
-                </li>
-                <li>
-                  <a
-                    className="dropdown-item"
-                    href="https://github.com/AbayGERDToken"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <div className="fw-bold">GitHub <i className="fas fa-external-link-alt ms-1 small"></i></div>
-                    <small className="text-muted">Source code and repositories</small>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="dropdown-item"
-                    href="https://x.com/abaygerdtoken"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <div className="fw-bold">X (Twitter) <i className="fas fa-external-link-alt ms-1 small"></i></div>
-                    <small className="text-muted">Official updates and announcements</small>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="dropdown-item"
-                    href="https://www.tiktok.com/@abaygerdtoken"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <div className="fw-bold">TikTok <i className="fas fa-external-link-alt ms-1 small"></i></div>
-                    <small className="text-muted">Short-form video content</small>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="dropdown-item"
-                    href="https://t.me/GERDToken"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <div className="fw-bold">Telegram <i className="fas fa-external-link-alt ms-1 small"></i></div>
-                    <small className="text-muted">Join the community chat</small>
-                  </a>
+                  <div className="dropdown-section-label">Official Channels</div>
+                  {communityLinks.map((item) => (
+                    <MenuItem key={item.href} item={item} />
+                  ))}
                 </li>
               </ul>
             </li>
 
-            {/* Block Explorer Dropdown */}
             <li className="nav-item dropdown">
               <a
                 className="nav-link dropdown-toggle"
                 href="#"
-                id="dropdown9"
+                id="dropdownExplorer"
                 role="button"
                 data-bs-toggle="dropdown"
                 aria-expanded="false"
               >
-                <i className="fas fa-network-wired"></i> Block Explorer
+                <i className="fas fa-network-wired me-1"></i>
+                Explorer
               </a>
-              <ul className="dropdown-menu" aria-labelledby="dropdown9">
+              <ul className="dropdown-menu dropdown-menu-modern dropdown-menu-end" aria-labelledby="dropdownExplorer">
                 <li>
-                  <a
-                    className="dropdown-item"
-                    href="https://bscscan.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <div className="fw-bold">Full <i className="fas fa-external-link-alt ms-1 small"></i></div>
-                    <small className="text-muted">Detailed records and complete token information</small>
-                  </a>
-                </li>
-                <li>
-                  <a
-                    className="dropdown-item"
-                    href="https://bsctrace.com/token/0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                  >
-                    <div className="fw-bold">Fast Block Explorer <i className="fas fa-external-link-alt ms-1 small"></i></div>
-                    <small className="text-muted">Less detail but faster response times</small>
-                  </a>
+                  <div className="dropdown-section-label">On-Chain Tools</div>
+                  {explorerLinks.map((item) => (
+                    <MenuItem key={item.href} item={item} />
+                  ))}
                 </li>
               </ul>
+            </li>
+
+            <li className="nav-item ms-xl-2 nav-claim-cta">
+              <Link href="/claim-form" className="btn btn-light btn-sm fw-semibold">
+                <i className="fas fa-gift me-2"></i>
+                Claim Now
+              </Link>
             </li>
           </ul>
         </div>
