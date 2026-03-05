@@ -13,6 +13,8 @@ declare global {
     Web3: any;
     grecaptcha: any;
     hcaptcha?: any;
+    __abayGerdRecaptchaOnload?: () => void;
+    ___grecaptcha_cfg?: any;
     ethereum?: {
       request: (args: { method: string; params?: any[] }) => Promise<any>;
     };
@@ -117,6 +119,66 @@ function ClaimFormContent() {
     return () => { /* cannot reliably remove created script without more bookkeeping */ };
   }, []);
 
+  const ensureGoogleRecaptchaLoaded = useCallback(() => {
+    if (typeof window === 'undefined' || typeof document === 'undefined') return () => { };
+
+    const callbackName = '__abayGerdRecaptchaOnload';
+    window[callbackName] = () => {
+      if (!isGoogleRecaptchaClient()) return;
+      try {
+        window.grecaptcha.ready(() => setIsRecaptchaReady(true));
+      } catch (e) {
+        console.warn('grecaptcha.ready failed in Google onload callback', e);
+      }
+    };
+
+    const isHijackedByHCaptcha = !!(window.hcaptcha && window.grecaptcha === window.hcaptcha);
+
+    if (isHijackedByHCaptcha) {
+      // Web3Auth can leave an hCaptcha shim at window.grecaptcha after social login.
+      // Remove that shim and reload Google script so the checkbox can render without refresh.
+      setIsRecaptchaReady(false);
+      recaptchaWidgetId.current = null;
+      setCaptchaToken('');
+      if (recaptchaRef.current) {
+        recaptchaRef.current.innerHTML = '';
+      }
+
+      try {
+        delete (window as any).grecaptcha;
+      } catch {
+        (window as any).grecaptcha = undefined;
+      }
+
+      try {
+        delete window.___grecaptcha_cfg;
+      } catch {
+        window.___grecaptcha_cfg = undefined;
+      }
+
+      document
+        .querySelectorAll('script[src*="google.com/recaptcha/api.js"], script[src*="recaptcha.net/recaptcha/api.js"]')
+        .forEach((node) => node.parentNode?.removeChild(node));
+    }
+
+    const src = `https://www.google.com/recaptcha/api.js?onload=${callbackName}&render=explicit${isHijackedByHCaptcha ? `&ts=${Date.now()}` : ''}`;
+    const cleanup = ensureScriptLoaded(src, () => {
+      if (!isGoogleRecaptchaClient()) return;
+      try {
+        window.grecaptcha.ready(() => setIsRecaptchaReady(true));
+      } catch (e) {
+        console.warn('grecaptcha.ready failed in ensureGoogleRecaptchaLoaded', e);
+      }
+    });
+
+    return () => {
+      cleanup();
+      if (window[callbackName]) {
+        delete window[callbackName];
+      }
+    };
+  }, [ensureScriptLoaded, isGoogleRecaptchaClient]);
+
   // Initialize Web3 and contract when Web3 library is loaded
   const initializeWeb3 = useCallback(() => {
     // Use ref to prevent multiple initializations
@@ -191,17 +253,8 @@ function ClaimFormContent() {
       }
     });
 
-    // reCAPTCHA script ensure
-    const recaptchaSrc = 'https://www.google.com/recaptcha/api.js?render=explicit';
-    const recaptchaCleanup = ensureScriptLoaded(recaptchaSrc, () => {
-      try {
-        if (isGoogleRecaptchaClient()) {
-          window.grecaptcha.ready(() => setIsRecaptchaReady(true));
-        }
-      } catch (e) {
-        console.warn('grecaptcha.ready call failed in ensureScriptLoaded', e);
-      }
-    });
+    // reCAPTCHA script ensure (recover from Web3Auth hCaptcha shim on client-side redirects)
+    const recaptchaCleanup = ensureGoogleRecaptchaLoaded();
 
     // As a fallback, poll in case script doesn't emit load for some reason
     const pollTimeout = setTimeout(() => {
@@ -224,7 +277,7 @@ function ClaimFormContent() {
       clearInterval(pollInterval);
       clearTimeout(pollTimeout);
     };
-  }, [ensureScriptLoaded, initializeWeb3, isGoogleRecaptchaClient]);
+  }, [ensureScriptLoaded, ensureGoogleRecaptchaLoaded, initializeWeb3, isGoogleRecaptchaClient]);
 
   // Initialize reCAPTCHA readiness check
   useEffect(() => {
@@ -533,22 +586,6 @@ function ClaimFormContent() {
           initializeWeb3();
         }}
       />
-      <Script
-        src="https://www.google.com/recaptcha/api.js?render=explicit"
-        strategy="lazyOnload"
-        async
-        defer
-        onLoad={() => {
-          if (typeof window !== 'undefined' && isGoogleRecaptchaClient()) {
-            try {
-              window.grecaptcha.ready(() => setIsRecaptchaReady(true));
-            } catch (e) {
-              console.warn('grecaptcha.ready failed on onLoad', e);
-            }
-          }
-        }}
-      />
-
       {/* Hero Section */}
       <section className="hero-section">
         <div className="container">
