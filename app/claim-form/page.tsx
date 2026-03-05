@@ -12,6 +12,7 @@ declare global {
   interface Window {
     Web3: any;
     grecaptcha: any;
+    hcaptcha?: any;
     ethereum?: {
       request: (args: { method: string; params?: any[] }) => Promise<any>;
     };
@@ -44,6 +45,14 @@ function ClaimFormContent() {
   const [showFairPolicyNotice, setShowFairPolicyNotice] = useState(true);
   const claimFormRef = useRef<HTMLDivElement>(null);
   const captchaTokenRef = useRef('');
+
+  // Web3Auth can expose an hCaptcha compatibility shim as window.grecaptcha.
+  // We must only proceed when the real Google reCAPTCHA client is available.
+  const isGoogleRecaptchaClient = useCallback(() => {
+    if (typeof window === 'undefined' || !window.grecaptcha) return false;
+    if (window.hcaptcha && window.grecaptcha === window.hcaptcha) return false;
+    return typeof window.grecaptcha.render === 'function' && typeof window.grecaptcha.ready === 'function';
+  }, []);
 
   useEffect(() => {
     web3Ref.current = web3;
@@ -183,13 +192,11 @@ function ClaimFormContent() {
     });
 
     // reCAPTCHA script ensure
-    const recaptchaSrc = 'https://www.google.com/recaptcha/api.js';
+    const recaptchaSrc = 'https://www.google.com/recaptcha/api.js?render=explicit';
     const recaptchaCleanup = ensureScriptLoaded(recaptchaSrc, () => {
       try {
-        if (window.grecaptcha && typeof window.grecaptcha.ready === 'function') {
+        if (isGoogleRecaptchaClient()) {
           window.grecaptcha.ready(() => setIsRecaptchaReady(true));
-        } else if (window.grecaptcha) {
-          setIsRecaptchaReady(true);
         }
       } catch (e) {
         console.warn('grecaptcha.ready call failed in ensureScriptLoaded', e);
@@ -204,7 +211,7 @@ function ClaimFormContent() {
       if (window.Web3 && !web3Ref.current) {
         initializeWeb3();
       }
-      if (window.grecaptcha && !recaptchaReadyRef.current) {
+      if (isGoogleRecaptchaClient() && !recaptchaReadyRef.current) {
         try {
           window.grecaptcha.ready(() => setIsRecaptchaReady(true));
         } catch { setIsRecaptchaReady(true); }
@@ -217,14 +224,14 @@ function ClaimFormContent() {
       clearInterval(pollInterval);
       clearTimeout(pollTimeout);
     };
-  }, [ensureScriptLoaded, initializeWeb3]);
+  }, [ensureScriptLoaded, initializeWeb3, isGoogleRecaptchaClient]);
 
   // Initialize reCAPTCHA readiness check
   useEffect(() => {
     if (typeof window === 'undefined' || isRecaptchaReady) return;
 
     const tryInit = () => {
-      if (window.grecaptcha && typeof window.grecaptcha.ready === 'function') {
+      if (isGoogleRecaptchaClient()) {
         try {
           window.grecaptcha.ready(() => {
             setIsRecaptchaReady(true);
@@ -255,7 +262,7 @@ function ClaimFormContent() {
       clearInterval(interval);
       clearTimeout(timeout);
     };
-  }, [isRecaptchaReady]);
+  }, [isRecaptchaReady, isGoogleRecaptchaClient]);
 
   useEffect(() => {
     fetchSessionToken();
@@ -527,12 +534,12 @@ function ClaimFormContent() {
         }}
       />
       <Script
-        src="https://www.google.com/recaptcha/api.js"
+        src="https://www.google.com/recaptcha/api.js?render=explicit"
         strategy="lazyOnload"
         async
         defer
         onLoad={() => {
-          if (typeof window !== 'undefined' && window.grecaptcha && typeof window.grecaptcha.ready === 'function') {
+          if (typeof window !== 'undefined' && isGoogleRecaptchaClient()) {
             try {
               window.grecaptcha.ready(() => setIsRecaptchaReady(true));
             } catch (e) {
