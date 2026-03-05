@@ -1,7 +1,6 @@
 'use client';
 
 import React, { createContext, useContext, ReactNode, useState, useEffect } from 'react';
-import { CHAIN_NAMESPACES, IProvider } from '@web3auth/base';
 
 // Lazy-load Web3Auth to avoid ethereum property errors during top-level import
 // The library tries to set window.ethereum which can conflict with MetaMask
@@ -85,7 +84,7 @@ const initWeb3Auth = async () => {
 
 interface Web3AuthContextType {
   web3auth: any | null;
-  provider: IProvider | null;
+  provider: any | null;
   isLoading: boolean;
   isLogged: boolean;
   address: string | null;
@@ -101,7 +100,7 @@ const Web3AuthContext = createContext<Web3AuthContextType | undefined>(undefined
 
 export function Web3AuthProvider({ children }: { children: ReactNode }) {
   const [web3auth, setWeb3auth] = useState<any | null>(null);
-  const [provider, setProvider] = useState<IProvider | null>(null);
+  const [provider, setProvider] = useState<any | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [isLogged, setIsLogged] = useState(false);
   const [address, setAddress] = useState<string | null>(null);
@@ -160,7 +159,7 @@ export function Web3AuthProvider({ children }: { children: ReactNode }) {
             clientId,
             web3AuthNetwork: 'sapphire_mainnet',
             chainConfig: {
-              chainNamespace: CHAIN_NAMESPACES.EIP155,
+              chainNamespace: 'eip155',
               chainId: '0x38',
               rpcTarget: process.env.NEXT_PUBLIC_BSC_RPC_URL || 'https://bsc-dataseed1.binance.org:443',
               displayName: 'Binance Smart Chain',
@@ -210,7 +209,7 @@ export function Web3AuthProvider({ children }: { children: ReactNode }) {
     init();
   }, []);
 
-  const getUserAccount = async (prov: IProvider | null): Promise<string | null> => {
+  const getUserAccount = async (prov: any | null): Promise<string | null> => {
     if (!prov) return null;
     try {
       const accounts = await prov.request({
@@ -229,8 +228,21 @@ export function Web3AuthProvider({ children }: { children: ReactNode }) {
       if (!web3auth) throw new Error('Web3Auth not initialized');
 
       console.log('[Web3Auth] Logging in with provider:', provider);
-      // Web3Auth Modal handles the provider selection through its UI
-      const result = await web3auth.connect();
+      const timeoutMs = 45000;
+      const timeoutError = new Error(
+        'Login timed out while initializing reCAPTCHA. Please disable strict ad/privacy blockers for this site and try again.'
+      );
+
+      // Pass provider hints so Web3Auth can open the intended social provider directly when supported.
+      const result = await Promise.race([
+        web3auth.connect({
+          loginProvider: provider,
+          authConnection: provider,
+        } as any),
+        new Promise((_, reject) => {
+          setTimeout(() => reject(timeoutError), timeoutMs);
+        }),
+      ]);
       
       if (result) {
         console.log('[Web3Auth] Login successful, fetching account...');

@@ -10,8 +10,6 @@
     "export": "next build"
   },
   "dependencies": {
-    "@web3auth/base": "^9.7.0",
-    "@web3auth/ethereum-provider": "^9.7.0",
     "@web3auth/modal": "^10.13.1",
     "bootstrap": "^5.3.3",
     "ethereum-cryptography": "^3.2.0",
