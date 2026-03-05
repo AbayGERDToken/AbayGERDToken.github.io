@@ -11,6 +11,45 @@ export default function Home() {
     <>
       <HeroSection />
 
+      <section className="content-section py-0">
+        <div className="container">
+          <div className="quick-nav-grid">
+            <div className="table-responsive">
+              <table className="table table-sm quick-nav-table mb-0">
+                <tbody>
+                  <tr>
+                    <td>
+                      <Link href="/claim-form" className="quick-nav-link-cell text-success">
+                        <i className="fas fa-gift"></i>
+                        <span>Start Claim</span>
+                      </Link>
+                    </td>
+                    <td>
+                      <Link href="/auth" className="quick-nav-link-cell text-primary">
+                        <i className="fas fa-wallet"></i>
+                        <span>Create Wallet</span>
+                      </Link>
+                    </td>
+                    <td>
+                      <Link href="/dashboard-vesting" className="quick-nav-link-cell text-warning-emphasis">
+                        <i className="fas fa-chart-line"></i>
+                        <span>Track Vesting</span>
+                      </Link>
+                    </td>
+                    <td>
+                      <Link href="/distribution-rpt" className="quick-nav-link-cell text-info-emphasis">
+                        <i className="fas fa-chart-bar"></i>
+                        <span>Claim Report</span>
+                      </Link>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="content-section py-4">
         <div className="container">
           <div className="row">
@@ -52,6 +91,38 @@ export default function Home() {
       </section>
 
       <MigrationModal />
+
+      <section className="content-section bg-success-subtle">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-8 mx-auto text-center">
+              <h2 className="display-5 fw-bold mb-4">
+                <i className="fas fa-hand-holding-heart text-success me-2"></i>Claim Your Share
+              </h2>
+              <p className="lead mb-4">
+                Participation is open. Claim your free GERD and become part of a long-term digital ownership community.
+              </p>
+              <p className="mb-4 text-muted">
+                GERD is a digital asset for participation and transparency. It is not legal tender and not affiliated with any government institution.
+              </p>
+              <button
+                type="button"
+                className="btn btn-link text-primary text-decoration-none p-0 mb-4"
+                data-bs-toggle="modal"
+                data-bs-target="#riskDisclosureModal"
+              >
+                <i className="fas fa-circle-info me-1"></i>Details...
+              </button>
+              <br />
+              <Link href="/claim-form" className="btn btn-success btn-lg cta-button">
+                <i className="fas fa-gift me-2"></i>Start Free Claim
+              </Link>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <div className="section-divider"></div>
 
       <section className="content-section">
         <div className="container">
@@ -511,38 +582,6 @@ export default function Home() {
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <div className="section-divider"></div>
-
-      <section className="content-section bg-success-subtle">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-8 mx-auto text-center">
-              <h2 className="display-5 fw-bold mb-4">
-                <i className="fas fa-hand-holding-heart text-success me-2"></i>Claim Your Share
-              </h2>
-              <p className="lead mb-4">
-                Participation is open. Claim your free GERD and become part of a long-term digital ownership community.
-              </p>
-              <p className="mb-4 text-muted">
-                GERD is a digital asset for participation and transparency. It is not legal tender and not affiliated with any government institution.
-              </p>
-              <button
-                type="button"
-                className="btn btn-link text-primary text-decoration-none p-0 mb-4"
-                data-bs-toggle="modal"
-                data-bs-target="#riskDisclosureModal"
-              >
-                <i className="fas fa-circle-info me-1"></i>Details...
-              </button>
-              <br />
-              <Link href="/claim-form" className="btn btn-success btn-lg cta-button">
-                <i className="fas fa-gift me-2"></i>Start Free Claim
-              </Link>
             </div>
           </div>
         </div>

@@ -61,7 +61,7 @@ export default function MigrationModal() {
             <div className="alert alert-warning border-warning mb-4">
               <p className="mb-2">
                 <i className="fas fa-exclamation-triangle me-2"></i>
-                The migration fixes a minor risk in the old contract&apos;s allowance logic. No exploit occurred, and no tokens were lost.
+                During routine review, the team identified legacy allowance limitations and migrated proactively to reinforce long-term transparency and contract robustness.
               </p>
               <p className="mb-0">
                 See <a href="/migration-announcement" className="text-decoration-none fw-bold">Migration Announcement</a> for more details.

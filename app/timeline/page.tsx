@@ -265,7 +265,7 @@ export default function Timeline() {
                   <ul className="list-unstyled mb-3">
                     <li className="mb-2">
                       <i className="fas fa-arrow-right text-primary me-2"></i>
-                      Initially 1,000 global / 7,500 Ethiopia → Later raised to 10,000 global / 75,000 Ethiopia
+                      Current allocation model: 10,000 GERD global claim and 75,000 GERD Ethiopia claim
                     </li>
                     <li className="mb-0">
                       <i className="fas fa-arrow-right text-primary me-2"></i>

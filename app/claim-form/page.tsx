@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, Suspense, useCallback } from 'react';
 import Script from 'next/script';
 import Image from 'next/image';
+import Link from 'next/link';
 import { useSearchParams } from 'next/navigation';
 
 import ContractAddress from '@/components/ContractAddress';
@@ -976,6 +977,12 @@ function ClaimFormContent() {
                     {!isRecaptchaReady && <span>Initializing reCAPTCHA...</span>}
                   </div>
                 )}
+
+                <div className="mt-4">
+                  <Link href="/distribution-rpt" className="btn btn-outline-primary btn-lg w-100">
+                    <i className="fas fa-chart-bar me-2"></i>Open Claim Report
+                  </Link>
+                </div>
               </div>
             </div>
           </div>
