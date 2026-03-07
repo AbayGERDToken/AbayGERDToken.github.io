@@ -39,7 +39,7 @@ export default function Home() {
                     <td>
                       <Link href="/distribution-rpt" className="quick-nav-link-cell text-info-emphasis">
                         <i className="fas fa-chart-bar"></i>
-                        <span>Claim Report</span>
+                        <span>View Claim Report</span>
                       </Link>
                     </td>
                   </tr>
