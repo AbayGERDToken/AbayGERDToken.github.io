@@ -607,56 +607,6 @@ function ClaimFormContent() {
       {/* Info Section */}
       <section className="content-section">
         <div className="container">
-          <div className="row g-4 mb-5">
-            <div className="col-md-6">
-              <div className="card feature-card h-100">
-                <div className="card-body p-4">
-                  <div className="d-flex align-items-center mb-3">
-                    <div
-                      className="bg-success-subtle text-success rounded-circle d-flex align-items-center justify-content-center"
-                      style={{ width: '64px', height: '64px', fontSize: '28px' }}
-                    >
-                      <i className="fas fa-check-circle"></i>
-                    </div>
-                    <div className="ms-3">
-                      <h3 className="h5 fw-bold mb-0">No Wallet Connection</h3>
-                      <p className="text-muted small mb-0">Privacy and safety first</p>
-                    </div>
-                  </div>
-                  <p className="text-muted mb-0">
-                    We never ask users to connect or sign transactions. Simply submit your wallet address and receive your tokens securely.
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div className="col-md-6">
-              <div className="card feature-card h-100">
-                <div className="card-body p-4">
-                  <div className="d-flex align-items-center mb-3">
-                    <div
-                      className="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center"
-                      style={{ width: '64px', height: '64px', fontSize: '28px' }}
-                    >
-                      <i className="fas fa-search"></i>
-                    </div>
-                    <div className="ms-3">
-                      <h3 className="h5 fw-bold mb-0">Before You Claim</h3>
-                      <p className="text-muted small mb-0">Important preparation steps</p>
-                    </div>
-                  </div>
-                  <ul className="list-unstyled mb-0">
-                    <li className="mb-2">
-                      <i className="fas fa-check text-success me-2"></i>Import the GERD contract into your wallet
-                    </li>
-                    <li className="mb-0">
-                      <i className="fas fa-check text-success me-2"></i>Use a supported wallet (Trust Wallet, MetaMask, Base Wallet, etc.)
-                    </li>
-                  </ul>
-                </div>
-              </div>
-            </div>
-          </div>
-
           {/* Contract Address */}
           <div className="row mb-3">
             <div className="col-lg-8 mx-auto">
@@ -1035,37 +985,54 @@ function ClaimFormContent() {
 
       <div className="section-divider"></div>
 
-      {/* Eligibility Cards */}
+      {/* Claim Guidance Cards */}
       <section className="content-section">
         <div className="container">
           <div className="row g-4 mb-5">
             <div className="col-md-6">
-              <div className="card border-danger h-100">
-                <div className="card-body p-4 text-center">
-                  <div
-                    className="bg-danger-subtle text-danger rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3"
-                    style={{ width: '80px', height: '80px', fontSize: '36px' }}
-                  >
-                    🇪🇹
+              <div className="card feature-card h-100">
+                <div className="card-body p-4">
+                  <div className="d-flex align-items-center mb-3">
+                    <div
+                      className="bg-success-subtle text-success rounded-circle d-flex align-items-center justify-content-center"
+                      style={{ width: '64px', height: '64px', fontSize: '28px' }}
+                    >
+                      <i className="fas fa-check-circle"></i>
+                    </div>
+                    <div className="ms-3">
+                      <h3 className="h5 fw-bold mb-0">No Wallet Connection</h3>
+                      <p className="text-muted small mb-0">Privacy and safety first</p>
+                    </div>
                   </div>
-                  <h3 className="h5 fw-bold mb-2">Ethiopia-Based Wallets</h3>
-                  <div className="display-6 fw-bold text-danger mb-2">75,000</div>
-                  <p className="text-muted mb-0">GERD tokens per wallet</p>
+                  <p className="text-muted mb-0">
+                    We never ask users to connect or sign transactions. Simply submit your wallet address and receive your tokens securely.
+                  </p>
                 </div>
               </div>
             </div>
             <div className="col-md-6">
-              <div className="card border-primary h-100">
-                <div className="card-body p-4 text-center">
-                  <div
-                    className="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center mx-auto mb-3"
-                    style={{ width: '80px', height: '80px', fontSize: '36px' }}
-                  >
-                    <i className="fas fa-globe"></i>
+              <div className="card feature-card h-100">
+                <div className="card-body p-4">
+                  <div className="d-flex align-items-center mb-3">
+                    <div
+                      className="bg-primary-subtle text-primary rounded-circle d-flex align-items-center justify-content-center"
+                      style={{ width: '64px', height: '64px', fontSize: '28px' }}
+                    >
+                      <i className="fas fa-search"></i>
+                    </div>
+                    <div className="ms-3">
+                      <h3 className="h5 fw-bold mb-0">Before You Claim</h3>
+                      <p className="text-muted small mb-0">Important preparation steps</p>
+                    </div>
                   </div>
-                  <h3 className="h5 fw-bold mb-2">Global Wallets</h3>
-                  <div className="display-6 fw-bold text-primary mb-2">10,000</div>
-                  <p className="text-muted mb-0">GERD tokens per wallet</p>
+                  <ul className="list-unstyled mb-0">
+                    <li className="mb-2">
+                      <i className="fas fa-check text-success me-2"></i>Import the GERD contract into your wallet
+                    </li>
+                    <li className="mb-0">
+                      <i className="fas fa-check text-success me-2"></i>Use a supported wallet (Trust Wallet, MetaMask, Base Wallet, etc.)
+                    </li>
+                  </ul>
                 </div>
               </div>
             </div>
