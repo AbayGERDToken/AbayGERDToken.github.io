@@ -10,7 +10,7 @@ export default function HeroSection() {
             <div className="col-lg-6 mb-4 mb-lg-0">
               <h1 className="display-3 fw-bold mb-4">Abay GERD Token</h1>
               <p className="lead fs-4 mb-4 opacity-90">
-                A people-first digital ownership project inspired by the Abay River and GERD. Claim your free share and join early.
+                A people-first digital ownership project inspired by the Abay River and the Grand Ethiopian Renaissance Dam: GERD. Claim your free share and join early.
               </p>
               <p className="mb-4 opacity-90">
                 Ethiopia: 75,000 GERD per wallet · Global: 10,000 GERD per wallet
