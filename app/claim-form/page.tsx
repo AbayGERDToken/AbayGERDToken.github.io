@@ -974,7 +974,7 @@ function ClaimFormContent() {
 
                 <div className="mt-4">
                   <Link href="/distribution-rpt" className="btn btn-outline-primary btn-lg w-100">
-                    <i className="fas fa-chart-bar me-2"></i>Open Claim Report
+                    <i className="fas fa-chart-bar me-2"></i>View Claim Report
                   </Link>
                 </div>
               </div>
