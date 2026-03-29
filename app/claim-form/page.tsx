@@ -405,6 +405,11 @@ function ClaimFormContent() {
   };
 
   const claimTokens = async () => {
+    if (showFairPolicyNotice && !hasAcceptedFairPolicy) {
+      setResponse({ type: 'warning', message: 'Please agree to the Fair Claim Policy by checking the box before claiming tokens.' });
+      return;
+    }
+
     setShowFairPolicyNotice(false);
 
     if (!isWeb3Ready) {
@@ -898,7 +903,7 @@ function ClaimFormContent() {
                   <button
                     className="btn btn-success btn-lg btn-claim"
                     onClick={claimTokens}
-                    disabled={!isWeb3Ready || !isRecaptchaReady || !captchaToken || loading || (showFairPolicyNotice && !hasAcceptedFairPolicy)}
+                    disabled={!isWeb3Ready || !isRecaptchaReady || !captchaToken || loading}
                   >
                     {loading ? (
                       <>
