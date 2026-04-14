@@ -898,6 +898,32 @@ function ClaimFormContent() {
                   </div>
                 )}
 
+                {/* Response Messages */}
+                {response && (
+                  <div className={`mb-4 alert alert-${response.type}`}>
+                    <i className={`fas ${response.type === 'success' ? 'fa-check-circle' :
+                      response.type === 'danger' ? 'fa-times-circle' :
+                        response.type === 'warning' ? 'fa-exclamation-triangle' :
+                          'fa-info-circle'
+                      } me-2`}></i>
+                    {response.type === 'success' && response.message.includes('Tx Hash: 0x') ? (
+                      <>
+                        {`Success! Tokens sent. Tx Hash: `}
+                        <a
+                          href={`https://bscscan.com/tx/${response.message.split('Tx Hash: ')[1]}`}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="fw-bold text-decoration-none"
+                        >
+                          {response.message.split('Tx Hash: ')[1]}
+                        </a>
+                      </>
+                    ) : (
+                      response.message
+                    )}
+                  </div>
+                )}
+
                 {/* Claim Button */}
                 <div className="d-grid">
                   <button
@@ -942,32 +968,6 @@ function ClaimFormContent() {
                     </div>
                   )}
                 </div>
-
-                {/* Response Messages */}
-                {response && (
-                  <div className={`mt-4 alert alert-${response.type}`}>
-                    <i className={`fas ${response.type === 'success' ? 'fa-check-circle' :
-                      response.type === 'danger' ? 'fa-times-circle' :
-                        response.type === 'warning' ? 'fa-exclamation-triangle' :
-                          'fa-info-circle'
-                      } me-2`}></i>
-                    {response.type === 'success' && response.message.includes('Tx Hash: 0x') ? (
-                      <>
-                        {`Success! Tokens sent. Tx Hash: `}
-                        <a
-                          href={`https://bscscan.com/tx/${response.message.split('Tx Hash: ')[1]}`}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="fw-bold text-decoration-none"
-                        >
-                          {response.message.split('Tx Hash: ')[1]}
-                        </a>
-                      </>
-                    ) : (
-                      response.message
-                    )}
-                  </div>
-                )}
 
                 {/* Loading Status */}
                 {!response && (!isWeb3Ready || !isRecaptchaReady) && (
