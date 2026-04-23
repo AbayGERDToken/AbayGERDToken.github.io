@@ -7,7 +7,7 @@ import ContractAddress from '@/components/ContractAddress';
 const CONTRACT_ADDRESS = '0x932fa749A04750284794eF55B4436Bf9Cb4AfF15';
 const LOCKED_TOTAL = 115_000_000_000;
 const RELEASE_PER_YEAR = 1_000_000_000;
-const START_DATE = new Date('2025-04-24T00:00:00Z');
+const START_DATE = new Date('2025-04-23T00:00:00Z');
 const GERD_TOKEN_ADDRESS = '0x6B16DE4F92e91e91357b5b02640EBAf5be9CF83c';
 const BSC_RPC = 'https://bsc-dataseed.binance.org/';
 const WALLET_DATA = [
