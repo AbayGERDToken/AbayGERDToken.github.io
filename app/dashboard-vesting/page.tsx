@@ -138,7 +138,7 @@ export default function DashboardVesting() {
           <div className="row g-4 mb-5">
             <div className="col-md-4">
               <div className="stat-box text-center p-4 rounded">
-                <h3 className="h5 text-muted mb-2">Total Locked</h3>
+                <h3 className="h5 text-muted mb-2">Initially Locked</h3>
                 <p className="h3 fw-bold text-success mb-0">{locked}</p>
                 <p className="text-muted small mb-0">GERD Tokens</p>
               </div>

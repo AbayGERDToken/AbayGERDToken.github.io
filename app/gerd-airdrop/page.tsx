@@ -8,7 +8,7 @@ export default function GerdAirdrop() {
   const [countdown, setCountdown] = useState<string>('...');
 
   useEffect(() => {
-    const startDate = new Date('2025-04-24T00:00:00Z');
+    const startDate = new Date('2025-04-23T00:00:00Z');
 
     const updateCountdown = () => {
       // Recalculate next release date dynamically each time to ensure accuracy after year transitions
