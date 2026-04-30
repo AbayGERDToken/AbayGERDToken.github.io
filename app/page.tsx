@@ -603,7 +603,7 @@ export default function Home() {
                     <p className="lead text-muted">Unique Wallet Holders Target</p>
                   </div>
                   <p className="mb-4 text-center">
-                    As holder participation grows, GERD can pursue broader accessibility milestones. The priority is healthy grassroots adoption before expansion.
+                    As holder participation grows, GERD can pursue broader accessibility milestones. The priority is healthy grassroots adoption before expansion. Trading for GERD will be enabled once the wallet count reaches 10,000 unique holders—initially on a DEX, followed by a CEX.
                   </p>
                   <div className="row g-3 mt-4">
                     <div className="col-md-4">
