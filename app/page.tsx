@@ -103,7 +103,7 @@ export default function Home() {
                 Participation is open. Claim your free GERD and become part of a long-term digital ownership community.
               </p>
               <p className="mb-4 text-muted">
-                GERD is a digital asset for participation and transparency. It is not legal tender and not affiliated with any government institution.
+                GERD is a digital asset for participation and transparency. It is not legal tender and not affiliated with any government institution. GERD focuses on low annual dilution with a hard cap and long-term release discipline.
               </p>
               <button
                 type="button"
