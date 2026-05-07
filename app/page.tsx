@@ -762,7 +762,7 @@ export default function Home() {
             </div>
             <div className="modal-body">
               <p>
-                Total supply is fixed at 120 billion GERD. 115 billion are locked and released over 115 years, with 1 billion released annually.
+                Total supply is fixed at 120 billion GERD. 115 billion are locked under a vesting smart contract out of human control and released over 115 years, with 1 billion released annually.
               </p>
               <div className="alert alert-light border">
                 <p className="mb-2"><strong>From each yearly 1B release:</strong></p>
@@ -857,7 +857,7 @@ export default function Home() {
             </div>
             <div className="modal-body">
               <p>
-                GERD is an experimental digital asset. Adoption and long-term value formation are uncertain.
+                GERD is a digital asset. Adoption and long-term value formation are uncertain.
               </p>
               <div className="alert alert-light border">
                 <ul className="mb-0">
@@ -894,7 +894,7 @@ export default function Home() {
               </p>
               <div className="alert alert-light border mb-0">
                 <p className="mb-0">
-                  Reserved symbolic grant: <strong>10 million GERD</strong> from the recognition pool, separate from the long-term locked reserve.
+                  Reserved grant: <strong>10 million GERD</strong> from the recognition pool, separate from the long-term locked reserve. The reserved tokens will remain allocated under GERD Dignitary Reserve wallet and will be transferred to the rightful claimant upon contacting us.
                 </p>
               </div>
             </div>
@@ -921,7 +921,7 @@ export default function Home() {
               </p>
               <div className="alert alert-light border mb-0">
                 <p className="mb-0">
-                  Reserved symbolic grant: <strong>10 million GERD</strong> from the recognition pool, separate from the long-term locked reserve.
+                  Reserved grant: <strong>10 million GERD</strong> from the recognition pool, separate from the long-term locked reserve. The reserved tokens will remain allocated under GERD Dignitary Reserve wallet and will be transferred to the rightful claimant upon contacting us.
                 </p>
               </div>
             </div>
@@ -948,7 +948,7 @@ export default function Home() {
               </p>
               <div className="alert alert-light border mb-0">
                 <p className="mb-0">
-                  Reserved symbolic grant: <strong>10 million GERD</strong> from the recognition pool, separate from the long-term locked reserve.
+                  Reserved grant: <strong>10 million GERD</strong> from the recognition pool, separate from the long-term locked reserve. The reserved tokens will remain allocated under GERD Dignitary Reserve wallet and will be transferred to the rightful claimant upon contacting us.
                 </p>
               </div>
             </div>
